@@ -1,5 +1,3 @@
 class Snapshot < ActiveRecord::Base
-  attr_accessible :url
-
-  validates_format_of :url, :with => /https?:\/\/.+/
+  belongs_to :url
 end
