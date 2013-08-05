@@ -1,4 +1,7 @@
 Diffux::Application.routes.draw do
+  resources :urls
+
+
   resources :snapshots
 
 
