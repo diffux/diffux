@@ -35,7 +35,7 @@ class SnapshotsController < ApplicationController
 
     respond_to do |format|
       @snapshot.save!
-      format.html { redirect_to @snapshot, notice: 'Snapshot was successfully created.' }
+      format.html { redirect_to url, notice: 'Snapshot was successfully created.' }
       format.json { render json: @snapshot, status: :created, location: @snapshot }
     end
   end
@@ -47,7 +47,7 @@ class SnapshotsController < ApplicationController
     @snapshot.destroy
 
     respond_to do |format|
-      format.html { redirect_to snapshots_url }
+      format.html { redirect_to @snapshot.url }
       format.json { head :no_content }
     end
   end
