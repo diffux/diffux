@@ -2,6 +2,10 @@ class SnapshotsController < ApplicationController
   # GET /snapshots
   # GET /snapshots.json
   def index
+    if url = Url.find(params[:url])
+      @snapshots = url.snapshots
+      @url = url
+    end
     @snapshots = Snapshot.all
 
     respond_to do |format|

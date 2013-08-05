@@ -7,11 +7,13 @@
       %th
       %th
       %th
+      %th
 
   %tbody
     - @urls.each do |url|
       %tr
         %td= url.address
+        %td= link_to 'Snapshots', snapshots_path(url: url)
         %td= link_to 'Show', url
         %td= link_to 'Edit', edit_url_path(url)
         %td= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' }
