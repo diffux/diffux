@@ -2,3 +2,4 @@
   = link_to cl_image_tag(snapshot.image_name,
     width: 100, height: 100, crop: :fill, gravity: :north_east),
     snapshot
+  %p= time_ago_in_words(snapshot.created_at) + ' ago'
