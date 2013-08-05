@@ -1,5 +1,16 @@
-%p#notice= notice
+.snapshot
+  %h1 Snapshot
+  %table.table
+    %tr
+      %td
+        %strong Website URL:
+      %td= link_to @snapshot.url.address, @snapshot.url
+    %tr
+      %td
+        %strong When?
+      %td= time_ago_in_words(@snapshot.created_at) + ' ago'
 
 
-\|
-= link_to 'Back', snapshots_path
+  = button_to 'Delete', @snapshot, method: :delete, data: { confirm: 'Are you sure?' },
+    class: 'btn btn-danger'
+  = cl_image_tag @snapshot.image_name

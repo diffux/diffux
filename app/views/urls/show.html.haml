@@ -1,16 +1,24 @@
 %p#notice= notice
 
-%p
-  %b Address:
-  = @url.address
+%h1 Snapshots
+%table.table
+  %tr
+    %td
+      %strong Website URL:
+    %td= link_to @url.address, @url.address, target: '_blank'
+  - if @url.snapshots.count > 0
+    %tr
+      %td
+        %strong Number of snapshots:
+      %td= @url.snapshots.count
+    %tr
+      %td
+        %strong Latest snapshot:
+      %td= time_ago_in_words(@url.snapshots.last.created_at) + ' ago'
 
-%h2 Snapshots
-= render @url.snapshots
-
-= form_for Snapshot.new do |f|
+= form_for Snapshot.new, class: 'form' do |f|
   = hidden_field_tag :url, @url.id
   = f.submit 'New snapshot', class: 'btn btn-primary'
 
-= link_to 'Edit', edit_url_path(@url)
-\|
-= link_to 'Back', urls_path
+.clearfix
+  = render @url.snapshots
