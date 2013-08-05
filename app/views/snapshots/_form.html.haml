@@ -1,0 +1,10 @@
+= form_for @snapshot do |f|
+  - if @snapshot.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@snapshot.errors.count, "error")} prohibited this snapshot from being saved:"
+      %ul
+        - @snapshot.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

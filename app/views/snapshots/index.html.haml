@@ -1,0 +1,17 @@
+%h1 Listing snapshots
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @snapshots.each do |snapshot|
+    %tr
+      %td= link_to 'Show', snapshot
+      %td= link_to 'Edit', edit_snapshot_path(snapshot)
+      %td= link_to 'Destroy', snapshot, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Snapshot', new_snapshot_path
