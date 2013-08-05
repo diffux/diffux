@@ -29,16 +29,14 @@ class SnapshotsController < ApplicationController
   # POST /snapshots
   # POST /snapshots.json
   def create
+    url = Url.find(params.delete(:url))
     @snapshot = Snapshot.new(params[:snapshot])
+    @snapshot.url = url
 
     respond_to do |format|
-      if @snapshot.save
-        format.html { redirect_to @snapshot, notice: 'Snapshot was successfully created.' }
-        format.json { render json: @snapshot, status: :created, location: @snapshot }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @snapshot.errors, status: :unprocessable_entity }
-      end
+      @snapshot.save!
+      format.html { redirect_to @snapshot, notice: 'Snapshot was successfully created.' }
+      format.json { render json: @snapshot, status: :created, location: @snapshot }
     end
   end
 

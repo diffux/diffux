@@ -4,6 +4,12 @@
   %b Address:
   = @url.address
 
+= link_to 'Snapshots', snapshots_path(url: @url)
+
+= form_for Snapshot.new do |f|
+  = hidden_field_tag :url, @url.id
+  = f.submit 'New snapshot', class: 'btn btn-primary'
+
 = link_to 'Edit', edit_url_path(@url)
 \|
 = link_to 'Back', urls_path
