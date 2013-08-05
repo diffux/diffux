@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805011125) do
+ActiveRecord::Schema.define(:version => 20130805022444) do
 
   create_table "snapshots", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "url_id"
+    t.string   "image_url"
   end
 
   create_table "urls", :force => true do |t|
