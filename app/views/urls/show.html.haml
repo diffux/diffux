@@ -4,7 +4,8 @@
   %b Address:
   = @url.address
 
-= link_to 'Snapshots', snapshots_path(url: @url)
+%h2 Snapshots
+= render @url.snapshots
 
 = form_for Snapshot.new do |f|
   = hidden_field_tag :url, @url.id
