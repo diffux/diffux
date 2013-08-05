@@ -28,7 +28,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def previous_snapshot
-    url.snapshots.where('created_at < ?', self.created_at).first
+    url.snapshots.where('created_at < ?', Time.now).first
   end
 
   def with_tempfile
@@ -51,10 +51,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def compare_with_previous!
-    unless previous_snapshot
-      return
-    end
-
+    return unless previous_snapshot
     # Mostly copied from
     # http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
     images = [
