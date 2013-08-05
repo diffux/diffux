@@ -6,5 +6,9 @@
         - @snapshot.errors.full_messages.each do |msg|
           %li= msg
 
+  %label
+    URL
+    = f.text_field :url
+
   .actions
     = f.submit 'Save'
