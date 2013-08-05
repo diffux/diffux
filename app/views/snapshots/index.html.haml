@@ -15,6 +15,6 @@
       %tr
         %td= link_to snapshot.url.address, snapshot.url
         %td= time_ago_in_words(snapshot.created_at)
-        %td= link_to image_tag(snapshot.image_url, width: 100), snapshot.image_url
+        %td= link_to cl_image_tag(snapshot.image_name, width: 100), snapshot.image_url
         %td= link_to 'Show', snapshot
         %td= link_to 'Destroy', snapshot, method: :delete, data: { confirm: 'Are you sure?' }
