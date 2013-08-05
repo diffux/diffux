@@ -29,7 +29,11 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
+    aws_cf_signer (0.1.1)
     builder (3.0.4)
+    cloudinary (1.0.62)
+      aws_cf_signer
+      rest-client
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -86,6 +90,8 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -114,6 +120,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cloudinary
   coffee-rails (~> 3.2.1)
   haml-rails
   jquery-rails
