@@ -2,7 +2,7 @@ Diffux::Application.routes.draw do
   resources :urls
 
 
-  resources :snapshots
+  resources :snapshots, only: [:index, :show, :create, :destroy]
 
 
   # The priority is based upon order of creation:

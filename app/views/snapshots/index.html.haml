@@ -10,7 +10,6 @@
       %th Thumb
       %th
       %th
-      %th
   %tbody
     - @snapshots.each do |snapshot|
       %tr
@@ -18,9 +17,4 @@
         %td= time_ago_in_words(snapshot.created_at)
         %td= link_to image_tag(snapshot.image_url, width: 100), snapshot.image_url
         %td= link_to 'Show', snapshot
-        %td= link_to 'Edit', edit_snapshot_path(snapshot)
         %td= link_to 'Destroy', snapshot, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Snapshot', new_snapshot_path
