@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805060205) do
+ActiveRecord::Schema.define(:version => 20130805061217) do
 
   create_table "snapshots", :force => true do |t|
     t.datetime "created_at",             :null => false
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20130805060205) do
     t.integer  "url_id"
     t.string   "external_image_id"
     t.string   "diff_external_image_id"
-    t.integer  "diff_from_previous"
+    t.decimal  "diff_from_previous"
   end
 
   create_table "urls", :force => true do |t|
