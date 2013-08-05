@@ -31,6 +31,12 @@ GEM
     arel (3.0.2)
     aws_cf_signer (0.1.1)
     builder (3.0.4)
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     cloudinary (1.0.62)
       aws_cf_signer
       rest-client
@@ -42,8 +48,11 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -51,6 +60,7 @@ GEM
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.3)
+    http_parser.rb (0.5.3)
     i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (3.0.4)
@@ -62,8 +72,17 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    mini_portile (0.5.1)
     multi_json (1.7.8)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     pg (0.16.0)
+    phantomjs (1.8.1.1)
+      poltergeist
+    poltergeist (1.3.0)
+      capybara (~> 2.1.0)
+      faye-websocket (>= 0.4.4, < 0.5.0)
+      http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -115,6 +134,8 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -125,6 +146,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   pg
+  phantomjs
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails
