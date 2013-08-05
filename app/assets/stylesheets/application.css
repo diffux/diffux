@@ -20,6 +20,16 @@ body .table {
   width: auto;
 }
 
+.wrapper {
+  margin: 0 auto;
+  width: 960px;
+  padding: 10px;
+  max-width: 100%;
+}
+
 .snapshot-card {
   display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
 }

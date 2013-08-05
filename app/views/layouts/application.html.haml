@@ -5,4 +5,7 @@
   = javascript_include_tag 'application'
   = csrf_meta_tags
 %body
-  = yield
+  .wrapper
+    - if notice
+      .alert.alert-success= notice
+    = yield
