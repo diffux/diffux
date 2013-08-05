@@ -10,6 +10,7 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'cloudinary'
 gem 'phantomjs'
+gem 'chunky_png'
 
 # Gems used only for assets and not required
 # in production environments by default.

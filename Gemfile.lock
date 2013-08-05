@@ -37,6 +37,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chunky_png (1.2.7)
     cloudinary (1.0.62)
       aws_cf_signer
       rest-client
@@ -141,6 +142,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  chunky_png
   cloudinary
   coffee-rails (~> 3.2.1)
   haml-rails
