@@ -10,17 +10,26 @@ class Snapshot < ActiveRecord::Base
   validates_presence_of :url, :external_image_id
   default_scope order('created_at DESC')
 
-  before_validation :take_snapshot!
+  before_validation do
+    if self.new_record?
+      take_snapshot!
+      compare_with_previous!
+    end
+  end
 
   def image_name
     self.external_image_id + '.png'
+  end
+
+  def diff_image_name
+    self.diff_external_image_id + '.png'
   end
 
   def sample_image_url
     #TODO: how do I get access to helper methods here? (`cl_image_path`)
 
     # Use max 1500 high images, to speed up diff
-    "http://res.cloudinary.com/diffux/image/upload/c_fit,h_1500/v1375678803/#{image_name}"
+    "http://res.cloudinary.com/diffux/image/upload/c_fit,h_1000/v1375678803/#{image_name}"
   end
 
   def to_chunky_png
@@ -64,9 +73,10 @@ class Snapshot < ActiveRecord::Base
 
     diff = []
 
+    min_width = [images.first.width, images.last.width].min
     images.first.height.times do |y|
       images.first.row(y).each_with_index do |pixel, x|
-        unless pixel == images.last[x,y]
+        if x < min_width && (pixel != images.last[x,y])
           score = Math.sqrt(
             (r(images.last[x,y]) - r(pixel)) ** 2 +
             (g(images.last[x,y]) - g(pixel)) ** 2 +

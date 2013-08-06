@@ -13,4 +13,14 @@
 
   = button_to 'Delete', @snapshot, method: :delete, data: { confirm: 'Are you sure?' },
     class: 'btn btn-danger'
-  = cl_image_tag @snapshot.image_name
+  .clearfix
+    .pull-left
+      %figure
+        %figcaption
+          Actual image
+        = cl_image_tag @snapshot.image_name, width: 300
+    .pull-left
+      %figure
+        %figcaption
+          Diff
+        = cl_image_tag @snapshot.diff_image_name, width: 300
