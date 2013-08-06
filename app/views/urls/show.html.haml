@@ -4,11 +4,15 @@
     %td
       %strong Website URL:
     %td= link_to @url.address, @url.address, target: '_blank'
+  %tr
+    %td
+      %strong Viewport width:
+    %td= pluralize(@url.viewport_width, 'pixel')
+  %tr
+    %td
+      %strong Number of snapshots:
+    %td= @url.snapshots.count
   - if @url.snapshots.count > 0
-    %tr
-      %td
-        %strong Number of snapshots:
-      %td= @url.snapshots.count
     %tr
       %td
         %strong Latest snapshot:

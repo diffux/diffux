@@ -5,7 +5,7 @@ require 'open-uri'
 class Snapshot < ActiveRecord::Base
   include ChunkyPNG::Color
 
-  attr_accessible :external_image_id, :url
+  attr_accessible :external_image_id, :url, :viewport_width
   belongs_to :url
   validates_presence_of :url, :external_image_id
   default_scope order('created_at DESC')
@@ -52,7 +52,7 @@ class Snapshot < ActiveRecord::Base
       opts = {
         address: self.url.address,
         outfile: snapshot_file,
-        viewportSize: { width: 320, height: 640 }
+        viewportSize: { width: self.viewport_width, height: self.viewport_width * 2 }
       }
       Phantomjs.run(Rails.root.join('script', 'take-snapshot.js').to_s,
                     opts.to_json) { |line| puts line }

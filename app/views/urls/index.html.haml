@@ -4,6 +4,7 @@
   %thead
     %tr
       %th Address
+      %th Screen width
       %th
       %th
       %th
@@ -12,6 +13,7 @@
     - @urls.each do |url|
       %tr
         %td= url.address
+        %td= pluralize(url.viewport_width, 'pixel')
         %td= link_to pluralize(url.snapshots.count, 'snapshot'), url
         %td= link_to 'Edit', edit_url_path(url)
         %td= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' }

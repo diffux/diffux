@@ -9,5 +9,8 @@
   .field
     = f.label :address
     = f.text_field :address
+  .field
+    = f.label :viewport_width, 'Viewport width (in pixels)'
+    = f.text_field :viewport_width
   .actions
     = f.submit 'Save', class: 'btn btn-primary'
