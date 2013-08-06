@@ -95,7 +95,7 @@ class Snapshot < ActiveRecord::Base
       end
     end
 
-    self.diff_from_previous = (diff.inject {|sum, value| sum + value} /
+    self.diff_from_previous = ((diff.inject {|sum, value| sum + value} || 0) /
                                images.first.pixels.length) * 100
     with_tempfile do |file|
       output.save(file)
