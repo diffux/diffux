@@ -49,8 +49,12 @@ class Snapshot < ActiveRecord::Base
 
   def take_snapshot!
     with_tempfile do |snapshot_file|
+      opts = {
+        address: self.url.address,
+        outfile: snapshot_file,
+      }
       Phantomjs.run(Rails.root.join('script', 'take-snapshot.js').to_s,
-                  self.url.address, snapshot_file) { |line| puts line }
+                    opts.to_json) { |line| puts line }
       self.external_image_id = upload_to_cloudinary(snapshot_file)
     end
   end
