@@ -52,6 +52,7 @@ class Snapshot < ActiveRecord::Base
       opts = {
         address: self.url.address,
         outfile: snapshot_file,
+        viewportSize: { width: 320, height: 640 }
       }
       Phantomjs.run(Rails.root.join('script', 'take-snapshot.js').to_s,
                     opts.to_json) { |line| puts line }
