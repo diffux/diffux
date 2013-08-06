@@ -37,7 +37,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def previous_snapshot
-    url.snapshots.where('created_at < ?', Time.now).first
+    @previous_snapshot ||= url.snapshots.where('created_at < ?', Time.now).first
   end
 
   def with_tempfile
