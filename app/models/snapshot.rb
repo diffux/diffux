@@ -4,8 +4,7 @@ require 'open-uri'
 
 class Snapshot < ActiveRecord::Base
   include ChunkyPNG::Color
-
-  attr_accessible :external_image_id, :url, :viewport_width
+  attr_accessible :external_image_id, :url
   belongs_to :url
   validates_presence_of :url, :external_image_id
   default_scope order('created_at DESC')
@@ -37,7 +36,8 @@ class Snapshot < ActiveRecord::Base
   end
 
   def previous_snapshot
-    @previous_snapshot ||= url.snapshots.where('created_at < ?', Time.now).first
+    @previous_snapshot ||= url.snapshots.where('created_at < ?',
+                                               (self.created_at || Time.now)).first
   end
 
   def with_tempfile
@@ -52,7 +52,8 @@ class Snapshot < ActiveRecord::Base
       opts = {
         address: self.url.address,
         outfile: snapshot_file,
-        viewportSize: { width: self.viewport_width, height: self.viewport_width * 2 }
+        viewportSize: { width: self.url.viewport_width,
+                        height: self.url.viewport_width * 2 }
       }
       Phantomjs.run(Rails.root.join('script', 'take-snapshot.js').to_s,
                     opts.to_json) { |line| puts line }

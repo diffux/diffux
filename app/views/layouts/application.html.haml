@@ -10,7 +10,9 @@
       .container
         = link_to 'Diffux', urls_path, class: 'brand'
         %ul.nav.navbar-nav
-          %li= link_to 'About', ''
+          %li= link_to 'URLs', urls_path
+        %ul.nav.navbar-nav
+          %li= link_to 'About', static_pages_about_path
   .container
     - if notice
       .alert.alert-success= notice

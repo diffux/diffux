@@ -35,3 +35,7 @@ body .table {
 figure {
   margin: 1em 0;
 }
+
+.help {
+  max-width: 640px;
+}

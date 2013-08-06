@@ -20,7 +20,7 @@
 
 = form_for Snapshot.new, class: 'form' do |f|
   = hidden_field_tag :url, @url.id
-  = f.submit 'New snapshot', class: 'btn btn-primary'
+  = f.submit 'Create new snapshot', class: 'btn btn-primary'
 
 .clearfix
   = render @url.snapshots

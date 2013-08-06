@@ -1,4 +1,5 @@
-%h1 Listing urls
+%h1 Diffuxes
+%p These are the URLs currently configured to take snapshots.
 
 %table.table
   %thead
@@ -15,9 +16,13 @@
         %td= url.address
         %td= pluralize(url.viewport_width, 'pixel')
         %td= link_to pluralize(url.snapshots.count, 'snapshot'), url
-        %td= link_to 'Edit', edit_url_path(url)
-        %td= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' }
+        %td
+          = link_to edit_url_path(url) do
+            %i.icon-edit
+        %td
+          = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
+            %i.icon-remove
 
-%br
-
-= link_to 'New Url', new_url_path
+= link_to new_url_path do
+  %i.icon-plus
+  Add new URL
