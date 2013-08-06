@@ -5,7 +5,13 @@
   = javascript_include_tag 'application'
   = csrf_meta_tags
 %body
-  .wrapper
+  .navbar
+    .navbar-inner
+      .container
+        = link_to 'Diffux', urls_path, class: 'brand'
+        %ul.nav.navbar-nav
+          %li= link_to 'About', ''
+  .container
     - if notice
       .alert.alert-success= notice
     = yield

@@ -16,15 +16,9 @@
 *, *:before, *:after {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
+
 body .table {
   width: auto;
-}
-
-.wrapper {
-  margin: 0 auto;
-  width: 960px;
-  padding: 10px;
-  max-width: 100%;
 }
 
 .snapshot-card {
