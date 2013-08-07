@@ -15,7 +15,10 @@
     - @urls.each do |url|
       %tr
         %td= url.name
-        %td= url.address
+        %td
+          %span.address= url.address
+          = link_to url.address, target: '_blank' do
+            %i.icon-share
         %td= pluralize(url.viewport_width, 'pixel')
         %td= link_to pluralize(url.snapshots.count, 'snapshot'), url
         %td
