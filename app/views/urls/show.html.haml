@@ -26,7 +26,9 @@
 
 = form_for Snapshot.new, class: 'form' do |f|
   = hidden_field_tag :url, @url.id
-  = f.submit 'Create new snapshot', class: 'btn btn-primary'
+  Snapshots are taken every hour. If you are impatient, you can
+  = f.submit 'Create a new snapshot', class: 'btn btn-info'
+  manually.
 
 .clearfix
   = render @url.snapshots
