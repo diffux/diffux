@@ -5,6 +5,10 @@
   %li= @url.name
 
 %h3 Snapshots
+- unless @url.active?
+  .alert
+    This configuration is currently inactive. To have snapshots taken automatically,
+    = link_to 'activate the URL', edit_url_path(@url)
 %table.table
   %tr
     %td
