@@ -7,6 +7,7 @@
       %th Name
       %th Address
       %th Screen width
+      %th Active?
       %th
       %th
       %th
@@ -20,6 +21,9 @@
           = link_to url.address, target: '_blank' do
             %i.icon-share
         %td= pluralize(url.viewport_width, 'pixel')
+        %td
+          - if url.active?
+            %i.icon-ok
         %td= link_to pluralize(url.snapshots.count, 'snapshot'), url
         %td
           = link_to edit_url_path(url) do

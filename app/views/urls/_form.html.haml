@@ -20,4 +20,9 @@
       = f.text_field :viewport_width, class: 'input-small'
   .control-group
     .controls
+      %label
+        = f.check_box :active
+        Active
+  .control-group
+    .controls
       = f.submit 'Save', class: 'btn btn-primary'
