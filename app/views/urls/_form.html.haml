@@ -7,6 +7,10 @@
           %li= msg
 
   .control-group
+    = f.label :name, 'Name this configuration', class: 'control-label'
+    .controls
+      = f.text_field :name, class: 'input-xlarge'
+  .control-group
     = f.label :address, 'Web page address (URL)', class: 'control-label'
     .controls
       = f.text_area :address, rows: 3, class: 'input-xlarge'

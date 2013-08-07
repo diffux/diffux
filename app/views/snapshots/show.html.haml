@@ -1,5 +1,9 @@
+%ul.breadcrumb
+  %li= link_to 'URLs', root_path
+  %li= link_to @snapshot.url.name, @snapshot.url
+  %li= "Snapshot from #{time_ago_in_words(@snapshot.created_at)} ago"
 .snapshot
-  %h1 Snapshot
+  %h3 Snapshot
   %table.table
     %tr
       %td
