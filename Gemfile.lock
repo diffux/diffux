@@ -129,3 +129,4 @@ DEPENDENCIES
   sass-rails (~> 4.0.1)
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
+  whenever
