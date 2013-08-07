@@ -4,4 +4,5 @@ class Url < ActiveRecord::Base
   validates_uniqueness_of :address
 
   has_many :snapshots
+  default_scope order(:address)
 end
