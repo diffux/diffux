@@ -7,6 +7,7 @@ gem 'rails', '4.0.2'
 
 gem 'pg'
 gem 'haml-rails'
+gem 'spinjs-rails'
 gem 'twitter-bootstrap-rails'
 gem 'cloudinary'
 gem 'phantomjs'
