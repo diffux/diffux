@@ -1,6 +1,10 @@
 %ul.breadcrumb
-  %li= link_to 'URLs', root_path
-  %li= link_to @snapshot.url.name, @snapshot.url
+  %li
+    = link_to 'URLs', root_path
+    %span.divider /
+  %li
+    = link_to @snapshot.url.name, @snapshot.url
+    %span.divider /
   %li= "Snapshot from #{time_ago_in_words(@snapshot.created_at)} ago"
 .snapshot
   %h3 Snapshot
@@ -8,7 +12,7 @@
     %tr
       %td
         %strong Website URL:
-      %td= link_to @snapshot.url.address, @snapshot.url
+      %td= link_to @snapshot.url.address
     %tr
       %td
         %strong When?

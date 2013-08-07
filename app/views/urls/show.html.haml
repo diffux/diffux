@@ -1,4 +1,10 @@
-%h1 Snapshots
+%ul.breadcrumb
+  %li
+    = link_to 'URLs', root_path
+    %span.divider /
+  %li= @url.name
+
+%h3 Snapshots
 %table.table
   %tr
     %td
