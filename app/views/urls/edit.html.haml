@@ -1,4 +1,10 @@
-%h1 Editing url
+%ul.breadcrumb
+  %li
+    = link_to 'URLs', root_path
+    %span.divider /
+  %li= @url.name
+
+%h3 Editing url
 
 = render 'form'
 
