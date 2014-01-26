@@ -52,6 +52,6 @@
 
       .pull-left
         %figure
-          %figcaption= link_to 'Previous snapshot', @snapshot.diffed_with_snapshot
+          %figcaption= link_to 'Compared against', @snapshot.diffed_with_snapshot
           = link_to cl_image_tag(@snapshot.diffed_with_snapshot.image_name, width: 300),
             @snapshot.diffed_with_snapshot

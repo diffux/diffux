@@ -39,7 +39,7 @@ class Snapshot < ActiveRecord::Base
     ChunkyPNG::Image.from_file(open(self.sample_image_url))
   end
 
-  def previous_snapshot
+  def baseline_snapshot
     Baseline.where(url_id: url.id).first.try(:snapshot)
   end
 
@@ -73,7 +73,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def compare_with_previous!
-    return unless previous = previous_snapshot
+    return unless previous = baseline_snapshot
     # Mostly copied from
     # http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
     images = [
