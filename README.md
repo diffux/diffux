@@ -39,6 +39,24 @@ createuser -s -r diffux_development
 bundle exec rake db:create db:schema:load db:migrate
 ```
 
+## Running the server
+
+Diffux is a [Rails] app, so if you are familiar with that web framework the
+following should be fairly straightforward.
+
+```bash
+bundle exec rails s
+```
+
+[Rails] runs on port 3000 by default, so you should be able to fire up your
+browser with the following URL:
+
+```
+http://localhost:3000
+```
+
 ## License
 
 Released under the MIT License.
+
+  [Rails]: http://rubyonrails.org/
