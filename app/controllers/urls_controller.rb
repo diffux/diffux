@@ -40,7 +40,7 @@ class UrlsController < ApplicationController
   # POST /urls
   # POST /urls.json
   def create
-    @url = Url.new(params[:url])
+    @url = Url.new(url_params)
 
     respond_to do |format|
       if @url.save
@@ -59,7 +59,7 @@ class UrlsController < ApplicationController
     @url = Url.find(params[:id])
 
     respond_to do |format|
-      if @url.update_attributes(params[:url])
+      if @url.update_attributes(url_params)
         format.html { redirect_to @url, notice: 'Url was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class UrlsController < ApplicationController
       format.html { redirect_to urls_url }
       format.json { head :no_content }
     end
+  end
+
+private
+
+  def url_params
+    params.require(:url).permit(:address, :viewport_width)
   end
 end

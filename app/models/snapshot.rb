@@ -4,7 +4,6 @@ require 'open-uri'
 
 class Snapshot < ActiveRecord::Base
   include ChunkyPNG::Color
-  attr_accessible :external_image_id, :url
   belongs_to :url
   validates_presence_of :url, :external_image_id
   default_scope order('created_at DESC')

@@ -30,7 +30,7 @@ class SnapshotsController < ApplicationController
   # POST /snapshots.json
   def create
     url = Url.find(params.delete(:url))
-    @snapshot = Snapshot.new(params[:snapshot])
+    @snapshot = Snapshot.new
     @snapshot.url = url
 
     respond_to do |format|
