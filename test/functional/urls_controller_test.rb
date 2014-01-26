@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UrlsControllerTest < ActionController::TestCase
   setup do
-    @url = urls(:one)
+    @url = urls(:desktop)
   end
 
   test "should get index" do

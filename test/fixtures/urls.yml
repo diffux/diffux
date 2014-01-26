@@ -1,7 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+mobile:
+  address: http://www.causes.com
+  viewport_width: 320
+  name: Test URL
+  active: true
 
-one:
-  address: MyString
-
-two:
-  address: MyString
+desktop:
+  address: http://www.causes.com
+  viewport_width: 1200
+  name: Test URL
+  active: true

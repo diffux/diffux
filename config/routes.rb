@@ -4,7 +4,11 @@ Diffux::Application.routes.draw do
   resources :urls
 
 
-  resources :snapshots, only: [:index, :show, :create, :destroy]
+  resources :snapshots, only: [:index, :show, :create, :destroy] do
+    member do
+      post :set_as_baseline
+    end
+  end
 
 
   # The priority is based upon order of creation:

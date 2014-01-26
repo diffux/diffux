@@ -17,8 +17,23 @@
       %td
         %strong When?
       %td= time_ago_in_words(@snapshot.created_at) + ' ago'
+    %tr
+      %td
+        %strong Baseline?
+      %td
+        - if @snapshot.baseline_for_url?
+          Yep.
+        - else
+          Nope.
 
-  = button_to 'Delete', @snapshot, method: :delete, data: { confirm: 'Are you sure?' },
+  - unless @snapshot.baseline_for_url?
+    = button_to 'Set as baseline for this URL',
+      set_as_baseline_snapshot_path(@snapshot),
+      method: :post, class: 'btn'
+
+  = button_to 'Delete',
+    @snapshot, method: :delete,
+    data: { confirm: 'Are you sure?' },
     class: 'btn btn-danger'
 
   .clearfix
@@ -27,7 +42,7 @@
         %figcaption Snapshot image
         = cl_image_tag @snapshot.image_name, width: 300
 
-    - if @snapshot.previous_snapshot
+    - if @snapshot.has_diff?
       .pull-left
         %figure
           %figcaption
@@ -37,6 +52,6 @@
 
       .pull-left
         %figure
-          %figcaption= link_to 'Previous snapshot', @snapshot.previous_snapshot
-          = link_to cl_image_tag(@snapshot.previous_snapshot.image_name, width: 300),
-            @snapshot.previous_snapshot
+          %figcaption= link_to 'Previous snapshot', @snapshot.diffed_with_snapshot
+          = link_to cl_image_tag(@snapshot.diffed_with_snapshot.image_name, width: 300),
+            @snapshot.diffed_with_snapshot

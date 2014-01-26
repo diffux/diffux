@@ -11,15 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130807052539) do
+ActiveRecord::Schema.define(:version => 20140126185147) do
+
+  create_table "baselines", :force => true do |t|
+    t.integer  "url_id"
+    t.integer  "snapshot_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "snapshots", :force => true do |t|
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.integer  "url_id"
     t.string   "external_image_id"
     t.string   "diff_external_image_id"
     t.decimal  "diff_from_previous"
+    t.integer  "diffed_with_snapshot_id"
   end
 
   create_table "urls", :force => true do |t|

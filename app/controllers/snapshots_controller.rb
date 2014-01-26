@@ -51,4 +51,17 @@ class SnapshotsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def set_as_baseline
+    @snapshot = Snapshot.find(params[:id])
+    baseline = Baseline.where(url_id: @snapshot.url.id).first ||
+               Baseline.new(url_id: @snapshot.url.id)
+    baseline.snapshot = @snapshot
+    baseline.save!
+    flash[:notice] = <<-EOS
+      This Snapshot will now be used as the baseline
+      in future diffs for the same URL.
+    EOS
+    redirect_to @snapshot
+  end
 end

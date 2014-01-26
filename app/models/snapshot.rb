@@ -5,6 +5,7 @@ require 'open-uri'
 class Snapshot < ActiveRecord::Base
   include ChunkyPNG::Color
   belongs_to :url
+  belongs_to :diffed_with_snapshot, class_name: Snapshot.name
   validates_presence_of :url, :external_image_id
   default_scope order('created_at DESC')
 
@@ -23,6 +24,10 @@ class Snapshot < ActiveRecord::Base
     self.diff_external_image_id + '.png'
   end
 
+  def has_diff?
+    !!diffed_with_snapshot
+  end
+
   def sample_image_url
     #TODO: how do I get access to helper methods here? (`cl_image_path`)
 
@@ -35,8 +40,11 @@ class Snapshot < ActiveRecord::Base
   end
 
   def previous_snapshot
-    @previous_snapshot ||= url.snapshots.where('created_at < ?',
-                                               (self.created_at || Time.now)).first
+    Baseline.where(url_id: url.id).first.try(:snapshot)
+  end
+
+  def baseline_for_url?
+    url.baseline.try(:snapshot) == self
   end
 
   def with_tempfile
@@ -65,12 +73,12 @@ class Snapshot < ActiveRecord::Base
   end
 
   def compare_with_previous!
-    return unless previous_snapshot
+    return unless previous = previous_snapshot
     # Mostly copied from
     # http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
     images = [
       self.to_chunky_png,
-      previous_snapshot.to_chunky_png
+      previous.to_chunky_png
     ]
     max_width = [images.first.width, images.last.width].max
     max_height = [images.first.height, images.last.height].max
@@ -100,5 +108,6 @@ class Snapshot < ActiveRecord::Base
       output.save(file)
       self.diff_external_image_id = self.upload_to_cloudinary(file)
     end
+    self.diffed_with_snapshot = previous
   end
 end
