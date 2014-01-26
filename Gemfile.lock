@@ -43,8 +43,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.0.2)
     haml (4.0.5)
       tilt
     haml-rails (0.4)
@@ -115,9 +114,9 @@ GEM
       execjs
       railties (>= 3.1)
     tzinfo (0.3.37)
-    uglifier (2.1.2)
+    uglifier (2.4.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
 
 PLATFORMS
   ruby
