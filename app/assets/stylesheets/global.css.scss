@@ -35,3 +35,7 @@ figure {
     max-width: 250px;
   }
 }
+
+form.button_to {
+  display: inline-block; // Make `button_to` containers flow as buttons
+}
