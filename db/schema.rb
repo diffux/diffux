@@ -9,20 +9,23 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126185147) do
+ActiveRecord::Schema.define(version: 20140126185147) do
 
-  create_table "baselines", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "baselines", force: true do |t|
     t.integer  "url_id"
     t.integer  "snapshot_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "snapshots", :force => true do |t|
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+  create_table "snapshots", force: true do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "url_id"
     t.string   "external_image_id"
     t.string   "diff_external_image_id"
@@ -30,13 +33,13 @@ ActiveRecord::Schema.define(:version => 20140126185147) do
     t.integer  "diffed_with_snapshot_id"
   end
 
-  create_table "urls", :force => true do |t|
+  create_table "urls", force: true do |t|
     t.string   "address"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.integer  "viewport_width", :default => 320
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "viewport_width", default: 320
     t.string   "name"
-    t.boolean  "active",         :default => true
+    t.boolean  "active",         default: true
   end
 
 end
