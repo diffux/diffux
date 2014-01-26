@@ -11,9 +11,6 @@ Diffux::Application.configure do
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
 
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
-
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -34,4 +31,8 @@ Diffux::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # If config.eager_load is true, runs the config.before_eager_load hooks and
+  # then calls eager_load! which will load all config.eager_load_namespaces.
+  config.eager_load = false
 end
