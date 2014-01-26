@@ -84,6 +84,6 @@ class UrlsController < ApplicationController
 private
 
   def url_params
-    params.require(:url).permit(:address, :viewport_width)
+    params.require(:url).permit(:address, :viewport_width, :name, :active)
   end
 end
