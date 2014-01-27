@@ -6,15 +6,11 @@ class Snapshot < ActiveRecord::Base
   include ChunkyPNG::Color
   belongs_to :url
   belongs_to :diffed_with_snapshot, class_name: Snapshot.name
-  validates_presence_of :url, :external_image_id
+  validates_presence_of :url
   default_scope order('created_at DESC')
 
-  before_validation do
-    if self.new_record?
-      take_snapshot!
-      compare_with_previous!
-    end
-  end
+  before_create :take_snapshot!,
+                :compare_with_previous!
 
   def image_name
     external_image_id + '.png'
