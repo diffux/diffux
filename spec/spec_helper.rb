@@ -13,6 +13,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+  # Avoid warnings about locale when running specs
+  I18n.enforce_available_locales = false
+
   config.mock_with :mocha
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
