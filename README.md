@@ -62,4 +62,4 @@ http://localhost:3000
 
 Released under the MIT License.
 
-  [Rails]: http://rubyonrails.org/
+[Rails]: http://rubyonrails.org/
