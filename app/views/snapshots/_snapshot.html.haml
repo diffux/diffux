@@ -2,7 +2,9 @@
   = link_to cl_image_tag(snapshot.image_name,
     width: 100, height: 100, crop: :fill, gravity: :north_east),
     snapshot
-  .time-ago= time_ago_in_words(snapshot.created_at) + ' ago'
+  .time-ago
+    = time_tag snapshot.created_at do
+      = time_ago_in_words(snapshot.created_at) + ' ago'
   - if snapshot.diff_from_previous
     .diff
       = number_to_percentage(snapshot.diff_from_previous)

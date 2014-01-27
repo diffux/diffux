@@ -5,7 +5,10 @@
   %li
     = link_to @snapshot.url.name, @snapshot.url
     %span.divider /
-  %li= "Snapshot from #{time_ago_in_words(@snapshot.created_at)} ago"
+  %li
+    Snapshot from
+    = time_tag @snapshot.created_at do
+      = time_ago_in_words(@snapshot.created_at) + ' ago'
 .snapshot
   %h3 Snapshot
   %table.table
@@ -16,7 +19,9 @@
     %tr
       %td
         %strong When?
-      %td= time_ago_in_words(@snapshot.created_at) + ' ago'
+      %td
+        = time_tag @snapshot.created_at do
+          = time_ago_in_words(@snapshot.created_at) + ' ago'
     %tr
       %td
         %strong Baseline?

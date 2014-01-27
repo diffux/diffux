@@ -26,7 +26,9 @@
     %tr
       %td
         %strong Latest snapshot:
-      %td= time_ago_in_words(@url.snapshots.first.created_at) + ' ago'
+      %td
+        = time_tag @url.snapshots.first.created_at do
+          = time_ago_in_words(@url.snapshots.first.created_at) + ' ago'
 
 = form_for Snapshot.new, class: 'form' do |f|
   = hidden_field_tag :url, @url.id
