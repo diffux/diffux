@@ -42,7 +42,7 @@
         %figcaption Snapshot image
         = cl_image_tag @snapshot.image_name, width: 300
 
-    - if @snapshot.has_diff?
+    - if @snapshot.diff?
       .pull-left
         %figure
           %figcaption
