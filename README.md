@@ -1,5 +1,6 @@
 # Diffux
 
+[![Build Status](https://travis-ci.org/trotzig/diffux.png)](https://travis-ci.org/trotzig/diffux)
 [![Code Climate](https://codeclimate.com/github/trotzig/diffux.png)](https://codeclimate.com/github/trotzig/diffux)
 
 Diffux can generate visual diffs of web pages, allowing you to spot changes and
