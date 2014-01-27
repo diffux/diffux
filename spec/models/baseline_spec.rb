@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe Baseline do
   describe '#create' do
-    let(:url) do
-      Url.create(address: 'https://www.causes.com/',
-                 name: 'Causes start page',
-                 viewport_width: 320)
-    end
+    let(:url) { create(:url) }
     let(:snapshot) do
       Snapshot.create(url_id: url.id)
     end

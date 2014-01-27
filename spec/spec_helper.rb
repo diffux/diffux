@@ -18,6 +18,8 @@ RSpec.configure do |config|
 
   config.mock_with :mocha
 
+  config.include FactoryGirl::Syntax::Methods
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -38,7 +40,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before(:each) do
-    Cloudinary::Uploader.stubs(:upload) # Don't upload images to Cloudinary
+    Cloudinary::Uploader.stubs(:upload).returns({}) # Don't upload images to Cloudinary
     Phantomjs.stubs(:run) # Don't run PhantomJS
   end
 end

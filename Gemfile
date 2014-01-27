@@ -19,9 +19,10 @@ group :assets do
 end
 
 group :test do
+  gem 'factory_girl_rails'
+  gem 'mocha'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'mocha'
 end
 
 group :development do
