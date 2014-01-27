@@ -7,7 +7,7 @@ class Snapshot < ActiveRecord::Base
   belongs_to :url
   belongs_to :diffed_with_snapshot, class_name: Snapshot.name
   validates_presence_of :url
-  default_scope order('created_at DESC')
+  default_scope { order('created_at DESC') }
 
   before_create :take_snapshot!,
                 :compare_with_previous!

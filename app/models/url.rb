@@ -9,7 +9,7 @@ class Url < ActiveRecord::Base
   has_many :snapshots
   has_one  :baseline
 
-  default_scope order(:name)
+  default_scope { order(:name) }
 
   def to_param
     [id, slugify(name)].join('-')
