@@ -10,4 +10,16 @@ class Url < ActiveRecord::Base
   has_one  :baseline
 
   default_scope order(:name)
+
+  def to_param
+    [id, slugify(name)].join('-')
+  end
+
+  private
+
+  # @param [String] string to slugify
+  # @return [String] slugified version of str
+  def slugify(str)
+    str.gsub(/['’]/, '').parameterize
+  end
 end
