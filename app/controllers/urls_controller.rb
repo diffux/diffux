@@ -47,7 +47,7 @@ class UrlsController < ApplicationController
         format.html { redirect_to @url, notice: 'Url was successfully created.' }
         format.json { render json: @url, status: :created, location: @url }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @url.errors, status: :unprocessable_entity }
       end
     end
@@ -63,7 +63,7 @@ class UrlsController < ApplicationController
         format.html { redirect_to @url, notice: 'Url was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @url.errors, status: :unprocessable_entity }
       end
     end
@@ -81,7 +81,7 @@ class UrlsController < ApplicationController
     end
   end
 
-private
+  private
 
   def url_params
     params.require(:url).permit(:address, :viewport_width, :name, :active)
