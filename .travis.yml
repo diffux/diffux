@@ -4,4 +4,5 @@ rvm:
   - 2.1.0
 before_script:
   - psql -c 'CREATE DATABASE diffux_test;' -U postgres
+  - bundle exec rake db:create db:schema:load db:migrate
 script: bundle exec rspec
