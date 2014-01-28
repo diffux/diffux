@@ -6,6 +6,7 @@ gem 'chunky_png'
 gem 'cloudinary'
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'oily_png' # speeds up chunky_png
 gem 'pg'
 gem 'phantomjs'
 gem 'spinjs-rails'

@@ -1,5 +1,5 @@
 require 'phantomjs'
-require 'chunky_png'
+require 'oily_png'
 require 'open-uri'
 
 class Snapshot < ActiveRecord::Base
