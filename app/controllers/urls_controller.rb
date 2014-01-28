@@ -1,10 +1,12 @@
 class UrlsController < ApplicationController
+  before_filter :set_url, only: %i[show edit update destroy]
+
   def index
     @urls = Url.all
   end
 
   def show
-    @url = Url.find(params[:id])
+    render
   end
 
   def new
@@ -12,7 +14,7 @@ class UrlsController < ApplicationController
   end
 
   def edit
-    @url = Url.find(params[:id])
+    render
   end
 
   def create
@@ -25,7 +27,6 @@ class UrlsController < ApplicationController
   end
 
   def update
-    @url = Url.find(params[:id])
     if @url.update_attributes(url_params)
       redirect_to @url, notice: 'Url was successfully updated.'
     else
@@ -34,12 +35,15 @@ class UrlsController < ApplicationController
   end
 
   def destroy
-    @url = Url.find(params[:id])
     @url.destroy
     redirect_to urls_url, notice: 'Url was successfully destroyed.'
   end
 
   private
+
+  def set_url
+    @url = Url.find(params[:id])
+  end
 
   def url_params
     params.require(:url).permit(:address, :viewport_width, :name, :active)
