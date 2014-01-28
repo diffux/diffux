@@ -7,6 +7,9 @@ FactoryGirl.define do
 
   factory :snapshot do
     url
-    diffed_with_snapshot
+    after(:create) do |snapshot|
+      snapshot.external_image_id = 'mocked_image'
+      snapshot.save!
+    end
   end
 end
