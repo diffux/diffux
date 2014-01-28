@@ -36,7 +36,7 @@ class UrlsController < ApplicationController
   def destroy
     @url = Url.find(params[:id])
     @url.destroy
-    redirect_to urls_url
+    redirect_to urls_url, notice: 'Url was successfully destroyed.'
   end
 
   private
