@@ -4,7 +4,7 @@ Diffux::Application.routes.draw do
   resources :urls
 
 
-  resources :snapshots, only: [:index, :show, :create, :destroy] do
+  resources :snapshots, only: [:show, :create, :destroy] do
     member do
       post :set_as_baseline
     end

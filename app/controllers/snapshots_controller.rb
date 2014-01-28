@@ -1,15 +1,6 @@
 class SnapshotsController < ApplicationController
   before_filter :set_snapshot, only: %i[show destroy set_as_baseline]
 
-  def index
-    if params[:url]
-      @url = Url.find(params[:url])
-      @snapshots = @url.snapshots
-    else
-      @snapshots = Snapshot.all
-    end
-  end
-
   def show
     render
   end
