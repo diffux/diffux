@@ -1,4 +1,6 @@
 class SnapshotsController < ApplicationController
+  before_filter :set_snapshot, only: %i[show destroy set_as_baseline]
+
   def index
     if params[:url]
       @url = Url.find(params[:url])
@@ -9,7 +11,7 @@ class SnapshotsController < ApplicationController
   end
 
   def show
-    @snapshot = Snapshot.find(params[:id])
+    render
   end
 
   def create
@@ -22,14 +24,12 @@ class SnapshotsController < ApplicationController
   end
 
   def destroy
-    @snapshot = Snapshot.find(params[:id])
     @snapshot.destroy
 
     redirect_to @snapshot.url
   end
 
   def set_as_baseline
-    @snapshot = Snapshot.find(params[:id])
     baseline  = Baseline.where(url_id: @snapshot.url.id).first ||
                 Baseline.new(url_id: @snapshot.url.id)
     baseline.snapshot = @snapshot
@@ -40,5 +40,11 @@ class SnapshotsController < ApplicationController
       in future diffs for the same URL.
     EOS
     redirect_to @snapshot
+  end
+
+  private
+
+  def set_snapshot
+    @snapshot = Snapshot.find(params[:id])
   end
 end
