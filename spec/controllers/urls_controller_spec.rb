@@ -43,7 +43,8 @@ describe UrlsController do
     end
   end
 
-  describe '#create' do
+
+  describe 'manipulation' do
     let(:name)    { 'Causes start page' }
     let(:address) { "https://www.#{Random.rand(1_000)}.causes.com" }
     let(:active)  { '1' }
@@ -56,10 +57,55 @@ describe UrlsController do
     }
     end
 
-    context 'with valid params' do
-      it 'adds a Url' do
-        expect { post :create, url: params } .to change { Url.count }.by(1)
+    describe '#create' do
+      context 'with valid params' do
+        it 'adds a Url' do
+          expect { post :create, url: params }.to change { Url.count }.by(1)
+        end
       end
+    end
+
+    describe '#update' do
+      let(:url) { create(:url) }
+      subject do
+        post :update, url: params, id: url.to_param
+        url.reload
+      end
+
+      context 'with valid params' do
+        its(:name)             { should == name }
+        its(:address)          { should == address }
+        its(:active)           { should be_true }
+        its(:viewport_width)   { should == 320 }
+      end
+
+      context 'with invalid address' do
+        let(:address) { 'not a url' }
+
+        it 'does not update the url' do
+          subject.name.should_not == name
+        end
+      end
+    end
+  end
+
+  describe '#edit' do
+    let(:url) { create(:url) }
+    subject do
+      get :edit, { id: url.to_param }
+      response
+    end
+
+    it { should be_success }
+    it { should render_template('urls/edit') }
+  end
+
+  describe '#destroy' do
+    let!(:url) { create(:url) }
+
+    it 'removes the url' do
+      expect { delete :destroy, id: url.to_param }
+        .to change { Url.all.count }.by(-1)
     end
   end
 end
