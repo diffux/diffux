@@ -26,7 +26,7 @@ class SnapshotsController < ApplicationController
   def destroy
     @snapshot.destroy
 
-    redirect_to @snapshot.url
+    redirect_to @snapshot.url, notice: 'Snapshot was successfully destroyed.'
   end
 
   def set_as_baseline
