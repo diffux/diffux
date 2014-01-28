@@ -3,7 +3,7 @@ class Url < ActiveRecord::Base
                         :address,
                         :name
 
-  validates_format_of     :address, with: %r[https?://.+]
+  validates_format_of     :address, with: %r[\Ahttps?://.+]
   validates_uniqueness_of :address
 
   has_many :snapshots
