@@ -12,14 +12,15 @@ describe SnapshotsController do
 
     it { should be_success }
     its(:body) { should include(snapshot.url.name) }
-    it { should render_template('snapshots/show')}
+    it { should render_template('snapshots/show') }
   end
 
   describe '#create' do
     let(:url) { create(:url) }
 
     it 'adds a snapshot' do
-      expect { post :create, url: url.to_param }.to change { Snapshot.count }.by(1)
+      expect { post :create, url: url.to_param }
+               .to change { Snapshot.count }.by(1)
     end
   end
 
