@@ -16,7 +16,7 @@ class SnapshotComparer
 
     output = ChunkyPNG::Image.new([png_before.width, png_after.width].max,
                                   [png_before.height, png_after.height].max,
-                                  WHITE)
+                                  ChunkyPNG::Color::WHITE)
 
     diff       = 0
     max_width  = [png_after.width, png_before.width].max
@@ -29,7 +29,7 @@ class SnapshotComparer
 
         if pixel_after != pixel_before
           score        = pixel_diff_score(pixel_after, pixel_before)
-          output[x, y] = grayscale(MAX - (score * MAX).round)
+          output[x, y] = grayscale(ChunkyPNG::Color::MAX - (score * ChunkyPNG::Color::MAX).round)
           diff        += score
         end
       end
@@ -61,7 +61,7 @@ class SnapshotComparer
       (g(pixel_after) - g(pixel_before))**2 +
       (b(pixel_after) - b(pixel_before))**2 +
       (a(pixel_after) - a(pixel_before))**2
-    ) / Math.sqrt(MAX**2 * 4)
+    ) / Math.sqrt(ChunkyPNG::Color::MAX**2 * 4)
   end
 
   def to_chunky_png(snapshot)
