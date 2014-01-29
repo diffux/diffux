@@ -22,14 +22,9 @@ class SnapshotComparer
     image_before.height.times do |y|
       image_before.row(y).each_with_index do |pixel, x|
         if x < min_width && (pixel != image_after[x, y])
-          score = Math.sqrt(
-            (r(image_after[x, y]) - r(pixel))**2 +
-            (g(image_after[x, y]) - g(pixel))**2 +
-            (b(image_after[x, y]) - b(pixel))**2
-          ) / Math.sqrt(MAX**2 * 3)
-
+          score        = pixel_diff_score(image_after[x, y], pixel)
           output[x, y] = grayscale(MAX - (score * MAX).round)
-          diff += score
+          diff        += score
         end
       end
     end
@@ -45,6 +40,14 @@ class SnapshotComparer
   end
 
 private
+
+  def pixel_diff_score(pixel_after, pixel_before)
+    Math.sqrt(
+      (r(pixel_after) - r(pixel_before))**2 +
+      (g(pixel_after) - g(pixel_before))**2 +
+      (b(pixel_after) - b(pixel_before))**2
+    ) / Math.sqrt(MAX**2 * 3)
+  end
 
   def to_chunky_png(snapshot)
     ChunkyPNG::Image.from_file(open(snapshot.sample_image_url))
