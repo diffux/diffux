@@ -17,8 +17,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def sample_image_url
-    Cloudinary::Utils.cloudinary_url(image_name,
-                                     height: 1000, crop: :fit)
+    Cloudinary::Utils.cloudinary_url(image_name)
   end
 
   def baseline_for_url?
