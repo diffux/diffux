@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20140129052402) do
   create_table "baselines", force: true do |t|
     t.integer  "url_id"
     t.integer  "snapshot_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "snapshots", force: true do |t|
