@@ -11,35 +11,32 @@ class SnapshotComparer
 
   # @see http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
   def compare!
-    images = [
-      to_chunky_png(@snapshot1),
-      to_chunky_png(@snapshot2),
-    ]
-    max_width  = [images.first.width, images.last.width].max
-    max_height = [images.first.height, images.last.height].max
-    output     = ChunkyPNG::Image.new(max_width, max_height, WHITE)
+    image1 = to_chunky_png(@snapshot1)
+    image2 = to_chunky_png(@snapshot2)
 
-    diff = []
-
-    min_width = [images.first.width, images.last.width].min
-    images.first.height.times do |y|
-      images.first.row(y).each_with_index do |pixel, x|
-        if x < min_width && (pixel != images.last[x, y])
+    output = ChunkyPNG::Image.new([image1.width, image2.width].max,
+                                  [image1.height, image2.height].max,
+                                  WHITE)
+    diff = 0
+    min_width = [image1.width, image2.width].min
+    image1.height.times do |y|
+      image1.row(y).each_with_index do |pixel, x|
+        if x < min_width && (pixel != image2[x, y])
           score = Math.sqrt(
-            (r(images.last[x, y]) - r(pixel))**2 +
-            (g(images.last[x, y]) - g(pixel))**2 +
-            (b(images.last[x, y]) - b(pixel))**2
+            (r(image2[x, y]) - r(pixel))**2 +
+            (g(image2[x, y]) - g(pixel))**2 +
+            (b(image2[x, y]) - b(pixel))**2
           ) / Math.sqrt(MAX**2 * 3)
 
           output[x, y] = grayscale(MAX - (score * MAX).round)
-          diff << score
+          diff += score
         end
       end
     end
 
-    result = {}
-    result[:diff_in_percent] = ((diff.inject { |sum, value| sum + value } || 0) /
-                               images.first.pixels.length) * 100
+    result = {
+      diff_in_percent: diff.to_f / image1.pixels.length * 100
+    }
     FileUtil.with_tempfile do |file|
       output.save(file)
       result[:external_image_id] = FileUtil.upload_to_cloudinary(file)
