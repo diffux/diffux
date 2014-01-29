@@ -47,12 +47,10 @@ describe UrlsController do
   describe 'manipulation' do
     let(:name)    { 'Causes start page' }
     let(:address) { "https://www.#{Random.rand(1_000)}.causes.com" }
-    let(:active)  { '1' }
     let(:width)   { '320' }
     let(:params) do {
       name:    name,
       address: address,
-      active:  active,
       viewport_width: width,
     }
     end
@@ -75,7 +73,6 @@ describe UrlsController do
       context 'with valid params' do
         its(:name)             { should == name }
         its(:address)          { should == address }
-        its(:active)           { should be_true }
         its(:viewport_width)   { should == 320 }
       end
 
