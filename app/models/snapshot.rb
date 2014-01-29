@@ -17,10 +17,8 @@ class Snapshot < ActiveRecord::Base
   end
 
   def sample_image_url
-    # TODO: how do I get access to helper methods here? (`cl_image_path`)
-
-    # Use max 1500 high images, to speed up diff
-    "http://res.cloudinary.com/diffux/image/upload/c_fit,h_1000/v1375678803/#{image_name}"
+    Cloudinary::Utils.cloudinary_url(image_name,
+                                     height: 1000, crop: :fit)
   end
 
   def baseline_for_url?
