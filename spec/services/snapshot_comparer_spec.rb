@@ -30,7 +30,59 @@ describe SnapshotComparer do
       end
 
       it 'should report a difference' do
-        subject[:diff_in_percent].should == 100
+        subject[:diff_in_percent].should > 0
+      end
+    end
+
+    context 'when the after snapshot is shorter than the before snapshot' do
+      before do
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
+          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
+          .returns(ChunkyPNG::Image.new(10, 5, ChunkyPNG::Color::BLACK))
+      end
+
+      it 'should report a difference' do
+        subject[:diff_in_percent].should > 0
+      end
+    end
+
+    context 'when the after snapshot is taller than the before snapshot' do
+      before do
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
+          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
+          .returns(ChunkyPNG::Image.new(10, 20, ChunkyPNG::Color::BLACK))
+      end
+
+      it 'should report a difference' do
+        subject[:diff_in_percent].should > 0
+      end
+    end
+
+    context 'when the after snapshot is narrower than the before snapshot' do
+      before do
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
+          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
+          .returns(ChunkyPNG::Image.new(5, 10, ChunkyPNG::Color::BLACK))
+      end
+
+      it 'should report a difference' do
+        subject[:diff_in_percent].should > 0
+      end
+    end
+
+    context 'when the after snapshot is wider than the before snapshot' do
+      before do
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
+          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+        snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
+          .returns(ChunkyPNG::Image.new(20, 10, ChunkyPNG::Color::BLACK))
+      end
+
+      it 'should report a difference' do
+        subject[:diff_in_percent].should > 0
       end
     end
   end
