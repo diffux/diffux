@@ -11,7 +11,6 @@ gem 'pg'
 gem 'phantomjs'
 gem 'spinjs-rails'
 gem 'twitter-bootstrap-rails'
-gem 'whenever', require: false
 
 group :assets do
   gem 'coffee-rails', '~> 4.0.1'

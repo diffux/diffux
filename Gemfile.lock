@@ -177,4 +177,3 @@ DEPENDENCIES
   spinjs-rails
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
-  whenever
