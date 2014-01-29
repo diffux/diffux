@@ -20,9 +20,9 @@ class SnapshotComparer
     diff = 0
     min_width = [png_before.width, png_after.width].min
     png_before.height.times do |y|
-      png_before.row(y).each_with_index do |pixel, x|
-        if x < min_width && (pixel != png_after[x, y])
-          score        = pixel_diff_score(png_after[x, y], pixel)
+      png_before.row(y).each_with_index do |pixel_before, x|
+        if x < min_width && (pixel_before != png_after[x, y])
+          score        = pixel_diff_score(png_after[x, y], pixel_before)
           output[x, y] = grayscale(MAX - (score * MAX).round)
           diff        += score
         end
