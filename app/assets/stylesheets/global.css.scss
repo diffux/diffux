@@ -16,6 +16,10 @@ body .table {
   font-size: 10px;
   line-height: 12px;
   min-height: 130px;
+
+  &.snapshot-baseline {
+    border-color: #6c6;
+  }
 }
 
 figure {
