@@ -18,9 +18,27 @@ describe SnapshotsController do
   describe '#create' do
     let(:url) { create(:url) }
 
+    before do
+      SnapshotComparer.any_instance.stubs(:compare!).returns(
+        external_image_id: 1,
+        diff_in_percent:   0.001
+      )
+    end
+
     it 'adds a snapshot' do
       expect { post :create, url: url.to_param }
                .to change { Snapshot.count }.by(1)
+    end
+
+    context 'with a baseline' do
+      before do
+        create(:snapshot, :accepted, url: url)
+      end
+
+      it 'adds a snapshot' do
+        expect { post :create, url: url.to_param }
+                 .to change { Snapshot.count }.by(1)
+      end
     end
   end
 

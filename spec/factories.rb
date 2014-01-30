@@ -11,5 +11,9 @@ FactoryGirl.define do
       snapshot.external_image_id = 'mocked_image'
       snapshot.save!
     end
+
+    trait :accepted do
+      accepted_at 1.day.ago
+    end
   end
 end
