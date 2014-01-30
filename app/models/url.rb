@@ -3,15 +3,18 @@ class Url < ActiveRecord::Base
                         :address,
                         :name
 
-  validates_format_of     :address, with: %r[\Ahttps?://.+]
+  validates_format_of   :address, with: %r[\Ahttps?://.+]
 
   has_many :snapshots
-  has_one  :baseline
 
   default_scope { order(:name) }
 
   def to_param
     [id, slugify(name)].join('-')
+  end
+
+  def baseline
+    snapshots.order('accepted_at DESC').where('accepted_at IS NOT NULL').first
   end
 
   private

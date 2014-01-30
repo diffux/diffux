@@ -5,7 +5,8 @@ Diffux::Application.routes.draw do
 
   resources :snapshots, only: %i[show create destroy] do
     member do
-      post :set_as_baseline
+      post :accept
+      post :reject
     end
   end
 

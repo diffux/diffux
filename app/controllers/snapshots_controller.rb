@@ -1,5 +1,5 @@
 class SnapshotsController < ApplicationController
-  before_filter :set_snapshot, only: %i[show destroy set_as_baseline]
+  before_filter :set_snapshot, only: %i[show destroy accept reject]
 
   def show
     render
@@ -26,15 +26,19 @@ class SnapshotsController < ApplicationController
     redirect_to @snapshot.url, notice: 'Snapshot was successfully destroyed.'
   end
 
-  def set_as_baseline
-    baseline  = Baseline.where(url_id: @snapshot.url.id).first ||
-                Baseline.new(url_id: @snapshot.url.id)
-    baseline.snapshot = @snapshot
-    baseline.save!
-
+  def reject
+    @snapshot.reject!
     flash[:notice] = <<-EOS
-      This Snapshot will now be used as the baseline
-      in future diffs for the same URL.
+      Snapshot has been marked as rejected.
+    EOS
+    redirect_to @snapshot
+  end
+
+  def accept
+    @snapshot.accept!
+    flash[:notice] = <<-EOS
+      Snapshot has been accepted and will now be used
+      as the baseline in future diffs for the same URL.
     EOS
     redirect_to @snapshot
   end

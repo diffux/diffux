@@ -20,7 +20,23 @@ class Snapshot < ActiveRecord::Base
     Cloudinary::Utils.cloudinary_url(image_name)
   end
 
-  def baseline_for_url?
-    url.baseline.try(:snapshot) == self
+  def accept!
+    self.accepted_at = Time.now
+    self.rejected_at = nil
+    save!
+  end
+
+  def reject!
+    self.rejected_at = Time.now
+    self.accepted_at = nil
+    save!
+  end
+
+  def accepted?
+    accepted_at?
+  end
+
+  def rejected?
+    rejected_at?
   end
 end

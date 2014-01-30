@@ -33,12 +33,21 @@ describe SnapshotsController do
     end
   end
 
-  describe '#set_as_baseline' do
-    let(:snapshot) { create(:snapshot) }
+  describe '#accept' do
+    let!(:snapshot) { create(:snapshot) }
 
-    it 'makes the snapshot the baseline for the url' do
-      expect { post :set_as_baseline, id: snapshot.to_param }
-        .to change { snapshot.reload.baseline_for_url? }.to(true)
+    it 'accepts the snapshot' do
+      expect { post :accept, id: snapshot.to_param }
+        .to change { snapshot.reload.accepted? }.to(true)
+    end
+  end
+
+  describe '#reject' do
+    let!(:snapshot) { create(:snapshot) }
+
+    it 'rejects the snapshot' do
+      expect { post :reject, id: snapshot.to_param }
+        .to change { snapshot.reload.rejected? }.to(true)
     end
   end
 end

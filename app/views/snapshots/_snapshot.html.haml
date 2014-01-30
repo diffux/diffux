@@ -1,4 +1,4 @@
-.snapshot-card{ class: (snapshot.baseline_for_url? ? 'snapshot-baseline' : '') }
+.snapshot-card{ class: (@url.baseline == snapshot ? 'snapshot-baseline' : '') }
   = link_to cl_image_tag(snapshot.image_name,
     width: 100, height: 100, crop: :fill, gravity: :north_east),
     snapshot

@@ -24,16 +24,28 @@
           = time_ago_in_words(@snapshot.created_at) + ' ago'
     %tr
       %td
-        %strong Baseline?
+        %strong Status?
       %td
-        - if @snapshot.baseline_for_url?
-          Yep.
+        - if @snapshot.accepted?
+          Accepted
+          = time_tag @snapshot.accepted_at do
+            = time_ago_in_words(@snapshot.accepted_at) + ' ago'
+        - elsif @snapshot.rejected?
+          Rejected
+          = time_tag @snapshot.rejected_at do
+            = time_ago_in_words(@snapshot.rejected_at) + ' ago'
         - else
-          Nope.
+          Under review
 
-  - unless @snapshot.baseline_for_url?
-    = button_to 'Set as baseline for this URL',
-      set_as_baseline_snapshot_path(@snapshot),
+
+  - unless @snapshot.accepted?
+    = button_to 'Accept',
+      accept_snapshot_path(@snapshot),
+      method: :post, class: 'btn'
+
+  - unless @snapshot.rejected?
+    = button_to 'Reject',
+      reject_snapshot_path(@snapshot),
       method: :post, class: 'btn'
 
   = button_to 'Delete',

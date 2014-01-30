@@ -32,6 +32,11 @@ describe UrlsController do
       let(:url) { create(:url) }
       it { should be_success }
       its(:body) { should include url.address }
+
+      context 'with snapshots' do
+        before { 2.times { create(:snapshot, url: url) } }
+        it     { should be_success }
+      end
     end
 
     context 'with a non-existing URL' do
