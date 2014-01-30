@@ -4,6 +4,8 @@ class Snapshot < ActiveRecord::Base
   validates_presence_of :url
   default_scope { order('created_at DESC') }
 
+  before_save :auto_accept
+
   def image_name
     external_image_id + '.png'
   end
@@ -38,5 +40,11 @@ class Snapshot < ActiveRecord::Base
 
   def rejected?
     rejected_at?
+  end
+
+  private
+
+  def auto_accept
+    self.accepted_at = Time.now if diff_from_previous == 0
   end
 end

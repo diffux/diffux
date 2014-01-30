@@ -15,6 +15,7 @@ class SnapshotsController < ApplicationController
       @snapshot.diff_external_image_id = diff[:external_image_id]
       @snapshot.diff_from_previous     = diff[:diff_in_percent]
       @snapshot.diffed_with_snapshot   = url.baseline
+      @snapshot.accept! if @snapshot.diff_from_previous == 0
     end
     @snapshot.save!
     redirect_to url, notice: 'Snapshot was successfully created.'
