@@ -6,10 +6,13 @@ class SnapshotsController < ApplicationController
   end
 
   def create
-    url = Url.find(params.delete(:url))
-    @snapshot = Snapshot.new
-    @snapshot.url = url
-    @snapshot.external_image_id = Snapshotter.new(url).take_snapshot!
+    url             = Url.find(params.delete(:url))
+    snapshot_result = Snapshotter.new(url).take_snapshot!
+
+    @snapshot                   = Snapshot.new
+    @snapshot.url               = url
+    @snapshot.external_image_id = snapshot_result[:external_image_id]
+
     if url.baseline
       diff = SnapshotComparer.new(@snapshot, url.baseline).compare!
       @snapshot.diff_external_image_id = diff[:external_image_id]
@@ -17,6 +20,7 @@ class SnapshotsController < ApplicationController
       @snapshot.diffed_with_snapshot   = url.baseline
       @snapshot.accept! if @snapshot.diff_from_previous == 0
     end
+
     @snapshot.save!
     redirect_to url, notice: 'Snapshot was successfully created.'
   end
