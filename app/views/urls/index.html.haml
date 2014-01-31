@@ -16,7 +16,7 @@
       %tr
         %td= url.name
         %td
-          %span.address= url.address
+          %span.oneline-url= url.address
           = link_to url.address, target: '_blank' do
             %i.icon-share
         %td= pluralize(url.viewport_width, 'pixel')

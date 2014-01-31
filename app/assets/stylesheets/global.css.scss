@@ -16,12 +16,16 @@ figure {
 }
 
 .table {
-  .address {
+  .oneline-url {
     display: inline-block;
     max-width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .multiline-url {
+    word-break: break-all;
   }
 }
 
