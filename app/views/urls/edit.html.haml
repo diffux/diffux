@@ -1,10 +1,12 @@
+- provide :title, 'Edit URL'
+
 %ul.breadcrumb
   %li
     = link_to 'URLs', root_path
     %span.divider /
   %li= @url.name
 
-%h3 Editing url
+%h3 Edit URL
 
 = render 'form'
 
