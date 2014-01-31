@@ -15,10 +15,30 @@ body .table {
   margin: 1em 1em .5em 0;
   min-height: 130px;
   padding: 10px;
+  position: relative;
   vertical-align: top;
 
   &.snapshot-baseline {
     border-color: #6c6;
+  }
+
+  .snapshot-indicator {
+    $icon-size: 20px;
+    background-color: #fff;
+    color: #cc6;
+    font-size: $icon-size;
+    line-height: $icon-size;
+    position: absolute;
+    right: -$icon-size / 3;
+    top: -$icon-size / 3;
+
+    &.icon-ok-sign {
+      color: #6c6;
+    }
+
+    &.icon-remove-sign {
+      color: #c66;
+    }
   }
 }
 
