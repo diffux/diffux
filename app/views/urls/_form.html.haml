@@ -1,7 +1,9 @@
 = form_for @url, html: { class: 'form-horizontal' } do |f|
   - if @url.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@url.errors.count, "error")} prohibited this url from being saved:"
+      %h2
+        = pluralize(@url.errors.count, 'error')
+        prohibited this url from being saved:
       %ul
         - @url.errors.full_messages.each do |msg|
           %li= msg
@@ -15,7 +17,8 @@
     .controls
       = f.text_area :address, rows: 3, class: 'input-xlarge'
   .control-group
-    = f.label :viewport_width, 'Viewport width (in pixels)', class: 'control-label'
+    = f.label :viewport_width, 'Viewport width (in pixels)',
+      class: 'control-label'
     .controls
       = f.text_field :viewport_width, class: 'input-small'
   .control-group
