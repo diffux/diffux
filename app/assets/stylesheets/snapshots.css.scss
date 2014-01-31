@@ -1,3 +1,34 @@
-// Place all the styles related to the snapshots controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.snapshot-card {
+  border: 1px solid #ccc;
+  display: inline-block;
+  font-size: 10px;
+  line-height: 12px;
+  margin: 1em 1em .5em 0;
+  min-height: 130px;
+  padding: 10px;
+  position: relative;
+  vertical-align: top;
+
+  &.snapshot-baseline {
+    border-color: #6c6;
+  }
+
+  .snapshot-indicator {
+    $icon-size: 20px;
+    background-color: #fff;
+    color: #cc6;
+    font-size: $icon-size;
+    line-height: $icon-size;
+    position: absolute;
+    right: -$icon-size / 3;
+    top: -$icon-size / 3;
+
+    &.icon-ok-sign {
+      color: #6c6;
+    }
+
+    &.icon-remove-sign {
+      color: #c66;
+    }
+  }
+}
