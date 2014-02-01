@@ -1,10 +1,10 @@
-- provide :title, "#{@url.name} snapshots"
+- provide :title, "#{@url.address} snapshots"
 
 %ul.breadcrumb
   %li
     = link_to 'URLs', root_path
     %span.divider /
-  %li= @url.name
+  %li= @url.address
 
 %h3 Snapshots
 %table.table

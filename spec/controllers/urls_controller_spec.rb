@@ -17,7 +17,7 @@ describe UrlsController do
       let(:url) { create(:url) }
 
       it { should be_success }
-      its(:body) { should include url.name }
+      its(:body) { should include url.address }
     end
   end
 
@@ -50,11 +50,9 @@ describe UrlsController do
 
 
   describe 'manipulation' do
-    let(:name)    { 'Causes start page' }
     let(:address) { "https://www.#{Random.rand(1_000)}.causes.com" }
     let(:width)   { '320' }
     let(:params) do {
-      name:    name,
       address: address,
       viewport_width: width,
     }
@@ -76,7 +74,6 @@ describe UrlsController do
       end
 
       context 'with valid params' do
-        its(:name)             { should == name }
         its(:address)          { should == address }
         its(:viewport_width)   { should == 320 }
       end
@@ -85,7 +82,7 @@ describe UrlsController do
         let(:address) { 'not a url' }
 
         it 'does not update the url' do
-          subject.name.should_not == name
+          subject.address.should_not == address
         end
       end
     end

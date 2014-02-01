@@ -1,11 +1,11 @@
-- provide :title, "Snapshot | #{@snapshot.url.name}"
+- provide :title, "Snapshot | #{@snapshot.url_id}"
 
 %ul.breadcrumb
   %li
     = link_to 'URLs', root_path
     %span.divider /
   %li
-    = link_to @snapshot.url.name, @snapshot.url
+    = link_to @snapshot.url.address, @snapshot.url
     %span.divider /
   %li
     Snapshot from

@@ -6,7 +6,6 @@
 %table.table.table-striped
   %thead
     %tr
-      %th Name
       %th Address
       %th Screen width
       %th
@@ -16,7 +15,6 @@
   %tbody
     - @urls.each do |url|
       %tr
-        %td= url.name
         %td
           %span.oneline-url= url.address
           = link_to url.address, target: '_blank' do

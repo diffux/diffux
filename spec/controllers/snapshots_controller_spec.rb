@@ -11,7 +11,7 @@ describe SnapshotsController do
     end
 
     it { should be_success }
-    its(:body) { should include(snapshot.url.name) }
+    its(:body) { should include(snapshot.url.address) }
     it { should render_template('snapshots/show') }
   end
 
