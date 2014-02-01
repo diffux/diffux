@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130044212) do
+ActiveRecord::Schema.define(version: 20140201164300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20140130044212) do
     t.integer  "diffed_with_snapshot_id"
     t.datetime "accepted_at"
     t.datetime "rejected_at"
+    t.string   "title"
   end
 
   create_table "urls", force: true do |t|

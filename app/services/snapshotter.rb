@@ -24,7 +24,7 @@ class Snapshotter
 
       Phantomjs.run(SCRIPT_PATH, opts.to_json) do |line|
         begin
-          result = JSON.parse line
+          result = JSON.parse line, symbolize_names: true
         rescue JSON::ParserError
           # We only expect a single line of JSON to be output by our snapshot
           # script. If something else is happening, we want to know about it.

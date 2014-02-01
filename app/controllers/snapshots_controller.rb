@@ -11,6 +11,7 @@ class SnapshotsController < ApplicationController
 
     @snapshot                   = Snapshot.new
     @snapshot.url               = url
+    @snapshot.title             = snapshot_result[:title]
     @snapshot.external_image_id = snapshot_result[:external_image_id]
 
     if url.baseline

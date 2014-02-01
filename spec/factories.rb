@@ -7,6 +7,7 @@ FactoryGirl.define do
 
   factory :snapshot do
     url
+    title Random.rand(100_000).to_s
     after(:create) do |snapshot|
       snapshot.external_image_id = 'mocked_image'
       snapshot.save!

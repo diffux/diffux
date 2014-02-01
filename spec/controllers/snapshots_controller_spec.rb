@@ -16,11 +16,18 @@ describe SnapshotsController do
   end
 
   describe '#create' do
-    let(:url) { create(:url) }
+    let(:external_image_id) { rand(100) }
+    let(:title)             { rand(100_000).to_s }
+    let(:url)               { create(:url) }
 
     before do
+      Snapshotter.any_instance.stubs(:take_snapshot!).returns(
+        title:              title,
+        external_image_id:  external_image_id
+      )
+
       SnapshotComparer.any_instance.stubs(:compare!).returns(
-        external_image_id: 1,
+        external_image_id: external_image_id,
         diff_in_percent:   0.001
       )
     end
@@ -28,6 +35,13 @@ describe SnapshotsController do
     it 'adds a snapshot' do
       expect { post :create, url: url.to_param }
                .to change { Snapshot.count }.by(1)
+    end
+
+    it 'captures the snapshot title' do
+      post :create, url: url.to_param
+
+      snapshot = Snapshot.unscoped.last
+      snapshot.title.should == title
     end
 
     context 'with a baseline' do
