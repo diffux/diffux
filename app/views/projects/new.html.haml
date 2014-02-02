@@ -1,0 +1,14 @@
+- provide :title, 'New Project'
+
+%ul.breadcrumb
+  %li
+    = link_to 'Projects', projects_path
+    %span.divider /
+  %li New configuration
+
+%h3 New Project
+%p.help
+  Add a project and specify the URLs and viewport widths (screen widths) to use
+  when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
+
+= render 'projects/form'

@@ -1,0 +1,31 @@
+- provide :title, 'Projects'
+
+%h3= yield :title
+
+- if @projects.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Name
+        %th Viewports
+        %th URLs
+        %th
+        %th
+
+    %tbody
+      - @projects.each do |project|
+        %tr
+          %td= link_to project.name, project
+          %td= project.viewports.map(&:to_s).join(', ')
+          %td= project.urls.count
+          %td
+            = link_to edit_project_path(project) do
+              %i.icon-edit
+          %td
+            = link_to project, method: :delete, data: { confirm: 'Are you sure?' } do
+              %i.icon-remove
+
+= link_to new_project_path, class: 'btn btn-primary' do
+  %i.icon-plus
+  Add new Project
+

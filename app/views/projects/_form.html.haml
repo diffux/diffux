@@ -1,0 +1,27 @@
+= form_for @project, html: { class: 'form-horizontal' } do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, 'error')
+        prohibited this project from being saved:
+      %ul
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    = f.label :name, 'Name', class: 'control-label'
+    .controls
+      = f.text_field :name, class: 'input-xlarge'
+  .control-group
+    = f.label :viewport_widths, 'Viewport widths', class: 'control-label'
+    .controls
+      = f.text_area :viewport_widths, rows: 4, class: 'input-xlarge'
+      .help-inline One per line
+  .control-group
+    = f.label :url_addresses, 'Web page addresses (URLs)', class: 'control-label'
+    .controls
+      = f.text_area :url_addresses, rows: 10, class: 'input-xlarge'
+      .help-inline One per line
+  .control-group
+    .controls
+      = f.submit 'Save', class: 'btn btn-primary'

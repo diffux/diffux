@@ -1,0 +1,33 @@
+- provide :title, @project.name
+
+%ul.breadcrumb
+  %li
+    = link_to 'Projects', projects_path
+    %span.divider /
+  %li= @project.name
+
+%h3
+  %i.icon-book
+  = yield :title
+  - @project.viewports.each do |viewport|
+    %small.project-viewport= viewport
+  %small= link_to 'Edit', edit_project_path(@project)
+
+- @project.urls.each do |url|
+  %h4
+    %span.url-oneline= url.address
+    %small
+      = link_to url.address, target: '_blank' do
+        %i.icon-share
+      = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
+        %i.icon-remove
+
+  = form_for Snapshot.new, class: 'form' do |f|
+    = hidden_field_tag :url, url.id
+    %button.btn.btn-info.spin-on-submit
+      Create new snapshots
+
+
+  - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
+    %h5= viewport
+    = render snapshots

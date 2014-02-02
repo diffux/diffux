@@ -1,0 +1,16 @@
+- provide :title, 'Edit Project'
+
+%ul.breadcrumb
+  %li
+    = link_to 'Projects', projects_path
+    %span.divider /
+  %li= @project.name
+
+%h3 Edit Project
+
+= render 'projects/form'
+
+= link_to 'Show', @project
+\|
+= link_to 'Back', projects_path
+

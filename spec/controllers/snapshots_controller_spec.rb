@@ -3,22 +3,10 @@ require 'spec_helper'
 describe SnapshotsController do
   render_views
 
-  describe '#show' do
-    let(:snapshot) { create(:snapshot) }
-    subject do
-      get :show, id: snapshot.to_param
-      response
-    end
-
-    it { should be_success }
-    its(:body) { should include(snapshot.url.address) }
-    it { should render_template('snapshots/show') }
-  end
-
   describe '#create' do
     let(:external_image_id) { rand(100) }
     let(:title)             { rand(100_000).to_s }
-    let(:url)               { create(:url) }
+    let(:url)               { create :url }
 
     before do
       Snapshotter.any_instance.stubs(:take_snapshot!).returns(
@@ -32,14 +20,17 @@ describe SnapshotsController do
       )
     end
 
+    subject do
+      post :create, url: url.to_param
+      response
+    end
+
     it 'adds a snapshot' do
-      expect { post :create, url: url.to_param }
-               .to change { Snapshot.count }.by(1)
+      expect { subject }.to change { Snapshot.count }.by(1)
     end
 
     it 'captures the snapshot title' do
-      post :create, url: url.to_param
-
+      subject
       snapshot = Snapshot.unscoped.last
       snapshot.title.should == title
     end
@@ -50,8 +41,7 @@ describe SnapshotsController do
       end
 
       it 'adds a snapshot' do
-        expect { post :create, url: url.to_param }
-                 .to change { Snapshot.count }.by(1)
+        expect { subject } .to change { Snapshot.count }.by(1)
       end
     end
   end

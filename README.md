@@ -35,7 +35,7 @@ bundle install
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 # create tables, load the schema, and run migrations
-bundle exec rake db:create db:schema:load db:migrate
+bundle exec rake db:setup
 ```
 
 ## Running the server

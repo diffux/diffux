@@ -1,7 +1,8 @@
 Diffux::Application.routes.draw do
   get 'static_pages/about'
 
-  resources :urls
+  resources :projects
+  resources :urls, only: %i[destroy]
 
   resources :snapshots, only: %i[show create destroy] do
     member do
@@ -10,5 +11,5 @@ Diffux::Application.routes.draw do
     end
   end
 
-  root to: 'urls#index'
+  root to: 'projects#index'
 end

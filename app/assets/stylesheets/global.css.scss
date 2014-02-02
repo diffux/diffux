@@ -15,19 +15,17 @@ figure {
   max-width: 640px;
 }
 
-.table {
-  .oneline-url {
-    display: inline-block;
-    max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
+.url-oneline {
+  display: inline-block;
+  max-width: 20em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 
-  .multiline-url {
-    word-break: break-all;
-  }
+.url-multiline {
+  word-break: break-all;
 }
 
 form.button_to {

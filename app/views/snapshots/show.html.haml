@@ -2,22 +2,37 @@
 
 %ul.breadcrumb
   %li
-    = link_to 'URLs', root_path
+    = link_to 'Projects', projects_path
     %span.divider /
   %li
-    = link_to @snapshot.url.address, @snapshot.url
+    = link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
+    %span.divider /
+  %li
+    = @snapshot.url.address
+    @
+    = @snapshot.viewport
     %span.divider /
   %li
     Snapshot from
     = time_tag @snapshot.created_at do
       = time_ago_in_words(@snapshot.created_at) + ' ago'
+
 .snapshot
-  %h3 Snapshot
+  %h3
+    %i.icon-camera
+    Snapshot
+
   %table.table
     %tr
       %td
         %strong Website URL:
-      %td= link_to @snapshot.url.address, @snapshot.url.address, class: 'multiline-url'
+      %td
+        = link_to @snapshot.url.address, @snapshot.url.address,
+          class: 'url-multiline'
+    %tr
+      %td
+        %strong Viewport:
+      %td= @snapshot.viewport
     %tr
       %td
         %strong When?

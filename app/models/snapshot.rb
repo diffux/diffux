@@ -1,7 +1,9 @@
 class Snapshot < ActiveRecord::Base
   belongs_to :url
+  belongs_to :viewport
   belongs_to :diffed_with_snapshot, class_name: Snapshot.name
   validates_presence_of :url
+  validates_presence_of :viewport
   default_scope { order('created_at DESC') }
 
   before_save :auto_accept

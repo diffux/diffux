@@ -4,8 +4,9 @@ require 'json'
 class Snapshotter
   SCRIPT_PATH = Rails.root.join('script', 'take-snapshot.js').to_s
 
-  def initialize(url)
-    @url = url
+  def initialize(url, viewport)
+    @url      = url
+    @viewport = viewport
   end
 
   # @return [Hash]
@@ -17,11 +18,12 @@ class Snapshotter
         address: @url.address,
         outfile: snapshot_file,
         viewportSize: {
-          width:  @url.viewport_width,
-          height: viewport_height
+          width:  @viewport.width,
+          height: @viewport.height
         }
       }
 
+      Rails.logger.info "Taking snapshot of #{@url} @ #{@viewport}"
       Phantomjs.run(SCRIPT_PATH, opts.to_json) do |line|
         begin
           result = JSON.parse line, symbolize_names: true
@@ -32,20 +34,10 @@ class Snapshotter
         end
       end
 
+      Rails.logger.info "Uploading snapshot of #{@url} @ #{@viewport}"
       result[:external_image_id] = FileUtil.upload_to_cloudinary(snapshot_file)
     end
 
     result
-  end
-
-  private
-
-  # @return [Integer]
-  def viewport_height
-    if @url.viewport_width < 960
-      @url.viewport_width * 2
-    else
-      (@url.viewport_width * 0.75).round # 16:12
-    end
   end
 end
