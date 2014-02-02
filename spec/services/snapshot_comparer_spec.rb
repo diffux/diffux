@@ -19,6 +19,10 @@ describe SnapshotComparer do
       it 'should report no difference' do
         subject[:diff_in_percent].should == 0
       end
+
+      it 'should report no diff image' do
+        subject[:diff_image].should be_nil
+      end
     end
 
     context 'with different snapshots' do
@@ -31,6 +35,10 @@ describe SnapshotComparer do
 
       it 'should report a difference' do
         subject[:diff_in_percent].should > 0
+      end
+
+      it 'should report a diff image' do
+        subject[:diff_image].should_not be_nil
       end
     end
 

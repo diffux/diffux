@@ -35,14 +35,10 @@ class SnapshotComparer
       end
     end
 
-    result = {
-      diff_in_percent: diff.to_f / png_before.pixels.length * 100
+    {
+      diff_in_percent: diff.to_f / png_before.pixels.length * 100,
+      diff_image:      (output if diff > 0),
     }
-    FileUtil.with_tempfile do |file|
-      output.save(file)
-      result[:external_image_id] = FileUtil.upload_to_cloudinary(file)
-    end
-    result
   end
 
   private

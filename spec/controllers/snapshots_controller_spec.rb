@@ -27,8 +27,8 @@ describe SnapshotsController do
       )
 
       SnapshotComparer.any_instance.stubs(:compare!).returns(
-        external_image_id: external_image_id,
-        diff_in_percent:   0.001
+        diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
+        diff_in_percent: 0.001
       )
     end
 

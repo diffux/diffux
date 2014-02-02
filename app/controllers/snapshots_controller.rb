@@ -16,9 +16,11 @@ class SnapshotsController < ApplicationController
 
     if url.baseline
       diff = SnapshotComparer.new(@snapshot, url.baseline).compare!
-      @snapshot.diff_external_image_id = diff[:external_image_id]
       @snapshot.diff_from_previous     = diff[:diff_in_percent]
       @snapshot.diffed_with_snapshot   = url.baseline
+      if diff_image = diff[:diff_image]
+        @snapshot.diff_external_image_id = FileUtil.upload_png(diff_image)
+      end
       @snapshot.accept! if @snapshot.diff_from_previous == 0
     end
 

@@ -63,12 +63,13 @@
           = link_to cl_image_tag(@snapshot.diffed_with_snapshot.image_name, width: 300),
             @snapshot.diffed_with_snapshot
 
-      .pull-left
+      .pull-left.snapshot-diff-image
         %figure
           %figcaption
             Diff
             = "(#{number_to_percentage(@snapshot.diff_from_previous)})"
-          = cl_image_tag @snapshot.diff_image_name, width: 300
+          - if @snapshot.diff_from_previous > 0
+            = cl_image_tag @snapshot.diff_image_name, width: 300
 
     .pull-left
       %figure
