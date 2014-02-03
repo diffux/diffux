@@ -35,13 +35,13 @@
       %td= @snapshot.viewport
     %tr
       %td
-        %strong When?
+        %strong When:
       %td
         = time_tag @snapshot.created_at do
           = time_ago_in_words(@snapshot.created_at) + ' ago'
     %tr
       %td
-        %strong Status?
+        %strong Status:
       %td= snapshot_status(@snapshot)
 
 
