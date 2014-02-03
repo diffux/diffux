@@ -24,9 +24,8 @@
 
   = form_for Snapshot.new, class: 'form' do |f|
     = hidden_field_tag :url, url.id
-    %button.btn.btn-info.spin-on-submit
+    %button.btn.btn-info
       Create new snapshots
-
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
     %h5= viewport
