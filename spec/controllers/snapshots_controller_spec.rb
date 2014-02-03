@@ -3,6 +3,24 @@ require 'spec_helper'
 describe SnapshotsController do
   render_views
 
+  describe '#show' do
+    let(:snapshot) { create(:snapshot) }
+    subject        { get :show, id: snapshot.to_param }
+
+    it         { should be_success }
+    its(:body) { should include('Snapshot image') }
+    its(:body) { should include('Under review') }
+
+    context 'with a snapshot in pending state' do
+      before { snapshot.update_attributes(external_image_id: nil) }
+
+      it         { should be_success }
+      its(:body) { should_not include('Snapshot image') }
+      its(:body) { should include('Pending') }
+      its(:body) { should_not include('Under review') }
+    end
+  end
+
   describe '#create' do
     let(:external_image_id) { rand(100) }
     let(:title)             { rand(100_000).to_s }

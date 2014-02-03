@@ -42,17 +42,7 @@
     %tr
       %td
         %strong Status?
-      %td
-        - if @snapshot.accepted?
-          Accepted
-          = time_tag @snapshot.accepted_at do
-            = time_ago_in_words(@snapshot.accepted_at) + ' ago'
-        - elsif @snapshot.rejected?
-          Rejected
-          = time_tag @snapshot.rejected_at do
-            = time_ago_in_words(@snapshot.rejected_at) + ' ago'
-        - else
-          Under review
+      %td= snapshot_status(@snapshot)
 
 
   - unless @snapshot.accepted?
@@ -86,7 +76,8 @@
           - if @snapshot.diff_from_previous > 0
             = cl_image_tag @snapshot.diff_image_name, width: 300
 
-    .pull-left
-      %figure
-        %figcaption Snapshot image
-        = cl_image_tag @snapshot.image_name, width: 300
+    - if @snapshot.external_image_id?
+      .pull-left
+        %figure
+          %figcaption Snapshot image
+          = cl_image_tag @snapshot.image_name, width: 300

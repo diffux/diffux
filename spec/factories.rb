@@ -31,13 +31,18 @@ FactoryGirl.define do
     url
     viewport
     title Random.rand(100_000).to_s
-    after(:create) do |snapshot|
-      snapshot.external_image_id = 'mocked_image'
-      snapshot.save!
-    end
+    external_image_id Random.rand(100_000).to_s
 
     trait :accepted do
       accepted_at 1.day.ago
+    end
+
+    trait :rejected do
+      rejected_at 1.day.ago
+    end
+
+    trait :pending do
+      external_image_id nil
     end
   end
 end
