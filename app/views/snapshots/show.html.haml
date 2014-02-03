@@ -24,24 +24,20 @@
 
   %table.table
     %tr
-      %td
-        %strong Website URL:
+      %th Website URL:
       %td
         = link_to @snapshot.url.address, @snapshot.url.address,
           class: 'url-multiline'
     %tr
-      %td
-        %strong Viewport:
+      %th Viewport:
       %td= @snapshot.viewport
     %tr
-      %td
-        %strong When:
+      %th When:
       %td
         = time_tag @snapshot.created_at do
           = time_ago_in_words(@snapshot.created_at) + ' ago'
     %tr
-      %td
-        %strong Status:
+      %th Status:
       %td= snapshot_status(@snapshot)
 
 
