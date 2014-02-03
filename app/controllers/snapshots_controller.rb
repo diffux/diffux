@@ -22,7 +22,8 @@ class SnapshotsController < ApplicationController
   def destroy
     @snapshot.destroy
 
-    redirect_to @snapshot.url, notice: 'Snapshot was successfully destroyed.'
+    redirect_to @snapshot.url.project,
+      notice: 'Snapshot was successfully destroyed.'
   end
 
   def reject
