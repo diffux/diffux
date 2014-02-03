@@ -1,4 +1,4 @@
-= form_for @project, html: { class: 'form-horizontal' } do |f|
+= form_for @project, html: { role: 'form' } do |f|
   - if @project.errors.any?
     #error_explanation
       %h2
@@ -8,20 +8,16 @@
         - @project.errors.full_messages.each do |msg|
           %li= msg
 
-  .control-group
+  .form-group
     = f.label :name, 'Name', class: 'control-label'
-    .controls
-      = f.text_field :name, class: 'input-xlarge'
-  .control-group
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :viewport_widths, 'Viewport widths', class: 'control-label'
-    .controls
-      = f.text_area :viewport_widths, rows: 4, class: 'input-xlarge'
-      .help-inline One per line
-  .control-group
+    %small One per line
+    = f.text_area :viewport_widths, rows: 4, class: 'form-control'
+  .form-group
     = f.label :url_addresses, 'Web page addresses (URLs)', class: 'control-label'
-    .controls
-      = f.text_area :url_addresses, rows: 10, class: 'input-xlarge'
-      .help-inline One per line
-  .control-group
-    .controls
-      = f.submit 'Save', class: 'btn btn-primary'
+    %small One per line
+    = f.text_area :url_addresses, rows: 10, class: 'form-control'
+  .form-group
+    = f.submit 'Save', class: 'btn btn-primary'

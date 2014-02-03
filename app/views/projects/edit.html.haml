@@ -1,9 +1,7 @@
 - provide :title, 'Edit Project'
 
-%ul.breadcrumb
-  %li
-    = link_to 'Projects', projects_path
-    %span.divider /
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
   %li= @project.name
 
 %h3 Edit Project

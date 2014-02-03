@@ -1,17 +1,12 @@
 - provide :title, "Snapshot | #{@snapshot.url_id}"
 
-%ul.breadcrumb
-  %li
-    = link_to 'Projects', projects_path
-    %span.divider /
-  %li
-    = link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
-    %span.divider /
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
   %li
     = @snapshot.url.address
     @
     = @snapshot.viewport
-    %span.divider /
   %li
     Snapshot from
     = time_tag @snapshot.created_at do
@@ -19,7 +14,7 @@
 
 .snapshot
   %h3
-    %i.icon-camera
+    %span.glyphicon.glyphicon-camera
     Snapshot
 
   %table.table

@@ -20,12 +20,12 @@
           %td= project.urls.count
           %td
             = link_to edit_project_path(project) do
-              %i.icon-edit
+              %span.glyphicon.glyphicon-edit
           %td
             = link_to project, method: :delete, data: { confirm: 'Are you sure?' } do
-              %i.icon-remove
+              %span.glyphicon.glyphicon-remove
 
 = link_to new_project_path, class: 'btn btn-primary' do
-  %i.icon-plus
+  %span.glyphicon.glyphicon-plus
   Add new Project
 

@@ -33,6 +33,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.0.1)
+      sass (~> 3.2)
     builder (3.1.4)
     celluloid (0.15.2)
       timers (~> 1.1.0)
@@ -151,11 +153,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -167,6 +164,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bootstrap-sass (~> 3.1.0)
   chunky_png
   cloudinary
   coffee-rails (~> 4.0.1)
@@ -182,5 +180,4 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.1)
   sidekiq
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)

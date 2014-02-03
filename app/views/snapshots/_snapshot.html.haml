@@ -4,14 +4,14 @@
       = cl_image_tag(snapshot.image_name,
           width: 100, height: 100, crop: :fill, gravity: :north_east)
     - else
-      .icon-time.snapshot-card-pending
+      .glyphicon.glyphicon-time.snapshot-card-pending
 
   - if snapshot.accepted?
-    .snapshot-indicator.icon-ok-sign
+    .snapshot-indicator.glyphicon.glyphicon-ok-sign
   - elsif snapshot.rejected?
-    .snapshot-indicator.icon-remove-sign
+    .snapshot-indicator.glyphicon.glyphicon-remove-sign
   - else
-    .snapshot-indicator.icon-question-sign
+    .snapshot-indicator.glyphicon.glyphicon-question-sign
   .time-ago
     = time_tag snapshot.created_at do
       = time_ago_in_words(snapshot.created_at) + ' ago'

@@ -1,13 +1,11 @@
 - provide :title, @project.name
 
-%ul.breadcrumb
-  %li
-    = link_to 'Projects', projects_path
-    %span.divider /
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
   %li= @project.name
 
 %h3
-  %i.icon-book
+  %span.glyphicon.glyphicon-book
   = yield :title
   - @project.viewports.each do |viewport|
     %small.project-viewport= viewport
@@ -18,9 +16,9 @@
     %span.url-oneline{ title: url.address }= url.address
     %small
       = link_to url.address, target: '_blank' do
-        %i.icon-share
+        %span.glyphicon.glyphicon-share
       = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
-        %i.icon-remove
+        %span.glyphicon.glyphicon-remove
 
   = form_for Snapshot.new, class: 'form' do |f|
     = hidden_field_tag :url, url.id
