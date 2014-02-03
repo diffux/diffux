@@ -1,7 +1,9 @@
 - provide :title, 'About'
 
-%h1 About
-%p Diffux is a tool that takes snapshots of web pages and creates a diff from a baseline snapshot.
+%h1= yield :title
+%p
+  Diffux is a tool that takes snapshots of web pages and creates a diff from a
+  baseline snapshot.
 %p
   Github:
   - link = 'https://github.com/trotzig/diffux'
