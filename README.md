@@ -11,6 +11,7 @@ style regressions more easily.
 Diffux requires:
 
 - PostgreSQL
+- Redis
 - Ruby 2.0.0+
 
 ### Mac OS X (Using Homebrew)
