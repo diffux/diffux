@@ -4,7 +4,7 @@
   %li= link_to 'Projects', projects_path
   %li= @project.name
 
-%h3
+%h1
   %span.glyphicon.glyphicon-book
   = yield :title
   - @project.viewports.each do |viewport|
@@ -12,7 +12,7 @@
   %small= link_to 'Edit', edit_project_path(@project)
 
 - @project.urls.each do |url|
-  %h4
+  %h2
     %span.url-oneline{ title: url.address }= url.address
     %small
       = link_to url.address, target: '_blank' do
@@ -26,5 +26,5 @@
       Create new snapshots
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
-    %h5= viewport
+    %h3= viewport
     = render snapshots
