@@ -15,7 +15,7 @@
 
 - @project.urls.each do |url|
   %h4
-    %span.url-oneline= url.address
+    %span.url-oneline{ title: url.address }= url.address
     %small
       = link_to url.address, target: '_blank' do
         %i.icon-share
