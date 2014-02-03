@@ -25,6 +25,7 @@ describe SnapshotsController do
     let(:external_image_id) { rand(100) }
     let(:title)             { rand(100_000).to_s }
     let(:url)               { create :url }
+    let(:baseline)          { create :snapshot }
 
     before do
       Snapshotter.any_instance.stubs(:take_snapshot!).returns(
@@ -36,6 +37,8 @@ describe SnapshotsController do
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
         diff_in_percent: 0.001
       )
+
+      Url.any_instance.stubs(:baseline).returns(baseline)
     end
 
     subject do
@@ -45,6 +48,13 @@ describe SnapshotsController do
 
     it 'adds a snapshot' do
       expect { subject }.to change { Snapshot.count }.by(1)
+    end
+
+    it 'saves the diff' do
+      subject
+      snapshot = Snapshot.unscoped.last
+      snapshot.diff_from_previous.should == 0.001
+      snapshot.diffed_with_snapshot.should == baseline
     end
 
     it 'captures the snapshot title' do

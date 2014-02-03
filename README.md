@@ -28,11 +28,17 @@ brew update
 brew doctor
 brew install postgresql
 
+# install redis
+brew install redis
+
 # install gems
 bundle install
 
 # start postgres
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+# start redis
+redis-server
 
 # create tables, load the schema, and run migrations
 bundle exec rake db:setup
@@ -54,8 +60,18 @@ browser with the following URL:
 http://localhost:3000
 ```
 
+## Running a worker
+
+Snapshot creation and comparing is handled asynchronously, through [Sidekiq]
+workers. To start a worker, run:
+
+```bash
+bundle exec sidekiq
+```
+
 ## License
 
 Released under the MIT License.
 
 [Rails]: http://rubyonrails.org/
+[Rails]: http://sidekiq.org/

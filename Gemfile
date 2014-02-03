@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'oily_png' # speeds up chunky_png
 gem 'pg'
 gem 'phantomjs'
+gem 'sidekiq'
 gem 'spinjs-rails'
 gem 'twitter-bootstrap-rails'
 
