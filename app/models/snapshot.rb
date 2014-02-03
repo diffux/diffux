@@ -36,12 +36,20 @@ class Snapshot < ActiveRecord::Base
     save!
   end
 
+  def pending?
+    !external_image_id?
+  end
+
   def accepted?
     accepted_at?
   end
 
   def rejected?
     rejected_at?
+  end
+
+  def under_review?
+    !pending? && !accepted? && !rejected?
   end
 
   private

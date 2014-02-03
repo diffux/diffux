@@ -1,6 +1,6 @@
 module SnapshotsHelper
   def snapshot_status(snapshot)
-    if !snapshot.external_image_id?
+    if snapshot.pending?
       'Pending'
     elsif snapshot.accepted?
       'Accepted'

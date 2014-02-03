@@ -35,13 +35,12 @@
       %th Status:
       %td= snapshot_status(@snapshot)
 
-
-  - unless @snapshot.accepted?
+  - if @snapshot.under_review? || @snapshot.rejected?
     = button_to 'Accept',
       accept_snapshot_path(@snapshot),
       method: :post, class: 'btn'
 
-  - unless @snapshot.rejected?
+  - if @snapshot.under_review? || @snapshot.accepted?
     = button_to 'Reject',
       reject_snapshot_path(@snapshot),
       method: :post, class: 'btn'
