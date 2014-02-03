@@ -171,6 +171,17 @@ describe ProjectsController do
         end
       end
 
+      context 'with an extra url that is a duplicate except for whitespace' do
+        # This does not seem to actually fail here in the specs when it should.
+        let(:url_addresses) do
+          project.url_addresses += "\n #{project.urls.last.address} "
+        end
+
+        it 'does not add a url' do
+          expect { subject }.to change { Url.count }.by(0)
+        end
+      end
+
       context 'with one less url address' do
         let(:url_addresses) do
           project.urls[0..-2].map(&:address).join("\n")

@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
   # @param [String]
   # @return [Array]
   def string_to_array(str)
-    str.split(/\r?\n/).uniq.reject { |line| line.empty? }
+    str.split(/\s+/).uniq.reject { |line| line.empty? }
   end
 
   def save_viewport_widths
