@@ -75,4 +75,4 @@ bundle exec sidekiq
 Released under the MIT License.
 
 [Rails]: http://rubyonrails.org/
-[Rails]: http://sidekiq.org/
+[Sidekiq]: http://sidekiq.org/
