@@ -13,7 +13,7 @@
 
 - @project.urls.each do |url|
   %h2
-    %span.url-oneline{ title: url.address }= url.address
+    %span.url-oneline{ title: url.address }= simplified_url url.address
     %small
       = link_to url.address, target: '_blank' do
         %span.glyphicon.glyphicon-share

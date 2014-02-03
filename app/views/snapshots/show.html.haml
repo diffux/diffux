@@ -4,7 +4,7 @@
   %li= link_to 'Projects', projects_path
   %li= link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
   %li
-    = @snapshot.url.address
+    = simplified_url @snapshot.url.address
     @
     = @snapshot.viewport
   %li
@@ -21,7 +21,7 @@
     %tr
       %th Website URL:
       %td
-        = link_to @snapshot.url.address, @snapshot.url.address,
+        = link_to simplified_url(@snapshot.url.address), @snapshot.url.address,
           class: 'url-multiline'
     %tr
       %th Viewport:
