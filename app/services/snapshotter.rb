@@ -24,7 +24,7 @@ class Snapshotter
       }
 
       Rails.logger.info "Taking snapshot of #{@url} @ #{@viewport}"
-      Phantomjs.run(SCRIPT_PATH, opts.to_json) do |line|
+      Phantomjs.run('--ignore-ssl-errors=true', SCRIPT_PATH, opts.to_json) do |line|
         begin
           result = JSON.parse line, symbolize_names: true
         rescue JSON::ParserError
