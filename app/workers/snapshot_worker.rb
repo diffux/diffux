@@ -4,7 +4,14 @@ class SnapshotWorker
   include Sidekiq::Worker
 
   def perform(snapshot_id)
-    snapshot        = Snapshot.find(snapshot_id)
+    begin
+      snapshot = Snapshot.find(snapshot_id)
+    rescue ActiveRecord::RecordNotFound
+      # The Snapshot was deleted before the worker could run, so there is
+      # nothing left for this worker to do.
+      return
+    end
+
     url             = snapshot.url
     viewport        = snapshot.viewport
     snapshot_result = Snapshotter.new(url, viewport).take_snapshot!
