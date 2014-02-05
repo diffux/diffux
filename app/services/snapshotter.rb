@@ -1,6 +1,3 @@
-require 'phantomjs'
-require 'json'
-
 class Snapshotter
   SCRIPT_PATH = Rails.root.join('script', 'take-snapshot.js').to_s
 
