@@ -1,9 +1,10 @@
 class Snapshotter
   SCRIPT_PATH = Rails.root.join('script', 'take-snapshot.js').to_s
 
-  def initialize(url, viewport)
-    @url      = url
-    @viewport = viewport
+  def initialize(snapshot)
+    @snapshot = snapshot
+    @url      = snapshot.url
+    @viewport = snapshot.viewport
   end
 
   # @return [Hash]
@@ -31,10 +32,19 @@ class Snapshotter
         end
       end
 
-      Rails.logger.info "Uploading snapshot of #{@url} @ #{@viewport}"
-      result[:external_image_id] = FileUtil.upload_to_cloudinary(snapshot_file)
+      Rails.logger.info "Saving snapshot of #{@url} @ #{@viewport}"
+      save_file_to_snapshot(@snapshot, snapshot_file)
+      @snapshot.title = result[:title]
     end
 
-    result
+    @snapshot.save!
+  end
+
+  private
+
+  def save_file_to_snapshot(snapshot, file)
+    File.open(file) do |f|
+      snapshot.image = f
+    end
   end
 end

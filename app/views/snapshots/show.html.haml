@@ -53,22 +53,22 @@
 
   .clearfix
     - if @snapshot.diff?
-      .pull-left
+      .pull-left.snapshot-image
         %figure
           %figcaption= link_to 'Compared against', @snapshot.diffed_with_snapshot
-          = link_to cl_image_tag(@snapshot.diffed_with_snapshot.image_name, width: 300),
+          = link_to image_tag(@snapshot.diffed_with_snapshot.image.url),
             @snapshot.diffed_with_snapshot
 
-      .pull-left.snapshot-diff-image
+      .pull-left.snapshot-diff-image.snapshot-image
         %figure
           %figcaption
             Diff
             = "(#{number_to_percentage(@snapshot.diff_from_previous)})"
           - if @snapshot.diff_from_previous > 0
-            = cl_image_tag @snapshot.diff_image_name, width: 300
+            = image_tag @snapshot.diff_image.url
 
-    - if @snapshot.external_image_id?
-      .pull-left
+    - if @snapshot.image?
+      .pull-left.snapshot-image
         %figure
           %figcaption Snapshot image
-          = cl_image_tag @snapshot.image_name, width: 300
+          = image_tag(@snapshot.image.url)

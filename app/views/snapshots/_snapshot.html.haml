@@ -1,8 +1,7 @@
 .snapshot-card
   = link_to snapshot do
-    - if snapshot.external_image_id?
-      = cl_image_tag(snapshot.image_name,
-          width: 100, height: 100, crop: :fill, gravity: :north_east)
+    - if snapshot.image?
+      = image_tag snapshot.image.url(:thumb)
     - else
       .glyphicon.glyphicon-time.snapshot-card-pending
 

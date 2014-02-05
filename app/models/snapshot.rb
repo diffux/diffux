@@ -1,27 +1,41 @@
 class Snapshot < ActiveRecord::Base
-  belongs_to :url
-  belongs_to :viewport
-  belongs_to :diffed_with_snapshot, class_name: Snapshot.name
+  THUMB_CONVERT_OPTS =  '-gravity north -thumbnail 100x100^ -extent 100x100'
+
+  belongs_to            :url
+  belongs_to            :viewport
+  belongs_to            :diffed_with_snapshot, class_name: Snapshot.name
   validates_presence_of :url
   validates_presence_of :viewport
+  has_attached_file     :diff_image
+  has_attached_file     :image, styles:  { thumb: '' },
+                        convert_options: { thumb: THUMB_CONVERT_OPTS }
+
+  validates_attachment_content_type :image,
+                                    :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :diff_image,
+                                    :content_type => /\Aimage\/.*\Z/
+
   default_scope { order('created_at DESC') }
 
   before_save :auto_accept
 
+  # deprecated (we're moving to Paperclip)
   def image_name
     external_image_id + '.png'
   end
 
+  # deprecated (we're moving to Paperclip)
   def diff_image_name
     diff_external_image_id + '.png'
   end
 
-  def diff?
-    !!diffed_with_snapshot
-  end
-
+  # deprecated (we're moving to Paperclip)
   def sample_image_url
     Cloudinary::Utils.cloudinary_url(image_name)
+  end
+
+  def diff?
+    !!diffed_with_snapshot
   end
 
   def accept!
@@ -37,7 +51,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def pending?
-    !external_image_id?
+    !image?
   end
 
   def accepted?

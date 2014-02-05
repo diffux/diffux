@@ -61,6 +61,6 @@ class SnapshotComparer
   end
 
   def to_chunky_png(snapshot)
-    ChunkyPNG::Image.from_file(open(snapshot.sample_image_url))
+    ChunkyPNG::Image.from_file(snapshot.image.path)
   end
 end

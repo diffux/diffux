@@ -16,3 +16,6 @@
 
 # Ignore test coverage reports
 /coverage
+#
+# Ignore snapshot files.
+/public/system

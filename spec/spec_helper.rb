@@ -7,6 +7,8 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 
+include ActionDispatch::TestProcess
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -43,8 +45,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before(:each) do
-    Cloudinary::Uploader.stubs(:upload).returns({}) # Don't upload images to Cloudinary
-    Phantomjs.stubs(:run) # Don't run PhantomJS
+    Phantomjs.stubs(:run).yields '{"title": "A title"}'  # Don't run PhantomJS
     Sidekiq::Testing.inline! # Run async worker jobs synchronous
   end
 end

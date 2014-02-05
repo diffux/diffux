@@ -39,9 +39,13 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     chunky_png (1.2.9)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
     cloudinary (1.0.67)
       aws_cf_signer
       rest-client
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -91,6 +95,11 @@ GEM
     multi_json (1.8.4)
     oily_png (1.1.0)
       chunky_png (~> 1.2.7)
+    paperclip (4.0.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
     phantomjs (1.9.2.1)
     polyglot (0.3.3)
@@ -189,6 +198,7 @@ DEPENDENCIES
   jquery-rails
   mocha
   oily_png
+  paperclip
   pg
   phantomjs
   rails (= 4.0.2)
