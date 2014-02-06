@@ -10,7 +10,7 @@ before and after your changes? Do you want to be able to quickly look back at
 how things looked a month or a year ago?
 
 Diffux is a tool that generates and manages visual diffs of web pages, so that
-you know can easily see even the subtlest effects of your code modifications.
+you can easily see even the subtlest effects of your code modifications.
 
 ## Installing
 
