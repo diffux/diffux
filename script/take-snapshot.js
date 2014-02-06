@@ -3,19 +3,21 @@ var page = require('webpage').create(),
 
 page.viewportSize = opts.viewportSize;
 page.open(opts.address, function(status) {
-  page.render(opts.outfile);
+  setTimeout(function() {
+    page.render(opts.outfile);
+  
+    var response = page.evaluate(function() {
+      return { title: document.title };
+    });
 
-  var response = page.evaluate(function() {
-    return { title: document.title };
-  });
-
-  response.opts   = opts;
-  response.status = status;
+    response.opts   = opts;
+    response.status = status;
 
   // The phantomjs gem can read what is written to STDOUT which includes
   // console.log, so we can use that to pass information from phantomjs back to
   // the app.
-  console.log(JSON.stringify(response));
+    console.log(JSON.stringify(response));
 
-  phantom.exit();
+    phantom.exit();
+  }, 5000);
 });
