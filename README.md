@@ -11,10 +11,10 @@ style regressions more easily.
 
 Diffux requires:
 
+- ImageMagick
 - PostgreSQL
 - Redis
 - Ruby 2.0.0+
-- ImageMagick
 
 ### Mac OS X (Using Homebrew)
 
