@@ -17,7 +17,7 @@ class SweepsController < ApplicationController
     @sweep = @project.sweeps.build(sweep_params)
     if @sweep.save
       @sweep.project.urls.each do |url|
-        url.project.viewports.each do |viewport|
+        @sweep.project.viewports.each do |viewport|
           @snapshot          = Snapshot.new
           @snapshot.viewport = viewport
           @snapshot.url      = url
