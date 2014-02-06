@@ -14,6 +14,7 @@ Diffux requires:
 - PostgreSQL
 - Redis
 - Ruby 2.0.0+
+- ImageMagick
 
 ### Mac OS X (Using Homebrew)
 
@@ -32,6 +33,9 @@ brew install postgresql
 
 # install redis
 brew install redis
+
+# install imagemagick
+brew install imagemagick
 
 # install gems
 bundle install
