@@ -11,6 +11,20 @@
     %small.project-viewport= viewport
   %small= link_to 'Edit', edit_project_path(@project)
 
+%table.table
+  %tr
+    %th
+      Sweeps
+    %td
+      = link_to @project.sweeps.count, project_sweeps_path(@project)
+  - if last_sweep = @project.sweeps.first
+    %tr
+      %th Last sweep
+      %td= link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
+
+= link_to 'Start new sweep', new_project_sweep_path(@project), class: 'btn btn-info'
+
+
 - @project.urls.each do |url|
   %h2
     %span.url-oneline{ title: url.address }= simplified_url url.address

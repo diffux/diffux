@@ -52,6 +52,15 @@ describe ProjectsController do
         its(:body) { should include snapshot_path(snapshot) }
       end
     end
+
+    context 'with sweeps' do
+      let!(:sweep) { create :sweep, project: project }
+      let!(:older_sweep) do
+        create :sweep, project: project, created_at: 2.days.ago
+      end
+      its(:body) { should include 'Last sweep' }
+      its(:body) { should include sweep.title }
+    end
   end
 
   describe '#new' do

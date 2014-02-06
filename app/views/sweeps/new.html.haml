@@ -1,0 +1,13 @@
+- provide :title, 'New Sweep'
+
+%ol.breadcrumb
+  %li= link_to @project.name, projects_path(@project)
+  %li= link_to 'Sweeps', project_sweeps_path(@project)
+  %li New configuration
+
+%h1= yield :title
+%p.help
+  Creating a Sweep triggers new snapshots to be created for all Urls in the
+  project.
+
+= render 'sweeps/form'

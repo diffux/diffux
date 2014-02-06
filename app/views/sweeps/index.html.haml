@@ -1,0 +1,11 @@
+- provide :title, 'Sweeps'
+
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @project.name, @project
+  %li Sweeps
+
+%h1= yield :title
+%ul
+  - @project.sweeps.each do |sweep|
+    %li= link_to sweep.title, [@project, sweep], title: sweep.description

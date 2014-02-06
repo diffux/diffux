@@ -17,6 +17,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :sweep do
+    project
+    title       Random.rand(20..100).to_s
+    description Random.rand(100..1000).to_s
+  end
+
   factory :viewport do
     project
     width Random.rand(320..1200)
