@@ -7,7 +7,7 @@ class Snapshotter
     @viewport = snapshot.viewport
   end
 
-  # @return [Hash]
+  # @return [Boolean]
   def take_snapshot!
     result = {}
 
