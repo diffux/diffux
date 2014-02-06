@@ -27,7 +27,6 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.1)
     atomic (1.1.14)
-    aws_cf_signer (0.1.2)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -41,9 +40,6 @@ GEM
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cloudinary (1.0.67)
-      aws_cf_signer
-      rest-client
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -190,7 +186,6 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.1.0)
   chunky_png
-  cloudinary
   coffee-rails (~> 4.0.1)
   coveralls
   factory_girl_rails

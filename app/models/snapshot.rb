@@ -19,21 +19,6 @@ class Snapshot < ActiveRecord::Base
 
   before_save :auto_accept
 
-  # deprecated (we're moving to Paperclip)
-  def image_name
-    external_image_id + '.png'
-  end
-
-  # deprecated (we're moving to Paperclip)
-  def diff_image_name
-    diff_external_image_id + '.png'
-  end
-
-  # deprecated (we're moving to Paperclip)
-  def sample_image_url
-    Cloudinary::Utils.cloudinary_url(image_name)
-  end
-
   def diff?
     !!diffed_with_snapshot
   end
