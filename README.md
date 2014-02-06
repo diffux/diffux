@@ -26,16 +26,10 @@ up and running on Mac OS X using Homebrew.
 git clone https://github.com/trotzig/diffux.git
 cd diffux
 
-# install postgres
+# install dependencies
 brew update
 brew doctor
-brew install postgresql
-
-# install redis
-brew install redis
-
-# install imagemagick
-brew install imagemagick
+brew install imagemagick postgresql redis
 
 # install gems
 bundle install
