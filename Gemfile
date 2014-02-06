@@ -5,7 +5,6 @@ gem 'rails', '4.0.2'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'chunky_png'
 gem 'coveralls', require: false
-gem 'database_cleaner'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'oily_png' # speeds up chunky_png
@@ -21,6 +20,7 @@ group :assets do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'mocha'
   gem 'rspec'
