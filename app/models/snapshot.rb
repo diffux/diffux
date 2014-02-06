@@ -18,6 +18,7 @@ class Snapshot < ActiveRecord::Base
   default_scope { order('created_at DESC') }
 
   before_save :auto_accept
+  after_commit :take_snapshot, on: :create
 
   def diff?
     !!diffed_with_snapshot
@@ -55,5 +56,9 @@ class Snapshot < ActiveRecord::Base
 
   def auto_accept
     self.accepted_at = Time.now if diff_from_previous == 0
+  end
+
+  def take_snapshot
+    SnapshotWorker.perform_async(id)
   end
 end

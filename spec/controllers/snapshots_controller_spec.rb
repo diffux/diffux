@@ -47,14 +47,14 @@ describe SnapshotsController do
       expect { subject }.to change { Snapshot.count }.by(1)
     end
 
-    it 'saves the diff' do
+    it 'saves the diff', :uses_after_commit do
       subject
       snapshot = Snapshot.unscoped.last
       snapshot.diff_from_previous.should == 0.001
       snapshot.diffed_with_snapshot.should == baseline
     end
 
-    it 'captures the snapshot title' do
+    it 'captures the snapshot title', :uses_after_commit do
       subject
       snapshot = Snapshot.unscoped.last
       snapshot.title.should_not be_nil

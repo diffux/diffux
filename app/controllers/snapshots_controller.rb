@@ -13,7 +13,6 @@ class SnapshotsController < ApplicationController
       @snapshot.viewport = viewport
       @snapshot.url      = url
       @snapshot.save!
-      SnapshotWorker.perform_in(2.seconds, @snapshot.id)
     end
 
     redirect_to url.project, notice: 'Snapshots were successfully created.'
