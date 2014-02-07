@@ -1,12 +1,5 @@
 = form_for [@project, @sweep], html: { role: 'form' } do |f|
-  - if @sweep.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@sweep.errors.count, 'error')
-        prohibited this sweep from being saved:
-      %ul
-        - @sweep.errors.full_messages.each do |msg|
-          %li= msg
+  = render 'shared/error_explanation', instance: @sweep
 
   .form-group
     = f.label :title, 'Title', class: 'control-label'
