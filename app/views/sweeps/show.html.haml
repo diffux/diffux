@@ -11,24 +11,16 @@
 
 - if pending = @sweep.pending_snapshots.presence
   %h2 Pending
-  %ul
-    - pending.each do |snapshot|
-      %li
-        = link_to snapshot_path(snapshot), snapshot
-        %small= snapshot.viewport.to_s
+  = render pending
 
-- if accepted = @sweep.accepted_snapshots.presence
-  %h2 Accepted
-  %ul
-    - accepted.each do |snapshot|
-      %li
-        = link_to snapshot.title, snapshot
-        %small= snapshot.viewport.to_s
+- if needs_review = @sweep.under_review_snapshots.presence
+  %h2 Needs review
+  = render needs_review
 
 - if rejected = @sweep.rejected_snapshots.presence
   %h2 Rejected
   = render rejected
 
-- if needs_review = @sweep.under_review_snapshots.presence
-  %h2 Needs review
-  = render needs_review
+- if accepted = @sweep.accepted_snapshots.presence
+  %h2 Accepted
+  = render accepted
