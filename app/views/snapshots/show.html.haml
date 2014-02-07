@@ -51,24 +51,22 @@
     data: { confirm: 'Are you sure?' },
     class: 'btn btn-danger'
 
-  .clearfix
-    - if @snapshot.diff?
-      .pull-left.snapshot-image
-        %figure
-          %figcaption= link_to 'Compared against', @snapshot.diffed_with_snapshot
-          = link_to image_tag(@snapshot.diffed_with_snapshot.image.url),
-            @snapshot.diffed_with_snapshot
+  - if @snapshot.diff?
+    .snapshot-diff-image.snapshot-image
+      %h2
+        Diff
+        %small= number_to_percentage(@snapshot.diff_from_previous)
+      - if @snapshot.diff_from_previous > 0
+        = image_tag @snapshot.diff_image.url
 
-      .pull-left.snapshot-diff-image.snapshot-image
-        %figure
-          %figcaption
-            Diff
-            = "(#{number_to_percentage(@snapshot.diff_from_previous)})"
-          - if @snapshot.diff_from_previous > 0
-            = image_tag @snapshot.diff_image.url
+  .clearfix
+    - if @snapshot.diff? && @snapshot.diff_from_previous > 0
+      .pull-left.snapshot-image
+        %h2= link_to 'Compared against', @snapshot.diffed_with_snapshot
+        = link_to image_tag(@snapshot.diffed_with_snapshot.image.url),
+          @snapshot.diffed_with_snapshot
 
     - if @snapshot.image?
       .pull-left.snapshot-image
-        %figure
-          %figcaption Snapshot image
-          = image_tag(@snapshot.image.url)
+        %h2 Snapshot image
+        = image_tag(@snapshot.image.url)
