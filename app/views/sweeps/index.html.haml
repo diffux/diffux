@@ -6,6 +6,16 @@
   %li Sweeps
 
 %h1= yield :title
-%ul
-  - @project.sweeps.each do |sweep|
-    %li= link_to sweep.title, [@project, sweep], title: sweep.description
+%table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th When
+
+  %tbody
+    - @project.sweeps.each do |sweep|
+      %tr
+        %td= link_to sweep.title, [@project, sweep], title: sweep.description
+        %td
+          = time_tag sweep.created_at do
+            = time_ago_in_words(sweep.created_at)  + ' ago'
