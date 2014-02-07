@@ -1,0 +1,26 @@
+- provide :title, @sweep.title
+
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @project.name, @project
+  %li= link_to 'Sweeps', project_sweeps_path(@project)
+  %li= @sweep.title
+
+%h1= yield :title
+%p.help= simple_format @sweep.description
+
+- if pending = @sweep.pending_snapshots.presence
+  %h2 Pending
+  = render pending
+
+- if needs_review = @sweep.under_review_snapshots.presence
+  %h2 Needs review
+  = render needs_review
+
+- if rejected = @sweep.rejected_snapshots.presence
+  %h2 Rejected
+  = render rejected
+
+- if accepted = @sweep.accepted_snapshots.presence
+  %h2 Accepted
+  = render accepted

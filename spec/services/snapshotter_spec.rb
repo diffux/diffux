@@ -1,35 +1,34 @@
 require 'spec_helper'
-require 'json'
 
 describe Snapshotter do
-  let(:url)      { create :url }
-  let(:viewport) { create :viewport }
-  subject        { Snapshotter.new(url, viewport) }
+  let(:snapshot) { create(:snapshot, :pending) }
+  subject        { Snapshotter.new(snapshot) }
 
   describe '#take_snapshot!' do
-    let(:external_image_id) { rand(1_000) }
-
     before do
       Phantomjs.stubs(:run).yields(encoded_output)
-      FileUtil.stubs(:upload_to_cloudinary).returns(external_image_id)
+      prc = Proc.new do |snapshot, file|
+        # Since we're not actually taking snapshots, we need to fake the image.
+        File.open("#{Rails.root}/spec/sample_snapshot.png") do |f|
+          snapshot.image = f
+        end
+      end
+      subject.stubs(:save_file_to_snapshot).with(&prc)
     end
 
     context 'when snapshot script outputs JSON' do
-      let(:decoded_output) { { something: rand(1_000).to_s } }
+      let(:decoded_output) { { title: rand(1_000).to_s } }
       let(:encoded_output) { ActiveSupport::JSON.encode(decoded_output) }
 
-      it 'returns the decoded JSON' do
-        response = subject.take_snapshot!
-        (decoded_output.to_a - response.to_a).should == []
+      it 'saves the title to the snapshot' do
+        expect { subject.take_snapshot! }
+          .to change { snapshot.reload.title }
+          .to(decoded_output[:title])
       end
 
-      it 'uploads the file to Cloudinary' do
-        FileUtil.expects(:upload_to_cloudinary)
-        subject.take_snapshot!
-      end
-
-      it 'includes the external image ID' do
-        subject.take_snapshot![:external_image_id].should == external_image_id
+      it 'saves an image on the snapshot object' do
+        expect { subject.take_snapshot! }
+          .to change { snapshot.reload.image.path }
       end
     end
 

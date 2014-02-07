@@ -7,6 +7,8 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 
+include ActionDispatch::TestProcess
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -42,9 +44,27 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
+  # In RSpec 3, symbols passed as metadata arguments to configuration options
+  # will be treated as metadata keys with a value of `true`. To get this
+  # behavior now (and prevent a warning), we can set this configuration option.
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
   config.before(:each) do
-    Cloudinary::Uploader.stubs(:upload).returns({}) # Don't upload images to Cloudinary
-    Phantomjs.stubs(:run) # Don't run PhantomJS
+    Phantomjs.stubs(:run).yields '{"title": "A title"}'  # Don't run PhantomJS
     Sidekiq::Testing.inline! # Run async worker jobs synchronous
+  end
+
+  # Tag "uses_after_commit" helps when after_commit hook is expected
+  # to fire in a spec. It would never fire because of having enabled
+  # use_transactional_fixtures. It waits for transaction to end. The
+  # workaround disables transaction-wrapping for the tagged spec and
+  # instead uses a DatabaseCleaner strategy to wipe the tables here.
+  config.around(:each, :uses_after_commit) do |example|
+    _orig_use_transactional_fixtures = use_transactional_fixtures
+    self.use_transactional_fixtures = false
+    DatabaseCleaner.clean_with(:truncation)
+    example.call
+    DatabaseCleaner.clean_with(:truncation)
+    self.use_transactional_fixtures = _orig_use_transactional_fixtures
   end
 end

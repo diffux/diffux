@@ -12,7 +12,7 @@ describe SnapshotsController do
     its(:body) { should include('Under review') }
 
     context 'with a snapshot in pending state' do
-      before { snapshot.update_attributes(external_image_id: nil) }
+      let(:snapshot) { create(:snapshot, :pending) }
 
       it         { should be_success }
       its(:body) { should_not include('Snapshot image') }
@@ -22,22 +22,19 @@ describe SnapshotsController do
   end
 
   describe '#create' do
-    let(:external_image_id) { rand(100) }
-    let(:title)             { rand(100_000).to_s }
-    let(:url)               { create :url }
-    let(:baseline)          { create :snapshot }
+    let(:url)      { create :url }
+    let(:baseline) { create :snapshot }
 
     before do
-      Snapshotter.any_instance.stubs(:take_snapshot!).returns(
-        title:              title,
-        external_image_id:  external_image_id
-      )
-
+      prc = Proc.new do |snapshot, file|
+        # Since we're not actually taking snapshots, we need to fake the image.
+        snapshot.image = File.open("#{Rails.root}/spec/sample_snapshot.png")
+      end
+      Snapshotter.any_instance.stubs(:save_file_to_snapshot).with(&prc)
       SnapshotComparer.any_instance.stubs(:compare!).returns(
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
         diff_in_percent: 0.001
       )
-
       Url.any_instance.stubs(:baseline).returns(baseline)
     end
 
@@ -50,17 +47,17 @@ describe SnapshotsController do
       expect { subject }.to change { Snapshot.count }.by(1)
     end
 
-    it 'saves the diff' do
+    it 'saves the diff', :uses_after_commit do
       subject
       snapshot = Snapshot.unscoped.last
       snapshot.diff_from_previous.should == 0.001
       snapshot.diffed_with_snapshot.should == baseline
     end
 
-    it 'captures the snapshot title' do
+    it 'captures the snapshot title', :uses_after_commit do
       subject
       snapshot = Snapshot.unscoped.last
-      snapshot.title.should == title
+      snapshot.title.should_not be_nil
     end
 
     context 'with a baseline' do

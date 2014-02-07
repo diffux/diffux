@@ -4,13 +4,19 @@
 [![Code Climate](https://codeclimate.com/github/trotzig/diffux.png)](https://codeclimate.com/github/trotzig/diffux)
 [![Coverage Status](https://coveralls.io/repos/trotzig/diffux/badge.png)](https://coveralls.io/r/trotzig/diffux)
 
-Diffux can generate visual diffs of web pages, allowing you to spot changes and
-style regressions more easily.
+Are you worried that your CSS changes will break the current design in
+unexpected ways? Do you want to show a designer a page you've been working on,
+before and after your changes? Do you want to be able to quickly look back at
+how things looked a month or a year ago?
+
+Diffux is a tool that generates and manages visual diffs of web pages, so that
+you can easily see even the subtlest effects of your code modifications.
 
 ## Installing
 
 Diffux requires:
 
+- ImageMagick
 - PostgreSQL
 - Redis
 - Ruby 2.0.0+
@@ -25,13 +31,10 @@ up and running on Mac OS X using Homebrew.
 git clone https://github.com/trotzig/diffux.git
 cd diffux
 
-# install postgres
+# install dependencies
 brew update
 brew doctor
-brew install postgresql
-
-# install redis
-brew install redis
+brew install imagemagick postgresql redis
 
 # install gems
 bundle install

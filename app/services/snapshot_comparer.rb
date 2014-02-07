@@ -9,28 +9,36 @@ class SnapshotComparer
     @snapshot_before = snapshot_before
   end
 
+  # @return [Hash]
   # @see http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
   def compare!
-    png_after  = to_chunky_png(@snapshot_after)
-    png_before = to_chunky_png(@snapshot_before)
+    png_after    = to_chunky_png(@snapshot_after)
+    png_before   = to_chunky_png(@snapshot_before)
 
-    output = ChunkyPNG::Image.new([png_before.width, png_after.width].max,
-                                  [png_before.height, png_after.height].max,
-                                  ChunkyPNG::Color::WHITE)
+    max_width    = [png_after.width, png_before.width].max
+    max_height   = [png_after.height, png_before.height].max
+    output       = ChunkyPNG::Image.new(max_width, max_height)
 
-    diff       = 0
-    max_width  = [png_after.width, png_before.width].max
-    max_height = [png_after.height, png_before.height].max
+    diff            = 0
+    base_opacity    = 0.1
+    base_alpha      = (255 * base_opacity).round
+    base_diff_alpha = base_alpha * 2
 
     max_height.times do |y|
       max_width.times do |x|
         pixel_after  = get_pixel(png_after, x, y)
         pixel_before = get_pixel(png_before, x, y)
 
+        base_pixel   = fade(pixel_before, base_alpha)
         if pixel_after != pixel_before
           score        = pixel_diff_score(pixel_after, pixel_before)
-          output[x, y] = grayscale(ChunkyPNG::Color::MAX - (score * ChunkyPNG::Color::MAX).round)
           diff        += score
+
+          diff_alpha   = (base_diff_alpha + ((255 - base_diff_alpha) * score)).round
+          diff_color   = ChunkyPNG::Color.rgba(255, 0, 100, diff_alpha)
+          output.set_pixel(x, y, diff_color)
+        else
+          output.set_pixel(x, y, base_pixel)
         end
       end
     end
@@ -51,6 +59,8 @@ class SnapshotComparer
     end
   end
 
+  # @return [Float] number between 0 and 1 where 1 is completely different and
+  #   0 is no difference
   def pixel_diff_score(pixel_after, pixel_before)
     Math.sqrt(
       (r(pixel_after) - r(pixel_before))**2 +
@@ -61,6 +71,6 @@ class SnapshotComparer
   end
 
   def to_chunky_png(snapshot)
-    ChunkyPNG::Image.from_file(open(snapshot.sample_image_url))
+    ChunkyPNG::Image.from_file(snapshot.image.path)
   end
 end

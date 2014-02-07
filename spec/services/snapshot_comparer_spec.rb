@@ -13,7 +13,7 @@ describe SnapshotComparer do
     context 'with equal snapshots' do
       before do
         snapshot_comparer.stubs(:to_chunky_png)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::WHITE))
       end
 
       it 'should report no difference' do
@@ -28,9 +28,9 @@ describe SnapshotComparer do
     context 'with different snapshots' do
       before do
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::WHITE))
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do
@@ -45,9 +45,9 @@ describe SnapshotComparer do
     context 'when the after snapshot is shorter than the before snapshot' do
       before do
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
-          .returns(ChunkyPNG::Image.new(10, 5, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 1, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do
@@ -58,9 +58,9 @@ describe SnapshotComparer do
     context 'when the after snapshot is taller than the before snapshot' do
       before do
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
-          .returns(ChunkyPNG::Image.new(10, 20, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 4, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do
@@ -71,9 +71,9 @@ describe SnapshotComparer do
     context 'when the after snapshot is narrower than the before snapshot' do
       before do
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
-          .returns(ChunkyPNG::Image.new(5, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(1, 2, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do
@@ -84,9 +84,9 @@ describe SnapshotComparer do
     context 'when the after snapshot is wider than the before snapshot' do
       before do
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_after)
-          .returns(ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
         snapshot_comparer.expects(:to_chunky_png).with(snapshot_before)
-          .returns(ChunkyPNG::Image.new(20, 10, ChunkyPNG::Color::BLACK))
+          .returns(ChunkyPNG::Image.new(4, 2, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do

@@ -1,0 +1,10 @@
+- if instance.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(instance.errors.count, 'error')
+      prohibited this
+      = instance.class.name.downcase
+      from being saved:
+    %ul
+      - instance.errors.full_messages.each do |msg|
+        %li= msg

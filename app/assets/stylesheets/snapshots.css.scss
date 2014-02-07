@@ -1,5 +1,23 @@
+.snapshot-image {
+  max-width: percentage(1/2);
+
+  // small gap between the before/after
+  &:nth-child(1) {
+    padding-right: 1px;
+  }
+
+  &:nth-child(2) {
+    padding-left: 1px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
 .snapshot-diff-image {
-  min-width: 300px;
+  max-width: 100%;
+  padding: 0;
 }
 
 .snapshot-card {

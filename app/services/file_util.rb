@@ -2,19 +2,7 @@
 class FileUtil
   def self.with_tempfile
     Dir.mktmpdir do |dir|
-      random_name = (0...8).map { (65 + rand(26)).chr }.join
-      yield("#{dir}/#{random_name}.png")
-    end
-  end
-
-  def self.upload_to_cloudinary(file)
-    Cloudinary::Uploader.upload(file)['public_id']
-  end
-
-  def self.upload_png(chunky_png_image)
-    with_tempfile do |file|
-      chunky_png_image.save(file)
-      upload_to_cloudinary(file)
+      yield("#{dir}/#{SecureRandom.uuid}.png")
     end
   end
 end

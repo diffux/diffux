@@ -1,27 +1,28 @@
 class Snapshot < ActiveRecord::Base
-  belongs_to :url
-  belongs_to :viewport
-  belongs_to :diffed_with_snapshot, class_name: Snapshot.name
+  THUMB_CONVERT_OPTS =  '-gravity north -thumbnail 100x100^ -extent 100x100'
+
+  belongs_to            :url
+  belongs_to            :viewport
+  belongs_to            :sweep
+  belongs_to            :diffed_with_snapshot, class_name: Snapshot.name
   validates_presence_of :url
   validates_presence_of :viewport
+  has_attached_file     :diff_image
+  has_attached_file     :image, styles:  { thumb: '' },
+                        convert_options: { thumb: THUMB_CONVERT_OPTS }
+
+  validates_attachment_content_type :image,
+                                    :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :diff_image,
+                                    :content_type => /\Aimage\/.*\Z/
+
   default_scope { order('created_at DESC') }
 
   before_save :auto_accept
-
-  def image_name
-    external_image_id + '.png'
-  end
-
-  def diff_image_name
-    diff_external_image_id + '.png'
-  end
+  after_commit :take_snapshot, on: :create
 
   def diff?
     !!diffed_with_snapshot
-  end
-
-  def sample_image_url
-    Cloudinary::Utils.cloudinary_url(image_name)
   end
 
   def accept!
@@ -37,7 +38,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def pending?
-    !external_image_id?
+    !image?
   end
 
   def accepted?
@@ -56,5 +57,9 @@ class Snapshot < ActiveRecord::Base
 
   def auto_accept
     self.accepted_at = Time.now if diff_from_previous == 0
+  end
+
+  def take_snapshot
+    SnapshotWorker.perform_async(id)
   end
 end
