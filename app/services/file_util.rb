@@ -2,8 +2,7 @@
 class FileUtil
   def self.with_tempfile
     Dir.mktmpdir do |dir|
-      random_name = (0...8).map { (65 + rand(26)).chr }.join
-      yield("#{dir}/#{random_name}.png")
+      yield("#{dir}/#{SecureRandom.uuid}.png")
     end
   end
 end
