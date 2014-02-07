@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/trotzig/diffux.png)](https://travis-ci.org/trotzig/diffux)
 [![Code Climate](https://codeclimate.com/github/trotzig/diffux.png)](https://codeclimate.com/github/trotzig/diffux)
-[![Coverage Status](https://coveralls.io/repos/trotzig/diffux/badge.png)](https://coveralls.io/r/trotzig/diffux)
+[![Coverage Status](https://coveralls.io/repos/trotzig/diffux/badge.png?branch=master)](https://coveralls.io/r/trotzig/diffux)
 [![Dependency Status](https://gemnasium.com/trotzig/diffux.png)](https://gemnasium.com/trotzig/diffux)
 
 Are you worried that your CSS changes will break the current design in
