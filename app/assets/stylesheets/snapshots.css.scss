@@ -1,8 +1,13 @@
 .snapshot-image {
   max-width: percentage(1/2);
 
-  &:nth-of-type(2) {
-    padding-left: 1px; // small gap between the before/after
+  // small gap between the before/after
+  &:nth-child(1) {
+    padding-right: 1px;
+  }
+
+  &:nth-child(2) {
+    padding-left: 1px;
   }
 
   img {
@@ -12,6 +17,7 @@
 
 .snapshot-diff-image {
   max-width: 100%;
+  padding: 0;
 }
 
 .snapshot-card {
