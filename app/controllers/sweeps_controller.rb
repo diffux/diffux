@@ -10,7 +10,7 @@ class SweepsController < ApplicationController
   end
 
   def new
-    @sweep = @project.sweeps.build
+    @sweep = @project.sweeps.build(title: "Anonymous sweep - #{Time.now}")
   end
 
   def create

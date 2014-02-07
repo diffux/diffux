@@ -75,6 +75,11 @@ describe SweepsController do
     end
 
     it { should be_success }
+
+    it 'has a pre-filled title' do
+      subject
+      response.body.should include 'Anonymous sweep'
+    end
   end
 
   describe '#create' do
