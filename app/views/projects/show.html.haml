@@ -31,11 +31,11 @@
     %small
       = link_to snapshots_path(url: url.id), method: :post,
                 title: 'Create new snapshots' do
-        %span.glyphicon.glyphicon-camera
+        %span.glyphicon.glyphicon-camera>
       = link_to url.address, target: '_blank' do
-        %span.glyphicon.glyphicon-share
+        %span.glyphicon.glyphicon-share>
       = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
-        %span.glyphicon.glyphicon-remove
+        %span.glyphicon.glyphicon-remove>
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
     %h3= viewport
