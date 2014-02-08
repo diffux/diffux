@@ -14,5 +14,11 @@ describe ApplicationHelper do
       let(:url)        { "http://#{simplified}" }
       it               { should == simplified }
     end
+
+    context 'with trailing slash' do
+      let(:simplified) { 'www.example.com' }
+      let(:url)        { "http://#{simplified}/" }
+      it               { should == simplified }
+    end
   end
 end
