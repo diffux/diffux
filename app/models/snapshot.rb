@@ -22,7 +22,7 @@ class Snapshot < ActiveRecord::Base
   after_commit :take_snapshot, on: :create
 
   def diff?
-    !!diffed_with_snapshot
+    !!diffed_with_snapshot && diffed_with_snapshot_id != id
   end
 
   def accept!
@@ -56,6 +56,7 @@ class Snapshot < ActiveRecord::Base
   private
 
   def auto_accept
+    return if diffed_with_snapshot_id == id
     self.accepted_at = Time.now if diff_from_previous == 0
   end
 
