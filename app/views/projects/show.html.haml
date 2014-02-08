@@ -29,15 +29,13 @@
   %h2
     %span.url-oneline{ title: url.address }= simplified_url url.address
     %small
+      = link_to snapshots_path(url: url.id), method: :post,
+                title: 'Create new snapshots' do
+        %span.glyphicon.glyphicon-camera
       = link_to url.address, target: '_blank' do
         %span.glyphicon.glyphicon-share
       = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
         %span.glyphicon.glyphicon-remove
-
-  = form_for Snapshot.new, class: 'form' do |f|
-    = hidden_field_tag :url, url.id
-    %button.btn.btn-info
-      Create new snapshots
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
     %h3= viewport
