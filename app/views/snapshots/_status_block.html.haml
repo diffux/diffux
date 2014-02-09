@@ -23,14 +23,18 @@
       = form_tag accept_snapshot_path(@snapshot),
                  data: { replace: '.snapshot-status-block' },
                  method: :post do
-        %button.btn{ disabled: @snapshot.accepted? }
+        %button.btn{ disabled: @snapshot.accepted?,
+                     class: ('btn-success' if @snapshot.accepted?) }
+          %i.glyphicon.glyphicon-ok-sign
           %span.snapshot-button-enabled  Accept
           %span.snapshot-button-disabled Accepted
 
       = form_tag reject_snapshot_path(@snapshot),
                  data: { replace: '.snapshot-status-block' },
                  method: :post do
-        %button.btn{ disabled: @snapshot.rejected? }
+        %button.btn{ disabled: @snapshot.rejected?,
+                     class: ('btn-danger' if @snapshot.rejected?)}
+          %i.glyphicon.glyphicon-remove-sign
           %span.snapshot-button-enabled  Reject
           %span.snapshot-button-disabled Rejected
 
