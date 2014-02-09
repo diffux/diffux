@@ -58,6 +58,12 @@
   position: relative;
   vertical-align: top;
 
+  &.snapshot-card-active {
+    $blue: #428bca;
+    @include box-shadow(0 0 10px $blue);
+    border-color: $blue;
+  }
+
   &.snapshot-baseline {
     border-color: #6c6;
   }

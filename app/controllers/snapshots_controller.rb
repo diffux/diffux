@@ -2,6 +2,9 @@ class SnapshotsController < ApplicationController
   before_filter :set_snapshot, only: %i[show destroy accept reject]
 
   def show
+    if snapshot_ids = params[:review_list]
+      @review_list = Snapshot.where(id: snapshot_ids)
+    end
     render
   end
 

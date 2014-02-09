@@ -1,5 +1,6 @@
-.snapshot-card.thumbnail
-  = link_to snapshot do
+.snapshot-card.thumbnail{ class: ('snapshot-card-active' if local_assigns[:active]) }
+  = link_to snapshot_path(snapshot,
+    review_list: local_assigns[:review_list]) do
     - if snapshot.image?
       = image_tag snapshot.image.url(:thumb)
     - else

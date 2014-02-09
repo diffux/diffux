@@ -22,7 +22,7 @@
     .panel-heading
       %h2.panel-title Needs review
     .panel-body.snapshots
-      = render needs_review
+      = render needs_review, review_list: needs_review.map(&:id)
 
 - if rejected = @sweep.rejected_snapshots.presence
   .panel.panel-danger
