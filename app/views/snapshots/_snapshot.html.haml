@@ -6,12 +6,8 @@
     - else
       .glyphicon.glyphicon-time.snapshot-card-pending
 
-  - if snapshot.accepted?
-    .snapshot-indicator.glyphicon.glyphicon-ok-sign
-  - elsif snapshot.rejected?
-    .snapshot-indicator.glyphicon.glyphicon-remove-sign
-  - else
-    .snapshot-indicator.glyphicon.glyphicon-question-sign
+  .snapshot-indicator.snapshot-color-icon.glyphicon{ class: glyphicon_for(snapshot) }
+
   .caption
     .time-ago
       = time_tag snapshot.created_at do
