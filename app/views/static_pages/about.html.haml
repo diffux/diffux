@@ -1,6 +1,8 @@
 - provide :title, 'About'
 
-%h1= yield :title
+.page-header
+  %h1= yield :title
+
 %p
   Diffux is a tool that takes snapshots of web pages and creates a diff from a
   baseline snapshot.

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SnapshotWorker do
+describe SnapshotterWorker do
   describe '#perform' do
     context 'when the snapshot does not exist' do
       let(:snapshot_id) { 0 }

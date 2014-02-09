@@ -1,6 +1,7 @@
 - provide :title, 'Projects'
 
-%h1= yield :title
+.page-header
+  %h1= yield :title
 
 - if @projects.any?
   %table.table.table-striped

@@ -4,12 +4,13 @@
   %li= link_to 'Projects', projects_path
   %li= @project.name
 
-%h1
-  %span.glyphicon.glyphicon-book
-  = yield :title
-  - @project.viewports.each do |viewport|
-    %small.project-viewport= viewport
-  %small= link_to 'Edit', edit_project_path(@project)
+.page-header
+  %h1
+    %span.glyphicon.glyphicon-book
+    = yield :title
+    - @project.viewports.each do |viewport|
+      %small.project-viewport= viewport
+    %small= link_to 'Edit', edit_project_path(@project)
 
 %table.table
   %tr
@@ -22,7 +23,7 @@
       %th Last sweep
       %td= link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
 
-= link_to 'Start new sweep', new_project_sweep_path(@project), class: 'btn btn-info'
+= start_new_sweep_button(@project)
 
 
 - @project.urls.each do |url|
@@ -38,5 +39,8 @@
         %span.glyphicon.glyphicon-remove>
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
-    %h3= viewport
-    = render snapshots
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= viewport
+      .panel-body.snapshots
+        = render snapshots
