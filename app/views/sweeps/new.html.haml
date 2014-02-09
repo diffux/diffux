@@ -6,9 +6,10 @@
   %li= link_to 'Sweeps', project_sweeps_path(@project)
   %li New configuration
 
-%h1= yield :title
-%p.help
-  Creating a Sweep triggers new snapshots to be created for all Urls in the
-  project.
+.page-header
+  %h1= yield :title
+  %p.help
+    Creating a Sweep triggers new snapshots to be created for all Urls in the
+    project.
 
 = render 'sweeps/form'

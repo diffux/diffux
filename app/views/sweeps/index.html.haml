@@ -5,9 +5,10 @@
   %li= link_to @project.name, @project
   %li Sweeps
 
-%h1= yield :title
-
-= start_new_sweep_button(@project)
+.page-header
+  %h1
+    = yield :title
+    = start_new_sweep_button(@project)
 
 %table.table.table-striped
   %thead

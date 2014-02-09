@@ -6,8 +6,9 @@
   %li= link_to 'Sweeps', project_sweeps_path(@project)
   %li= @sweep.title
 
-%h1= yield :title
-%p.help= simple_format @sweep.description
+.page-header
+  %h1= yield :title
+  %p.help= simple_format @sweep.description
 
 - if pending = @sweep.pending_snapshots.presence
   %h2 Pending
