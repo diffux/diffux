@@ -3,6 +3,10 @@
   flex-wrap: wrap;
 }
 
+.snapshot-buttons form {
+  display: inline-block;
+}
+
 .snapshot-image {
   max-width: percentage(1/2);
 

@@ -27,19 +27,20 @@ class SnapshotsController < ApplicationController
 
   def reject
     @snapshot.reject!
-    flash[:notice] = <<-EOS
-      Snapshot has been marked as rejected.
-    EOS
-    redirect_to @snapshot
+    if request.xhr?
+      render partial: 'snapshots/buttons'
+    else
+      redirect_to @snapshot
+    end
   end
 
   def accept
     @snapshot.accept!
-    flash[:notice] = <<-EOS
-      Snapshot has been accepted and will now be used
-      as the baseline in future diffs for the same URL.
-    EOS
-    redirect_to @snapshot
+    if request.xhr?
+      render partial: 'snapshots/buttons'
+    else
+      redirect_to @snapshot
+    end
   end
 
   private

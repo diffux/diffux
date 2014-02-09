@@ -37,20 +37,7 @@
       %th Status
       %td= snapshot_status(@snapshot)
 
-  - if @snapshot.under_review? || @snapshot.rejected?
-    = button_to 'Accept',
-      accept_snapshot_path(@snapshot),
-      method: :post, class: 'btn'
-
-  - if @snapshot.under_review? || @snapshot.accepted?
-    = button_to 'Reject',
-      reject_snapshot_path(@snapshot),
-      method: :post, class: 'btn'
-
-  = button_to 'Delete',
-    @snapshot, method: :delete,
-    data: { confirm: 'Are you sure?' },
-    class: 'btn btn-danger'
+  = render 'snapshots/buttons'
 
   - if @snapshot.diff?
     .snapshot-diff-image.snapshot-image
