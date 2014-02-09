@@ -37,6 +37,11 @@ describe Snapshot do
         it     { should be_true }
       end
 
+      context 'when the baseline is equal to the snapshot' do
+        before { snapshot.url.stubs(:baseline).returns(snapshot) }
+        it     { should be_false }
+      end
+
       context 'when there is no baseline' do
         before { snapshot.url.stubs(:baseline).returns(nil) }
         it     { should be_false }

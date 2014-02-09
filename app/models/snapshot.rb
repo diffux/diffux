@@ -88,6 +88,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def waiting_for_diff?
-    image? && !diff? && url.baseline(viewport).present?
+    baseline = url.baseline(viewport)
+    image? && !diff? && baseline.present? && baseline != self
   end
 end
