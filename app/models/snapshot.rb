@@ -26,9 +26,13 @@ class Snapshot < ActiveRecord::Base
     !!diffed_with_snapshot && diffed_with_snapshot_id != id
   end
 
-  def accept!
+  def accept
     self.accepted_at = Time.now
     self.rejected_at = nil
+  end
+
+  def accept!
+    accept
     save!
   end
 

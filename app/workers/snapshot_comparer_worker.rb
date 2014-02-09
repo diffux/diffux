@@ -21,7 +21,7 @@ class SnapshotComparerWorker < SnapshotWorker
         @snapshot.diff_image = File.open(tempfile)
       end
     end
-    @snapshot.accept! if @snapshot.diff_from_previous == 0
+    @snapshot.accept if @snapshot.diff_from_previous == 0
 
     @snapshot.save!
   end
