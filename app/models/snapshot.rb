@@ -44,7 +44,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def pending?
-    !image?
+    !image? || waiting_for_diff?
   end
 
   def accepted?
@@ -85,5 +85,9 @@ class Snapshot < ActiveRecord::Base
   def update_sweep_counters
     return unless sweep
     sweep.update_counters!
+  end
+
+  def waiting_for_diff?
+    image? && !diff? && url.baseline(viewport).present?
   end
 end

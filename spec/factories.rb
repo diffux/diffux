@@ -42,15 +42,25 @@ FactoryGirl.define do
       fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png", 'image/png')
     end
 
+    trait :with_diff do
+      diff_image do
+        fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png", 'image/png')
+      end
+      diff_from_previous 1.0
+      association :diffed_with_snapshot, factory: :snapshot
+    end
+
     trait :with_sweep do
       sweep
     end
 
     trait :accepted do
+      with_diff
       accepted_at 1.day.ago
     end
 
     trait :rejected do
+      with_diff
       rejected_at 1.day.ago
     end
 

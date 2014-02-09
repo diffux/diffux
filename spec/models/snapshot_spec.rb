@@ -23,6 +23,27 @@ describe Snapshot do
     end
   end
 
+  describe '#pending?' do
+    let(:snapshot) { create :snapshot, :pending }
+    subject        { snapshot.pending? }
+
+    it { should be_true }
+
+    context 'when waiting for a diff' do
+      let(:snapshot) { create :snapshot }
+
+      context 'when there is a baseline' do
+        before { snapshot.url.stubs(:baseline).returns(build(:snapshot)) }
+        it     { should be_true }
+      end
+
+      context 'when there is no baseline' do
+        before { snapshot.url.stubs(:baseline).returns(nil) }
+        it     { should be_false }
+      end
+    end
+  end
+
   describe '#auto_accept' do
     before { snapshot.diff_from_previous = diff }
 
