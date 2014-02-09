@@ -10,4 +10,8 @@ module SnapshotsHelper
       'Under review'
     end
   end
+
+  def start_new_sweep_button(project)
+    link_to 'Start new sweep', new_project_sweep_path(project), class: 'btn btn-info'
+  end
 end
