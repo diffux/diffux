@@ -71,6 +71,11 @@ class SnapshotComparer
   end
 
   def to_chunky_png(snapshot)
-    ChunkyPNG::Image.from_file(snapshot.image.path)
+    case snapshot.image.options[:storage]
+    when :s3
+      ChunkyPNG::Image.from_io(open(snapshot.image.url))
+    when :filesystem
+      ChunkyPNG::Image.from_file(snapshot.image.path)
+    end
   end
 end

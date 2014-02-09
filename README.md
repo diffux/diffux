@@ -75,6 +75,40 @@ workers. To start a worker, run:
 bundle exec sidekiq
 ```
 
+## Running Diffux on Heroku
+
+Diffux can run on Heroku. In order to do this, you will need an Amazon Web
+Services (AWS) S3 account to store the snapshots. You will need a "secret key"
+and a "access key" from Amazon. Once you have those values, you're all set!
+Follow these steps:
+
+```bash
+# clone repo
+git clone https://github.com/trotzig/diffux.git
+cd diffux
+
+# create and configure the heroku application
+heroku create [diffux] --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
+heroku addons:add heroku-postgresql
+heroku addons:add rediscloud
+heroku config:set \
+  PHANTOMJS_PATH=/app/vendor/phantomjs/bin/phantomjs \
+  AWS_SECRET_KEY=[secret-key] \
+  AWS_ACCESS_KEY=[access-key]
+
+# deploy!
+git push heroku master
+
+# initialize the database
+heroku run rake db:migrate
+
+# add a worker thread to take snapshots and generate compared images:
+heroku ps:scale worker=1
+
+# done! you should now be able to access your application at
+# http://[diffux].herokuapp.com
+```
+
 ## License
 
 Released under the MIT License.

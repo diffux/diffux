@@ -64,4 +64,11 @@ Diffux::Application.configure do
   # If config.eager_load is true, runs the config.before_eager_load hooks and
   # then calls eager_load! which will load all config.eager_load_namespaces.
   config.eager_load = true
+
+  config.paperclip_defaults = {
+    :s3_credentials => {
+      :access_key_id => ENV['AWS_ACCESS_KEY'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
+    }, :storage => :s3, :bucket => 'diffux'
+  }
 end
