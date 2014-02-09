@@ -76,7 +76,6 @@ class Snapshot < ActiveRecord::Base
 
   def take_snapshot
     SnapshotterWorker.perform_async(id)
-    HerokuManager.enqueue_snapshot!
   end
 
   def compare_snapshot_if_needed

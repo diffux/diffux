@@ -79,8 +79,8 @@ bundle exec sidekiq
 
 Diffux can run on Heroku. In order to do this, you will need an Amazon Web
 Services (AWS) S3 account to store the snapshots. You will need a "secret key"
-and a "access key" from Amazon, as well as your "API Key" from your Account
-page on Heroku. Once you have those values, you're all set! Follow these steps:
+and a "access key" from Amazon. Once you have those values, you're all set!
+Follow these steps:
 
 ```bash
 # clone repo
@@ -94,9 +94,7 @@ heroku addons:add rediscloud
 heroku config:set \
   PHANTOMJS_PATH=/app/vendor/phantomjs/bin/phantomjs \
   AWS_SECRET_KEY=[secret-key] \
-  AWS_ACCESS_KEY=[access-key] \
-  HEROKU_APP_NAME=[diffux] \
-  HEROKU_API_KEY=[api-key]
+  AWS_ACCESS_KEY=[access-key]
 
 # deploy!
 git push heroku master
@@ -105,7 +103,7 @@ git push heroku master
 heroku run rake db:migrate
 
 # done! you should now be able to access your application at
-# [diffux].herokuapp.com
+# http://[diffux].herokuapp.com
 ```
 
 ## License

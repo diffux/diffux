@@ -35,8 +35,7 @@ group :development do
 end
 
 group :production do
-  gem 'aws-sdk'
-  gem 'heroku-api'
-  gem 'rails_12factor'
   gem 'unicorn'
+  gem 'rails_12factor'
+  gem 'aws-sdk'
 end
