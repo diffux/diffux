@@ -88,8 +88,8 @@ git clone https://github.com/trotzig/diffux.git
 cd diffux
 
 # create and configure the heroku application
-heroku create [diffux] --buildpack https://github.com/ddollar/heroku-buildpack-multi.git`
-heroku addons:add heroku-postgresql`
+heroku create [diffux] --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
+heroku addons:add heroku-postgresql
 heroku addons:add rediscloud
 heroku config:set \
   PHANTOMJS_PATH=/app/vendor/phantomjs/bin/phantomjs \
