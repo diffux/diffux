@@ -40,4 +40,5 @@
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
     %h3= viewport
-    = render snapshots
+    .snapshots
+      = render snapshots
