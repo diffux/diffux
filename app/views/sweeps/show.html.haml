@@ -11,17 +11,29 @@
   %p.help= simple_format @sweep.description
 
 - if pending = @sweep.pending_snapshots.presence
-  %h2 Pending
-  = render pending
+  .panel.panel-info
+    .panel-heading
+      %h2.panel-title Pending
+    .panel-body.snapshots
+      = render pending
 
 - if needs_review = @sweep.under_review_snapshots.presence
-  %h2 Needs review
-  = render needs_review
+  .panel.panel-warning
+    .panel-heading
+      %h2.panel-title Needs review
+    .panel-body.snapshots
+      = render needs_review
 
 - if rejected = @sweep.rejected_snapshots.presence
-  %h2 Rejected
-  = render rejected
+  .panel.panel-danger
+    .panel-heading
+      %h2.panel-title Rejected
+    .panel-body.snapshots
+      = render rejected
 
 - if accepted = @sweep.accepted_snapshots.presence
-  %h2 Accepted
-  = render accepted
+  .panel.panel-success
+    .panel-heading
+      %h2.panel-title Accepted
+    .panel-body.snapshots
+      = render accepted
