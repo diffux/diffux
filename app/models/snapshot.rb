@@ -61,5 +61,6 @@ class Snapshot < ActiveRecord::Base
 
   def take_snapshot
     SnapshotWorker.perform_async(id)
+    HerokuManager.enqueue_snapshot!
   end
 end
