@@ -1,0 +1,40 @@
+.snapshot-status-block
+  %table.table
+    %tr
+      %th
+        %abbr.initialism{ title: 'Uniform Resource Locator' } URL
+      %td
+        = link_to simplified_url(@snapshot.url.address), @snapshot.url.address,
+          class: 'url-multiline'
+    %tr
+      %th Viewport
+      %td= @snapshot.viewport
+    %tr
+      %th When
+      %td
+        = time_tag @snapshot.created_at do
+          = time_ago_in_words(@snapshot.created_at) + ' ago'
+    %tr
+      %th Status
+      %td= snapshot_status(@snapshot)
+
+  .snapshot-buttons
+    - if @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
+      = form_tag accept_snapshot_path(@snapshot),
+                 data: { replace: '.snapshot-status-block' },
+                 method: :post do
+        %button.btn{ disabled: @snapshot.accepted? }
+          %span.snapshot-button-enabled  Accept
+          %span.snapshot-button-disabled Accepted
+
+      = form_tag reject_snapshot_path(@snapshot),
+                 data: { replace: '.snapshot-status-block' },
+                 method: :post do
+        %button.btn{ disabled: @snapshot.rejected? }
+          %span.snapshot-button-enabled  Reject
+          %span.snapshot-button-disabled Rejected
+
+    = button_to 'Delete',
+      @snapshot, method: :delete,
+      data: { confirm: 'Are you sure?' },
+      class: 'btn btn-danger'

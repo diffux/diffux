@@ -28,7 +28,7 @@ class SnapshotsController < ApplicationController
   def reject
     @snapshot.reject!
     if request.xhr?
-      render partial: 'snapshots/buttons'
+      render partial: 'snapshots/status_block'
     else
       redirect_to @snapshot
     end
@@ -37,7 +37,7 @@ class SnapshotsController < ApplicationController
   def accept
     @snapshot.accept!
     if request.xhr?
-      render partial: 'snapshots/buttons'
+      render partial: 'snapshots/status_block'
     else
       redirect_to @snapshot
     end

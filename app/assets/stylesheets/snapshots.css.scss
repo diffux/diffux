@@ -3,8 +3,26 @@
   flex-wrap: wrap;
 }
 
-.snapshot-buttons form {
-  display: inline-block;
+.snapshot-buttons {
+  form {
+    display: inline-block;
+  }
+
+  .btn {
+    .snapshot-button-disabled {
+      display: none;
+    }
+
+    &:disabled {
+      .snapshot-button-enabled {
+        display: none;
+      }
+
+      .snapshot-button-disabled {
+        display: inline;
+      }
+    }
+  }
 }
 
 .snapshot-image {
