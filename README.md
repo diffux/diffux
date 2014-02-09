@@ -102,6 +102,9 @@ git push heroku master
 # initialize the database
 heroku run rake db:migrate
 
+# add a worker thread to take snapshots and generate compared images:
+heroku ps:scale worker=1
+
 # done! you should now be able to access your application at
 # http://[diffux].herokuapp.com
 ```
