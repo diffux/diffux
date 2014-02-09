@@ -5,7 +5,7 @@ if ENV['PHANTOMJS_PATH']
         ENV['PHANTOMJS_PATH']
       end
 
-      def usable?
+      def useable?
         File.exist?(ENV['PHANTOMJS_PATH'])
       end
 
