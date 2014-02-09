@@ -16,3 +16,4 @@
 //= require turbolinks
 //= require replacejs/replace
 //= require _loading-indicator
+//= require _snapshot-review-navigator
