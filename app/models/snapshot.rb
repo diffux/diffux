@@ -20,6 +20,7 @@ class Snapshot < ActiveRecord::Base
 
   before_save :auto_accept
   after_commit :take_snapshot, on: :create
+  after_commit :compare_snapshot_if_needed, on: :update
 
   def diff?
     !!diffed_with_snapshot && diffed_with_snapshot_id != id
@@ -53,6 +54,14 @@ class Snapshot < ActiveRecord::Base
     !pending? && !accepted? && !rejected?
   end
 
+  def compare?
+    return false if accepted?
+    baseline = url.baseline(viewport)
+    return false unless baseline
+    return false if baseline.created_at > created_at
+    !diff?
+  end
+
   private
 
   def auto_accept
@@ -61,6 +70,10 @@ class Snapshot < ActiveRecord::Base
   end
 
   def take_snapshot
-    SnapshotWorker.perform_async(id)
+    SnapshotterWorker.perform_async(id)
+  end
+
+  def compare_snapshot_if_needed
+    SnapshotComparerWorker.perform_async(id) if compare?
   end
 end
