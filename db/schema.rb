@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206033502) do
+ActiveRecord::Schema.define(version: 20140209021154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,14 @@ ActiveRecord::Schema.define(version: 20140206033502) do
 
   create_table "sweeps", force: true do |t|
     t.integer  "project_id"
-    t.string   "title",       null: false
+    t.string   "title",                          null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "count_pending",      default: 0
+    t.integer  "count_accepted",     default: 0
+    t.integer  "count_rejected",     default: 0
+    t.integer  "count_under_review", default: 0
   end
 
   create_table "urls", force: true do |t|

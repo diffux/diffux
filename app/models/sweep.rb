@@ -20,4 +20,12 @@ class Sweep < ActiveRecord::Base
   def under_review_snapshots
     snapshots.select(&:under_review?)
   end
+
+  def update_counters!
+    self.count_pending      = pending_snapshots.count
+    self.count_accepted     = accepted_snapshots.count
+    self.count_rejected     = rejected_snapshots.count
+    self.count_under_review = under_review_snapshots.count
+    save!
+  end
 end

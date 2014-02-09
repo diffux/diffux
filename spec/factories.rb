@@ -42,6 +42,10 @@ FactoryGirl.define do
       fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png", 'image/png')
     end
 
+    trait :with_sweep do
+      sweep
+    end
+
     trait :accepted do
       accepted_at 1.day.ago
     end

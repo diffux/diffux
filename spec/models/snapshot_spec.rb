@@ -78,4 +78,34 @@ describe Snapshot do
       it { should be_false }
     end
   end
+
+  describe 'updates sweep counter', :uses_after_commit do
+    subject { snapshot.save! }
+
+    context 'on creation' do
+      let(:snapshot) { build :snapshot, :with_sweep }
+
+      it 'calls #update_counters for the sweep' do
+        snapshot.sweep.expects(:update_counters!).once
+        subject
+      end
+    end
+
+    context 'on update' do
+      let!(:snapshot) { create :snapshot, :with_sweep }
+
+      it 'calls #update_counters for the sweep' do
+        snapshot.sweep.expects(:update_counters!).once
+        subject
+      end
+    end
+
+    context 'with a snapshot not attached to a sweep' do
+      let(:snapshot) { build :snapshot }
+
+      it 'does not fail' do
+        expect { subject }.to_not raise_error
+      end
+    end
+  end
 end
