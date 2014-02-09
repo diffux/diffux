@@ -18,7 +18,7 @@ class Snapshot < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
-  before_save :auto_accept
+  before_save  :auto_accept
   after_commit :take_snapshot, on: :create
   after_commit :compare_snapshot_if_needed, on: :update
 
