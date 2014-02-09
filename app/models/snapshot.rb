@@ -24,7 +24,7 @@ class Snapshot < ActiveRecord::Base
   after_commit :update_sweep_counters, on: [:create, :update]
 
   def diff?
-    !!diffed_with_snapshot && diffed_with_snapshot_id != id
+    diffed_with_snapshot_id? && diffed_with_snapshot_id != id
   end
 
   def accept
