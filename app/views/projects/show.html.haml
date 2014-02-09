@@ -39,6 +39,8 @@
         %span.glyphicon.glyphicon-remove>
 
   - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
-    %h3= viewport
-    .snapshots
-      = render snapshots
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= viewport
+      .panel-body.snapshots
+        = render snapshots
