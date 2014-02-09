@@ -11,6 +11,7 @@ gem 'paperclip'
 gem 'pg'
 gem 'phantomjs'
 gem 'sidekiq'
+gem 'turbolinks'
 
 group :assets do
   gem 'coffee-rails', '~> 4.0.1'
