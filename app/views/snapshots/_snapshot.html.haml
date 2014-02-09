@@ -1,4 +1,4 @@
-.snapshot-card
+.snapshot-card.thumbnail
   = link_to snapshot do
     - if snapshot.image?
       = image_tag snapshot.image.url(:thumb)
@@ -11,10 +11,11 @@
     .snapshot-indicator.glyphicon.glyphicon-remove-sign
   - else
     .snapshot-indicator.glyphicon.glyphicon-question-sign
-  .time-ago
-    = time_tag snapshot.created_at do
-      = time_ago_in_words(snapshot.created_at) + ' ago'
-  - if snapshot.diff_from_previous
-    .diff
-      = number_to_percentage(snapshot.diff_from_previous)
-      diff
+  .caption
+    .time-ago
+      = time_tag snapshot.created_at do
+        = time_ago_in_words(snapshot.created_at) + ' ago'
+    - if snapshot.diff_from_previous
+      .diff
+        = number_to_percentage(snapshot.diff_from_previous)
+        diff
