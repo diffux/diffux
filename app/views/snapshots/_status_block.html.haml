@@ -37,8 +37,3 @@
           %i.glyphicon.glyphicon-remove-sign
           %span.snapshot-button-enabled  Reject
           %span.snapshot-button-disabled Rejected
-
-    = button_to 'Delete',
-      @snapshot, method: :delete,
-      data: { confirm: 'Are you sure?' },
-      class: 'btn btn-danger'

@@ -17,6 +17,9 @@
     %h1
       %span.glyphicon.glyphicon-camera
       Snapshot
+      %small
+        = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
+          %span.glyphicon.glyphicon-remove>
 
   = render 'snapshots/status_block'
 
