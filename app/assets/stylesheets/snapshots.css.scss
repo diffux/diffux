@@ -9,6 +9,8 @@
   }
 
   .btn {
+    min-width: 150px;
+
     .snapshot-button-disabled {
       display: none;
     }
