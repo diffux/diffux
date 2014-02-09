@@ -1,16 +1,18 @@
 if ENV['PHANTOMJS_PATH']
   module Phantomjs
     class HerokuPlatform < Platform
-      def phantomjs_path
-        ENV['PHANTOMJS_PATH']
-      end
+      class << self
+        def phantomjs_path
+          ENV['PHANTOMJS_PATH']
+        end
 
-      def useable?
-        File.exist?(ENV['PHANTOMJS_PATH'])
-      end
+        def useable?
+          File.exist?(ENV['PHANTOMJS_PATH'])
+        end
 
-      def ensure_installed!
-        # noop
+        def ensure_installed!
+          # noop
+        end
       end
     end
   end
