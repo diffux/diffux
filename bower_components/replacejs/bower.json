@@ -1,0 +1,24 @@
+{
+  "name": "replacejs",
+  "version": "0.0.4",
+  "main": [
+    "replace.js",
+    "primer.js",
+    "primer.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "demo",
+    "index.html",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10"
+  },
+  "devDependencies": {
+    "jquery-waypoints": "~2.0.2"
+  }
+}

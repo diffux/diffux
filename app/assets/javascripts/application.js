@@ -14,4 +14,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require replacejs/replace
 //= require _loading-indicator

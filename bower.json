@@ -1,0 +1,7 @@
+{
+  "name": "Diffux",
+  "private": true,
+  "dependencies": {
+     "replacejs": "~0.0.5"
+  }
+}

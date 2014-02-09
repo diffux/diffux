@@ -57,5 +57,8 @@ module Diffux
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Add bower_components to asset pipeline
+    config.assets.paths << Rails.root.join('bower_components')
   end
 end
