@@ -31,3 +31,7 @@ figure {
 form.button_to {
   display: inline-block; // Make `button_to` containers flow as buttons
 }
+
+.btn .glyphicon {
+  vertical-align: -4%;
+}
