@@ -212,7 +212,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.1.0)
-  chunky_png
   coffee-rails (~> 4.0.1)
   compass-rails
   coveralls
