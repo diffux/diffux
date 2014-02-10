@@ -5,7 +5,6 @@ gem 'rails', '4.0.2'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'chunky_png'
 gem 'haml-rails'
-gem 'jquery-rails'
 gem 'oily_png' # speeds up chunky_png
 gem 'paperclip'
 gem 'pg'
