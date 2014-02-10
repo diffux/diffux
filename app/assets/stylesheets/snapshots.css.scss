@@ -68,6 +68,11 @@
     border-color: #6c6;
   }
 
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+
   .snapshot-indicator {
     $icon-size: 20px;
     @include border-radius(50%);
@@ -93,8 +98,10 @@
   .snapshot-card-pending {
     $icon-size: 100px;
     color: #ccc;
+    display: block;
     font-size: $icon-size;
     line-height: $icon-size;
+    text-align: center;
     text-decoration: none;
   }
 }
