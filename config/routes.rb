@@ -2,7 +2,11 @@ Diffux::Application.routes.draw do
   get 'static_pages/about'
 
   resources :projects do
-    resources :sweeps, only: %i[index show new create]
+    resources :sweeps, only: %i[index show new create] do
+      collection do
+        post :trigger
+      end
+    end
   end
   resources :urls, only: %i[destroy]
 

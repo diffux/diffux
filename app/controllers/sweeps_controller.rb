@@ -14,6 +14,25 @@ class SweepsController < ApplicationController
   end
 
   def create
+    if create_sweep
+      redirect_to [@project, @sweep], notice: 'Sweep was successfully initiated.'
+    else
+      render action: 'new'
+    end
+  end
+
+  # Same as #create, but exposed publicly. Parameters are passed in as JSON.
+  def trigger
+    if create_sweep
+      render json: { url: project_sweep_url(@project, @sweep) }
+    else
+      render json: { errors: @sweep.errors.full_messages }, status: 400
+    end
+  end
+
+  private
+
+  def create_sweep
     @sweep = @project.sweeps.build(sweep_params)
     if @sweep.save
       @sweep.project.urls.each do |url|
@@ -25,13 +44,10 @@ class SweepsController < ApplicationController
           @snapshot.save!
         end
       end
-      redirect_to [@project, @sweep], notice: 'Sweep was successfully initiated.'
-    else
-      render action: 'new'
+      return true
     end
+    false
   end
-
-  private
 
   def set_project
     @project = Project.find(params[:project_id])

@@ -107,6 +107,10 @@ describe SweepsController do
         expect { subject }.to change { Snapshot.count }.by(1)
       end
 
+      it 'adds a sweep' do
+        expect { subject }.to change { Sweep.count }.by(1)
+      end
+
       it 'associates the snapshot with the sweep' do
         subject
         Snapshot.last.sweep.should_not be_nil
@@ -121,6 +125,10 @@ describe SweepsController do
 
       it 'does not add a snapshot' do
         expect { subject }.to_not change { Snapshot.count }
+      end
+
+      it 'does not add a sweep' do
+        expect { subject }.to_not change { Sweep.count }
       end
     end
   end

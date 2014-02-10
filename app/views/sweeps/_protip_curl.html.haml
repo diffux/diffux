@@ -1,0 +1,4 @@
+%strong Protip:
+sweeps for this project can be triggered programmatically
+%pre.small
+  curl --header "Accept: application/json" --header "Content-Type: application/json" --data '{ "title": "Deploy #1", "description": "Release Notes: Fixed layout bug" }' #{trigger_project_sweeps_url(@project)}
