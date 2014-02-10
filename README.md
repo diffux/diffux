@@ -109,6 +109,26 @@ heroku ps:scale worker=1
 # http://[diffux].herokuapp.com
 ```
 
+## Triggering sweeps
+
+A sweep is a full set of snapshots taken for a project. You can trigger sweeps
+from a project in the web UI or through making a simple API call to
+/projects/{project_id}/sweeps/trigger. The API endpoint sends back a JSON
+object containing a `url` to a page showing the results of the newly created
+sweep. Remember: snapshotting is done asynchronously, so don't expect immediate
+results.
+
+```bash
+# Example of triggering a sweep using curl for a project with id=1
+curl --header "Accept: application/json" \
+     --header "Content-Type: application/json" \
+     --data '{
+               "title": "Deploy 1",
+               "description": "Release Notes: Fixed layout bug"
+             }' \
+     http://my-diffux-domain/projects/1/sweeps/trigger
+```
+
 ## License
 
 Released under the MIT License.
