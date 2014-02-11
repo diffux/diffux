@@ -37,3 +37,8 @@
           %i.glyphicon.glyphicon-remove-sign
           %span.snapshot-button-enabled  Reject
           %span.snapshot-button-disabled Rejected
+
+    = form_tag take_snapshot_snapshot_path(@snapshot), method: :post do
+      %button.btn
+        %i.glyphicon.glyphicon-camera
+        Re-take snapshot
