@@ -1,5 +1,5 @@
 class SnapshotsController < ApplicationController
-  before_filter :set_snapshot, only: %i[show destroy accept reject]
+  before_filter :set_snapshot, only: %i[show destroy accept reject take_snapshot]
 
   def show
     if snapshot_ids = params[:review_list]
@@ -44,6 +44,21 @@ class SnapshotsController < ApplicationController
     else
       redirect_to @snapshot
     end
+  end
+
+  def take_snapshot
+    @snapshot.image                = nil
+    @snapshot.diff_image           = nil
+    @snapshot.diff_from_previous   = nil
+    @snapshot.diffed_with_snapshot = nil
+    @snapshot.accepted_at          = nil
+    @snapshot.rejected_at          = nil
+    @snapshot.save!
+
+    @snapshot.take_snapshot
+    
+    redirect_to @snapshot,
+      notice: 'Snapshot is scheduled to be retaken.'
   end
 
   private

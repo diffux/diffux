@@ -97,4 +97,25 @@ describe SnapshotsController do
         .to change { snapshot.reload.rejected? }.to(true)
     end
   end
+
+  describe '#take_snapshot' do
+    let!(:snapshot) { create(:snapshot) }
+
+    it 'sets the snapshot in pending state' do
+      SnapshotterWorker.stubs(:perform_async)
+      expect { post :take_snapshot, id: snapshot.to_param }
+        .to change { snapshot.reload.pending? }.to(true)
+    end
+
+    it 'triggers a worker' do
+      SnapshotterWorker.expects(:perform_async).once
+      post :take_snapshot, id: snapshot.to_param
+    end
+
+    it 'redirects to the snapshot page' do
+      SnapshotterWorker.stubs(:perform_async)
+      post :take_snapshot, id: snapshot.to_param
+      response.should redirect_to(snapshot_url(snapshot))
+    end
+  end
 end
