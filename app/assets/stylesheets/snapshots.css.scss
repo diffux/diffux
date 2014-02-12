@@ -58,6 +58,11 @@
   position: relative;
   vertical-align: top;
 
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
   &.snapshot-card-active {
     $blue: #428bca;
     @include box-shadow(0 0 10px $blue);
@@ -66,11 +71,6 @@
 
   &.snapshot-baseline {
     border-color: #6c6;
-  }
-
-  a:hover,
-  a:focus {
-    text-decoration: none;
   }
 
   .snapshot-indicator {

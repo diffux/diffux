@@ -1,10 +1,11 @@
-.snapshot-card.thumbnail{ class: ('snapshot-card-active' if local_assigns[:active]) }
-  = link_to snapshot_path(snapshot,
-    review_list: local_assigns[:review_list]) do
-    - if snapshot.image?
-      = image_tag snapshot.image.url(:thumb)
-    - else
-      .glyphicon.glyphicon-time.snapshot-card-pending
+- classes = %w[snapshot-card thumbnail]
+- classes << 'snapshot-card-active' if local_assigns[:active]
+= link_to snapshot_path(snapshot, review_list: local_assigns[:review_list]),
+          class: classes do
+  - if snapshot.image?
+    = image_tag snapshot.image.url(:thumb)
+  - else
+    .glyphicon.glyphicon-time.snapshot-card-pending
 
   .snapshot-indicator.snapshot-color-icon.glyphicon{ class: glyphicon_for(snapshot) }
 
