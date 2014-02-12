@@ -9,4 +9,11 @@
     = f.label :description, 'Description', class: 'control-label'
     = f.text_area :description, rows: 4, class: 'form-control'
   .form-group
+    = f.label :delay_seconds, 'Delay snapshotting (seconds)', class: 'control-label'
+    = f.text_field :delay_seconds, class: 'form-control', type: 'number',
+      min: '1', step: '1', pattern: '\d+'
+    %span.help-block
+      Enter the number of seconds you wish to delay the start of snapshot
+      creation with. Leave empty to start snapshotting immediately.
+  .form-group
     = f.submit 'Save', class: 'btn btn-primary'

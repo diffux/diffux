@@ -45,4 +45,18 @@ describe Sweep do
       its(:count_under_review) { should == 1 }
     end
   end
+
+  describe '#create' do
+    subject { create(:sweep, delay_seconds: delay_seconds) }
+
+    context 'with no delay' do
+      let(:delay_seconds) { nil }
+      its(:start_time)    { should be_nil }
+    end
+
+    context 'with a delay' do
+      let(:delay_seconds) { 10 }
+      its(:start_time)    { should > Time.now }
+    end
+  end
 end

@@ -66,7 +66,7 @@ class Snapshot < ActiveRecord::Base
     return false if baseline.created_at > created_at
     !diff?
   end
-  
+
   def take_snapshot
     SnapshotterWorker.perform_async(id)
   end
@@ -77,7 +77,7 @@ class Snapshot < ActiveRecord::Base
     return if diffed_with_snapshot_id == id
     self.accepted_at = Time.now if diff_from_previous == 0
   end
-  
+
   def compare_snapshot_if_needed
     SnapshotComparerWorker.perform_async(id) if compare?
   end

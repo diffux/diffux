@@ -34,19 +34,7 @@ class SweepsController < ApplicationController
 
   def create_sweep
     @sweep = @project.sweeps.build(sweep_params)
-    if @sweep.save
-      @sweep.project.urls.each do |url|
-        @sweep.project.viewports.each do |viewport|
-          @snapshot          = Snapshot.new
-          @snapshot.viewport = viewport
-          @snapshot.url      = url
-          @snapshot.sweep    = @sweep
-          @snapshot.save!
-        end
-      end
-      return true
-    end
-    false
+    @sweep.save
   end
 
   def set_project
@@ -54,6 +42,6 @@ class SweepsController < ApplicationController
   end
 
   def sweep_params
-    params.require(:sweep).permit(:title, :description)
+    params.require(:sweep).permit(:title, :description, :delay_seconds)
   end
 end

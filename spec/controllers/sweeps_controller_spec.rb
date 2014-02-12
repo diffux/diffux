@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'sidekiq/testing'
 
 describe SweepsController do
   render_views
@@ -83,21 +84,21 @@ describe SweepsController do
   end
 
   describe '#create' do
-    let(:project)     { create(:project, :with_viewport, :with_url) }
-    let(:title)       { Random.rand(10..100) }
-    let(:description) { Random.rand(100..1000) }
+    let(:project)       { create(:project, :with_viewport, :with_url) }
+    let(:title)         { Random.rand(10..100) }
+    let(:description)   { Random.rand(100..1000) }
 
     let(:params) do
       {
         project_id: project.to_param,
         sweep: {
-          title: title,
+          title:       title,
           description: description,
         }
       }
     end
     subject do
-      post :create, params
+      Sidekiq::Testing.fake! { post :create, params }
     end
 
     context 'with valid params' do
@@ -114,6 +115,31 @@ describe SweepsController do
       it 'associates the snapshot with the sweep' do
         subject
         Snapshot.last.sweep.should_not be_nil
+      end
+
+      context 'with a delay' do
+        before do
+          params[:sweep][:delay_seconds] = 60
+        end
+
+        it { should be_redirect }
+
+        it 'does not add a snapshot' do
+          expect { subject }.to_not change { Snapshot.count }
+        end
+
+        it 'adds a sweep' do
+          expect { subject }.to change { Sweep.count }.by(1)
+        end
+
+        it 'sets a future start time to the sweep' do
+          subject
+          Sweep.last.start_time.should > Time.now
+        end
+
+        it 'triggers a worker thread in the future' do
+          expect { subject }.to change { SweepWorker.jobs.size }.by(1)
+        end
       end
     end
 

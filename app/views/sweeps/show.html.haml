@@ -8,6 +8,11 @@
 
 .page-header
   %h1= yield :title
+  - if seconds = @sweep.delay_seconds_remaining
+    .alert.alert-info
+      .i.glyphicon.glyphicon-timer
+      This sweep is scheduled to start in
+      = pluralize(seconds, 'second')
   %p.help= simple_format @sweep.description
 
 - if pending = @sweep.pending_snapshots.presence
