@@ -84,9 +84,9 @@ describe SweepsController do
   end
 
   describe '#create' do
-    let(:project)       { create(:project, :with_viewport, :with_url) }
-    let(:title)         { Random.rand(10..100) }
-    let(:description)   { Random.rand(100..1000) }
+    let(:project)     { create(:project, :with_viewport, :with_url) }
+    let(:title)       { Random.rand(10..100).to_s }
+    let(:description) { Random.rand(100..1000).to_s }
 
     let(:params) do
       {
