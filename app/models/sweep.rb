@@ -3,6 +3,7 @@ class Sweep < ActiveRecord::Base
   has_many              :snapshots
   attr_accessor         :delay_seconds
   validates_presence_of :title
+  validates_format_of   :email, with: /\A.+@.+\Z/, allow_nil: true
   after_create          :take_snapshots
   before_create         :set_start_time_from_delay_seconds
 
@@ -30,6 +31,13 @@ class Sweep < ActiveRecord::Base
     snapshots.select(&:under_review?)
   end
 
+  def refresh!
+    update_counters!
+    send_email_if_needed!
+  end
+
+  private
+
   def update_counters!
     self.count_pending      = pending_snapshots.count
     self.count_accepted     = accepted_snapshots.count
@@ -38,7 +46,16 @@ class Sweep < ActiveRecord::Base
     save!
   end
 
-  private
+  def send_email_if_needed!
+    return unless email
+    update_counters! # to prevent stale data
+    return if snapshots.count == 0
+    return if count_pending > 0
+    return if emailed_at
+    SweepMailer.ready_for_review(self).deliver
+    self.emailed_at = Time.now
+    save!
+  end
 
   def take_snapshots
     if start_time
@@ -49,7 +66,7 @@ class Sweep < ActiveRecord::Base
   end
 
   def set_start_time_from_delay_seconds
-    return unless delay_seconds
+    return unless delay_seconds.to_i > 0
     self.start_time = Time.now + delay_seconds.to_i.seconds
   end
 end

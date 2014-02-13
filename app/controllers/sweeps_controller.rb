@@ -42,6 +42,9 @@ class SweepsController < ApplicationController
   end
 
   def sweep_params
-    params.require(:sweep).permit(:title, :description, :delay_seconds)
+    params.require(:sweep).permit(:title,
+                                  :description,
+                                  :delay_seconds,
+                                  :email)
   end
 end

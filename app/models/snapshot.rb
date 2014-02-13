@@ -21,7 +21,7 @@ class Snapshot < ActiveRecord::Base
   before_save  :auto_accept
   after_commit :take_snapshot, on: :create
   after_commit :compare_snapshot_if_needed, on: :update
-  after_commit :update_sweep_counters, on: [:create, :update]
+  after_commit :refresh_sweep, on: [:create, :update]
 
   def diff?
     diffed_with_snapshot_id? && diffed_with_snapshot_id != id
@@ -82,9 +82,9 @@ class Snapshot < ActiveRecord::Base
     SnapshotComparerWorker.perform_async(id) if compare?
   end
 
-  def update_sweep_counters
+  def refresh_sweep
     return unless sweep
-    sweep.update_counters!
+    sweep.refresh!
   end
 
   def waiting_for_diff?

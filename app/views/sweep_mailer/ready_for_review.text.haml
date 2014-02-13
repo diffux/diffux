@@ -1,0 +1,7 @@
+Your Diffux sweep is ready.
+
+= project_sweep_url(@sweep, project_id: @sweep.project)
+
+Result summary:
+\- #{pluralize(@sweep.count_accepted, 'auto-accepted snapshot')}
+\- #{pluralize(@sweep.count_under_review, 'snapshot')} to review

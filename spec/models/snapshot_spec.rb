@@ -105,14 +105,14 @@ describe Snapshot do
     end
   end
 
-  describe 'updates sweep counter', :uses_after_commit do
+  describe '#refresh_sweep', :uses_after_commit do
     subject { snapshot.save! }
 
     context 'on creation' do
       let(:snapshot) { build :snapshot, :with_sweep }
 
-      it 'calls #update_counters for the sweep' do
-        snapshot.sweep.expects(:update_counters!).once
+      it 'calls #refresh! for the sweep' do
+        snapshot.sweep.expects(:refresh!).once
         subject
       end
     end
@@ -120,8 +120,8 @@ describe Snapshot do
     context 'on update' do
       let!(:snapshot) { create :snapshot, :with_sweep }
 
-      it 'calls #update_counters for the sweep' do
-        snapshot.sweep.expects(:update_counters!).once
+      it 'calls #refresh! for the sweep' do
+        snapshot.sweep.expects(:refresh!)
         subject
       end
     end

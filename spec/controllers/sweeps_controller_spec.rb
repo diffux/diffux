@@ -87,6 +87,7 @@ describe SweepsController do
     let(:project)     { create(:project, :with_viewport, :with_url) }
     let(:title)       { Random.rand(10..100).to_s }
     let(:description) { Random.rand(100..1000).to_s }
+    let(:email)       { 'foo@bar.com' }
 
     let(:params) do
       {
@@ -94,6 +95,7 @@ describe SweepsController do
         sweep: {
           title:       title,
           description: description,
+          email:       email,
         }
       }
     end
@@ -119,7 +121,7 @@ describe SweepsController do
 
       context 'with a delay' do
         before do
-          params[:sweep][:delay_seconds] = 60
+          params[:sweep][:delay_seconds] = '60'
         end
 
         it { should be_redirect }
@@ -141,12 +143,42 @@ describe SweepsController do
           expect { subject }.to change { SweepWorker.jobs.size }.by(1)
         end
       end
+
+      context 'with an empty delay' do
+        before do
+          params[:sweep][:delay_seconds] = ''
+        end
+
+        it 'adds a sweep' do
+          expect { subject }.to change { Sweep.count }.by(1)
+        end
+
+        it 'does not set a future start_time to the sweep' do
+          subject
+          Sweep.last.start_time.should be_nil
+        end
+      end
     end
 
     context 'with a missing title' do
       let(:title) { nil }
 
-      it { should be_succes }
+      it { should be_success }
+      it { should render_template('sweeps/new') }
+
+      it 'does not add a snapshot' do
+        expect { subject }.to_not change { Snapshot.count }
+      end
+
+      it 'does not add a sweep' do
+        expect { subject }.to_not change { Sweep.count }
+      end
+    end
+
+    context 'with an invalid email address' do
+      let(:email) { 'foo' }
+
+      it { should be_success }
       it { should render_template('sweeps/new') }
 
       it 'does not add a snapshot' do

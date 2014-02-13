@@ -21,6 +21,7 @@ FactoryGirl.define do
     project
     title       Random.rand(20..100).to_s
     description Random.rand(100..1000).to_s
+    email       'foo@bar.com'
   end
 
   factory :viewport do
