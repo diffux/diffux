@@ -189,5 +189,13 @@ describe SweepsController do
         expect { subject }.to_not change { Sweep.count }
       end
     end
+
+    context 'with an empty email address' do
+      let(:email) { '' }
+
+      it 'adds a sweep' do
+        expect { subject }.to change { Sweep.count }.by(1)
+      end
+    end
   end
 end
