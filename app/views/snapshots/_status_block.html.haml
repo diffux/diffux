@@ -6,6 +6,10 @@
       %td
         = link_to simplified_url(@snapshot.url.address), @snapshot.url.address,
           class: 'url-multiline'
+    - if @snapshot.title
+      %tr
+        %th Page title
+        %td= @snapshot.title
     %tr
       %th Viewport
       %td= @snapshot.viewport
