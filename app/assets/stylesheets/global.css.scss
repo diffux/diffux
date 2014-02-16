@@ -26,6 +26,13 @@ figure {
   }
 }
 
+.breadcrumb > li {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .help {
   max-width: 640px;
 }
