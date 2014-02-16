@@ -161,7 +161,7 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    sidekiq (2.17.4)
+    sidekiq (2.17.5)
       celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
