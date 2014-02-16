@@ -3,6 +3,9 @@
 %ol.breadcrumb
   %li= link_to 'Projects', projects_path
   %li= link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
+  - if @snapshot.sweep
+    %li= link_to 'Sweeps', project_sweeps_path(@snapshot.url.project)
+    %li= link_to @snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]
   %li
     = simplified_url @snapshot.url.address
     @
