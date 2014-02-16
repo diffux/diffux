@@ -33,6 +33,13 @@ figure {
   white-space: nowrap;
 }
 
+.table.table-vertical tr:first-child {
+  th,
+  td {
+    border-top: none;
+  }
+}
+
 .help {
   max-width: 640px;
 }
