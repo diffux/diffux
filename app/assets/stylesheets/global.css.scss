@@ -11,6 +11,21 @@ figure {
   margin: 1em 0;
 }
 
+.navbar .brand {
+  $navbar-height:      50px;
+  $logo-height:        25px;
+  $padding-top:        ($navbar-height - $logo-height) * .4;
+  $padding-bottom:     $navbar-height - $logo-height - $padding-top;
+
+  padding-bottom: $padding-bottom;
+  padding-top: $padding-top;
+
+  img {
+    width: auto;
+    height: $logo-height;
+  }
+}
+
 .help {
   max-width: 640px;
 }
