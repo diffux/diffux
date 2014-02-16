@@ -12,7 +12,7 @@ $(function() {
     }
 
     if ($goTo.length) {
-      Turbolinks.visit($goTo.find('a').first().attr('href'));
+      Turbolinks.visit($goTo.attr('href'));
     }
   });
 });
