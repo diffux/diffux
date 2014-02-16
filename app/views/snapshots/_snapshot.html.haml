@@ -1,7 +1,7 @@
 - classes = %w[snapshot-card thumbnail]
 - classes << 'snapshot-card-active' if local_assigns[:active]
 = link_to snapshot_path(snapshot, review_list: local_assigns[:review_list]),
-          class: classes do
+          class: classes, title: snapshot.title do
   - if snapshot.image?
     = image_tag snapshot.image.url(:thumb)
   - else
