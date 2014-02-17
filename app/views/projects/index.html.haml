@@ -18,7 +18,7 @@
     %tbody
       - @projects.each do |project|
         %tr
-          %td= link_to project.name, project
+          %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
           %td= project.urls.count
           %td
