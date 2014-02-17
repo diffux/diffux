@@ -10,7 +10,12 @@
     = yield :title
     - @project.viewports.each do |viewport|
       %small.project-viewport= viewport
-    %small= link_to 'Edit', edit_project_path(@project)
+    %small
+      = link_to edit_project_path(@project), title: 'Edit' do
+        %span.glyphicon.glyphicon-edit<>
+      = link_to @project, method: :delete, title: 'Delete',
+                          data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-remove<>
 
 %table.table.table-vertical
   %tr
