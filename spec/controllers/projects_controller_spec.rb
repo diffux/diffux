@@ -22,7 +22,6 @@ describe ProjectsController do
       it { should render_template('projects/index') }
       its(:body) { should include project.name }
       its(:body) { should include project_path(project) }
-      its(:body) { should include edit_project_path(project) }
       its(:body) { should include new_project_path }
     end
   end
