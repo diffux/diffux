@@ -20,8 +20,8 @@
         %span.icon-bar
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li= link_to 'Projects', projects_path
-        %li= link_to 'About', static_pages_about_path
+        = menu_item 'Projects', projects_path
+        = menu_item 'About', static_pages_about_path
 
   .container
     - if notice

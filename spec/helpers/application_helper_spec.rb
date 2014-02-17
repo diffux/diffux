@@ -21,4 +21,29 @@ describe ApplicationHelper do
       it               { should == simplified }
     end
   end
+
+  describe '#menu_item' do
+    subject { helper.menu_item 'Text', path }
+    before  { helper.request.stubs(:fullpath).returns(fullpath) }
+
+    context 'when you are currently on a project page' do
+      let(:fullpath) { project_path(build_stubbed :project)}
+
+      context 'and you are rendering the projects link' do
+        let(:path) { projects_path }
+
+        it 'should render an active item' do
+          subject.should =~ /class="active"/
+        end
+      end
+
+      context 'and you are rendering the "About" link' do
+        let(:path) { static_pages_about_path }
+
+        it 'should not render an active item' do
+          subject.should_not =~ /class="active"/
+        end
+      end
+    end
+  end
 end
