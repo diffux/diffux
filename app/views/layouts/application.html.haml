@@ -12,10 +12,16 @@
   %meta{ name: 'viewport', content: 'initial-scale=1' }
 %body
   %nav.navbar.navbar-default{ role: 'navigation' }
-    %ul.nav.navbar-nav
-      %li= link_to image_tag('diffux.svg'), root_path, class: 'brand'
-      %li= link_to 'Projects', projects_path
-      %li= link_to 'About', static_pages_about_path
+    .navbar-header
+      = link_to image_tag('diffux.svg'), root_path, class: 'navbar-brand'
+      %button.navbar-toggle{ data: { toggle: 'collapse', target: '.navbar-collapse'} }
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li= link_to 'Projects', projects_path
+        %li= link_to 'About', static_pages_about_path
 
   .container
     - if notice

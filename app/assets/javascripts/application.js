@@ -17,3 +17,7 @@
 //= require replacejs/replace
 //= require _loading-indicator
 //= require _snapshot-review-navigator
+//
+// Make navbar collapsable on mobile:
+//= require bootstrap/collapse
+//= require bootstrap/transition
