@@ -1,7 +1,11 @@
 - provide :title, 'Projects'
 
 .page-header
-  %h1= yield :title
+  %h1
+    = yield :title
+    = link_to new_project_path, class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      Add new Project
 
 - if @projects.any?
   %table.table.table-striped
@@ -19,8 +23,3 @@
           %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
           %td= project.urls.count
-
-= link_to new_project_path, class: 'btn btn-primary' do
-  %span.glyphicon.glyphicon-plus
-  Add new Project
-
