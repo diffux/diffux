@@ -50,11 +50,13 @@
 }
 
 .snapshot-card {
+  $snapshot-width: 100px;
   display: inline-block;
   font-size: 10px;
   line-height: 12px;
   margin: 1em 1em .5em 0;
   min-height: 130px;
+  min-width: $snapshot-width;
   position: relative;
   vertical-align: top;
 
@@ -96,11 +98,10 @@
   }
 
   .snapshot-card-pending {
-    $icon-size: 100px;
     color: #ccc;
     display: block;
-    font-size: $icon-size;
-    line-height: $icon-size;
+    font-size: $snapshot-width;
+    line-height: $snapshot-width;
     text-align: center;
     text-decoration: none;
   }
