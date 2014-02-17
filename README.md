@@ -127,7 +127,8 @@ curl --header "Accept: application/json" \
      --data '{
                "title": "Deploy 1",
                "description": "Release Notes: Fixed layout bug",
-               "delay_seconds": 20
+               "delay_seconds": 20,
+               "email": "foo@bar.com"
              }' \
      http://my-diffux-domain/projects/1/sweeps/trigger
 ```
