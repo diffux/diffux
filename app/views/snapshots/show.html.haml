@@ -22,10 +22,11 @@
       %h2.panel-title
         = link_to 'In review', [@snapshot.sweep.project, @snapshot.sweep],
           title: @snapshot.sweep.title
-    .panel-body
-      - @review_list.each do |snapshot|
-        = render snapshot, review_list: @review_list.map(&:id),
-          active: snapshot == @snapshot
+    .scroll-horizontal-indicators
+      .panel-body
+        - @review_list.each do |snapshot|
+          = render snapshot, review_list: @review_list.map(&:id),
+            active: snapshot == @snapshot
 .snapshot
   .page-header
     %h1
