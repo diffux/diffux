@@ -13,7 +13,6 @@
           = succeed 's' do
             %abbr.initialism{ title: 'Uniform Resource Locators' } URL
         %th
-        %th
 
     %tbody
       - @projects.each do |project|
@@ -21,9 +20,6 @@
           %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
           %td= project.urls.count
-          %td
-            = link_to edit_project_path(project) do
-              %span.glyphicon.glyphicon-edit
           %td
             = link_to project, method: :delete, data: { confirm: 'Are you sure?' } do
               %span.glyphicon.glyphicon-remove
