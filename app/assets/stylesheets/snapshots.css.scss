@@ -105,3 +105,8 @@
     text-decoration: none;
   }
 }
+
+.snapshot-review-panel .panel-body {
+  white-space: nowrap;
+  overflow: auto;
+}
