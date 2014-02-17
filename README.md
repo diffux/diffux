@@ -132,6 +132,17 @@ curl --header "Accept: application/json" \
      http://my-diffux-domain/projects/1/sweeps/trigger
 ```
 
+More about the JSON data:
+
+ - `title` - A name/short description of the sweep, e.g. the name of the
+   release/deploy.
+ - `description` - (optional) A longer description, e.g. the full release
+   notes.
+ - `delay_seconds` - (optional) Number of seconds to delay the sweep with. This
+   could be useful if you have an async release process.
+ - `email` - (optional) An email address to send a message to when the sweep is
+   ready (all snapshots taken and compared).
+
 ## License
 
 Released under the MIT License.
