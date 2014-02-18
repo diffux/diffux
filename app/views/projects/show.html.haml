@@ -33,7 +33,7 @@
 
 - @project.urls.each do |url|
   %h2
-    %span.url-multiline= simplified_url url.address
+    %span.url-multiline{ title: url.address }= url.title
     %small
       = link_to snapshots_path(url: url.id), method: :post,
                 title: 'Create new snapshots' do

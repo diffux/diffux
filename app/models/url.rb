@@ -12,6 +12,15 @@ class Url < ActiveRecord::Base
   def to_s
     address
   end
+  
+  def title
+    accepted_snapshot = snapshots.where("accepted_at is not null").first
+    if accepted_snapshot.try(:title)
+      accepted_snapshot.title
+    else
+      simplified_url address
+    end
+  end
 
   # @return [Snapshot]
   def baseline(viewport)
@@ -21,4 +30,11 @@ class Url < ActiveRecord::Base
       .where('accepted_at IS NOT NULL')
       .first
   end
+
+  private
+
+  def simplified_url(url)
+    url.gsub(%r[(?:\Ahttp://|/\Z)], '')
+  end
+
 end
