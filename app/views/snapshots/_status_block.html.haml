@@ -4,7 +4,7 @@
       %th
         %abbr.initialism{ title: 'Uniform Resource Locator' } URL
       %td
-        = link_to simplified_url(@snapshot.url.address), @snapshot.url.address,
+        = link_to @snapshot.url.title, @snapshot.url.address,
           class: 'url-multiline'
     - if @snapshot.title
       %tr

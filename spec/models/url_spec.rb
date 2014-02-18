@@ -3,6 +3,40 @@ describe Url do
   let(:url)      { create(:url) }
   let(:viewport) { create(:viewport) }
 
+  describe 'title' do
+    let(:url) { create(:url, address:"http://google.com") }
+    subject   { url.title }
+    it        { should == "google.com" } 
+
+    context 'with a nonaccepted snapshot' do
+      before do
+        create(:snapshot, url: url)
+      end
+
+      it { should == "google.com" }
+    end
+
+    context 'with a accepted snapshot' do
+      let!(:accepted_snapshot) do
+        create(:snapshot, :accepted, url: url)
+      end
+
+      it { should == accepted_snapshot.title }
+    end
+
+    context 'with two accepted snapshots' do
+      let!(:accepted_snapshot1) do
+        create(:snapshot, :accepted, url: url, created_at: Time.now - 5.minutes)
+      end
+      let!(:accepted_snapshot2) do
+        create(:snapshot, :accepted, url: url, created_at: Time.now)
+      end
+
+      it { should == accepted_snapshot2.title }
+    end
+
+  end
+
   describe '#baseline' do
     subject { url.baseline(viewport) }
     it      { should be_nil }
