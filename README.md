@@ -12,8 +12,9 @@ unexpected ways? Do you want to show a designer a page you've been working on,
 before and after your changes? Do you want to be able to quickly look back at
 how things looked a month or a year ago?
 
-Diffux is a tool that generates and manages visual diffs of web pages, so that
-you can easily see even the subtlest effects of your code modifications.
+Diffux [dɪˈfjuːz] is a tool that generates and manages visual diffs of web
+pages, so that you can easily see even the subtlest effects of your code
+modifications.
 
 ## Installing
 
