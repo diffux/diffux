@@ -33,8 +33,20 @@ describe Snapshot do
       let(:snapshot) { create :snapshot }
 
       context 'when there is a baseline' do
-        before { snapshot.url.stubs(:baseline).returns(build(:snapshot)) }
-        it     { should be_true }
+        before do
+          snapshot.url.stubs(:baseline)
+            .returns(build(:snapshot, created_at: created_at))
+        end
+
+        context 'and the baseline is older than the snapshot' do
+          let(:created_at) { 5.days.ago }
+          it               { should be_true }
+        end
+
+        context 'and the baseline is newer than the snapshot' do
+          let(:created_at) { 5.days.from_now }
+          it               { should be_false }
+        end
       end
 
       context 'when the baseline is equal to the snapshot' do
