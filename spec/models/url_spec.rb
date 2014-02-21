@@ -6,7 +6,7 @@ describe Url do
   describe 'title' do
     let(:url) { create(:url, address:"http://google.com") }
     subject   { url.title }
-    it        { should == "google.com" } 
+    it        { should == "google.com" }
 
     context 'with a nonaccepted snapshot' do
       before do
@@ -65,6 +65,37 @@ describe Url do
         it { old_snapshot.url.should == url  }
         it { old_snapshot.accepted_at == url  }
         it { should == new_snapshot }
+      end
+    end
+  end
+
+  describe '#last_snapshots_by_viewport' do
+    let(:viewport) { url.project.viewports.first }
+    subject        { url.last_snapshots_by_viewport }
+
+    it { should be_a Hash }
+
+    context 'with no snapshots' do
+      it 'returns a viewport with no snapshots' do
+        subject[viewport].should be_empty
+      end
+    end
+
+    context 'with three snapshots' do
+      before do
+        3.times { create(:snapshot, url: url, viewport: viewport) }
+      end
+
+      it 'the viewport in the result has two snapshots' do
+        subject[viewport].count.should == 2
+      end
+    end
+
+    context 'with more than one viewport' do
+      before { create(:viewport, project: url.project) }
+
+      it 'returns all viewports' do
+        subject.keys.count.should == 2
       end
     end
   end

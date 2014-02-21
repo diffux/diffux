@@ -32,20 +32,24 @@
 
 
 - @project.urls.each do |url|
-  %h2
-    %span.url-multiline{ title: url.address }= url.title
-    %small
+  .url-summary-box.row
+    .url-summary-box-info.col-md-4
+      %h2.url-multiline= url.title
+      %ul
+        %li= link_to url.simplified_address, url.address, class: 'url-multiline'
+        %li= link_to pluralize(url.snapshots.count, 'snapshot'), url
       = link_to snapshots_path(url: url.id), method: :post,
-                title: 'Create new snapshots' do
-        %span.glyphicon.glyphicon-camera>
-      = link_to url.address, target: '_blank' do
-        %span.glyphicon.glyphicon-share>
-      = link_to url, method: :delete, data: { confirm: 'Are you sure?' } do
-        %span.glyphicon.glyphicon-remove>
+                title: 'Create new snapshots',
+                class: 'btn btn-default' do
+        %span.glyphicon.glyphicon-camera
+        Create new snapshots
 
-  - url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= viewport
-      .panel-body.snapshots
-        = render snapshots
+    .col-md-8
+      .url-summary-box-snapshots.row
+        - url.last_snapshots_by_viewport.each do |viewport, snapshots|
+          .col-md-6
+            .panel.panel-default
+              .panel-heading
+                %h3.panel-title= viewport
+              .panel-body.snapshots
+                = render snapshots

@@ -12,13 +12,13 @@ class Url < ActiveRecord::Base
   def to_s
     address
   end
-  
+
   def title
     accepted_snapshot = snapshots.where("accepted_at is not null").first
     if accepted_snapshot.try(:title)
       accepted_snapshot.title
     else
-      simplified_url address
+      simplified_address
     end
   end
 
@@ -31,10 +31,17 @@ class Url < ActiveRecord::Base
       .first
   end
 
-  private
-
-  def simplified_url(url)
-    url.gsub(%r[(?:\Ahttp://|/\Z)], '')
+  def simplified_address
+    address.gsub(%r[(?:\Ahttp://|/\Z)], '')
   end
 
+  # Get the two latest snapshots
+  #
+  # @return [Hash] (at most) two snapshots grouped by viewport
+  def last_snapshots_by_viewport
+    project.viewports.inject({}) do |hash, viewport|
+      hash[viewport] = snapshots.where(viewport_id: viewport).first(2)
+      hash
+    end
+  end
 end

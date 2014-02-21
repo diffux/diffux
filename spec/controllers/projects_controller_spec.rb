@@ -27,7 +27,7 @@ describe ProjectsController do
   end
 
   describe '#show' do
-    let(:project) { create :project }
+    let(:project) { create :project, :with_viewport }
 
     subject do
       get :show, id: project.to_param
@@ -45,7 +45,9 @@ describe ProjectsController do
       its(:body) { should include url.address }
 
       context 'with snapshots' do
-        let(:snapshot) { create :snapshot, url: url }
+        let(:snapshot) do
+          create :snapshot, url: url, viewport: project.viewports.first
+        end
 
         its(:body) { should include snapshot.viewport.to_s }
         its(:body) { should include snapshot_path(snapshot) }

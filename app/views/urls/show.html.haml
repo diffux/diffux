@@ -1,0 +1,28 @@
+- provide :title, @url.title
+
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @url.project.name, @url.project
+  %li= @url.title
+
+.page-header
+  %h1
+    = yield :title
+    %small
+      = link_to @url, method: :delete, title: 'Delete',
+                      data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-remove<>
+
+%table.table.table-vertical
+  %tr
+    %th
+      URL
+    %td
+      = link_to @url.simplified_address, @url.address
+
+- @url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title= viewport
+    .panel-body.snapshots
+      = render snapshots

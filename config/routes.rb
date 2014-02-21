@@ -8,7 +8,7 @@ Diffux::Application.routes.draw do
       end
     end
   end
-  resources :urls, only: %i[destroy]
+  resources :urls, only: %i[destroy show]
 
   resources :snapshots, only: %i[show create destroy] do
     member do
