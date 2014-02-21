@@ -50,6 +50,8 @@
           .col-md-6
             .panel.panel-default
               .panel-heading
-                %h3.panel-title= viewport
+                %h3.panel-title
+                  = viewport
+                  %small= link_to 'View all', url_path(url, anchor: "viewport-#{viewport.id}")
               .panel-body.snapshots
                 = render snapshots
