@@ -27,8 +27,9 @@ class Snapshotter
           result = JSON.parse line, symbolize_names: true
         rescue JSON::ParserError
           # We only expect a single line of JSON to be output by our snapshot
-          # script. If something else is happening, we want to know about it.
-          raise line
+          # script. If something else is happening, it is likely a JavaScript
+          # error on the page and we should just forget about it and move on
+          # with our lives.
         end
       end
 
