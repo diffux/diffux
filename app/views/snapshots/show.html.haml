@@ -24,9 +24,11 @@
           title: @snapshot.sweep.title
     .scroll-horizontal-indicators
       .panel-body
-        - @review_list.each do |snapshot|
+        - @review_list.each_with_index do |snapshot, index|
           = render snapshot, review_list: @review_list.map(&:id),
-            active: snapshot == @snapshot
+            preceding_active: @review_list[index + 1] == @snapshot,
+            active: snapshot == @snapshot,
+            following_active: @review_list[index - 1] == @snapshot
 .snapshot
   .page-header
     %h1

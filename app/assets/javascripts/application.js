@@ -17,6 +17,7 @@
 //= require replacejs/replace
 //= require _loading-indicator
 //= require _snapshot-review-navigator
+//= require _keyboard-shortcuts
 //
 // Make navbar collapsable on mobile:
 //= require bootstrap/collapse
