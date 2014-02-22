@@ -34,8 +34,8 @@ describe Snapshotter do
 
     context 'when snapshot script outputs non-JSON' do
       let(:encoded_output) { 'This is not JSON' }
-      it 'raises an error with the script output' do
-        expect { subject.take_snapshot! }.to raise_error(encoded_output)
+      it 'not raise an error' do
+        expect { subject.take_snapshot! }.to_not raise_error
       end
     end
   end
