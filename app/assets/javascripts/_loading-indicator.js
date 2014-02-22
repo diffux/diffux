@@ -3,7 +3,7 @@ $(function() {
                      .html('Thinking&hellip;');
 
   // Listen to Turbolinks events
-  $(document).on('page:before-change', function() {
+  $(document).on('page:fetch', function() {
     $indicator.appendTo('body');
   }).on('page:load', function() {
     $indicator.detach();
