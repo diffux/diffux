@@ -71,7 +71,13 @@ $(function() {
     function scrollToFocused() {
       var $focused = $('.keyboard-focused');
       if ($focused.length) {
-        $focused[0].scrollIntoView();
+        // Look for context
+        var $context = $focused.parents('[data-keyboard-focusable-context]');
+        if ($context.length) {
+          $context[0].scrollIntoView();
+        } else {
+          $focused[0].scrollIntoView();
+        }
       }
     }
 
