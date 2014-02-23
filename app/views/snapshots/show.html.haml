@@ -17,7 +17,7 @@
 
 
 - if @review_list
-  .panel.panel-primary.snapshot-review-panel
+  .panel.panel-primary.snapshot-review-panel{ data: { keyboard_focusable_context: true } }
     .panel-heading
       %h2.panel-title
         = link_to 'In review', [@snapshot.sweep.project, @snapshot.sweep],
