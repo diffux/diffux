@@ -1,0 +1,8 @@
+$link-color: #428bca;
+.keyboard-focused {
+  color: #000;
+}
+
+tr.keyboard-focused > td:first-child {
+  box-shadow: 8px 0 0 -5px $link-color inset;
+}

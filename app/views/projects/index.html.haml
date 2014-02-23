@@ -19,7 +19,7 @@
 
     %tbody
       - @projects.each do |project|
-        %tr
+        %tr{ data: { keyboard_focusable: true } }
           %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
           %td= project.urls.count
