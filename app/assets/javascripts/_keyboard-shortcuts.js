@@ -44,10 +44,12 @@ $(function() {
         $('[data-keyboard-focusable]:first:visible')
           .addClass('keyboard-focused');
       }
+      scrollToFocused();
     }
 
     function focusPreviousFocusable() {
       moveFocus(-1);
+      scrollToFocused();
     }
 
     // @param movement [Integer] -1 to move backwards 1, or 1 to move forward 1
@@ -64,6 +66,13 @@ $(function() {
         return true;
       }
       return false;
+    }
+
+    function scrollToFocused() {
+      var $focused = $('.keyboard-focused');
+      if ($focused.length) {
+        $focused[0].scrollIntoView();
+      }
     }
 
     function openFocused() {
