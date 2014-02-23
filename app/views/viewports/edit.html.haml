@@ -1,0 +1,21 @@
+- provide :title, 'Edit Viewport'
+
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li Edit Viewport
+
+%h1= yield :title
+
+= form_for @viewport, html: { role: 'form' } do |f|
+  = render 'shared/error_explanation', instance: @viewport
+
+  .form-group
+    = f.label :width, 'Width', class: 'control-label'
+    = f.text_field :width, class: 'form-control',
+      autofocus: true, required: true
+  .form-group
+    = f.label :user_agent, 'User-agent', class: 'control-label'
+    %small Leave blank for the webkit/PhantomJS default
+    = f.text_area :user_agent, rows: 3, class: 'form-control'
+  .form-group
+    = f.submit 'Save', class: 'btn btn-primary'

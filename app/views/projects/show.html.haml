@@ -8,8 +8,6 @@
   %h1
     %span.glyphicon.glyphicon-book
     = yield :title
-    - @project.viewports.each do |viewport|
-      %small.project-viewport= viewport
     %small
       = link_to edit_project_path(@project), title: 'Edit' do
         %span.glyphicon.glyphicon-edit<>
@@ -18,6 +16,16 @@
         %span.glyphicon.glyphicon-remove<>
 
 %table.table.table-vertical
+  %tr
+    %th
+      Viewports
+    %td
+      %ul.list-inline.project-viewports
+        - @project.viewports.each do |viewport|
+          %li
+            = viewport
+            = link_to edit_viewport_path(viewport), title: 'Edit viewport' do
+              %span.glyphicon.glyphicon-edit<>
   %tr
     %th
       Sweeps

@@ -2,6 +2,10 @@ var page = require('webpage').create(),
     opts = JSON.parse(require('system').args[1]);
 
 page.viewportSize = opts.viewportSize;
+if (opts.userAgent) {
+  page.settings.userAgent = opts.userAgent;
+}
+
 page.open(opts.address, function(status) {
   setTimeout(function() {
     // Try to prevent animations from running, to reduce variation in

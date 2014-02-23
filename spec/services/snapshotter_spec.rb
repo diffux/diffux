@@ -30,6 +30,17 @@ describe Snapshotter do
         expect { subject.take_snapshot! }
           .to change { snapshot.reload.image.path }
       end
+
+      context 'when the snapshot viewport has a user agent' do
+        let(:user_agent) { 'Foo' }
+        before { snapshot.viewport.update_attributes user_agent: user_agent }
+
+        it 'calls Phantom JS with a user agent' do
+          subject.expects(:run_phantomjs)
+                     .with(has_entry(userAgent: user_agent)).once
+          subject.take_snapshot!
+        end
+      end
     end
 
     context 'when snapshot script outputs non-JSON' do

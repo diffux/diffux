@@ -20,9 +20,10 @@ class Snapshotter
           height: @viewport.height
         }
       }
+      opts[:userAgent] = @viewport.user_agent if @viewport.user_agent
 
       Rails.logger.info "Taking snapshot of #{@url} @ #{@viewport}"
-      Phantomjs.run('--ignore-ssl-errors=true', SCRIPT_PATH, opts.to_json) do |line|
+      run_phantomjs(opts) do |line|
         begin
           result = JSON.parse line, symbolize_names: true
         rescue JSON::ParserError
@@ -46,6 +47,13 @@ class Snapshotter
   def save_file_to_snapshot(snapshot, file)
     File.open(file) do |f|
       snapshot.image = f
+    end
+  end
+
+  def run_phantomjs(options)
+    Phantomjs.run('--ignore-ssl-errors=true',
+                  SCRIPT_PATH, options.to_json) do |line|
+      yield line
     end
   end
 end
