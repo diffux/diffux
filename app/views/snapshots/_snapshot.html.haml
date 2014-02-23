@@ -1,8 +1,6 @@
 - classes = %w[snapshot-card thumbnail]
-- classes << 'snapshot-card-active' if local_assigns[:active]
-- data = {}
-- data[:keyboard_shortcut] = 37 if local_assigns[:preceding_active]
-- data[:keyboard_shortcut] = 39 if local_assigns[:following_active]
+- classes << 'keyboard-focused' if local_assigns[:active]
+- data = { keyboard_focusable: true }
 = link_to snapshot_path(snapshot, review_list: local_assigns[:review_list]),
           class: classes, title: snapshot.title, data: data do
   - if snapshot.image?
