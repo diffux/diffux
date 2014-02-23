@@ -58,7 +58,7 @@ figure {
 }
 
 .url-multiline {
-  word-break: break-all;
+  @include hyphenation;
 }
 
 form.button_to {
