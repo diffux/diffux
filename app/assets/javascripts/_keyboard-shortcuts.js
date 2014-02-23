@@ -32,6 +32,11 @@ $(function() {
         openFocused();
         event.preventDefault();
         break;
+
+      case 117: // u
+        openPreviousLevel();
+        event.preventDefault();
+        break;
     }
 
     function focusNextFocusable() {
@@ -68,6 +73,10 @@ $(function() {
       } else {
         $focused.find('a:visible:first')[0].click();
       }
+    }
+
+    function openPreviousLevel() {
+      $('.breadcrumb a:visible:last')[0].click();
     }
   });
 });
