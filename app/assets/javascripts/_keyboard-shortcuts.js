@@ -19,11 +19,13 @@ $(function() {
 
       case 106: // j
         focusNextFocusable();
+        scrollToFocused();
         event.preventDefault();
         break;
 
       case 107: // k
         focusPreviousFocusable();
+        scrollToFocused();
         event.preventDefault();
         break;
 
@@ -44,12 +46,10 @@ $(function() {
         $('[data-keyboard-focusable]:first:visible')
           .addClass('keyboard-focused');
       }
-      scrollToFocused();
     }
 
     function focusPreviousFocusable() {
       moveFocus(-1);
-      scrollToFocused();
     }
 
     // @param movement [Integer] -1 to move backwards 1, or 1 to move forward 1
