@@ -21,7 +21,7 @@
 
   %tbody
     - @project.sweeps.each do |sweep|
-      %tr
+      %tr{ data: { keyboard_focusable: true } }
         %td= link_to sweep.title, [@project, sweep], title: sweep.description
         %td
           = time_tag sweep.created_at do
