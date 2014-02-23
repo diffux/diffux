@@ -71,12 +71,18 @@ $(function() {
       if ($focused.is('a')) {
         $focused[0].click();
       } else {
-        $focused.find('a:visible:first')[0].click();
+        var $link = $focused.find('a:visible:first');
+        if ($link.length) {
+          $link[0].click();
+        }
       }
     }
 
     function openPreviousLevel() {
-      $('.breadcrumb a:visible:last')[0].click();
+      var $link = $('.breadcrumb a:visible:last');
+      if ($link.length) {
+        $link[0].click();
+      }
     }
   });
 });
