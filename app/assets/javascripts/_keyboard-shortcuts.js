@@ -5,6 +5,18 @@ $(function() {
     }
 
     switch (event.which) {
+      case 91: // [
+        focusPreviousFocusable();
+        openFocused();
+        event.preventDefault();
+        break;
+
+      case 93: // ]
+        focusNextFocusable();
+        openFocused();
+        event.preventDefault();
+        break
+
       case 106: // j
         focusNextFocusable();
         event.preventDefault();
