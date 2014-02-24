@@ -4,7 +4,8 @@
   "dependencies": {
     "replacejs": "",
     "jquery": "~2.1.0",
-    "jquery-ujs": ""
+    "jquery-ujs": "",
+    "jquery.visible": ""
   },
   "resolutions": {
     "jquery": "~2.1.0"

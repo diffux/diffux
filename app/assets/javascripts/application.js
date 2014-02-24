@@ -13,6 +13,7 @@
 //
 //= require jquery/jquery
 //= require jquery-ujs/src/rails
+//= require jquery.visible/jquery.visible
 //= require turbolinks
 //= require replacejs/replace
 //= require _loading-indicator

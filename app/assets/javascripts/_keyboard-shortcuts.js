@@ -70,8 +70,10 @@ $(function() {
 
     function scrollToFocused() {
       var $focused = $('.keyboard-focused');
-      if ($focused.length) {
-        $focused[0].scrollIntoView();
+      if ($focused.length && !$focused.visible()) {
+        $('html, body').stop().animate({
+          scrollTop: $focused.offset().top - $(window).height() / 4
+        }, 200);
       }
     }
 
