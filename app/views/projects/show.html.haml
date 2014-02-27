@@ -56,7 +56,7 @@
       .url-summary-box-snapshots.row
         - url.last_snapshots_by_viewport.each do |viewport, snapshots|
           .col-md-6
-            .panel.panel-default{ data: { keyboard_focusable_context: true } }
+            .panel.panel-default
               .panel-heading
                 %h3.panel-title
                   = link_to viewport,
