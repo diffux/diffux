@@ -102,35 +102,3 @@
     text-decoration: none;
   }
 }
-
-.snapshot-review-panel {
-  .panel-body {
-    overflow: auto;
-    white-space: nowrap;
-  }
-
-  .scroll-horizontal-indicators {
-    position: relative;
-
-    &:before,
-    &:after {
-      content: ' ';
-      display: block;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      width: 15px;
-      z-index: 1;
-    }
-
-    &:before {
-      @include background-image(linear-gradient(left, #fff, rgba(#fff, 0)));
-      left: 0;
-    }
-
-    &:after {
-      @include background-image(linear-gradient(right, #fff, rgba(#fff, 0)));
-      right: 0;
-    }
-  }
-}
