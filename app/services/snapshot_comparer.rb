@@ -24,6 +24,7 @@ class SnapshotComparer
     base_alpha      = (255 * base_opacity).round
     base_diff_alpha = base_alpha * 2
 
+    cluster_finder = DiffClusterFinder.new(max_height)
     max_height.times do |y|
       max_width.times do |x|
         pixel_after  = get_pixel(png_after, x, y)
@@ -31,12 +32,14 @@ class SnapshotComparer
 
         base_pixel   = fade(pixel_before, base_alpha)
         if pixel_after != pixel_before
+          row_diff     = true
           score        = pixel_diff_score(pixel_after, pixel_before)
           diff        += score
 
           diff_alpha   = (base_diff_alpha + ((255 - base_diff_alpha) * score)).round
           diff_color   = ChunkyPNG::Color.rgba(255, 0, 100, diff_alpha)
           output.set_pixel(x, y, diff_color)
+          cluster_finder.row_is_different(y)
         else
           output.set_pixel(x, y, base_pixel)
         end
@@ -46,6 +49,7 @@ class SnapshotComparer
     {
       diff_in_percent: diff.to_f / png_before.pixels.length * 100,
       diff_image:      (output if diff > 0),
+      diff_clusters:   cluster_finder.clusters,
     }
   end
 

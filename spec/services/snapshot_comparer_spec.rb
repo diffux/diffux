@@ -23,6 +23,10 @@ describe SnapshotComparer do
       it 'should report no diff image' do
         subject[:diff_image].should be_nil
       end
+
+      it 'should report no cluster differences' do
+        subject[:diff_clusters].should be_empty
+      end
     end
 
     context 'with different snapshots' do
@@ -40,6 +44,10 @@ describe SnapshotComparer do
       it 'should report a diff image' do
         subject[:diff_image].should_not be_nil
       end
+
+      it 'should report one cluster difference' do
+        subject[:diff_clusters].count.should == 1
+      end
     end
 
     context 'when the after snapshot is shorter than the before snapshot' do
@@ -53,6 +61,10 @@ describe SnapshotComparer do
       it 'should report a difference' do
         subject[:diff_in_percent].should > 0
       end
+
+      it 'should report one cluster difference' do
+        subject[:diff_clusters].count.should == 1
+      end
     end
 
     context 'when the after snapshot is taller than the before snapshot' do
@@ -65,6 +77,14 @@ describe SnapshotComparer do
 
       it 'should report a difference' do
         subject[:diff_in_percent].should > 0
+      end
+
+      it 'returns an image of the correct height' do
+        subject[:diff_image].height.should == 4
+      end
+
+      it 'should report one cluster difference' do
+        subject[:diff_clusters].count.should == 1
       end
     end
 
