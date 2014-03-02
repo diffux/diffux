@@ -4,17 +4,21 @@ class Snapshot < ActiveRecord::Base
   belongs_to            :url
   belongs_to            :viewport
   belongs_to            :sweep
-  belongs_to            :diffed_with_snapshot, class_name: Snapshot.name
+  belongs_to            :snapshot_diff
   validates_presence_of :url
   validates_presence_of :viewport
-  has_attached_file     :diff_image
   has_attached_file     :image, styles:  { thumb: '' },
                         convert_options: { thumb: THUMB_CONVERT_OPTS }
 
   validates_attachment_content_type :image,
                                     :content_type => /\Aimage\/.*\Z/
+
+  # DEPRECATED: these fields will be removed in an upcoming commit
+  belongs_to            :diffed_with_snapshot, class_name: Snapshot.name
+  has_attached_file     :diff_image
   validates_attachment_content_type :diff_image,
                                     :content_type => /\Aimage\/.*\Z/
+  # END DEPRECATED
 
   default_scope { order('created_at DESC') }
 
@@ -24,7 +28,7 @@ class Snapshot < ActiveRecord::Base
   after_commit :refresh_sweep, on: [:create, :update]
 
   def diff?
-    diffed_with_snapshot_id? && diffed_with_snapshot_id != id
+    snapshot_diff_id? && snapshot_diff.before_snapshot != self
   end
 
   def accept
@@ -74,8 +78,9 @@ class Snapshot < ActiveRecord::Base
   private
 
   def auto_accept
-    return if diffed_with_snapshot_id == id
-    self.accepted_at = Time.now if diff_from_previous == 0
+    return unless snapshot_diff
+    return if snapshot_diff.before_snapshot == self
+    self.accepted_at = Time.now if snapshot_diff.diff_in_percent == 0
   end
 
   def compare_snapshot_if_needed

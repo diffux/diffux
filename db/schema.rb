@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140223041524) do
+ActiveRecord::Schema.define(version: 20140302025139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,20 @@ ActiveRecord::Schema.define(version: 20140223041524) do
     t.datetime "updated_at"
   end
 
-  create_table "snapshots", force: true do |t|
+  create_table "snapshot_diffs", force: true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.decimal  "diff_in_percent"
+    t.integer  "before_snapshot_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "snapshots", force: true do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "url_id"
     t.decimal  "diff_from_previous"
     t.integer  "diffed_with_snapshot_id"
@@ -41,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140223041524) do
     t.integer  "diff_image_file_size"
     t.datetime "diff_image_updated_at"
     t.integer  "sweep_id"
+    t.integer  "snapshot_diff_id"
   end
 
   add_index "snapshots", ["sweep_id"], name: "index_snapshots_on_sweep_id", using: :btree

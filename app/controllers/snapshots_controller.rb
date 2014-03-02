@@ -48,15 +48,14 @@ class SnapshotsController < ApplicationController
 
   def take_snapshot
     @snapshot.image                = nil
-    @snapshot.diff_image           = nil
-    @snapshot.diff_from_previous   = nil
-    @snapshot.diffed_with_snapshot = nil
     @snapshot.accepted_at          = nil
     @snapshot.rejected_at          = nil
+    @snapshot.snapshot_diff.try(:destroy!)
+    @snapshot.snapshot_diff        = nil
     @snapshot.save!
 
     @snapshot.take_snapshot
-    
+
     redirect_to @snapshot,
       notice: 'Snapshot is scheduled to be retaken.'
   end

@@ -43,16 +43,16 @@
     .snapshot-diff-image.snapshot-image
       %h2
         Diff
-        %small= number_to_percentage(@snapshot.diff_from_previous)
-      - if @snapshot.diff_from_previous > 0
-        = image_tag @snapshot.diff_image.url
+        %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
+      - if @snapshot.snapshot_diff.diff_in_percent > 0
+        = image_tag @snapshot.snapshot_diff.image.url
 
   .clearfix
-    - if @snapshot.diff? && @snapshot.diff_from_previous > 0
+    - if @snapshot.diff? && @snapshot.snapshot_diff.diff_in_percent > 0
       .pull-left.snapshot-image
-        %h2= link_to 'Compared against', @snapshot.diffed_with_snapshot
-        = link_to image_tag(@snapshot.diffed_with_snapshot.image.url),
-          @snapshot.diffed_with_snapshot
+        %h2= link_to 'Compared against', @snapshot.snapshot_diff.before_snapshot
+        = link_to image_tag(@snapshot.snapshot_diff.before_snapshot.image.url),
+          @snapshot.snapshot_diff.before_snapshot
 
     - if @snapshot.image?
       .pull-left.snapshot-image

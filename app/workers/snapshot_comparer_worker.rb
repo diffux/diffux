@@ -12,17 +12,18 @@ class SnapshotComparerWorker < SnapshotWorker
 
     Rails.logger.info "Comparing snapshot of #{url} @ #{viewport} " +
                       'against baseline'
-    diff = SnapshotComparer.new(@snapshot, baseline).compare!
-    @snapshot.diff_from_previous   = diff[:diff_in_percent]
-    @snapshot.diffed_with_snapshot = baseline
-    if diff_image = diff[:diff_image]
+    comparison = SnapshotComparer.new(@snapshot, baseline).compare!
+    diff = @snapshot.build_snapshot_diff(comparison.slice(:diff_in_percent))
+    diff.before_snapshot = baseline
+    if diff_image = comparison[:diff_image]
       FileUtil.with_tempfile do |tempfile|
         diff_image.save(tempfile)
-        @snapshot.diff_image = File.open(tempfile)
+        diff.image = File.open(tempfile)
       end
     end
-    @snapshot.accept if @snapshot.diff_from_previous == 0
+    @snapshot.accept if diff.diff_in_percent == 0
 
+    diff.save!
     @snapshot.save!
   end
 end

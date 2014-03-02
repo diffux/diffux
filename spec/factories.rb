@@ -44,11 +44,15 @@ FactoryGirl.define do
     end
 
     trait :with_diff do
-      diff_image do
-        fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png", 'image/png')
+      after(:create) do |snapshot|
+        snapshot.create_snapshot_diff!(
+          diff_in_percent: 1.0,
+          image: fixture_file_upload(
+            "#{Rails.root}/spec/sample_snapshot.png", 'image/png'),
+          before_snapshot_id: create(:snapshot)
+        )
+        snapshot.save!
       end
-      diff_from_previous 1.0
-      association :diffed_with_snapshot, factory: :snapshot
     end
 
     trait :with_sweep do

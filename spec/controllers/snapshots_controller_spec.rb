@@ -49,9 +49,9 @@ describe SnapshotsController do
 
     it 'saves the diff', :uses_after_commit do
       subject
-      snapshot = Snapshot.unscoped.last
-      snapshot.diff_from_previous.should == 0.001
-      snapshot.diffed_with_snapshot.should == baseline
+      diff = Snapshot.unscoped.last.snapshot_diff
+      diff.diff_in_percent.should == 0.001
+      diff.before_snapshot.should == baseline
     end
 
     it 'captures the snapshot title', :uses_after_commit do
@@ -116,6 +116,16 @@ describe SnapshotsController do
       SnapshotterWorker.stubs(:perform_async)
       post :take_snapshot, id: snapshot.to_param
       response.should redirect_to(snapshot_url(snapshot))
+    end
+
+    context 'with an old diff' do
+      let!(:snapshot) { create(:snapshot, :with_diff) }
+
+      it 'deletes the snapshot diff' do
+        SnapshotterWorker.stubs(:perform_async)
+        expect { post :take_snapshot, id: snapshot.to_param }
+          .to change { snapshot.reload.snapshot_diff }.to(nil)
+      end
     end
   end
 end

@@ -62,35 +62,37 @@ describe Snapshot do
   end
 
   describe '#auto_accept' do
-    before { snapshot.diff_from_previous = diff }
-
     context 'with a diff' do
-      let(:diff) { 3 }
-
-      it 'does not auto-accept' do
-        expect { subject.save! }.to_not change { snapshot.accepted? }
-      end
-    end
-
-    context 'with no diff' do
-      let(:diff) { 0 }
-
-      it 'auto-accepts the snapshot' do
-        expect { subject.save! }.to change { snapshot.accepted? }.to(true)
+      before do
+        snapshot.create_snapshot_diff!(diff_in_percent: diff)
       end
 
-      context 'when the diff image is the same as the snapshot' do
-        before { snapshot.diffed_with_snapshot_id = snapshot.id }
+      context 'with a percentage above zero' do
+        let(:diff) { 3 }
 
         it 'does not auto-accept' do
           expect { subject.save! }.to_not change { snapshot.accepted? }
         end
       end
+
+      context 'with a percentage of zero' do
+        let(:diff) { 0 }
+
+        it 'auto-accepts the snapshot' do
+          expect { subject.save! }.to change { snapshot.accepted? }.to(true)
+        end
+
+        context 'when the diff image is the same as the snapshot' do
+          before { snapshot.snapshot_diff.before_snapshot = snapshot }
+
+          it 'does not auto-accept' do
+            expect { subject.save! }.to_not change { snapshot.accepted? }
+          end
+        end
+      end
     end
 
-    context 'with a nil diff' do
-      let(:diff) { nil }
-
+    context 'with missing diff' do
       it 'does not auto-accept' do
         expect { subject.save! }.to_not change { snapshot.accepted? }
       end
@@ -98,22 +100,28 @@ describe Snapshot do
   end
 
   describe '#diff?' do
-    before  { snapshot.diffed_with_snapshot = diffed_with_snapshot }
     subject { snapshot.diff? }
 
     context 'without a diff' do
-      let(:diffed_with_snapshot) { nil }
       it { should be_false }
     end
 
-    context 'with a diff of a different snapshot' do
-      let(:diffed_with_snapshot) { create :snapshot }
-      it { should be_true }
-    end
+    context 'with a diff' do
+      before  do
+        snapshot.create_snapshot_diff!(
+          before_snapshot_id: diffed_with_snapshot.id,
+          diff_in_percent: 1.0)
+      end
 
-    context 'with a diff of the same snapshot' do
-      let(:diffed_with_snapshot) { snapshot }
-      it { should be_false }
+      context 'of a different snapshot' do
+        let(:diffed_with_snapshot) { create :snapshot }
+        it { should be_true }
+      end
+
+      context 'of the same snapshot' do
+        let(:diffed_with_snapshot) { snapshot }
+        it { should be_false }
+      end
     end
   end
 
