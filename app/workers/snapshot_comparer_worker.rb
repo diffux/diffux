@@ -16,6 +16,7 @@ class SnapshotComparerWorker < SnapshotWorker
     diff = @snapshot.build_snapshot_diff(comparison.slice(:diff_in_percent))
     diff.before_snapshot = baseline
     if diff_image = comparison[:diff_image]
+      diff.image_height = diff_image.height
       FileUtil.with_tempfile do |tempfile|
         diff_image.save(tempfile)
         diff.image = File.open(tempfile)
@@ -23,7 +24,12 @@ class SnapshotComparerWorker < SnapshotWorker
     end
     @snapshot.accept if diff.diff_in_percent == 0
 
-    diff.save!
-    @snapshot.save!
+    @snapshot.transaction do
+      diff.save!
+      comparison[:diff_clusters].each do |cluster|
+        diff.snapshot_diff_clusters.create!(cluster)
+      end
+      @snapshot.save!
+    end
   end
 end

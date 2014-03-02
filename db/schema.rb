@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140302025139) do
+ActiveRecord::Schema.define(version: 20140302192135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "projects", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "snapshot_diff_clusters", force: true do |t|
+    t.integer  "snapshot_diff_id"
+    t.integer  "start"
+    t.integer  "finish"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140302025139) do
     t.integer  "before_snapshot_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "image_height"
   end
 
   create_table "snapshots", force: true do |t|

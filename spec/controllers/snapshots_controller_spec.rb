@@ -22,9 +22,9 @@ describe SnapshotsController do
   end
 
   describe '#create' do
-    let(:url)      { create :url }
-    let(:baseline) { create :snapshot }
-
+    let(:url)           { create :url }
+    let(:baseline)      { create :snapshot }
+    let(:diff_clusters) {  [{ start: 0, finish: 5 }] }
     before do
       prc = Proc.new do |snapshot, file|
         # Since we're not actually taking snapshots, we need to fake the image.
@@ -33,7 +33,8 @@ describe SnapshotsController do
       Snapshotter.any_instance.stubs(:save_file_to_snapshot).with(&prc)
       SnapshotComparer.any_instance.stubs(:compare!).returns(
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
-        diff_in_percent: 0.001
+        diff_in_percent: 0.001,
+        diff_clusters: diff_clusters
       )
       Url.any_instance.stubs(:baseline).returns(baseline)
     end
@@ -52,6 +53,13 @@ describe SnapshotsController do
       diff = Snapshot.unscoped.last.snapshot_diff
       diff.diff_in_percent.should == 0.001
       diff.before_snapshot.should == baseline
+    end
+
+    it 'saves the diff cluster', :uses_after_commit do
+      subject
+      diff = Snapshot.unscoped.last.snapshot_diff
+      diff.snapshot_diff_clusters.count == 1
+      diff.snapshot_diff_clusters.first.start.should == diff_clusters.first[:start]
     end
 
     it 'captures the snapshot title', :uses_after_commit do

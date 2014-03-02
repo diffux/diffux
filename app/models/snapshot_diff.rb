@@ -4,8 +4,10 @@ class SnapshotDiff < ActiveRecord::Base
 
   belongs_to :before_snapshot, class_name: 'Snapshot'
   has_one    :after_snapshot,  class_name: 'Snapshot'
+  has_many   :snapshot_diff_clusters
 
   validates_attachment_content_type :image,
                                     :content_type => /\Aimage\/.*\Z/
+
   validates_numericality_of :diff_in_percent
 end
