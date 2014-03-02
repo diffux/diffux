@@ -45,7 +45,16 @@
         Diff
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
       - if @snapshot.snapshot_diff.diff_in_percent > 0
-        = image_tag @snapshot.snapshot_diff.image.url
+        .snapshot-diff-with-clusters
+          = image_tag @snapshot.snapshot_diff.image.url
+          - @snapshot.snapshot_diff.snapshot_diff_clusters.each do |cluster|
+            :ruby
+              top = cluster.start.to_f / @snapshot.snapshot_diff.image_height * 100
+              height = ((cluster.finish + 1 - cluster.start).to_f /
+                         @snapshot.snapshot_diff.image_height * 100.0)
+            .snapshot-diff-cluster{ style: "top: #{top}%; height: #{height}%",
+                                    data: { keyboard_focusable: true }}
+
 
   .clearfix
     - if @snapshot.diff? && @snapshot.snapshot_diff.diff_in_percent > 0

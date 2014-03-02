@@ -48,6 +48,17 @@
 .snapshot-diff-image {
   max-width: 100%;
   padding: 0;
+
+  .snapshot-diff-with-clusters {
+    position: relative;
+  }
+
+  .snapshot-diff-cluster.keyboard-focused {
+    background-color: rgb(255, 0, 100);
+    left: 0;
+    position: absolute;
+    width: 2px;
+   }
 }
 
 .snapshot-card {
