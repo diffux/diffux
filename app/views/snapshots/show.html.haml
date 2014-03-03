@@ -8,12 +8,7 @@
     %li= link_to @snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]
   %li
     = simplified_url @snapshot.url.address
-    @
-    = @snapshot.viewport
-  %li
-    Snapshot from
-    = time_tag @snapshot.created_at do
-      = time_ago_in_words(@snapshot.created_at) + ' ago'
+  %li= @snapshot.viewport
 
 
 - if @review_list
