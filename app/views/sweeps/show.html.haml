@@ -1,10 +1,9 @@
 - provide :title, @sweep.title
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li= link_to @project.name, @project
-  %li= link_to 'Sweeps', project_sweeps_path(@project)
-  %li= @sweep.title
+= render 'shared/breadcrumbs',
+  crumbs: [[@project.name, @project],
+           ['Sweeps', project_sweeps_path(@project)],
+           [@sweep.title]]
 
 .page-header
   %h1= yield :title

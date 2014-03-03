@@ -1,8 +1,6 @@
 - provide :title, 'Edit Viewport'
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li Edit Viewport
+= render 'shared/breadcrumbs', crumbs: [['Edit Viewport']]
 
 %h1= yield :title
 

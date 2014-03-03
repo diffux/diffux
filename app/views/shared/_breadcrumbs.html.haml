@@ -1,0 +1,10 @@
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  - crumbs.each do |crumb|
+    - text = crumb.first
+    - link = crumb[1]
+    %li<
+      - if link
+        = link_to text, link
+      - else
+        = text

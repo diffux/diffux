@@ -1,14 +1,15 @@
 - provide :title, "Snapshot | #{@snapshot.url_id}"
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li= link_to @snapshot.url.project.name, project_path(@snapshot.url.project)
-  - if @snapshot.sweep
-    %li= link_to 'Sweeps', project_sweeps_path(@snapshot.url.project)
-    %li= link_to @snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]
-  %li
-    = simplified_url @snapshot.url.address
-  %li= @snapshot.viewport
+:ruby
+  crumbs = [[@snapshot.url.project.name, project_path(@snapshot.url.project)]]
+  if @snapshot.sweep
+    crumbs << ['Sweeps', project_sweeps_path(@snapshot.url.project)]
+    crumbs << [@snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]]
+  end
+  crumbs << [simplified_url(@snapshot.url.address)]
+  crumbs << [@snapshot.viewport]
+
+= render 'shared/breadcrumbs', crumbs: crumbs
 
 = render 'review_list' if @review_list
 

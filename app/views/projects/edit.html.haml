@@ -1,8 +1,6 @@
 - provide :title, 'Edit Project'
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li Edit #{@project.name}
+= render 'shared/breadcrumbs', crumbs: [["Edit #{@project.name}"]]
 
 %h1 Edit Project
 

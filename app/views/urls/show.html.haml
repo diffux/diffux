@@ -1,9 +1,8 @@
 - provide :title, @url.title
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li= link_to @url.project.name, @url.project
-  %li= @url.title
+= render 'shared/breadcrumbs',
+  crumbs: [[@url.project.name, @url.project],
+           [@url.title]]
 
 .page-header
   %h1

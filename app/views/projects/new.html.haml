@@ -1,8 +1,6 @@
 - provide :title, 'New Project'
 
-%ol.breadcrumb
-  %li= link_to 'Projects', projects_path
-  %li New configuration
+= render 'shared/breadcrumbs', crumbs: [['New configuration']]
 
 %h1 New Project
 %p.help
