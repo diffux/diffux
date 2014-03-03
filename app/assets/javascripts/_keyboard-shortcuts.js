@@ -6,14 +6,12 @@ $(function() {
 
     switch (event.which) {
       case 91: // [
-        focusPreviousFocusable();
-        openFocused();
+        gotoPrevious();
         event.preventDefault();
         break;
 
       case 93: // ]
-        focusNextFocusable();
-        openFocused();
+        gotoNext();
         event.preventDefault();
         break
 
@@ -91,6 +89,20 @@ $(function() {
 
     function openPreviousLevel() {
       var $link = $('.breadcrumb a:visible:last');
+      if ($link.length) {
+        $link[0].click();
+      }
+    }
+
+    function gotoPrevious() {
+      var $link = $('.pager li:first a');
+      if ($link.length) {
+        $link[0].click();
+      }
+    }
+
+    function gotoNext() {
+      var $link = $('.pager li:last a');
       if ($link.length) {
         $link[0].click();
       }
