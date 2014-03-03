@@ -11,11 +11,6 @@
         %th Page title
         %td= @snapshot.title
     %tr
-      %th When
-      %td
-        = time_tag @snapshot.created_at do
-          = time_ago_in_words(@snapshot.created_at) + ' ago'
-    %tr
       %th Status
       %td= snapshot_status(@snapshot)
 

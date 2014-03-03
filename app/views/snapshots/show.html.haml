@@ -29,6 +29,8 @@
       %span.glyphicon.glyphicon-camera
       Snapshot
       %small
+        = time_tag @snapshot.created_at do
+          = time_ago_in_words(@snapshot.created_at) + ' ago'
         = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
           %span.glyphicon.glyphicon-remove>
 
