@@ -1,0 +1,27 @@
+:ruby
+  index             = @review_list.index(@snapshot)
+  previous_snapshot = @review_list[index - 1] if index > 0
+  next_snapshot     = @review_list[index + 1]
+
+%ul.pager
+  %li.previous{ class: ('disabled' unless previous_snapshot) }
+    :ruby
+      href = if previous_snapshot
+               snapshot_path(previous_snapshot, review_list: @review_list.map(&:id))
+             else
+               'javascript:return false;'
+             end
+    = link_to href do
+      %i.glyphicon.glyphicon-chevron-left
+      Previous in sweep
+
+  %li.next{ class: ('disabled' unless next_snapshot) }
+    :ruby
+      href = if next_snapshot
+               snapshot_path(next_snapshot, review_list: @review_list.map(&:id))
+             else
+               'javascript:return false;'
+             end
+    = link_to href do
+      Next in sweep
+      %i.glyphicon.glyphicon-chevron-right

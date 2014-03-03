@@ -10,19 +10,8 @@
     = simplified_url @snapshot.url.address
   %li= @snapshot.viewport
 
+= render 'review_list' if @review_list
 
-- if @review_list
-  .panel.panel-primary.snapshot-review-panel
-    .panel-heading
-      %h2.panel-title
-        = link_to 'In review', [@snapshot.sweep.project, @snapshot.sweep],
-          title: @snapshot.sweep.title
-    .panel-body
-      - @review_list.each_with_index do |snapshot, index|
-        = render snapshot, review_list: @review_list.map(&:id),
-          preceding_active: @review_list[index + 1] == @snapshot,
-          active: snapshot == @snapshot,
-          following_active: @review_list[index - 1] == @snapshot
 .snapshot
   .page-header
     %h1
