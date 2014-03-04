@@ -9,6 +9,9 @@ $link-color: #428bca;
   }
 }
 
-tr.keyboard-focused > td:first-child {
-  box-shadow: 8px 0 0 -5px $link-color inset;
+tr.keyboard-focused {
+  > td:first-child,
+  > th:first-child {
+    box-shadow: 8px 0 0 -5px $link-color inset;
+  }
 }
