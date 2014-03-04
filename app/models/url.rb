@@ -40,7 +40,7 @@ class Url < ActiveRecord::Base
   #
   # @return [Hash] (at most) two snapshots grouped by viewport
   def last_snapshots_by_viewport
-    project.viewports.inject({}) do |hash, viewport|
+    project.viewports.reduce({}) do |hash, viewport|
       hash[viewport] = snapshots.where(viewport_id: viewport).first(2)
       hash
     end
