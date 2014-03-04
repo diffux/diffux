@@ -59,7 +59,8 @@ describe SnapshotsController do
       subject
       diff = Snapshot.unscoped.last.snapshot_diff
       diff.snapshot_diff_clusters.count.should == 1
-      diff.snapshot_diff_clusters.first.start.should == diff_clusters.first[:start]
+      diff.snapshot_diff_clusters.first.start.should ==
+        diff_clusters.first[:start]
     end
 
     it 'captures the snapshot title', :uses_after_commit do

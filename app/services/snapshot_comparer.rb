@@ -36,7 +36,8 @@ class SnapshotComparer
           score        = pixel_diff_score(pixel_after, pixel_before)
           diff        += score
 
-          diff_alpha   = (base_diff_alpha + ((255 - base_diff_alpha) * score)).round
+          diff_alpha   = (base_diff_alpha + ((255 - base_diff_alpha) * score))
+                           .round
           diff_color   = ChunkyPNG::Color.rgba(255, 0, 100, diff_alpha)
           output.set_pixel(x, y, diff_color)
           cluster_finder.row_is_different(y)
