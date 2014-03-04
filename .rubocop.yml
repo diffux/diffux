@@ -13,5 +13,7 @@ AllCops:
 MethodLength:
   Max: 15
 
+# This isn't fully baked yet as it doesn't allow you to disable it for
+# multiline argument lists.
 TrailingComma:
-  EnforcedStyleForMultiline: comma
+  Enabled: false
