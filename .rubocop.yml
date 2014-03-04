@@ -1,0 +1,17 @@
+# Rubocop configuration settings applied to all files in the `diffux` repo.
+#
+# If you want to override the configuration for a particular directory in the
+# repo, add a `.rubocop.yml` file to that directory and make it `inherit_from`
+# this file, using a relative path.
+
+# Enable Rails-related checks
+AllCops:
+  RunRailsCops: true
+  Excludes:
+    - db/**
+
+MethodLength:
+  Max: 15
+
+TrailingComma:
+  EnforcedStyleForMultiline: comma
