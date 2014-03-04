@@ -1,0 +1,14 @@
+# Rubocop configuration settings applied to all files in the spec directory in
+# the `diffux` repo.
+#
+# If you want to set a more global configuration, do so in the .rubocop.yml
+# file in the root director of this repo.
+
+# Disable checking for use of operator/literal/variable in void context,
+# allowing us to write RSpec assertions like:
+#
+#   something.should == value
+#
+# without a lint being reported.
+Void:
+  Enabled: false
