@@ -1,3 +1,5 @@
+# A sweep represents a batch of Snapshots that were triggered simultaneously,
+# such as after a deploy.
 class Sweep < ActiveRecord::Base
   belongs_to            :project
   has_many              :snapshots

@@ -1,3 +1,4 @@
+# A Snapshot is a picture of a Url at a given Viewport.
 class Snapshot < ActiveRecord::Base
   THUMB_CONVERT_OPTS =  '-gravity north -thumbnail 100x100^ -extent 100x100'
 

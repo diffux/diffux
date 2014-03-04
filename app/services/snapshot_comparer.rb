@@ -1,6 +1,7 @@
 require 'oily_png'
 require 'open-uri'
 
+# This class is responsible for comparing two Snapshots and generating a diff.
 class SnapshotComparer
   include ChunkyPNG::Color
 

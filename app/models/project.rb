@@ -1,3 +1,5 @@
+# A Project represents a collection of Urls and Viewports that can have
+# Snapshots taken on them, either by themselves or via Sweeps.
 class Project < ActiveRecord::Base
   validates_presence_of :name
 

@@ -1,3 +1,4 @@
+# A Url represents a page that can have Snapshots taken on it.
 class Url < ActiveRecord::Base
   validates_format_of   :address, with: %r[\Ahttps?://.+]
 

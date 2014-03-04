@@ -1,3 +1,6 @@
+# Snapshotter is responsible for delegating to PhantomJS to take the snapshot
+# for a given URL and viewoprt, and then saving that snapshot to a file and
+# storing any metadata on the Snapshot object.
 class Snapshotter
   SCRIPT_PATH = Rails.root.join('script', 'take-snapshot.js').to_s
 
