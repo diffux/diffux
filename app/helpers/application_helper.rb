@@ -1,11 +1,12 @@
 module ApplicationHelper
-  # @param [String]
+  # @param url [String]
   # @return [String]
   def simplified_url(url)
     url.gsub(%r[(?:\Ahttp://|/\Z)], '')
   end
 
-  # @param [String, String]
+  # @param text [String]
+  # @param path [String]
   # @return [String] a prepared <li> element with an <a> tag inside
   def menu_item(text, path)
     is_active = request.fullpath.starts_with? path

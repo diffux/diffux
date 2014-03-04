@@ -5,7 +5,7 @@ require 'set'
 class DiffClusterFinder
   MAXIMUM_ADJACENCY_GAP = 20
 
-  # @param [Numeric] number_of_rows
+  # @param number_of_rows [Numeric]
   def initialize(number_of_rows)
     @number_of_rows = number_of_rows
     @rows_with_diff = SortedSet.new
@@ -13,7 +13,7 @@ class DiffClusterFinder
 
   # Tell the DiffClusterFinder about a row that is different.
   #
-  # @param [Numeric] row
+  # @param row [Numeric]
   def row_is_different(row)
     @rows_with_diff.add row
   end

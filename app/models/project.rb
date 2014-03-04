@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
 
   private
 
-  # @param [String]
+  # @param str [String]
   # @return [Array]
   def string_to_array(str)
     str.split(/\s+/).uniq.reject { |line| line.empty? }
