@@ -20,7 +20,7 @@ class DiffClusterFinder
 
   # Calculate clusters from diff-rows that are close to each other.
   #
-  # @return [Array] a list of clusters modeled as hashes:
+  # @return [Array<Hash>] a list of clusters modeled as hashes:
   #   `{ start: x, finish: y }`
   def clusters
     results = []
