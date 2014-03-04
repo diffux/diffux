@@ -58,7 +58,7 @@ describe SnapshotsController do
     it 'saves the diff cluster', :uses_after_commit do
       subject
       diff = Snapshot.unscoped.last.snapshot_diff
-      diff.snapshot_diff_clusters.count == 1
+      diff.snapshot_diff_clusters.count.should == 1
       diff.snapshot_diff_clusters.first.start.should == diff_clusters.first[:start]
     end
 
