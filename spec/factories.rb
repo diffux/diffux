@@ -40,7 +40,8 @@ FactoryGirl.define do
     title Random.rand(100_000).to_s
 
     image do
-      fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png", 'image/png')
+      fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png",
+                          'image/png')
     end
 
     trait :with_diff do

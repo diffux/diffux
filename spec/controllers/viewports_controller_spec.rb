@@ -41,7 +41,8 @@ describe ViewportsController do
       let(:user_agent) { 'Foo' }
 
       it 'saves the user agent' do
-        expect { subject }.to change { viewport.reload.user_agent }.to user_agent
+        expect { subject }
+          .to change { viewport.reload.user_agent }.to user_agent
       end
     end
   end
