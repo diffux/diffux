@@ -32,7 +32,6 @@ class SnapshotComparer
 
         base_pixel   = fade(pixel_before, base_alpha)
         if pixel_after != pixel_before
-          row_diff     = true
           score        = pixel_diff_score(pixel_after, pixel_before)
           diff        += score
 

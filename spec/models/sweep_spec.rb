@@ -52,7 +52,8 @@ describe Sweep do
 
     context 'when there are no snapshots' do
       it 'sends no email' do
-        expect { subject }.to_not change { ActionMailer::Base.deliveries.count }
+        expect { subject }
+          .to_not change { ActionMailer::Base.deliveries.count }
       end
     end
 
@@ -62,7 +63,8 @@ describe Sweep do
       end
 
       it 'sends no email' do
-        expect { subject }.to_not change { ActionMailer::Base.deliveries.count }
+        expect { subject }
+          .to_not change { ActionMailer::Base.deliveries.count }
       end
     end
 
@@ -90,7 +92,8 @@ describe Sweep do
       end
 
       it 'sends no email' do
-        expect { subject }.to_not change { ActionMailer::Base.deliveries.count }
+        expect { subject }
+          .to_not change { ActionMailer::Base.deliveries.count }
       end
     end
 
@@ -115,7 +118,8 @@ describe Sweep do
       end
 
       it 'does not send another email' do
-        expect { subject }.to_not change { ActionMailer::Base.deliveries.count }
+        expect { subject }
+          .to_not change { ActionMailer::Base.deliveries.count }
       end
     end
 
@@ -124,7 +128,8 @@ describe Sweep do
       before      { create(:snapshot, sweep: sweep) }
 
       it 'does not send an email' do
-        expect { subject }.to_not change { ActionMailer::Base.deliveries.count }
+        expect { subject }
+          .to_not change { ActionMailer::Base.deliveries.count }
       end
     end
   end

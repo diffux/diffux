@@ -95,9 +95,9 @@ describe ProjectsController do
     context 'with valid params' do
       let(:params) do
         {
-          name: Random.rand(100_000).to_s,
+          name:            Random.rand(100_000).to_s,
           viewport_widths: "320\n1024",
-          url_addresses: "https://example1.com\nhttps://example2.com"
+          url_addresses:   "https://example1.com\nhttps://example2.com",
         }
       end
 
@@ -126,7 +126,7 @@ describe ProjectsController do
       {
         name:            name,
         viewport_widths: viewport_widths,
-        url_addresses:   url_addresses
+        url_addresses:   url_addresses,
       }
     end
     let(:name)            { project.name }

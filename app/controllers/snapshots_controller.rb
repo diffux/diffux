@@ -1,10 +1,10 @@
 class SnapshotsController < ApplicationController
-  before_filter :set_snapshot, only: %i[show destroy accept reject take_snapshot]
+  before_filter :set_snapshot,
+                only: %i[show destroy accept reject take_snapshot]
 
   def show
-    if snapshot_ids = params[:review_list]
-      @review_list = Snapshot.where(id: snapshot_ids)
-    end
+    snapshot_ids = params[:review_list]
+    @review_list = Snapshot.where(id: snapshot_ids) if snapshot_ids
     render
   end
 
@@ -25,7 +25,7 @@ class SnapshotsController < ApplicationController
     @snapshot.destroy
 
     redirect_to @snapshot.url.project,
-      notice: 'Snapshot was successfully destroyed.'
+                notice: 'Snapshot was successfully destroyed.'
   end
 
   def reject
@@ -57,7 +57,7 @@ class SnapshotsController < ApplicationController
     @snapshot.take_snapshot
 
     redirect_to @snapshot,
-      notice: 'Snapshot is scheduled to be retaken.'
+                notice: 'Snapshot is scheduled to be retaken.'
   end
 
   private

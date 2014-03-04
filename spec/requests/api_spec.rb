@@ -11,10 +11,9 @@ describe 'API' do
     end
 
     subject do
-      post trigger_project_sweeps_path(project), params.to_json, {
-              'Content-Type' => 'application/json',
-              'Accept'       => 'application/json',
-      }
+      post trigger_project_sweeps_path(project), params.to_json,
+           'Content-Type' => 'application/json',
+           'Accept'       => 'application/json'
     end
 
     context 'with valid params' do

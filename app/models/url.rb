@@ -14,7 +14,7 @@ class Url < ActiveRecord::Base
   end
 
   def title
-    accepted_snapshot = snapshots.where("accepted_at is not null").first
+    accepted_snapshot = snapshots.where('accepted_at is not null').first
     if accepted_snapshot.try(:title)
       accepted_snapshot.title
     else

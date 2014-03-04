@@ -15,7 +15,8 @@ class SweepsController < ApplicationController
 
   def create
     if create_sweep
-      redirect_to [@project, @sweep], notice: 'Sweep was successfully initiated.'
+      redirect_to [@project, @sweep],
+                  notice: 'Sweep was successfully initiated.'
     else
       render action: 'new'
     end

@@ -11,8 +11,8 @@ class SnapshotDiffCluster < ActiveRecord::Base
     start.to_f / image_height * 100
   end
 
-  # @return [Float] the cluster height expressed in percent relative to an image
-  #   height
+  # @return [Float] the cluster height expressed in percent relative to an
+  #   image height
   def relative_height(image_height)
     (finish + 1 - start).to_f / image_height * 100
   end

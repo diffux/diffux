@@ -7,7 +7,8 @@ class ViewportsController < ApplicationController
 
   def update
     if @viewport.update_attributes(viewport_params)
-      redirect_to @viewport.project, notice: 'Viewport was successfully updated.'
+      redirect_to @viewport.project,
+                  notice: 'Viewport was successfully updated.'
     else
       render action: 'edit'
     end

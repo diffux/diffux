@@ -34,7 +34,7 @@ describe SnapshotsController do
       SnapshotComparer.any_instance.stubs(:compare!).returns(
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
         diff_in_percent: 0.001,
-        diff_clusters: diff_clusters
+        diff_clusters:   diff_clusters,
       )
       Url.any_instance.stubs(:baseline).returns(baseline)
     end

@@ -7,7 +7,7 @@ describe SweepsController do
 
   describe '#index' do
     subject do
-      get :index, { project_id: project.to_param }
+      get :index, project_id: project.to_param
     end
 
     context 'with no sweeps' do
@@ -26,7 +26,7 @@ describe SweepsController do
   describe '#show' do
     let(:sweep) { create(:sweep, project: project) }
     subject do
-      get :show, { project_id: project.to_param, id: sweep.to_param }
+      get :show, project_id: project.to_param, id: sweep.to_param
     end
 
     context 'with no snapshots' do
@@ -72,7 +72,7 @@ describe SweepsController do
 
   describe '#new' do
     subject do
-      get :new, { project_id: project.to_param }
+      get :new, project_id: project.to_param
     end
 
     it { should be_success }
@@ -96,7 +96,7 @@ describe SweepsController do
           title:       title,
           description: description,
           email:       email,
-        }
+        },
       }
     end
     subject do

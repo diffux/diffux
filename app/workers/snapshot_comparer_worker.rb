@@ -15,7 +15,8 @@ class SnapshotComparerWorker < SnapshotWorker
     comparison = SnapshotComparer.new(@snapshot, baseline).compare!
     diff = @snapshot.build_snapshot_diff(comparison.slice(:diff_in_percent))
     diff.before_snapshot = baseline
-    if diff_image = comparison[:diff_image]
+    diff_image = comparison[:diff_image]
+    if diff_image
       diff.image_height = diff_image.height
       FileUtil.with_tempfile do |tempfile|
         diff_image.save(tempfile)

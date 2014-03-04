@@ -7,7 +7,7 @@ class SnapshotDiff < ActiveRecord::Base
   has_many   :snapshot_diff_clusters
 
   validates_attachment_content_type :image,
-                                    :content_type => /\Aimage\/.*\Z/
+                                    content_type: /\Aimage\/.*\Z/
 
   validates_numericality_of :diff_in_percent
 end

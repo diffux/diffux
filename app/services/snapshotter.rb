@@ -17,8 +17,8 @@ class Snapshotter
         outfile: snapshot_file,
         viewportSize: {
           width:  @viewport.width,
-          height: @viewport.height
-        }
+          height: @viewport.height,
+        },
       }
       opts[:userAgent] = @viewport.user_agent if @viewport.user_agent
 

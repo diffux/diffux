@@ -1,5 +1,6 @@
 Diffux::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+  # Settings specified here will take precedence over those in
+  # config/application.rb
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -16,7 +17,7 @@ Diffux::Application.configure do
   # Save emails to file under tmp/emails
   config.action_mailer.delivery_method = :file
   config.action_mailer.file_settings  = {
-    location: Rails.root.join('tmp', 'emails')
+    location: Rails.root.join('tmp', 'emails'),
   }
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 

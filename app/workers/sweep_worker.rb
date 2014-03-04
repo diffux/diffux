@@ -3,7 +3,8 @@ class SweepWorker
   include Sidekiq::Worker
 
   def perform(sweep_id)
-    return unless sweep = Sweep.find(sweep_id)
+    sweep = Sweep.find(sweep_id)
+    return unless sweep
     perform_with_sweep sweep
   end
 

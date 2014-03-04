@@ -27,7 +27,7 @@ describe ApplicationHelper do
     before  { helper.request.stubs(:fullpath).returns(fullpath) }
 
     context 'when you are currently on a project page' do
-      let(:fullpath) { project_path(build_stubbed :project)}
+      let(:fullpath) { project_path(build_stubbed :project) }
 
       context 'and you are rendering the projects link' do
         let(:path) { projects_path }
