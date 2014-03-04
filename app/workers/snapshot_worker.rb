@@ -6,13 +6,11 @@ class SnapshotWorker
 
   # @return [Boolean]
   def set_snapshot(snapshot_id)
-    begin
-      @snapshot = Snapshot.find(snapshot_id)
-      true
-    rescue ActiveRecord::RecordNotFound
-      # The Snapshot was deleted before the worker could run, so there is
-      # nothing left for this worker to do.
-      false
-    end
+    @snapshot = Snapshot.find(snapshot_id)
+    true
+  rescue ActiveRecord::RecordNotFound
+    # The Snapshot was deleted before the worker could run, so there is
+    # nothing left for this worker to do.
+    false
   end
 end
