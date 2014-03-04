@@ -26,7 +26,7 @@ describe SnapshotsController do
     let(:baseline)      { create :snapshot }
     let(:diff_clusters) {  [{ start: 0, finish: 5 }] }
     before do
-      prc = Proc.new do |snapshot, file|
+      prc = proc do |snapshot, file|
         # Since we're not actually taking snapshots, we need to fake the image.
         snapshot.image = File.open("#{Rails.root}/spec/sample_snapshot.png")
       end

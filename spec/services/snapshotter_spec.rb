@@ -7,7 +7,7 @@ describe Snapshotter do
   describe '#take_snapshot!' do
     before do
       Phantomjs.stubs(:run).yields(encoded_output)
-      prc = Proc.new do |snapshot, file|
+      prc = proc do |snapshot, file|
         # Since we're not actually taking snapshots, we need to fake the image.
         File.open("#{Rails.root}/spec/sample_snapshot.png") do |f|
           snapshot.image = f
