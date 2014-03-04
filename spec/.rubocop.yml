@@ -3,6 +3,7 @@
 #
 # If you want to set a more global configuration, do so in the .rubocop.yml
 # file in the root director of this repo.
+inherit_from: ../.rubocop.yml
 
 # Disable checking for use of operator/literal/variable in void context,
 # allowing us to write RSpec assertions like:
