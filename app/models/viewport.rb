@@ -1,8 +1,10 @@
+# A Viewport represents the height and width of the screen when capturing a
+# Snapshot for a Url.
 class Viewport < ActiveRecord::Base
-  validates_presence_of :width
+  validates :width, presence: true
 
   belongs_to :project
-  validates_presence_of :project
+  validates :project, presence: true
 
   # @return [String]
   def to_s
