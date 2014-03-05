@@ -1,8 +1,8 @@
 # Contains information about a cluster of differences for a snapshot diff
 class SnapshotDiffCluster < ActiveRecord::Base
-  belongs_to                :snapshot_diff
-  validates_numericality_of :start,
-                            :finish
+  belongs_to :snapshot_diff
+  validates  :start, numericality: true
+  validates  :finish, numericality: true
 
   default_scope { order(:start) }
 
