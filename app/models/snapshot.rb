@@ -2,12 +2,12 @@
 class Snapshot < ActiveRecord::Base
   THUMB_CONVERT_OPTS =  '-gravity north -thumbnail 100x100^ -extent 100x100'
 
-  belongs_to            :url
-  belongs_to            :viewport
-  belongs_to            :sweep
-  belongs_to            :snapshot_diff
-  validates_presence_of :url
-  validates_presence_of :viewport
+  belongs_to :url
+  belongs_to :viewport
+  belongs_to :sweep
+  belongs_to :snapshot_diff
+  validates  :url,      presence: true
+  validates  :viewport, presence: true
   has_attached_file     :image, styles:          { thumb: '' },
                                 convert_options: { thumb: THUMB_CONVERT_OPTS }
 
