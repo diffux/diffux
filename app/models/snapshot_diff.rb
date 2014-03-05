@@ -9,5 +9,5 @@ class SnapshotDiff < ActiveRecord::Base
   validates_attachment_content_type :image,
                                     content_type: /\Aimage\/.*\Z/
 
-  validates_numericality_of :diff_in_percent
+  validates :diff_in_percent, numericality: true
 end
