@@ -1,3 +1,4 @@
+# Helpers for application-wide things.
 module ApplicationHelper
   # @param url [String]
   # @return [String]

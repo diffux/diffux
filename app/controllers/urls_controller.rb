@@ -1,3 +1,4 @@
+# RESTful controller for Url model.
 class UrlsController < ApplicationController
   before_filter :set_url, only: %i[show destroy]
 

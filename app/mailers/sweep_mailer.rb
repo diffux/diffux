@@ -1,3 +1,4 @@
+# Emails related to Sweeps.
 class SweepMailer < ActionMailer::Base
   default from: 'no-reply@diffux'
 

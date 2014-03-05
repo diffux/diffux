@@ -1,3 +1,4 @@
+# RESTful controller for Viewport model.
 class ViewportsController < ApplicationController
   before_filter :set_viewport
 

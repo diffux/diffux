@@ -1,3 +1,4 @@
+# Mostly RESTful controller for Sweep model.
 class SweepsController < ApplicationController
   before_filter :set_project
 

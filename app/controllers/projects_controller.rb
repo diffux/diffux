@@ -1,3 +1,4 @@
+# RESTful controller for Project model.
 class ProjectsController < ApplicationController
   before_filter :set_project, only: %i[show edit update destroy]
 

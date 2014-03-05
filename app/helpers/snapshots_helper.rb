@@ -1,3 +1,4 @@
+# Helper methods related to Snapshots.
 module SnapshotsHelper
   def snapshot_status(snapshot)
     if snapshot.pending?

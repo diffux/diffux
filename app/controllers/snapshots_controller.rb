@@ -1,3 +1,4 @@
+# Mostly RESTful controller for Snapshot model.
 class SnapshotsController < ApplicationController
   before_filter :set_snapshot,
                 only: %i[show destroy accept reject take_snapshot]
