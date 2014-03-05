@@ -4,8 +4,8 @@ class Sweep < ActiveRecord::Base
   belongs_to            :project
   has_many              :snapshots
   attr_accessor         :delay_seconds
-  validates_presence_of :title
-  validates_format_of   :email, with: /\A.+@.+\Z/,
+  validates             :title, presence: true
+  validates             :email, format: { with: /\A.+@.+\Z/ },
                                 allow_nil:   true,
                                 allow_blank: true
   after_create          :take_snapshots
