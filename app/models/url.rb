@@ -1,9 +1,9 @@
 # A Url represents a page that can have Snapshots taken on it.
 class Url < ActiveRecord::Base
-  validates_format_of   :address, with: %r[\Ahttps?://.+]
+  validates :address, format: { with: %r[\Ahttps?://.+] }
 
   belongs_to :project
-  validates_presence_of :project
+  validates :project, presence: true
 
   has_many :snapshots
 
