@@ -1,7 +1,7 @@
 # A Project represents a collection of Urls and Viewports that can have
 # Snapshots taken on them, either by themselves or via Sweeps.
 class Project < ActiveRecord::Base
-  validates_presence_of :name
+  validates :name, presence: true
 
   attr_accessor :viewport_widths
   attr_accessor :url_addresses
