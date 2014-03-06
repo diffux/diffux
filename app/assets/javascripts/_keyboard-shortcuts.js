@@ -32,9 +32,9 @@ $(function() {
         break;
 
       default: // check for shortcut keys
-        handleShortcutKey(event.which);
-        event.preventDefault();
-        break;
+        if (handleShortcutKey(event.which)) {
+          event.preventDefault();
+        }
     }
 
     function handleShortcutKey(keyCode) {
@@ -45,6 +45,7 @@ $(function() {
         if ($shortcut.length) {
           $shortcut[0].click();
           scrollToFocused();
+          return true;
         }
       }
     }
