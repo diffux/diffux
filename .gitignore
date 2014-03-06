@@ -21,4 +21,4 @@
 /public/system
 
 # Ignore Redis dataset snapshot
-dump.rdb
+/dump.rdb
