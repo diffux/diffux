@@ -11,7 +11,7 @@
              else
                'javascript:return false;'
              end
-    = link_to href do
+    = link_to href, data: { keyboard_shortcut: '[' } do
       %i.glyphicon.glyphicon-chevron-left
       Previous in sweep
 
@@ -22,6 +22,6 @@
              else
                'javascript:return false;'
              end
-    = link_to href do
+    = link_to href, data: { keyboard_shortcut: ']' } do
       Next in sweep
       %i.glyphicon.glyphicon-chevron-right

@@ -1,20 +1,15 @@
 $(function() {
+  var shortcutKeys = {
+    '117': 'u',
+    '91':  '[',
+    '93':  ']'
+  }
   $(document).on('keypress', function(event) {
     if ($(event.target).is(':input')) {
       return;
     }
 
     switch (event.which) {
-      case 91: // [
-        gotoPrevious();
-        event.preventDefault();
-        break;
-
-      case 93: // ]
-        gotoNext();
-        event.preventDefault();
-        break
-
       case 106: // j
         focusNextFocusable();
         scrollToFocused();
@@ -33,10 +28,22 @@ $(function() {
         event.preventDefault();
         break;
 
-      case 117: // u
-        openPreviousLevel();
+      default: // check for shortcut keys
+        handleShortcutKey(event.which);
         event.preventDefault();
         break;
+    }
+
+    function handleShortcutKey(keyCode) {
+      var key = shortcutKeys[keyCode];
+      if (key) {
+        var $shortcut = $('[data-keyboard-shortcut=' + key + ']')
+                        .addClass('keyboard-focused');
+        if ($shortcut.length) {
+          $shortcut[0].click();
+          scrollToFocused();
+        }
+      }
     }
 
     function focusNextFocusable() {
@@ -84,27 +91,6 @@ $(function() {
         if ($link.length) {
           $link[0].click();
         }
-      }
-    }
-
-    function openPreviousLevel() {
-      var $link = $('.breadcrumb a:visible:last');
-      if ($link.length) {
-        $link[0].click();
-      }
-    }
-
-    function gotoPrevious() {
-      var $link = $('.pager li:first a');
-      if ($link.length) {
-        $link[0].click();
-      }
-    }
-
-    function gotoNext() {
-      var $link = $('.pager li:last a');
-      if ($link.length) {
-        $link[0].click();
       }
     }
   });

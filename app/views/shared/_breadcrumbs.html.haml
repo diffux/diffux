@@ -1,10 +1,12 @@
+- crumbs.unshift(['Projects', projects_path])
+- last_linkable_crumb = crumbs.reverse.find { |crumb| crumb[1] }
 %ol.breadcrumb
-  %li= link_to 'Projects', projects_path
   - crumbs.each do |crumb|
     - text = crumb.first
     - link = crumb[1]
     %li<
       - if link
-        = link_to text, link
+        - data_hash = { keyboard_shortcut: 'u' } if last_linkable_crumb == crumb
+        = link_to text, link, data: data_hash
       - else
         = text
