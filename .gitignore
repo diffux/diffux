@@ -22,3 +22,7 @@
 
 # Ignore Redis dataset snapshot
 /dump.rdb
+
+# Ignore YARDoc files
+/.yardoc
+/doc
