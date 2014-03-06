@@ -1,11 +1,12 @@
 $(function() {
   var shortcutKeys = {
-    '117': 'u',
-    '97':  'a',
-    '114': 'r',
-    '91':  '[',
-    '93':  ']'
+    97:  'a',
+    114: 'r',
+    117: 'u',
+    91:  '[',
+    93:  ']'
   }
+
   $(document).on('keypress', function(event) {
     if ($(event.target).is(':input')) {
       return;
