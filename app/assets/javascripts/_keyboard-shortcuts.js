@@ -1,11 +1,12 @@
 $(function() {
-  var shortcutKeys = {
-    97:  'a',
-    114: 'r',
-    117: 'u',
-    91:  '[',
-    93:  ']'
-  }
+  var focusedClass = 'keyboard-focused',
+      shortcutKeys = {
+        97:  'a',
+        114: 'r',
+        117: 'u',
+        91:  '[',
+        93:  ']'
+      };
 
   $(document).on('keypress', function(event) {
     if ($(event.target).is(':input')) {
@@ -41,7 +42,7 @@ $(function() {
       var key = shortcutKeys[keyCode];
       if (key) {
         var $shortcut = $('[data-keyboard-shortcut="' + key + '"]')
-                        .addClass('keyboard-focused');
+              .addClass(focusedClass);
         if ($shortcut.length) {
           $shortcut[0].click();
           scrollToFocused();
@@ -53,7 +54,7 @@ $(function() {
     function focusNextFocusable() {
       if (!moveFocus(1)) {
         $('[data-keyboard-focusable]:first:visible')
-          .addClass('keyboard-focused');
+          .addClass(focusedClass);
       }
     }
 
@@ -65,12 +66,12 @@ $(function() {
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
       var $focusable = $('[data-keyboard-focusable]:visible'),
-          $focused   = $focusable.filter('.keyboard-focused');
+          $focused   = $focusable.filter('.' + focusedClass);
       if ($focused.length) {
         var moveTo = $focusable.index($focused) + movement;
         if (moveTo >= 0 && moveTo < $focusable.length) {
-          $focused.removeClass('keyboard-focused');
-          $focusable.eq(moveTo).addClass('keyboard-focused');
+          $focused.removeClass(focusedClass);
+          $focusable.eq(moveTo).addClass(focusedClass);
         }
         return true;
       }
@@ -78,7 +79,7 @@ $(function() {
     }
 
     function scrollToFocused() {
-      var $focused = $('.keyboard-focused');
+      var $focused = $('.' + focusedClass);
       if ($focused.length && !$focused.visible()) {
         $('html,body').stop(true, true).animate({
           scrollTop: $focused.offset().top - $(window).height() / 4
@@ -87,7 +88,7 @@ $(function() {
     }
 
     function openFocused() {
-      var $focused = $('[data-keyboard-focusable]:visible.keyboard-focused');
+      var $focused = $('[data-keyboard-focusable]:visible.' + focusedClass);
       if ($focused.is('a')) {
         $focused[0].click();
       } else {
