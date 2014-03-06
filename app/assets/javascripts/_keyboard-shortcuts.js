@@ -39,7 +39,7 @@ $(function() {
     function handleShortcutKey(keyCode) {
       var key = shortcutKeys[keyCode];
       if (key) {
-        var $shortcut = $('[data-keyboard-shortcut=' + key + ']')
+        var $shortcut = $('[data-keyboard-shortcut="' + key + '"]')
                         .addClass('keyboard-focused');
         if ($shortcut.length) {
           $shortcut[0].click();
