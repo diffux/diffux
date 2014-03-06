@@ -24,13 +24,13 @@
             = viewport
             = link_to edit_viewport_path(viewport), title: 'Edit viewport' do
               %span.glyphicon.glyphicon-edit<>
-  %tr
+  %tr{ data: { keyboard_focusable: true } }
     %th
       Sweeps
     %td
       = link_to @project.sweeps.count, project_sweeps_path(@project)
   - if last_sweep = @project.sweeps.first
-    %tr
+    %tr{ data: { keyboard_focusable: true } }
       %th Last sweep
       %td= link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
 
