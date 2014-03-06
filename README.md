@@ -16,6 +16,8 @@ Diffux [dɪˈfjuːz] is a tool that generates and manages visual diffs of web
 pages, so that you can easily see even the subtlest effects of your code
 modifications.
 
+[Documentation]
+
 ## Installing
 
 Diffux requires:
@@ -147,5 +149,6 @@ More about the JSON data:
 
 Released under the MIT License.
 
+[Documentation]: http://rubydoc.info/github/trotzig/diffux/master/frames
 [Rails]: http://rubyonrails.org/
 [Sidekiq]: http://sidekiq.org/
