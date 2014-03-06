@@ -7,10 +7,10 @@
         = link_to @snapshot.url.simplified_address, @snapshot.url.address,
           class: 'url-multiline'
     - if @snapshot.title
-      %tr{ data: { keyboard_focusable: true } }
+      %tr
         %th Page title
         %td= @snapshot.title
-    %tr{ data: { keyboard_focusable: true } }
+    %tr
       %th Status
       %td= snapshot_status(@snapshot)
 
