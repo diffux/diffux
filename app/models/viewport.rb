@@ -6,12 +6,16 @@ class Viewport < ActiveRecord::Base
   belongs_to :project
   validates :project, presence: true
 
-  # @return [String]
+  # @return [String] A representation of the Viewport instance in the format of
+  #   {width}x{height}.
   def to_s
     [width, height].join('x')
   end
 
-  # @return [Integer]
+  # @return [Integer] Dynamically calculated height based on the width. For
+  #   narrow widths, this will be tall, as if in portrait mode on a phone. For
+  #   wider widths, this will be shorter, as if in landscape orientation on a
+  #   laptop or desktop monitor.
   def height
     if width < 960
       width * 2
