@@ -7,7 +7,7 @@ class Viewport < ActiveRecord::Base
   validates :project, presence: true
 
   # @return [String] a representation of the Viewport instance in the format of
-  #   {width}x{height}.
+  #   WIDTHxHEIGHT (e.g. 320x640).
   def to_s
     [width, height].join('x')
   end
