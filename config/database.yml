@@ -2,7 +2,7 @@ DEFAULTS: &DEFAULTS
   adapter: postgresql
   encoding: unicode
   password:
-  pool: 5
+  pool: 25
   username: postgres
 
 development:
