@@ -43,7 +43,7 @@
       %h2.url-multiline= url.title
       %ul
         %li= link_to url.simplified_address, url.address, class: 'url-multiline'
-        %li= link_to pluralize(url.snapshots.count, 'snapshot'), url
+        %li= link_to pluralize(url.snapshots.size, 'snapshot'), url
       = link_to snapshots_path(url: url.id), method: :post,
                 title: 'Create new snapshots',
                 class: 'btn btn-default' do

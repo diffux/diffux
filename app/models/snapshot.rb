@@ -2,7 +2,7 @@
 class Snapshot < ActiveRecord::Base
   THUMB_CONVERT_OPTS =  '-gravity north -thumbnail 100x100^ -extent 100x100'
 
-  belongs_to :url
+  belongs_to :url, counter_cache: true
   belongs_to :viewport
   belongs_to :sweep
   belongs_to :snapshot_diff
