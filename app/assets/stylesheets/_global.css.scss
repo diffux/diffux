@@ -18,6 +18,7 @@ figure {
 .navbar-brand {
   $navbar-height:      50px;
   $logo-height:        25px;
+  $logo-width:         83px;
   $padding-top:        ($navbar-height - $logo-height) * .4;
   $padding-bottom:     $navbar-height - $logo-height - $padding-top;
 
@@ -25,8 +26,8 @@ figure {
   padding-top: $padding-top;
 
   img {
-    width: auto;
     height: $logo-height;
+    width: $logo-width;
   }
 }
 
