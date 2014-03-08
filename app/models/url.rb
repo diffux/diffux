@@ -2,7 +2,7 @@
 class Url < ActiveRecord::Base
   validates :address, format: { with: %r[\Ahttps?://.+] }
 
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   validates :project, presence: true
 
   has_many :snapshots
