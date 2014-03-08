@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :set_project, only: %i[show edit update destroy]
 
   def index
-    @projects = Project.all
+    @projects = Project.all.includes(:viewports)
   end
 
   def show
