@@ -40,3 +40,8 @@
       %button.btn.btn-default
         %i.glyphicon.glyphicon-camera
         Re-take snapshot
+
+    = form_tag compare_snapshot_snapshot_path(@snapshot), method: :post do
+      %button.btn.btn-default
+        %i.glyphicon.glyphicon-camera
+        Re-compare snapshot
