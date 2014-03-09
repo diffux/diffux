@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308205112) do
+ActiveRecord::Schema.define(version: 20140309044443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,6 @@ ActiveRecord::Schema.define(version: 20140308205112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "url_id"
-    t.decimal  "diff_from_previous"
-    t.integer  "diffed_with_snapshot_id"
     t.datetime "accepted_at"
     t.datetime "rejected_at"
     t.string   "title"
@@ -57,10 +55,6 @@ ActiveRecord::Schema.define(version: 20140308205112) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "diff_image_file_name"
-    t.string   "diff_image_content_type"
-    t.integer  "diff_image_file_size"
-    t.datetime "diff_image_updated_at"
     t.integer  "sweep_id"
     t.integer  "snapshot_diff_id"
   end

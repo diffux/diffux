@@ -14,13 +14,6 @@ class Snapshot < ActiveRecord::Base
   validates_attachment_content_type :image,
                                     content_type: /\Aimage\/.*\Z/
 
-  # DEPRECATED: these fields will be removed in an upcoming commit
-  belongs_to            :diffed_with_snapshot, class_name: Snapshot.name
-  has_attached_file     :diff_image
-  validates_attachment_content_type :diff_image,
-                                    content_type: /\Aimage\/.*\Z/
-  # END DEPRECATED
-
   default_scope { order('created_at DESC') }
 
   before_save  :auto_accept
