@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 
 gem 'bootstrap-sass', '~> 3.1.0'
+gem 'diff-lcs'
 gem 'haml-rails'
 gem 'oily_png' # faster chunky_png
 gem 'paperclip'

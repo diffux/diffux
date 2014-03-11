@@ -216,6 +216,7 @@ DEPENDENCIES
   compass-rails
   coveralls
   database_cleaner
+  diff-lcs
   factory_girl_rails
   haml-rails
   mocha
