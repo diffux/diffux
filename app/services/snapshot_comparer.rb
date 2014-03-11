@@ -14,7 +14,7 @@ class SnapshotComparer
   # http://ethanschoonover.com/solarized
   RED     = 2241396991 # #dc322f
   GREEN   = 3694276607 # #859900
-  MAGENTA = 3543565055 # #b33682
+  VIOLET  = 1819395327 # #6c71c4
 
   def initialize(snapshot_after, snapshot_before)
     @snapshot_after  = snapshot_after
@@ -102,14 +102,14 @@ class SnapshotComparer
       # This pixel is in a row that has changed, but is identical, so we render
       # the same faded pixel as we do if the entire row has not changed, but
       # with a translucent magenta overlay.
-      output_color       = compose_quick(fade(MAGENTA, BASE_ALPHA),
+      output_color       = compose_quick(fade(VIOLET, BASE_ALPHA),
                                          fade(pixel_after, BASE_ALPHA))
     else
       # This pixel is changed, so we render the visual difference as a
       # function of the alpha channel.
       score              = pixel_diff_score(pixel_after, pixel_before)
       @total_diff_score += score
-      output_color       = fade(MAGENTA, diff_alpha(score))
+      output_color       = fade(VIOLET, diff_alpha(score))
     end
 
     @output.set_pixel(x, y, output_color)
