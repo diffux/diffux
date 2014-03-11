@@ -10,6 +10,8 @@ class SnapshotComparer
   BASE_ALPHA      = (255 * BASE_OPACITY).round
   BASE_DIFF_ALPHA = BASE_ALPHA * 2
 
+  GUTTER_WIDTH    = 4
+
   # Colors from Solarized
   # http://ethanschoonover.com/solarized
   RED     = 2241396991 # #dc322f
@@ -35,7 +37,7 @@ class SnapshotComparer
     sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_after),
                              to_array_of_arrays(png_before))
 
-    @output = ChunkyPNG::Image.new(max_width, sdiff.size)
+    @output = ChunkyPNG::Image.new(max_width + GUTTER_WIDTH, sdiff.size)
 
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
@@ -43,7 +45,7 @@ class SnapshotComparer
         # This row has not changed, so we want to render a faded version of
         # the image to give the reviewer visual context.
         row.new_element.each_with_index do |pixel, x|
-          @output.set_pixel(x, y, fade(pixel, BASE_ALPHA))
+          @output.set_pixel(x + GUTTER_WIDTH, y, fade(pixel, BASE_ALPHA))
         end
       else
         # This row has changed in some way, so we want to render the visual
@@ -51,17 +53,20 @@ class SnapshotComparer
         cluster_finder.row_is_different(y)
 
         if row.deleting?
+          render_gutter(y, RED)
           row.old_element.each_with_index do |pixel_before, x|
-            render_pixel(x, y, nil, pixel_before)
+            render_pixel(x + GUTTER_WIDTH, y, nil, pixel_before)
           end
         elsif row.adding?
+          render_gutter(y, GREEN)
           row.new_element.each_with_index do |pixel_after, x|
-            render_pixel(x, y, pixel_after, nil)
+            render_pixel(x + GUTTER_WIDTH, y, pixel_after, nil)
           end
         else # changing?
+          render_gutter(y, VIOLET)
           row.old_element.zip(row.new_element).each_with_index do |pixels, x|
             pixel_before, pixel_after = pixels
-            render_pixel(x, y, pixel_after, pixel_before)
+            render_pixel(x + GUTTER_WIDTH, y, pixel_after, pixel_before)
           end
         end
       end
@@ -110,6 +115,14 @@ class SnapshotComparer
     end
 
     @output.set_pixel(x, y, output_color)
+  end
+
+  # @param y [Integer]
+  # @param color [Integer]
+  def render_gutter(y, color)
+    (0...GUTTER_WIDTH - 2).each do |x|
+      @output.set_pixel(x, y, color)
+    end
   end
 
   # @param diff_score [Float]
