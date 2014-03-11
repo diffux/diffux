@@ -32,8 +32,8 @@ class SnapshotComparer
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
-    sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_before),
-                             to_array_of_arrays(png_after))
+    sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_after),
+                             to_array_of_arrays(png_before))
 
     @output = ChunkyPNG::Image.new(max_width, sdiff.size)
 
@@ -92,10 +92,7 @@ class SnapshotComparer
       # or deleted (i.e. not represented in the after image).  So, we want to
       # render it at full opacity and with a translucent color overlay.
       @total_diff_score += 1
-      # TODO: For some reason the pixel_after and pixel_before are flipped. I
-      # don't think this is actually impacting anything right now, but it
-      # probably wouldn't be a bad idea to get to the bottom of it.
-      overlay_color      = pixel_after.nil? ? GREEN : RED
+      overlay_color      = pixel_after.nil? ? RED : GREEN
       output_color       = compose_quick(fade(overlay_color, BASE_DIFF_ALPHA),
                                          pixel_after || pixel_before)
     elsif pixel_after == pixel_before
