@@ -20,7 +20,7 @@ class SnapshotsController < ApplicationController
       @snapshot.save!
     end
 
-    redirect_to url.project, notice: 'Snapshots were successfully created.'
+    redirect_to url, notice: 'Snapshots were successfully created.'
   end
 
   def destroy
