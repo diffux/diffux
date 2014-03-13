@@ -68,35 +68,4 @@ describe Url do
       end
     end
   end
-
-  describe '#last_snapshots_by_viewport' do
-    let(:viewport) { url.project.viewports.first }
-    subject        { url.last_snapshots_by_viewport }
-
-    it { should be_a Hash }
-
-    context 'with no snapshots' do
-      it 'returns a viewport with no snapshots' do
-        subject[viewport].should be_empty
-      end
-    end
-
-    context 'with three snapshots' do
-      before do
-        3.times { create(:snapshot, url: url, viewport: viewport) }
-      end
-
-      it 'the viewport in the result has two snapshots' do
-        subject[viewport].count.should == 2
-      end
-    end
-
-    context 'with more than one viewport' do
-      before { create(:viewport, project: url.project) }
-
-      it 'returns all viewports' do
-        subject.keys.count.should == 2
-      end
-    end
-  end
 end

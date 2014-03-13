@@ -43,15 +43,6 @@ describe ProjectsController do
       let(:url)  { create :url, project: project }
 
       its(:body) { should include url.address }
-
-      context 'with snapshots' do
-        let(:snapshot) do
-          create :snapshot, url: url, viewport: project.viewports.first
-        end
-
-        its(:body) { should include snapshot.viewport.to_s }
-        its(:body) { should include snapshot_path(snapshot) }
-      end
     end
 
     context 'with sweeps' do

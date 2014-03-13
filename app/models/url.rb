@@ -35,14 +35,4 @@ class Url < ActiveRecord::Base
   def simplified_address
     address.gsub(%r[(?:\Ahttp://|/\Z)], '')
   end
-
-  # Get the two latest snapshots
-  #
-  # @return [Hash] (at most) two snapshots grouped by viewport
-  def last_snapshots_by_viewport
-    project.viewports.reduce({}) do |hash, viewport|
-      hash[viewport] = snapshots.where(viewport_id: viewport).first(2)
-      hash
-    end
-  end
 end
