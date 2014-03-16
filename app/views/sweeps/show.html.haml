@@ -12,6 +12,7 @@
       .i.glyphicon.glyphicon-timer
       This sweep is scheduled to start in
       = pluralize(seconds, 'second')
+  = sweep_progress_bar(@sweep)
   %p.help= simple_format @sweep.description
 
 - if pending = @sweep.pending_snapshots.presence

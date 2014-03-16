@@ -25,4 +25,4 @@
         %td
           = time_tag sweep.created_at do
             = time_ago_in_words(sweep.created_at)  + ' ago'
-        %td= sweep_status(sweep)
+        %td= sweep_progress_bar(sweep)

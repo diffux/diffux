@@ -32,7 +32,9 @@
   - if last_sweep = @project.sweeps.first
     %tr{ data: { keyboard_focusable: true } }
       %th Last sweep
-      %td= link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
+      %td
+        = link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
+        = sweep_progress_bar(last_sweep)
 
 = start_new_sweep_button(@project)
 

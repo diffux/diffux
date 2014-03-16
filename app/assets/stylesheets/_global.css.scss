@@ -70,3 +70,8 @@ form.button_to {
 .button-group {
   margin-bottom: 20px;
 }
+
+table .progress {
+  // Remove bottom-margin for sweep progress bars when rendered in a table
+  margin-bottom: 0;
+}
