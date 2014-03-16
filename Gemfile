@@ -15,7 +15,7 @@ gem 'turbolinks'
 group :assets do
   gem 'compass-rails'
   gem 'coffee-rails', '~> 4.0.1'
-  gem 'sass-rails',   '~> 4.0.1'
+  gem 'sass-rails',   '~> 4.0.2'
   gem 'uglifier',     '>= 1.0.3'
 end
 
