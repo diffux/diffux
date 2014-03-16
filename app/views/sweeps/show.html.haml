@@ -15,30 +15,9 @@
   = sweep_progress_bar(@sweep)
   %p.help= simple_format @sweep.description
 
-- if pending = @sweep.pending_snapshots.presence
+- if snapshots = @sweep.snapshots.presence
   .panel.panel-info
     .panel-heading
-      %h2.panel-title Pending
+      %h2.panel-title Snapshots
     .panel-body.snapshots
-      = render pending
-
-- if needs_review = @sweep.under_review_snapshots.presence
-  .panel.panel-warning
-    .panel-heading
-      %h2.panel-title Needs review
-    .panel-body.snapshots
-      = render needs_review, review_list: needs_review.map(&:id)
-
-- if rejected = @sweep.rejected_snapshots.presence
-  .panel.panel-danger
-    .panel-heading
-      %h2.panel-title Rejected
-    .panel-body.snapshots
-      = render rejected
-
-- if accepted = @sweep.accepted_snapshots.presence
-  .panel.panel-success
-    .panel-heading
-      %h2.panel-title Accepted
-    .panel-body.snapshots
-      = render accepted
+      = render snapshots, review_list: snapshots.map(&:id)

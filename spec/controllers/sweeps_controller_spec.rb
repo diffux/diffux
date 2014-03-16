@@ -38,8 +38,7 @@ describe SweepsController do
         create(:snapshot, :pending, sweep: sweep)
       end
 
-      it         { should be_success }
-      its(:body) { should include 'Pending' }
+      it { should be_success }
     end
 
     context 'with an accepted snapshot' do
@@ -47,8 +46,7 @@ describe SweepsController do
         create(:snapshot, :accepted, sweep: sweep)
       end
 
-      it         { should be_success }
-      its(:body) { should include 'Accepted' }
+      it { should be_success }
     end
 
     context 'with a rejected snapshot' do
@@ -56,8 +54,7 @@ describe SweepsController do
         create(:snapshot, :rejected, sweep: sweep)
       end
 
-      it         { should be_success }
-      its(:body) { should include 'Rejected' }
+      it { should be_success }
     end
 
     context 'with a snapshot that needs review' do
@@ -65,8 +62,7 @@ describe SweepsController do
         create(:snapshot, sweep: sweep)
       end
 
-      it         { should be_success }
-      its(:body) { should include 'Needs review' }
+      it { should be_success }
     end
   end
 
