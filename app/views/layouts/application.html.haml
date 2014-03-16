@@ -7,6 +7,7 @@
     Diffux
   = stylesheet_link_tag 'application', media: 'all'
   = javascript_include_tag 'application'
+  = javascript_tag "lastKnownServerTime = '#{Time.now.to_i}'"
   = csrf_meta_tags
   %link{ rel: 'icon', href: image_url('diffux_d.png') }
   %meta{ name: 'viewport', content: 'initial-scale=1' }

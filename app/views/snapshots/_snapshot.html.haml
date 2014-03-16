@@ -1,6 +1,12 @@
-- classes = %w[snapshot-card thumbnail]
-- classes << 'keyboard-focused' if local_assigns[:active]
-- data = { keyboard_focusable: true }
+:ruby
+  classes = %w[snapshot-card thumbnail]
+  classes << 'keyboard-focused' if local_assigns[:active]
+  data = {
+    keyboard_focusable: true,
+    auto_refresh_type: 'snapshot',
+    auto_refresh_id:   snapshot.id,
+  }
+
 = link_to snapshot_path(snapshot, review_list: local_assigns[:review_list]),
           class: classes, title: snapshot.title, data: data do
   - if snapshot.image?

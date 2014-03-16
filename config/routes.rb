@@ -20,5 +20,7 @@ Diffux::Application.routes.draw do
     end
   end
 
+  resources :refresh, only: :create
+
   root to: 'projects#index'
 end
