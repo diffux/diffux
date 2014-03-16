@@ -2,11 +2,12 @@
 - last_linkable_crumb = crumbs.reverse.find { |crumb| crumb[1] }
 %ol.breadcrumb
   - crumbs.each do |crumb|
-    - text = crumb.first
-    - link = crumb[1]
+    - text      = crumb.first.to_s
+    - truncated = truncate(text, length: 50)
+    - link      = crumb[1]
     %li<
       - if link
         - data_hash = { keyboard_shortcut: 'u' } if last_linkable_crumb == crumb
-        = link_to text, link, data: data_hash
+        = link_to truncated, link, data: data_hash, title: text
       - else
-        = text
+        %span{ title: text }= truncated
