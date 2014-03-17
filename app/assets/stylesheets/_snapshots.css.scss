@@ -63,7 +63,7 @@
 
 .snapshot-card {
   $snapshot-width: 100px;
-  @include transition-duration(.1s);
+  @include transition(none);
   display: inline-block;
   font-size: 10px;
   line-height: 12px;
