@@ -32,7 +32,13 @@ module SweepsHelper
       sum + sweep.send("count_#{state}")
     end
 
-    content_tag(:div, class: 'progress', title: sweep_status(sweep)) do
+    data_attrs = {
+       auto_refresh_type: 'sweep',
+       auto_refresh_id:   sweep.id,
+     }
+    content_tag(:div, class: 'progress',
+                      title: sweep_status(sweep),
+                      data:  data_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|
         next unless bootstrap_class
         percent = if total_count > 0

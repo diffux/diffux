@@ -49,5 +49,53 @@ describe RefreshController do
         end
       end
     end
+
+    context 'with a sweep' do
+      let(:sweep)  { create :sweep }
+      let(:params) { { sweeps: [sweep.id] } }
+
+      it 'sends back a json array' do
+        subject['items'].should be_an(Array)
+      end
+
+      it 'returns one item' do
+        subject['items'].size.should == 1
+      end
+
+      it 'has a rendered version of the sweep progress bar' do
+        item = subject['items'][0]
+        item['html'].should_not be_nil
+        item['id'].should   == sweep.id
+        item['type'].should == 'sweep'
+      end
+    end
+
+    context 'with mixed types' do
+      let(:snapshot) { create :snapshot }
+      let(:sweep)    { create :sweep }
+      let(:params)   { { snapshots: [snapshot.id], sweeps: [sweep.id]} }
+
+      it 'sends back a json array' do
+        subject['items'].should be_an(Array)
+      end
+
+      it 'returns two item' do
+        subject['items'].size.should == 2
+      end
+
+      it 'has a rendered version of the snapshot' do
+        item = subject['items'][0]
+        item['html'].should_not be_nil
+        item['id'].should   == snapshot.id
+        item['type'].should == 'snapshot'
+      end
+
+      it 'has a rendered version of the sweep progress bar' do
+        item = subject['items'][1]
+        item['html'].should_not be_nil
+        item['id'].should   == sweep.id
+        item['type'].should == 'sweep'
+      end
+    end
   end
 end
