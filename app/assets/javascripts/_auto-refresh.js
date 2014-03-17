@@ -4,10 +4,12 @@ $(function() {
   var intervalInSeconds = 5;
 
   function prepareRefreshData() {
-    var payload = {
-      ifModifiedSince: window.lastKnownServerTime
-    };
-    $('[data-auto-refresh-type]').each(function(i, elem) {
+    var $refreshers = $('[data-auto-refresh-type]'),
+        payload     = { ifModifiedSince: window.lastKnownServerTime };
+    if (!$refreshers.length) {
+      return;
+    }
+    $refreshers.each(function(i, elem) {
       var $elem       = $(elem),
           typePlural  = $elem.data('auto-refresh-type') + 's',
           id          = $elem.data('auto-refresh-id');
@@ -31,10 +33,16 @@ $(function() {
 
   function autoRefresh() {
     setTimeout(function() {
+      var data = prepareRefreshData();
+      if (!data) {
+        autoRefresh(); // Nothing to update, don't send request to server but
+                       // keep polling.
+        return;
+      }
       $.ajax({
         method: 'post',
         url:    '/refresh',
-        data:   prepareRefreshData()
+        data:   data
       }).success(function(result) {
         window.lastKnownServerTime = result.serverTime;
         refreshUI(result.items);
