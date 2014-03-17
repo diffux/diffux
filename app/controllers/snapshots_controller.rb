@@ -5,8 +5,7 @@ class SnapshotsController < ApplicationController
                          compare_snapshot]
 
   def show
-    snapshot_ids = params[:review_list]
-    @review_list = Snapshot.where(id: snapshot_ids) if snapshot_ids
+    @review_list = @snapshot.sweep.snapshots if @snapshot.sweep
     render
   end
 

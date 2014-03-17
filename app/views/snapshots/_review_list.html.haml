@@ -7,7 +7,7 @@
   %li.previous{ class: ('disabled' unless previous_snapshot) }
     :ruby
       href = if previous_snapshot
-               snapshot_path(previous_snapshot, review_list: @review_list.map(&:id))
+               snapshot_path(previous_snapshot)
              else
                'javascript:return false;'
              end
@@ -18,7 +18,7 @@
   %li.next{ class: ('disabled' unless next_snapshot) }
     :ruby
       href = if next_snapshot
-               snapshot_path(next_snapshot, review_list: @review_list.map(&:id))
+               snapshot_path(next_snapshot)
              else
                'javascript:return false;'
              end
