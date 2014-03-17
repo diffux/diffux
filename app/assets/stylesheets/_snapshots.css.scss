@@ -69,7 +69,8 @@
   line-height: 12px;
   margin: 1em 1em .5em 0;
   min-height: 130px;
-  min-width: $snapshot-width;
+  width: $snapshot-width + 10px; // Add room for padding+border from bootstrap
+                                 // `.thumbnail` class
   position: relative;
   vertical-align: top;
 
