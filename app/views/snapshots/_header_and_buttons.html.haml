@@ -45,7 +45,7 @@
         %button.btn.btn-default{ disabled: @snapshot.accepted?,
                                  class:    ('btn-success' if @snapshot.accepted?),
                                  data:     { keyboard_shortcut: 'a' } }
-          %i.glyphicon.glyphicon-ok-sign
+          %i.glyphicon.glyphicon-ok
           %span.snapshot-button-enabled  Accept
           %span.snapshot-button-disabled Accepted
 
@@ -55,6 +55,6 @@
         %button.btn.btn-default{ disabled: @snapshot.rejected?,
                                  class:    ('btn-danger' if @snapshot.rejected?),
                                  data:     { keyboard_shortcut: 'r' } }
-          %i.glyphicon.glyphicon-remove-sign
+          %i.glyphicon.glyphicon-remove
           %span.snapshot-button-enabled  Reject
           %span.snapshot-button-disabled Rejected
