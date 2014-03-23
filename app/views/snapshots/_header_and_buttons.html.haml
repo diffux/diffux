@@ -19,42 +19,38 @@
           %button.btn.btn-link{ title: 'Re-compare snapshot with baseline '}
             %span.glyphicon.glyphicon-refresh
 
-    %p
+    .snapshot-buttons
+      - if @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
+        = form_tag accept_snapshot_path(@snapshot),
+                   data: { replace: '.snapshot-header-and-buttons' },
+                   method: :post do
+          %button.btn.btn-default{ disabled: @snapshot.accepted?,
+                                   class:    ('btn-success' if @snapshot.accepted?),
+                                   data:     { keyboard_shortcut: 'a' } }
+            %i.glyphicon.glyphicon-ok
+            %span.snapshot-button-enabled  Accept
+            %span.snapshot-button-disabled Accepted
+
+        = form_tag reject_snapshot_path(@snapshot),
+                   data: { replace: '.snapshot-header-and-buttons' },
+                   method: :post do
+          %button.btn.btn-default{ disabled: @snapshot.rejected?,
+                                   class:    ('btn-danger' if @snapshot.rejected?),
+                                   data:     { keyboard_shortcut: 'r' } }
+            %i.glyphicon.glyphicon-remove
+            %span.snapshot-button-enabled  Reject
+            %span.snapshot-button-disabled Rejected
+
       - if @snapshot.pending?
         %span.label.label-default Pending
-      - elsif @snapshot.accepted?
-        %span.label.label-success Accepted
-      - elsif @snapshot.rejected?
-        %span.label.label-danger Rejected
-      - elsif @snapshot.under_review?
-        %span.label.label-info Under Review
+      - elsif @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
+        -# We delegate to the buttons for these statuses
       - else
-        %span.label.label-warnind Unknown State
+        %span.label.label-warning Unknown State
+
       &emsp;
       = @snapshot.title
       &emsp;
       %small
         = link_to @snapshot.url.simplified_address, @snapshot.url.address,
           class: 'url-multiline'
-
-  .snapshot-buttons
-    - if @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
-      = form_tag accept_snapshot_path(@snapshot),
-                 data: { replace: '.snapshot-header-and-buttons' },
-                 method: :post do
-        %button.btn.btn-default{ disabled: @snapshot.accepted?,
-                                 class:    ('btn-success' if @snapshot.accepted?),
-                                 data:     { keyboard_shortcut: 'a' } }
-          %i.glyphicon.glyphicon-ok
-          %span.snapshot-button-enabled  Accept
-          %span.snapshot-button-disabled Accepted
-
-      = form_tag reject_snapshot_path(@snapshot),
-                 data: { replace: '.snapshot-header-and-buttons' },
-                 method: :post do
-        %button.btn.btn-default{ disabled: @snapshot.rejected?,
-                                 class:    ('btn-danger' if @snapshot.rejected?),
-                                 data:     { keyboard_shortcut: 'r' } }
-          %i.glyphicon.glyphicon-remove
-          %span.snapshot-button-enabled  Reject
-          %span.snapshot-button-disabled Rejected
