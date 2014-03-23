@@ -108,7 +108,7 @@
   .snapshot-card-pending {
     color: #ccc;
     display: block;
-    font-size: $snapshot-width;
+    font-size: $snapshot-width * (3/4);
     line-height: $snapshot-width;
     text-align: center;
     text-decoration: none;
