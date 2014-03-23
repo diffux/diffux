@@ -12,15 +12,14 @@
                       data: { confirm: 'Are you sure?' } do
         %span.glyphicon.glyphicon-remove<>
   %p
+    = link_to snapshots_path(url: @url.id),
+              method: :post,
+              title:  'Create new snapshots for this URL',
+              class:  'btn btn-info' do
+      %span.glyphicon.glyphicon-camera
+      Create new snapshots
+    &emsp;
     = link_to @url.simplified_address, @url.address
-
-.button-group
-  = link_to snapshots_path(url: @url.id),
-            method: :post,
-            title:  'Create new snapshots for this URL',
-            class:  'btn btn-info' do
-    %span.glyphicon.glyphicon-camera
-    Create new snapshots
 
 - @url.snapshots.includes(:viewport).group_by(&:viewport).each do |viewport, snapshots|
   .panel.panel-default{ id: "viewport-#{viewport.id}" }
