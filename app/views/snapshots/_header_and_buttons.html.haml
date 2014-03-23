@@ -1,8 +1,24 @@
-.snapshot-status-block
+.snapshot-header-and-buttons
+  .page-header
+    %h1
+      %span.glyphicon.glyphicon-camera
+      Snapshot
+      %small
+        = time_tag @snapshot.created_at do
+          = time_ago_in_words(@snapshot.created_at) + ' ago'
+        = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
+          %span.glyphicon.glyphicon-remove>
+    %p
+      = @snapshot.title
+      &emsp;
+      %small
+        = link_to @snapshot.url.simplified_address, @snapshot.url.address,
+          class: 'url-multiline'
+
   .snapshot-buttons
     - if @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
       = form_tag accept_snapshot_path(@snapshot),
-                 data: { replace: '.snapshot-status-block' },
+                 data: { replace: '.snapshot-header-and-buttons' },
                  method: :post do
         %button.btn.btn-default{ disabled: @snapshot.accepted?,
                                  class:    ('btn-success' if @snapshot.accepted?),
@@ -12,7 +28,7 @@
           %span.snapshot-button-disabled Accepted
 
       = form_tag reject_snapshot_path(@snapshot),
-                 data: { replace: '.snapshot-status-block' },
+                 data: { replace: '.snapshot-header-and-buttons' },
                  method: :post do
         %button.btn.btn-default{ disabled: @snapshot.rejected?,
                                  class:    ('btn-danger' if @snapshot.rejected?),

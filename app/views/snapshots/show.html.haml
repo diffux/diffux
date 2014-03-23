@@ -16,23 +16,7 @@
 = render 'review_list' if @review_list
 
 .snapshot
-  .page-header
-    %h1
-      %span.glyphicon.glyphicon-camera
-      Snapshot
-      %small
-        = time_tag @snapshot.created_at do
-          = time_ago_in_words(@snapshot.created_at) + ' ago'
-        = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
-          %span.glyphicon.glyphicon-remove>
-    %p
-      = @snapshot.title
-      &emsp;
-      %small
-        = link_to @snapshot.url.simplified_address, @snapshot.url.address,
-          class: 'url-multiline'
-
-  = render 'snapshots/status_block'
+  = render 'snapshots/header_and_buttons'
 
   - if @snapshot.diff?
     .snapshot-diff-image.snapshot-image
