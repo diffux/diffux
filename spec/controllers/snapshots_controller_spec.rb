@@ -9,7 +9,8 @@ describe SnapshotsController do
 
     it         { should be_success }
     its(:body) { should include('Snapshot image') }
-    its(:body) { should include('Under Review') }
+    its(:body) { should include('Accept') }
+    its(:body) { should include('Reject') }
 
     context 'with a snapshot in pending state' do
       let(:snapshot) { create(:snapshot, :pending) }
@@ -17,7 +18,8 @@ describe SnapshotsController do
       it         { should be_success }
       its(:body) { should_not include('Snapshot image') }
       its(:body) { should include('Pending') }
-      its(:body) { should_not include('Under Review') }
+      its(:body) { should_not include('Accept') }
+      its(:body) { should_not include('Reject') }
     end
   end
 
