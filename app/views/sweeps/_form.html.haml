@@ -2,24 +2,28 @@
   = render 'shared/error_explanation', instance: @sweep
 
   .form-group
-    = f.label :title, 'Title', class: 'control-label'
+    = f.label :title, Sweep.human_attribute_name(:title),
+              class: 'control-label'
     = f.text_field :title, class: 'form-control',
       autofocus: true, required: true
   .form-group
-    = f.label :description, 'Description', class: 'control-label'
+    = f.label :description, Sweep.human_attribute_name(:description),
+              class: 'control-label'
     = f.text_area :description, rows: 4, class: 'form-control'
   .form-group
-    = f.label :email, 'E-mail', class: 'control-label'
+    = f.label :email, Sweep.human_attribute_name(:email),
+              class: 'control-label'
     = f.text_field :email, class: 'form-control', type: 'email'
     %p.help-block
       If you specify an email address here, a message will be sent to it when
       all snapshots are ready.
   .form-group
-    = f.label :delay_seconds, 'Delay snapshotting (seconds)', class: 'control-label'
+    = f.label :delay_seconds, Sweep.human_attribute_name(:delay_seconds),
+              class: 'control-label'
     = f.text_field :delay_seconds, class: 'form-control', type: 'number',
       min: '1', step: '1', pattern: '\d+'
     %p.help-block
       Enter the number of seconds you wish to delay the start of snapshot
       creation with. Leave empty to start snapshotting immediately.
   .form-group
-    = f.submit 'Start sweep', class: 'btn btn-primary'
+    = f.submit t('.start'), class: 'btn btn-primary'

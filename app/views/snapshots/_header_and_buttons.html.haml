@@ -2,7 +2,7 @@
   .page-header
     %h1
       %span.glyphicon.glyphicon-camera
-      Snapshot
+      = Snapshot.model_name.human
       %small
         = time_tag @snapshot.created_at do
           = time_ago_in_words(@snapshot.created_at) + ' ago'
@@ -32,8 +32,8 @@
             }
           %button.btn.btn-default.snapshot-accept-button{ button_attrs }
             %i.glyphicon.glyphicon-ok
-            %span.snapshot-button-enabled  Accept
-            %span.snapshot-button-disabled Accepted
+            %span.snapshot-button-enabled= t('.accept')
+            %span.snapshot-button-disabled= t('.accepted')
 
         = form_tag reject_snapshot_path(@snapshot),
                    data: { replace: '.snapshot-header-and-buttons' },
@@ -46,15 +46,15 @@
             }
           %button.btn.btn-default.snapshot-reject-button{ button_attrs }
             %i.glyphicon.glyphicon-remove
-            %span.snapshot-button-enabled Reject
-            %span.snapshot-button-disabled Rejected
+            %span.snapshot-button-enabled= t('.reject')
+            %span.snapshot-button-disabled= t('.rejected')
 
       - if @snapshot.pending?
-        %span.label.label-default Pending
+        %span.label.label-default= t('.pending')
       - elsif @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
         -# We delegate to the buttons for these statuses
       - else
-        %span.label.label-warning Unknown State
+        %span.label.label-warning= t('.unknown_state')
 
       &emsp;
       = @snapshot.title

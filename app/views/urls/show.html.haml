@@ -9,7 +9,7 @@
     %span.glyphicon.glyphicon-bookmark
     = yield :title
     %small
-      = link_to @url, method: :delete, title: 'Delete',
+      = link_to @url, method: :delete, title: t(:delete),
                       data: { confirm: 'Are you sure?' } do
         %span.glyphicon.glyphicon-remove<>
   %p

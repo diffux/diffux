@@ -4,7 +4,7 @@
     - if content_for? :title
       = yield :title
       |
-    Diffux
+    = t(:product_name)
   = stylesheet_link_tag 'application', media: 'all'
   = javascript_include_tag 'application'
   = javascript_tag "lastKnownServerTime = '#{Time.now.to_i}'"
@@ -21,8 +21,8 @@
         %span.icon-bar
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        = menu_item 'Projects', projects_path
-        = menu_item 'About', static_pages_about_path
+        = menu_item Project.model_name.human(count: 2), projects_path
+        = menu_item t(:about), static_pages_about_path
 
   .container
     - if notice

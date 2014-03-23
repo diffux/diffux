@@ -1,4 +1,4 @@
-- provide :title, 'Projects'
+- provide :title, Project.model_name.human(count: 2)
 
 - if @projects.any?
   .page-header
@@ -11,12 +11,10 @@
   %table.table.table-striped
     %thead
       %tr
-        %th Name
-        %th Viewports
-        %th
-          = succeed 's' do
-            %abbr.initialism{ title: 'Uniform Resource Locators' } URL
-        %th Last sweep
+        %th= Project.human_attribute_name(:name)
+        %th= Viewport.model_name.human(count: 2)
+        %th= Url.model_name.human(count: 2)
+        %th= t('.last_sweep')
 
     %tbody
       - @projects.each do |project|

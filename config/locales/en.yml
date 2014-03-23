@@ -10,3 +10,56 @@ en:
       about_x_years:
         one:   1 year
         other: "%{count} years"
+
+  product_name: Diffux
+  edit: Edit
+  delete: Delete
+  about: About
+
+  activerecord:
+    models:
+      project:
+        one: Project
+        other: Projects
+      snapshot:
+        one: Snapshot
+        other: Snapshots
+      snapshot_diff: Diff
+      viewport:
+        one: Viewport
+        other: Viewports
+      url:
+        one: URL
+        other: URLs
+      sweep:
+        one: Sweep
+        other: Sweeps
+    attributes:
+      project:
+        name: Name
+      sweep:
+        title: Title
+        description: Description
+        email: Email address
+        delay_seconds: Delay snapshotting (seconds)
+
+  projects:
+    index:
+      last_sweep: Last Sweep
+    edit:
+      title: Edit Project
+    new:
+      title: New Project
+  sweeps:
+    new:
+      title: New Sweep
+    form:
+      start: Start Sweep
+  snapshots:
+    header_and_buttons:
+      accept: Accept
+      accepted: Accepted
+      reject: Reject
+      rejected: Rejected
+      pending: Pending
+      unknown_state: Unknown state

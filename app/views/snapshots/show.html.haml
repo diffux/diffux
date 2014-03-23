@@ -21,7 +21,7 @@
   - if @snapshot.diff?
     .snapshot-diff-image
       %h2
-        Diff
+        = SnapshotDiff.model_name.human
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
       - if @snapshot.snapshot_diff.diff_in_percent > 0
         = render 'snapshots/show_diff'

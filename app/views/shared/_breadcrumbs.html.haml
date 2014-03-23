@@ -1,4 +1,4 @@
-- crumbs.unshift(['Projects', projects_path])
+- crumbs.unshift([Project.model_name.human(count: 2), projects_path])
 - last_linkable_crumb = crumbs.reverse.find { |crumb| crumb[1] }
 %ol.breadcrumb
   - crumbs.each do |crumb|

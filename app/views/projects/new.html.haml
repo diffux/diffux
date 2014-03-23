@@ -1,8 +1,9 @@
-- provide :title, 'New Project'
+- provide :title, t('.title')
 
 = render 'shared/breadcrumbs', crumbs: [['New configuration']]
 
-%h1 New Project
+%h1= yield :title
+
 %p.help
   Add a project and specify the URLs and viewport widths (screen widths) to use
   when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
