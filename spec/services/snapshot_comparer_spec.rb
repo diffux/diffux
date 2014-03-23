@@ -101,12 +101,25 @@ describe SnapshotComparer do
       end
     end
 
-    context 'when the after snapshot is wider than the before snapshot' do
+    context 'when the before snapshot is wider than the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_before)
           .returns(ChunkyPNG::Image.new(4, 2, ChunkyPNG::Color::BLACK))
+      end
+
+      it 'should report a difference' do
+        subject[:diff_in_percent].should > 0
+      end
+    end
+
+    context 'when the after snapshot is wider than the before snapshot' do
+      before do
+        snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
+          .returns(ChunkyPNG::Image.new(4, 2, ChunkyPNG::Color::BLACK))
+        snapshot_comparer.stubs(:to_chunky_png).with(snapshot_before)
+          .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
       end
 
       it 'should report a difference' do

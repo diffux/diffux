@@ -4,20 +4,6 @@ require 'diff-lcs'
 
 # This class is responsible for comparing two Snapshots and generating a diff.
 class SnapshotComparer
-  include ChunkyPNG::Color
-
-  BASE_OPACITY    = 0.1
-  BASE_ALPHA      = (255 * BASE_OPACITY).round
-  BASE_DIFF_ALPHA = BASE_ALPHA * 2
-
-  GUTTER_WIDTH    = 4
-
-  # Colors from Solarized
-  # http://ethanschoonover.com/solarized
-  RED     = 3694276607 # #dc322f
-  GREEN   = 2241396991 # #859900
-  VIOLET  = 1819395327 # #6c71c4
-
   def initialize(snapshot_after, snapshot_before)
     @snapshot_after  = snapshot_after
     @snapshot_before = snapshot_before
@@ -30,128 +16,62 @@ class SnapshotComparer
     max_width         = [png_after.width, png_before.width].max
     max_height        = [png_after.height, png_before.height].max
     cluster_finder    = DiffClusterFinder.new(max_height)
-    @total_diff_score = 0
+    total_diff_score = 0
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
     sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_before),
                              to_array_of_arrays(png_after))
 
-    @output = ChunkyPNG::Image.new(max_width + GUTTER_WIDTH, sdiff.size)
+    all_comparisons = [
+      SnapshotComparisonImage::Before.new(max_width, max_height),
+      SnapshotComparisonImage::Overlayed.new(max_width, max_height),
+      SnapshotComparisonImage::After.new(max_width, max_height),
+    ]
 
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
       if row.unchanged?
-        # This row has not changed, so we want to render a faded version of
-        # the image to give the reviewer visual context.
-        row.new_element.each_with_index do |pixel, x|
-          @output.set_pixel(x + GUTTER_WIDTH, y, fade(pixel, BASE_ALPHA))
-        end
+        all_comparisons.each { |image| image.render_unchanged_row(y, row) }
       else
+        total_diff_score += 1
         # This row has changed in some way, so we want to render the visual
         # difference.
         cluster_finder.row_is_different(y)
-
         if row.deleting?
-          render_gutter(y, RED)
-          row.old_element.each_with_index do |pixel_before, x|
-            render_pixel(x + GUTTER_WIDTH, y, nil, pixel_before)
-          end
+          all_comparisons.each { |image| image.render_deleted_row(y, row) }
         elsif row.adding?
-          render_gutter(y, GREEN)
-          row.new_element.each_with_index do |pixel_after, x|
-            render_pixel(x + GUTTER_WIDTH, y, pixel_after, nil)
-          end
+          all_comparisons.each { |image| image.render_added_row(y, row) }
         else # changing?
-          render_gutter(y, VIOLET)
-          row.old_element.zip(row.new_element).each_with_index do |pixels, x|
-            pixel_before, pixel_after = pixels
-            render_pixel(x + GUTTER_WIDTH, y, pixel_after, pixel_before)
-          end
-
-          if row.new_element.size > row.old_element.size
-            # Array#zip will always maintain the length of the original array,
-            # so if the argument array is longer we need to compensate here.
-            extra = row.new_element.size - row.old_element.size
-            row.new_element.last(extra).each_with_index do |pixel_after, x|
-              render_pixel(x + extra + GUTTER_WIDTH, y, pixel_after, nil)
-            end
-          end
+          all_comparisons.each { |image| image.render_changed_row(y, row) }
         end
       end
     end
-
+    sprite = stitch_pngs(all_comparisons) if total_diff_score > 0
     {
-      diff_in_percent: @total_diff_score.to_f / (max_width * max_height) * 100,
-      diff_image:      (@output if @total_diff_score > 0),
+      diff_in_percent: total_diff_score.to_f / (max_width * max_height) * 100,
+      diff_image:      sprite,
       diff_clusters:   cluster_finder.clusters,
     }
   end
 
   private
 
-  # @param x [Integer] the x-coordinate of the output image to render this
-  #   pixel
-  # @param y [Integer] the y-coordinate of the output image to render this
-  #   pixel
-  # @param pixel_after [Integer, nil] the color of the pixel as represented in
-  #   the after image. If nil, will render pixel_before as-is, in full opacity
-  #   with a translucent color overlay.
-  # @param pixel_before [Integer, nil] the color of the pixel as represented in
-  #   the before image. If nil, will render pixel_after as-is, in full opacity
-  #   with a translucent color overlay.
-  def render_pixel(x, y, pixel_after, pixel_before)
-    if pixel_after.nil? || pixel_before.nil?
-      # This pixel was either added (i.e not represented in the before image)
-      # or deleted (i.e. not represented in the after image). So, we want to
-      # render it at full opacity and with a translucent color overlay.
-      @total_diff_score += 1
-      overlay_color      = pixel_after.nil? ? RED : GREEN
-      output_color       = compose_quick(fade(overlay_color, BASE_DIFF_ALPHA),
-                                         pixel_after || pixel_before)
-    elsif pixel_after == pixel_before
-      # This pixel is in a row that has changed, but is identical, so we render
-      # the same faded pixel as we do if the entire row has not changed, but
-      # with a translucent magenta overlay.
-      output_color       = compose_quick(fade(VIOLET, BASE_ALPHA),
-                                         fade(pixel_after, BASE_ALPHA))
-    else
-      # This pixel is changed, so we render the visual difference as a
-      # function of the alpha channel.
-      score              = pixel_diff_score(pixel_after, pixel_before)
-      @total_diff_score += score
-      output_color       = fade(VIOLET, diff_alpha(score))
+  # Stiches together an ordered collection of `SnapshotComparisonImage`s into
+  # one single `ChunkyPNG::Image`.
+  #
+  # @param all_comparisons [Array<SnapshotComparisonImage>]
+  # @return [ChunkyPNG::Image] a single image containing all comparison images
+  def stitch_pngs(all_comparisons)
+    pngs  = all_comparisons.map(&:to_png)
+    width = pngs.reduce(0) { |a, e| a + e.width }
+    offset = 0
+    ChunkyPNG::Image.new(width, pngs.first.height).tap do |sprite|
+      pngs.each do |png|
+        sprite.replace!(png, offset, 0)
+        offset += png.width
+      end
     end
-
-    @output.set_pixel(x, y, output_color)
-  end
-
-  # @param y [Integer]
-  # @param color [Integer]
-  def render_gutter(y, color)
-    (0...GUTTER_WIDTH - 2).each do |x|
-      @output.set_pixel(x, y, color)
-    end
-  end
-
-  # @param diff_score [Float]
-  # @return [Integer] a number between 0 and 255 that represents the alpha
-  #   channel of of the difference
-  def diff_alpha(diff_score)
-    (BASE_DIFF_ALPHA + ((255 - BASE_DIFF_ALPHA) * diff_score)).round
-  end
-
-  # @param pixel_after [Integer]
-  # @param pixel_before [Integer]
-  # @return [Float] number between 0 and 1 where 1 is completely different and
-  #   0 is no difference
-  def pixel_diff_score(pixel_after, pixel_before)
-    Math.sqrt(
-      (r(pixel_after) - r(pixel_before))**2 +
-      (g(pixel_after) - g(pixel_before))**2 +
-      (b(pixel_after) - b(pixel_before))**2 +
-      (a(pixel_after) - a(pixel_before))**2
-    ) / Math.sqrt(ChunkyPNG::Color::MAX**2 * 4)
   end
 
   # @param snapshot [Snapshot]
