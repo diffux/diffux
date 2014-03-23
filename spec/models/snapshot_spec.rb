@@ -61,6 +61,30 @@ describe Snapshot do
     end
   end
 
+  describe '#under_review?' do
+    subject { snapshot.under_review? }
+
+    context 'when pending' do
+      let(:snapshot) { create :snapshot, :pending }
+      it { should == false }
+    end
+
+    context 'when accepted' do
+      let(:snapshot) { create :snapshot, :accepted }
+      it { should == false }
+    end
+
+    context 'when rejected' do
+      let(:snapshot) { create :snapshot, :rejected }
+      it { should == false }
+    end
+
+    context 'when not pending, accepted, or rejected' do
+      let(:snapshot) { create :snapshot }
+      it { should == true }
+    end
+  end
+
   describe '#auto_accept' do
     context 'with a diff' do
       before do
