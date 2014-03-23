@@ -10,10 +10,13 @@ class SnapshotComparisonImage
   BASE_ALPHA      = (255 * BASE_OPACITY).round
   BASE_DIFF_ALPHA = BASE_ALPHA * 2
 
+  # @param width [Integer]
+  # @param height [Integer]
   def initialize(width, height)
     @output = ChunkyPNG::Image.new(width, height)
   end
 
+  # @param y [Integer]
   # @param row [Diff::LCS:ContextChange]
   def render_unchanged_row(y, row)
     row.new_element.each_with_index do |pixel, x|
@@ -22,14 +25,20 @@ class SnapshotComparisonImage
     end
   end
 
+  # @param y [Integer]
+  # @param row [Diff::LCS:ContextChange]
   def render_changed_row(y, row)
     # no default implementation
   end
 
+  # @param y [Integer]
+  # @param row [Diff::LCS:ContextChange]
   def render_added_row(y, row)
     # no default implementation
   end
 
+  # @param y [Integer]
+  # @param row [Diff::LCS:ContextChange]
   def render_deleted_row(y, row)
     # no default implementation
   end

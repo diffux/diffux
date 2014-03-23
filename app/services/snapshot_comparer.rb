@@ -16,7 +16,7 @@ class SnapshotComparer
     max_width         = [png_after.width, png_before.width].max
     max_height        = [png_after.height, png_before.height].max
     cluster_finder    = DiffClusterFinder.new(max_height)
-    total_diff_score = 0
+    total_diff_score  = 0
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
@@ -47,7 +47,9 @@ class SnapshotComparer
         end
       end
     end
+
     sprite = stitch_pngs(all_comparisons) if total_diff_score > 0
+
     {
       diff_in_percent: total_diff_score.to_f / (max_width * sdiff.size) * 100,
       diff_image:      sprite,
@@ -63,8 +65,8 @@ class SnapshotComparer
   # @param all_comparisons [Array<SnapshotComparisonImage>]
   # @return [ChunkyPNG::Image] a single image containing all comparison images
   def stitch_pngs(all_comparisons)
-    pngs  = all_comparisons.map(&:to_png)
-    width = pngs.reduce(0) { |a, e| a + e.width }
+    pngs   = all_comparisons.map(&:to_png)
+    width  = pngs.reduce(0) { |a, e| a + e.width }
     offset = 0
     ChunkyPNG::Image.new(width, pngs.first.height).tap do |sprite|
       pngs.each do |png|
