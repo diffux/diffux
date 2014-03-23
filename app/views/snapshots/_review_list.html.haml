@@ -12,7 +12,7 @@
                'javascript:return false;'
              end
     = link_to href, data: { keyboard_shortcut: '[' } do
-      %i.glyphicon.glyphicon-chevron-left
+      %i.glyphicon.glyphicon-arrow-left
       Previous in sweep
 
   %li.next{ class: ('disabled' unless next_snapshot) }
@@ -24,4 +24,4 @@
              end
     = link_to href, data: { keyboard_shortcut: ']' } do
       Next in sweep
-      %i.glyphicon.glyphicon-chevron-right
+      %i.glyphicon.glyphicon-arrow-right
