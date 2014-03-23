@@ -9,6 +9,17 @@
         = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
           %span.glyphicon.glyphicon-remove>
     %p
+      - if @snapshot.pending?
+        %span.label.label-default Pending
+      - elsif @snapshot.accepted?
+        %span.label.label-success Accepted
+      - elsif @snapshot.rejected?
+        %span.label.label-danger Rejected
+      - elsif @snapshot.under_review?
+        %span.label.label-info Under Review
+      - else
+        %span.label.label-warnind Unknown State
+      &emsp;
       = @snapshot.title
       &emsp;
       %small
