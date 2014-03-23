@@ -9,15 +9,12 @@ describe SnapshotsController do
 
     it         { should be_success }
     its(:body) { should include('Snapshot image') }
-    its(:body) { should include('Under review') }
 
     context 'with a snapshot in pending state' do
       let(:snapshot) { create(:snapshot, :pending) }
 
       it         { should be_success }
       its(:body) { should_not include('Snapshot image') }
-      its(:body) { should include('Pending') }
-      its(:body) { should_not include('Under review') }
     end
   end
 
