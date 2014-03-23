@@ -13,11 +13,13 @@
   flex-wrap: wrap;
 }
 
-.snapshot-buttons {
+.snapshot-header-and-buttons {
   form {
     display: inline-block;
   }
+}
 
+.snapshot-buttons {
   .btn {
     min-width: 150px;
     margin-bottom: 5px;

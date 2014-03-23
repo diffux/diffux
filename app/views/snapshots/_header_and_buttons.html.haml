@@ -6,8 +6,19 @@
       %small
         = time_tag @snapshot.created_at do
           = time_ago_in_words(@snapshot.created_at) + ' ago'
-        = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
-          %span.glyphicon.glyphicon-remove>
+
+        = form_tag @snapshot, method: :delete, data: {confirm: 'Are you sure?' } do
+          %button.btn.btn-link{ title: 'Remove snapshot' }
+            %span.glyphicon.glyphicon-remove
+
+        = form_tag take_snapshot_snapshot_path(@snapshot), method: :post do
+          %button.btn.btn-link{ title: 'Re-take snapshot' }
+            %span.glyphicon.glyphicon-repeat
+
+        = form_tag compare_snapshot_snapshot_path(@snapshot), method: :post do
+          %button.btn.btn-link{ title: 'Re-compare snapshot with baseline '}
+            %span.glyphicon.glyphicon-refresh
+
     %p
       - if @snapshot.pending?
         %span.label.label-default Pending
@@ -47,13 +58,3 @@
           %i.glyphicon.glyphicon-remove-sign
           %span.snapshot-button-enabled  Reject
           %span.snapshot-button-disabled Rejected
-
-    = form_tag take_snapshot_snapshot_path(@snapshot), method: :post do
-      %button.btn.btn-default
-        %i.glyphicon.glyphicon-camera
-        Re-take snapshot
-
-    = form_tag compare_snapshot_snapshot_path(@snapshot), method: :post do
-      %button.btn.btn-default
-        %i.glyphicon.glyphicon-camera
-        Re-compare snapshot
