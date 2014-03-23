@@ -14,8 +14,8 @@ class SnapshotComparer
 
   # Colors from Solarized
   # http://ethanschoonover.com/solarized
-  RED     = 2241396991 # #dc322f
-  GREEN   = 3694276607 # #859900
+  RED     = 3694276607 # #dc322f
+  GREEN   = 2241396991 # #859900
   VIOLET  = 1819395327 # #6c71c4
 
   def initialize(snapshot_after, snapshot_before)
@@ -34,8 +34,8 @@ class SnapshotComparer
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
-    sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_after),
-                             to_array_of_arrays(png_before))
+    sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_before),
+                             to_array_of_arrays(png_after))
 
     @output = ChunkyPNG::Image.new(max_width + GUTTER_WIDTH, sdiff.size)
 
