@@ -110,7 +110,6 @@ describe SnapshotComparer do
       end
 
       it 'should report a difference' do
-        pending 'figuring out if this still makes sense with diff-lcs'
         subject[:diff_in_percent].should > 0
       end
     end

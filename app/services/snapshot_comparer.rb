@@ -68,6 +68,15 @@ class SnapshotComparer
             pixel_before, pixel_after = pixels
             render_pixel(x + GUTTER_WIDTH, y, pixel_after, pixel_before)
           end
+
+          if row.new_element.size > row.old_element.size
+            # Array#zip will always maintain the length of the original array,
+            # so if the argument array is longer we need to compensate here.
+            extra = row.new_element.size - row.old_element.size
+            row.new_element.last(extra).each_with_index do |pixel_after, x|
+              render_pixel(x + extra + GUTTER_WIDTH, y, pixel_after, nil)
+            end
+          end
         end
       end
     end
@@ -94,7 +103,7 @@ class SnapshotComparer
   def render_pixel(x, y, pixel_after, pixel_before)
     if pixel_after.nil? || pixel_before.nil?
       # This pixel was either added (i.e not represented in the before image)
-      # or deleted (i.e. not represented in the after image).  So, we want to
+      # or deleted (i.e. not represented in the after image). So, we want to
       # render it at full opacity and with a translucent color overlay.
       @total_diff_score += 1
       overlay_color      = pixel_after.nil? ? RED : GREEN
