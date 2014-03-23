@@ -74,6 +74,7 @@ class Snapshot < ActiveRecord::Base
   def auto_accept
     return unless snapshot_diff
     return if snapshot_diff.before_snapshot == self
+    return if rejected?
     self.accepted_at = Time.now if snapshot_diff.diff_in_percent == 0
   end
 

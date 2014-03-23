@@ -89,6 +89,14 @@ describe Snapshot do
             expect { subject.save! }.to_not change { snapshot.accepted? }
           end
         end
+
+        context 'when the snapshot is rejected' do
+          before { subject.rejected_at = Time.now }
+
+          it 'does not auto-accept' do
+            expect { subject.save! }.to_not change { snapshot.accepted? }
+          end
+        end
       end
     end
 
