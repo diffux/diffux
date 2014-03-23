@@ -1,5 +1,12 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one:   1 hour
+        other: "%{count} hours"
+      about_x_months:
+        one:   1 month
+        other: "%{count} months"
+      about_x_years:
+        one:   1 year
+        other: "%{count} years"
