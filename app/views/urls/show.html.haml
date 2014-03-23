@@ -11,13 +11,8 @@
       = link_to @url, method: :delete, title: 'Delete',
                       data: { confirm: 'Are you sure?' } do
         %span.glyphicon.glyphicon-remove<>
-
-%table.table.table-vertical
-  %tr
-    %th
-      URL
-    %td
-      = link_to @url.simplified_address, @url.address
+  %p
+    = link_to @url.simplified_address, @url.address
 
 .button-group
   = link_to snapshots_path(url: @url.id),
