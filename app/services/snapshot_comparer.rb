@@ -24,9 +24,9 @@ class SnapshotComparer
                              to_array_of_arrays(png_after))
 
     all_comparisons = [
-      SnapshotComparisonImage::Before.new(max_width, max_height),
-      SnapshotComparisonImage::Overlayed.new(max_width, max_height),
-      SnapshotComparisonImage::After.new(max_width, max_height),
+      SnapshotComparisonImage::Before.new(max_width, sdiff.size),
+      SnapshotComparisonImage::Overlayed.new(max_width, sdiff.size),
+      SnapshotComparisonImage::After.new(max_width, sdiff.size),
     ]
 
     sdiff.each_with_index do |row, y|
@@ -49,7 +49,7 @@ class SnapshotComparer
     end
     sprite = stitch_pngs(all_comparisons) if total_diff_score > 0
     {
-      diff_in_percent: total_diff_score.to_f / (max_width * max_height) * 100,
+      diff_in_percent: total_diff_score.to_f / (max_width * sdiff.size) * 100,
       diff_image:      sprite,
       diff_clusters:   cluster_finder.clusters,
     }
