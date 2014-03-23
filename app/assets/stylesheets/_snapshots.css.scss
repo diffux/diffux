@@ -1,3 +1,13 @@
+@-webkit-keyframes pulse-opacity {
+  from { opacity: 1.0; }
+  to   { opacity: 0.4; }
+}
+
+@keyframes pulse-opacity {
+  from { opacity: 1.0; }
+  to   { opacity: 0.4; }
+}
+
 .snapshots {
   display: flex;
   flex-wrap: wrap;
@@ -106,6 +116,16 @@
   }
 
   .snapshot-card-pending {
+    -webkit-animation-direction: alternate;
+    -webkit-animation-duration: .7s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: pulse-opacity;
+    -webkit-animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-duration: .7s;
+    animation-iteration-count: infinite;
+    animation-name: pulse-opacity;
+    animation-timing-function: linear;
     color: #ccc;
     display: block;
     font-size: $snapshot-width * (3/4);
