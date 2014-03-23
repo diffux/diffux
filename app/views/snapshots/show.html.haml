@@ -5,8 +5,10 @@
   if @snapshot.sweep
     crumbs << ['Sweeps', project_sweeps_path(@snapshot.url.project)]
     crumbs << [@snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]]
+    crumbs << [simplified_url(@snapshot.url.address)]
+  else
+    crumbs << [simplified_url(@snapshot.url.title), url_path(@snapshot.url)]
   end
-  crumbs << [simplified_url(@snapshot.url.address)]
   crumbs << [@snapshot.viewport]
 
 = render 'shared/breadcrumbs', crumbs: crumbs
