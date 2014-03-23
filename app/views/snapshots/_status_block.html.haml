@@ -1,16 +1,4 @@
 .snapshot-status-block
-  %table.table.table-vertical
-    %tr{ data: { keyboard_focusable: true } }
-      %th
-        %abbr.initialism{ title: 'Uniform Resource Locator' } URL
-      %td
-        = link_to @snapshot.url.simplified_address, @snapshot.url.address,
-          class: 'url-multiline'
-    - if @snapshot.title
-      %tr
-        %th Page title
-        %td= @snapshot.title
-
   .snapshot-buttons
     - if @snapshot.under_review? || @snapshot.accepted? || @snapshot.rejected?
       = form_tag accept_snapshot_path(@snapshot),

@@ -23,6 +23,12 @@
           = time_ago_in_words(@snapshot.created_at) + ' ago'
         = link_to @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
           %span.glyphicon.glyphicon-remove>
+    %p
+      = @snapshot.title
+      &emsp;
+      %small
+        = link_to @snapshot.url.simplified_address, @snapshot.url.address,
+          class: 'url-multiline'
 
   = render 'snapshots/status_block'
 
