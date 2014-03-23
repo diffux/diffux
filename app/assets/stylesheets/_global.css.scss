@@ -75,3 +75,8 @@ table .progress {
   // Remove bottom-margin for sweep progress bars when rendered in a table
   margin-bottom: 0;
 }
+
+// Used in tables
+.numeric {
+  text-align: right;
+}

@@ -22,4 +22,4 @@
         %tr{ data: { keyboard_focusable: true } }
           %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
-          %td= project.urls.size
+          %td.numeric= project.urls.size

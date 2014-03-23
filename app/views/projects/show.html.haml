@@ -42,7 +42,7 @@
   %thead
     %tr
       %th URL
-      %th Snapshot count
+      %th Snapshots
       %th
   %tbody
     - @project.urls.each do |url|
@@ -52,7 +52,7 @@
           %br
           = link_to url.address, class: 'text-muted' do
             %small= url.simplified_address
-        %td= url.snapshots.size
+        %td.numeric= url.snapshots.size
         %td
           = link_to snapshots_path(url: url.id), method: :post,
                     title: 'Create new snapshots for this URL' do
