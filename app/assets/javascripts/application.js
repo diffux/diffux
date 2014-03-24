@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require replacejs/replace
 //= require _loading-indicator
+//= require _snapshot-tab-navigation
 //= require _keyboard-shortcuts
 //= require _auto-refresh
 //

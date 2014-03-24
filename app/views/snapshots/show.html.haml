@@ -24,12 +24,25 @@
         Diff
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
       - if @snapshot.snapshot_diff.diff_in_percent > 0
+        - if @snapshot.snapshot_diff.sprite?
+          - # Only show tabs for snapshot diffs that are sprites
+          %ul.nav.nav-tabs
+            %li= link_to 'Before', '#',      data: { diff_offset: '0' }
+            %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
+            %li= link_to 'After', '#',       data: { diff_offset: '-200%' }
         .snapshot-diff-with-clusters
-          = image_tag @snapshot.snapshot_diff.image.url
           - image_height = @snapshot.snapshot_diff.image_height
           - @snapshot.snapshot_diff.snapshot_diff_clusters.each do |cluster|
             .snapshot-diff-cluster{ style: "top: #{cluster.relative_start(image_height)}%; height: #{cluster.relative_height(image_height)}%",
                                     data: { keyboard_focusable: true } }
+          - if @snapshot.snapshot_diff.sprite?
+            - # If the snapshot diff is a sprite, we show only a third at a time.
+            - max_width = @snapshot.snapshot_diff.image_width / 3
+            .snapshot-diff-sprite{ style: "max-width: #{max_width}px;" }
+              = image_tag @snapshot.snapshot_diff.image.url
+          - else
+            - # Fallback for old snapshot diffs that are not sprites
+            = image_tag @snapshot.snapshot_diff.image.url
 
 
   .clearfix

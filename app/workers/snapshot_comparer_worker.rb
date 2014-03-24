@@ -18,6 +18,7 @@ class SnapshotComparerWorker < SnapshotWorker
     diff_image = comparison[:diff_image]
     if diff_image
       diff.image_height = diff_image.height
+      diff.image_width  = diff_image.width
       FileUtil.with_tempfile do |tempfile|
         diff_image.save(tempfile)
         diff.image = File.open(tempfile)

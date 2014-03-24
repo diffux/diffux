@@ -73,6 +73,15 @@
    }
 }
 
+.snapshot-diff-sprite {
+  overflow: hidden;
+
+  img {
+    margin-left: -100%;
+    max-width: 300%;
+  }
+}
+
 .snapshot-card {
   $snapshot-width: 100px;
   @include transition(none);
