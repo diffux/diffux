@@ -26,6 +26,11 @@ $(function() {
         event.preventDefault();
         break;
 
+      case 120: // x
+        switchSnapshotDiffTab();
+        event.preventDefault();
+        break;
+
       case 13:  // Enter
       case 111: // o
         openFocused();
@@ -97,6 +102,16 @@ $(function() {
           $link[0].click();
         }
       }
+    }
+
+    function switchSnapshotDiffTab() {
+      var tabSelector = '.snapshot-diff-image .nav-tabs li'
+          $active = $(tabSelector + '.active'),
+          $next   = $active.next();
+      if (!$next.length) {
+        $next = $(tabSelector + ':first');
+      }
+      $next.find('a').click();
     }
   });
 });
