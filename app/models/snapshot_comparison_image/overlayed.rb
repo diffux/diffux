@@ -48,8 +48,12 @@ class SnapshotComparisonImage::Overlayed < SnapshotComparisonImage
   # @param x [Integer]
   # @param y [Integer]
   def render_faded_magenta_pixel(pixel_after, pixel_before, x, y)
-    score              = pixel_diff_score(pixel_after, pixel_before)
-    output_color       = fade(MAGENTA, diff_alpha(score))
+    score        = pixel_diff_score(pixel_after, pixel_before)
+    output_color = if score > 0
+                     fade(MAGENTA, diff_alpha(score))
+                   else
+                     fade(pixel_after, BASE_ALPHA)
+                   end
     @output.set_pixel(x, y, output_color)
   end
 end
