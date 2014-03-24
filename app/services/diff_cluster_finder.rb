@@ -18,6 +18,11 @@ class DiffClusterFinder
     @rows_with_diff.add row
   end
 
+  # @return [Float] the percent of rows that are different
+  def percent_of_rows_different
+    @rows_with_diff.length.to_f / @number_of_rows * 100
+  end
+
   # Calculate clusters from diff-rows that are close to each other.
   #
   # @return [Array<Hash>] a list of clusters modeled as hashes:

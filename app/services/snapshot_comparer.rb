@@ -11,12 +11,11 @@ class SnapshotComparer
 
   # @return [Hash]
   def compare!
-    png_after         = to_chunky_png(@snapshot_after)
-    png_before        = to_chunky_png(@snapshot_before)
-    max_width         = [png_after.width, png_before.width].max
-    max_height        = [png_after.height, png_before.height].max
-    cluster_finder    = DiffClusterFinder.new(max_height)
-    total_diff_score  = 0
+    png_after      = to_chunky_png(@snapshot_after)
+    png_before     = to_chunky_png(@snapshot_before)
+    max_width      = [png_after.width, png_before.width].max
+    max_height     = [png_after.height, png_before.height].max
+    cluster_finder = DiffClusterFinder.new(max_height)
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
@@ -34,7 +33,6 @@ class SnapshotComparer
       if row.unchanged?
         all_comparisons.each { |image| image.render_unchanged_row(y, row) }
       else
-        total_diff_score += 1
         # This row has changed in some way, so we want to render the visual
         # difference.
         cluster_finder.row_is_different(y)
@@ -48,10 +46,10 @@ class SnapshotComparer
       end
     end
 
-    sprite = stitch_pngs(all_comparisons) if total_diff_score > 0
-
+    percent_changed = cluster_finder.percent_of_rows_different
+    sprite = stitch_pngs(all_comparisons) if percent_changed > 0
     {
-      diff_in_percent: total_diff_score.to_f / (max_width * sdiff.size) * 100,
+      diff_in_percent: percent_changed,
       diff_image:      sprite,
       diff_clusters:   cluster_finder.clusters,
     }

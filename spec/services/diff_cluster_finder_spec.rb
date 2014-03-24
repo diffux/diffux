@@ -88,4 +88,20 @@ describe DiffClusterFinder do
       end
     end
   end
+
+  describe '#percent_of_rows_different' do
+    subject { finder.percent_of_rows_different }
+
+    context 'when no different rows have been reported' do
+      it { should == 0.0 }
+    end
+
+    context 'when one row is different' do
+      before { finder.row_is_different(0) }
+
+      it 'reports a one percent difference' do
+        subject.should == 1.0
+      end
+    end
+  end
 end
