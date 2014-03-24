@@ -11,16 +11,15 @@ class SnapshotComparer
 
   # @return [Hash]
   def compare!
-    png_after      = to_chunky_png(@snapshot_after)
-    png_before     = to_chunky_png(@snapshot_before)
-    max_width      = [png_after.width, png_before.width].max
-    max_height     = [png_after.height, png_before.height].max
-    cluster_finder = DiffClusterFinder.new(max_height)
+    png_after  = to_chunky_png(@snapshot_after)
+    png_before = to_chunky_png(@snapshot_before)
+    max_width  = [png_after.width, png_before.width].max
 
     # sdiff will use traverse_balanced, which reports changes, whereas diff
     # will use traverse_sequences, which reports insertions or deletions.
-    sdiff  = Diff::LCS.sdiff(to_array_of_arrays(png_before),
-                             to_array_of_arrays(png_after))
+    sdiff          = Diff::LCS.sdiff(to_array_of_arrays(png_before),
+                                     to_array_of_arrays(png_after))
+    cluster_finder = DiffClusterFinder.new(sdiff.size)
 
     all_comparisons = [
       SnapshotComparisonImage::Before.new(max_width, sdiff.size),
