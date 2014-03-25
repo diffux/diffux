@@ -1,8 +1,6 @@
 # This subclass of `SnapshotComparisonImage` knows how to draw the
 # representation of the "after" image.
 class SnapshotComparisonImage::After < SnapshotComparisonImage
-  GREEN = 2_241_396_991 # #859900
-
   # @param y [Integer]
   # @param row [Diff::LCS:ContextChange]
   def render_changed_row(y, row)

@@ -2,8 +2,6 @@
 # after-image on top of the before-image, and render the difference in a scaled
 # magenta color.
 class SnapshotComparisonImage::Overlayed < SnapshotComparisonImage
-  MAGENTA = 3_543_565_055 # #b33682
-
   # @param y [Integer]
   # @param row [Diff::LCS:ContextChange]
   def render_unchanged_row(y, row)

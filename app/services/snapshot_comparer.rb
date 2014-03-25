@@ -22,8 +22,11 @@ class SnapshotComparer
     cluster_finder = DiffClusterFinder.new(sdiff.size)
 
     all_comparisons = [
+      SnapshotComparisonImage::Gutter.new(sdiff.size),
       SnapshotComparisonImage::Before.new(max_width, sdiff.size),
+      SnapshotComparisonImage::Gutter.new(sdiff.size),
       SnapshotComparisonImage::Overlayed.new(max_width, sdiff.size),
+      SnapshotComparisonImage::Gutter.new(sdiff.size),
       SnapshotComparisonImage::After.new(max_width, sdiff.size),
     ]
 

@@ -1,8 +1,6 @@
 # This subclass of `SnapshotComparisonImage` knows how to draw the
 # representation of the "before" image.
 class SnapshotComparisonImage::Before < SnapshotComparisonImage
-  RED = 3_694_276_607 # #dc322f
-
   # @param y [Integer]
   # @param row [Diff::LCS:ContextChange]
   def render_changed_row(y, row)

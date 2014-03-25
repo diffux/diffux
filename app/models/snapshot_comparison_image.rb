@@ -10,6 +10,10 @@ class SnapshotComparisonImage
   BASE_ALPHA      = (255 * BASE_OPACITY).round
   BASE_DIFF_ALPHA = BASE_ALPHA * 2
 
+  MAGENTA = 3_543_565_055 # #b33682
+  RED     = 3_694_276_607 # #dc322f
+  GREEN   = 2_241_396_991 # #859900
+
   # @param width [Integer]
   # @param height [Integer]
   def initialize(width, height)
