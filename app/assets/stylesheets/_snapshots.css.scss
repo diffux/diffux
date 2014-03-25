@@ -65,12 +65,18 @@
     position: relative;
   }
 
-  .snapshot-diff-cluster.keyboard-focused {
-    background-color: rgb(255, 0, 100);
-    left: -3px;
+  .snapshot-diff-cluster {
+    $icon-size: 13px;
+    font-size: $icon-size;
+    left: -($icon-size + 2);
+    line-height: 1;
     position: absolute;
-    width: 2px;
-   }
+    visibility: hidden;
+
+    &.keyboard-focused {
+      visibility: visible;
+    }
+  }
 }
 
 .snapshot-diff-sprite {
