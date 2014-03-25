@@ -29,20 +29,10 @@ class SnapshotComparer
 
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
-      if row.unchanged?
-        all_comparisons.each { |image| image.render_unchanged_row(y, row) }
-      else
-        # This row has changed in some way, so we want to render the visual
-        # difference.
-        cluster_finder.row_is_different(y)
-        if row.deleting?
-          all_comparisons.each { |image| image.render_deleted_row(y, row) }
-        elsif row.adding?
-          all_comparisons.each { |image| image.render_added_row(y, row) }
-        else # changing?
-          all_comparisons.each { |image| image.render_changed_row(y, row) }
-        end
-      end
+      all_comparisons.each { |image| image.render_row(y, row) }
+      # This row has changed in some way, so we want to render the visual
+      # difference.
+      cluster_finder.row_is_different(y) unless row.unchanged?
     end
 
     percent_changed = cluster_finder.percent_of_rows_different

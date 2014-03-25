@@ -18,6 +18,20 @@ class SnapshotComparisonImage
 
   # @param y [Integer]
   # @param row [Diff::LCS:ContextChange]
+  def render_row(y, row)
+    if row.unchanged?
+      render_unchanged_row(y, row)
+    elsif row.deleting?
+      render_deleted_row(y, row)
+    elsif row.adding?
+      render_added_row(y, row)
+    else # changing?
+      render_changed_row(y, row)
+    end
+  end
+
+  # @param y [Integer]
+  # @param row [Diff::LCS:ContextChange]
   def render_unchanged_row(y, row)
     row.new_element.each_with_index do |pixel, x|
       # Render the unchanged pixel as-is
