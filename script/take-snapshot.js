@@ -4,7 +4,10 @@ var page = require('webpage').create(),
 page.viewportSize = opts.viewportSize;
 if (opts.userAgent) {
   page.settings.userAgent = opts.userAgent;
+} else {
+  page.settings.userAgent = page.settings.userAgent + ' Diffux';
 }
+
 
 page.open(opts.address, function(status) {
   setTimeout(function() {
