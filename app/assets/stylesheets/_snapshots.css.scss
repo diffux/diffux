@@ -62,16 +62,11 @@
   max-width: 100%;
   padding: 0;
 
-  .nav-tabs {
+  .nav {
     margin-bottom: -$navbar-height;
 
     &.affix {
-      background-color: #fff;
       top: 0;
-      width: 500px; // Need to be wider than the navbar content, and preferably
-                    // more than mobile width. Since it has a fixed position,
-                    // the overflow won't cause a scroll even if the window is
-                    // narrower than this width.
       z-index: 1;
     }
   }

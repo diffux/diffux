@@ -26,7 +26,7 @@
       - if @snapshot.snapshot_diff.diff_in_percent > 0
         - if @snapshot.snapshot_diff.sprite?
           - # Only show tabs for snapshot diffs that are sprites
-          %ul.nav.nav-tabs{ data: { spy: 'affix', offset: 500 } }
+          %ul.nav.nav-pills
             %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
             %li= link_to 'Before',      '#', data: { diff_offset: '0' }
             %li= link_to 'After',       '#', data: { diff_offset: '-200%' }

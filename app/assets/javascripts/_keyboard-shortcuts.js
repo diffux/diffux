@@ -105,7 +105,7 @@ $(function() {
     }
 
     function switchSnapshotDiffTab() {
-      var tabSelector = '.snapshot-diff-image .nav-tabs li'
+      var tabSelector = '.snapshot-diff-image .nav li'
           $active = $(tabSelector + '.active'),
           $next   = $active.next();
       if (!$next.length) {
