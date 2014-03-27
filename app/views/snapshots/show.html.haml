@@ -27,9 +27,9 @@
         - if @snapshot.snapshot_diff.sprite?
           - # Only show tabs for snapshot diffs that are sprites
           %ul.nav.nav-tabs
-            %li= link_to 'Before', '#',      data: { diff_offset: '0' }
             %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
-            %li= link_to 'After', '#',       data: { diff_offset: '-200%' }
+            %li= link_to 'Before',      '#', data: { diff_offset: '0' }
+            %li= link_to 'After',       '#', data: { diff_offset: '-200%' }
         .snapshot-diff-with-clusters
           :ruby
             image_height = @snapshot.snapshot_diff.image_height
