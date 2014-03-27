@@ -66,15 +66,21 @@
   }
 
   .snapshot-diff-cluster {
-    $icon-size: 13px;
-    font-size: $icon-size;
-    left: -($icon-size + 2);
-    line-height: 1;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     position: absolute;
     visibility: hidden;
+    width: 100%;
 
     &.keyboard-focused {
       visibility: visible;
+    }
+
+    .glyphicon {
+      $icon-size: 13px;
+      font-size: $icon-size;
+      line-height: 1;
+      margin-left: -($icon-size + 2);
     }
   }
 }
