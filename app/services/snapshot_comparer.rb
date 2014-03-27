@@ -13,22 +13,11 @@ class SnapshotComparer
   def compare!
     png_after  = to_chunky_png(@snapshot_after)
     png_before = to_chunky_png(@snapshot_before)
-    max_width  = [png_after.width, png_before.width].max
-
-    # sdiff will use traverse_balanced, which reports changes, whereas diff
-    # will use traverse_sequences, which reports insertions or deletions.
-    sdiff          = Diff::LCS.sdiff(to_array_of_arrays(png_before),
-                                     to_array_of_arrays(png_after))
-    cluster_finder = DiffClusterFinder.new(sdiff.size)
-
-    all_comparisons = [
-      SnapshotComparisonImage::Gutter.new(sdiff.size),
-      SnapshotComparisonImage::Before.new(max_width, sdiff.size),
-      SnapshotComparisonImage::Gutter.new(sdiff.size),
-      SnapshotComparisonImage::Overlayed.new(max_width, sdiff.size),
-      SnapshotComparisonImage::Gutter.new(sdiff.size),
-      SnapshotComparisonImage::After.new(max_width, sdiff.size),
-    ]
+    sdiff      = Diff::LCS.sdiff(to_array_of_arrays(png_before),
+                                 to_array_of_arrays(png_after))
+    cluster_finder  = DiffClusterFinder.new(sdiff.size)
+    all_comparisons = initialize_comparison_images(
+      [png_after.width, png_before.width].max, sdiff.size)
 
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
@@ -83,5 +72,17 @@ class SnapshotComparer
       array_of_arrays << chunky_png.row(y)
     end
     array_of_arrays
+  end
+
+  # @return [Array<SnapshotComparisonImage>]
+  def initialize_comparison_images(width, height)
+    [
+      SnapshotComparisonImage::Gutter.new(height),
+      SnapshotComparisonImage::Before.new(width, height),
+      SnapshotComparisonImage::Gutter.new(height),
+      SnapshotComparisonImage::Overlayed.new(width, height),
+      SnapshotComparisonImage::Gutter.new(height),
+      SnapshotComparisonImage::After.new(width, height),
+    ]
   end
 end
