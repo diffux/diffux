@@ -49,7 +49,7 @@ describe DiffClusterFinder do
       before do
         finder.row_is_different(20)
         finder.row_is_different(23)
-        finder.row_is_different(30)
+        finder.row_is_different(27)
 
         finder.row_is_different(60)
         finder.row_is_different(61)
@@ -61,7 +61,7 @@ describe DiffClusterFinder do
 
       it 'has a correct first cluster' do
         subject.first[:start].should  == 20
-        subject.first[:finish].should == 30
+        subject.first[:finish].should == 27
       end
 
       it 'has a correct second cluster' do

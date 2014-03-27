@@ -3,7 +3,7 @@ require 'set'
 # different, and are closer than DIFF_ROW_THRESHOLD pixels to its neighboring
 # diff row.
 class DiffClusterFinder
-  MAXIMUM_ADJACENCY_GAP = 20
+  MAXIMUM_ADJACENCY_GAP = 5
 
   # @param number_of_rows [Numeric]
   def initialize(number_of_rows)
