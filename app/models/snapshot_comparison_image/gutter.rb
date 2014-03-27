@@ -2,6 +2,7 @@
 # change that has happened.
 class SnapshotComparisonImage::Gutter < SnapshotComparisonImage
   WIDTH = 10
+  GRAY  = ChunkyPNG::Color.from_hex '#cccccc'
 
   def initialize(height)
     super(WIDTH, height)
@@ -27,7 +28,7 @@ class SnapshotComparisonImage::Gutter < SnapshotComparisonImage
     elsif row.adding?
       GREEN
     else # changed?
-      MAGENTA
+      GRAY
     end
   end
 end
