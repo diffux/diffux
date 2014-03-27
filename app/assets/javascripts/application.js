@@ -24,3 +24,5 @@
 // Make navbar collapsable on mobile:
 //= require bootstrap/collapse
 //= require bootstrap/transition
+//= require bootstrap/scrollspy
+//= require bootstrap/affix
