@@ -77,8 +77,10 @@
   }
 
   .snapshot-diff-cluster {
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    @include box-shadow(
+      0 0 0 1px #999,
+      0 0 0 2px #ccc
+    );
     position: absolute;
     visibility: hidden;
     width: 100%;
