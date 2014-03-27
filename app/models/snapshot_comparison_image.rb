@@ -85,16 +85,4 @@ class SnapshotComparisonImage
   def diff_alpha(diff_score)
     (BASE_DIFF_ALPHA + ((255 - BASE_DIFF_ALPHA) * diff_score)).round
   end
-
-  protected
-
-  # @param pixel [Integer]
-  # @param overlay_color [Integer]
-  # @param x [Integer]
-  # @param y [Integer]
-  def render_colored_pixel(pixel, overlay_color, x, y)
-    output_color = compose_quick(fade(overlay_color, BASE_DIFF_ALPHA),
-                                 pixel)
-    @output.set_pixel(x, y, output_color)
-  end
 end

@@ -11,7 +11,7 @@ class SnapshotComparisonImage::Before < SnapshotComparisonImage
   # @param row [Diff::LCS:ContextChange]
   def render_deleted_row(y, row)
     row.old_element.each_with_index do |pixel_before, x|
-      render_colored_pixel(pixel_before, RED, x, y)
+      @output.set_pixel(x, y, pixel_before)
     end
   end
 end

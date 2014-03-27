@@ -11,7 +11,7 @@ class SnapshotComparisonImage::After < SnapshotComparisonImage
   # @param row [Diff::LCS:ContextChange]
   def render_added_row(y, row)
     row.new_element.each_with_index do |pixel_after, x|
-      render_colored_pixel(pixel_after, GREEN, x, y)
+      @output.set_pixel(x, y, pixel_after)
     end
   end
 end
