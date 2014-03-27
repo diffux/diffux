@@ -3,6 +3,13 @@ module SnapshotComparisonImage
   # after-image on top of the before-image, and render the difference in a
   # scaled magenta color.
   class Overlayed < SnapshotComparisonImage::Base
+    # @param width [Integer]
+    # @param height [Integer]
+    def initialize(width, height)
+      @composed = {}
+      super
+    end
+
     # @param y [Integer]
     # @param row [Diff::LCS:ContextChange]
     def render_unchanged_row(y, row)
@@ -56,8 +63,17 @@ module SnapshotComparisonImage
       render_pixel(x, y, output_color)
     end
 
+    # @param x [Integer]
+    # @param y [Integer]
+    # @param pixel [Integer]
     def render_pixel(x, y, pixel)
-      @output.set_pixel(x, y, compose_quick(pixel, WHITE))
+      @output.set_pixel(x, y, composed_on_white(pixel))
+    end
+
+    # @param pixel [Integer]
+    # @return [Integer]
+    def composed_on_white(pixel)
+      @composed[pixel] ||= compose_quick(pixel, WHITE)
     end
   end
 end
