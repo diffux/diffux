@@ -33,8 +33,6 @@ class SnapshotComparer
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
       all_comparisons.each { |image| image.render_row(y, row) }
-      # This row has changed in some way, so we want to render the visual
-      # difference.
       cluster_finder.row_is_different(y) unless row.unchanged?
     end
 
