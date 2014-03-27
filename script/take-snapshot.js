@@ -18,6 +18,8 @@ page.open(opts.address, function(status) {
       var sheet = css.sheet;
       sheet.addRule('*', '-webkit-transition: none !important;');
       sheet.addRule('*', 'transition: none !important;');
+      sheet.addRule('*', '-webkit-animation-duration: 0 !important;');
+      sheet.addRule('*', 'animation-duration: 0 !important;');
 
       // jQuery
       if (typeof $ !== 'undefined' && typeof $.fx !== 'undefined') {
