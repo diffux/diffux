@@ -77,10 +77,13 @@
     }
 
     .glyphicon {
-      $icon-size: 13px;
+      $icon-size: 12px;
       font-size: $icon-size;
       line-height: 1;
       margin-left: -($icon-size + 2);
+      margin-top: -($icon-size / 2);
+      position: absolute;
+      top: 50%;
     }
   }
 }
