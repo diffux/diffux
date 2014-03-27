@@ -14,7 +14,7 @@ class SnapshotComparisonImage::Gutter < SnapshotComparisonImage
     end
     # render a two-pixel empty column
     2.times do |x|
-      @output.set_pixel(WIDTH - 1 - x, y, TRANSPARENT)
+      @output.set_pixel(WIDTH - 1 - x, y, WHITE)
     end
   end
 
@@ -22,7 +22,7 @@ class SnapshotComparisonImage::Gutter < SnapshotComparisonImage
 
   def gutter_color(row)
     if row.unchanged?
-      TRANSPARENT
+      WHITE
     elsif row.deleting?
       RED
     elsif row.adding?

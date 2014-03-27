@@ -7,7 +7,7 @@ class SnapshotComparisonImage::Overlayed < SnapshotComparisonImage
   def render_unchanged_row(y, row)
     # Render translucent original pixels
     row.new_element.each_with_index do |pixel, x|
-      @output.set_pixel(x, y, fade(pixel, BASE_ALPHA))
+      render_pixel(x, y, fade(pixel, BASE_ALPHA))
     end
   end
 
@@ -52,6 +52,10 @@ class SnapshotComparisonImage::Overlayed < SnapshotComparisonImage
                    else
                      fade(pixel_after, BASE_ALPHA)
                    end
-    @output.set_pixel(x, y, output_color)
+    render_pixel(x, y, output_color)
+  end
+
+  def render_pixel(x, y, pixel)
+    @output.set_pixel(x, y, compose_quick(pixel, WHITE))
   end
 end
