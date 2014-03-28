@@ -19,7 +19,7 @@
   = render 'snapshots/header_and_buttons'
 
   - if @snapshot.diff?
-    .snapshot-diff-image.snapshot-image
+    .snapshot-diff-image
       %h2
         Diff
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
@@ -51,14 +51,15 @@
             = image_tag @snapshot.snapshot_diff.image.url
 
 
-  .clearfix
-    - if @snapshot.diff? && @snapshot.snapshot_diff.diff_in_percent > 0
-      .pull-left.snapshot-image
-        %h2= link_to 'Compared against', @snapshot.snapshot_diff.before_snapshot
-        = link_to image_tag(@snapshot.snapshot_diff.before_snapshot.image.url),
-          @snapshot.snapshot_diff.before_snapshot
+  - if @snapshot.snapshot_diff
+    %p.text-muted.small
+      This snapshot was compared against
+      = succeed('.') do
+        = link_to 'this baseline snapshot', @snapshot.snapshot_diff.before_snapshot
 
-    - if @snapshot.image?
-      .pull-left.snapshot-image
-        %h2 Snapshot image
-        = image_tag(@snapshot.image.url)
+      You can access
+      = link_to 'the after-image PNG', @snapshot.image.url, target: '_blank'
+      and
+      = link_to 'the before-image PNG', @snapshot.snapshot_diff.before_snapshot.image.url,
+        target: '_blank'
+      separately if you wish.
