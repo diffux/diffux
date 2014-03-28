@@ -90,6 +90,17 @@
       position: absolute;
       top: 50%;
     }
+
+    &.anchor-top,
+    &.anchor-bottom {
+      @include box-shadow(none);
+      height: 0;
+      top: 0;
+    }
+
+    &.anchor-bottom {
+      top: 100%;
+    }
   }
 }
 

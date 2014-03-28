@@ -38,10 +38,14 @@
                         1200
                       end
         .snapshot-diff-with-clusters{ style: "max-width: #{max_width}px;" }
+          .snapshot-diff-cluster.anchor-top{ data: { keyboard_focusable: true } }
+            %i.glyphicon.glyphicon-arrow-down.text-primary
           - @snapshot.snapshot_diff.snapshot_diff_clusters.each do |cluster|
             .snapshot-diff-cluster{ style: "top: #{cluster.relative_start(image_height)}%; height: #{cluster.relative_height(image_height)}%;",
                                     data: { keyboard_focusable: true } }
               %i.glyphicon.glyphicon-chevron-right.text-primary
+          .snapshot-diff-cluster.anchor-bottom{ data: { keyboard_focusable: true } }
+            %i.glyphicon.glyphicon-arrow-up.text-primary
           - if @snapshot.snapshot_diff.sprite?
             - # If the snapshot diff is a sprite, we show only a third at a time.
             .snapshot-diff-sprite{ style: "max-width: #{max_width}px;" }
