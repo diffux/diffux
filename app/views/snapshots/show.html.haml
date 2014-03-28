@@ -24,12 +24,6 @@
         Diff
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
       - if @snapshot.snapshot_diff.diff_in_percent > 0
-        - if @snapshot.snapshot_diff.sprite?
-          - # Only show tabs for snapshot diffs that are sprites
-          %ul.nav.nav-pills
-            %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
-            %li= link_to 'Before',      '#', data: { diff_offset: '0' }
-            %li= link_to 'After',       '#', data: { diff_offset: '-200%' }
         :ruby
           image_height = @snapshot.snapshot_diff.image_height
           max_width = if (width = @snapshot.snapshot_diff.image_width)
@@ -37,6 +31,12 @@
                       else
                         1200
                       end
+        - if @snapshot.snapshot_diff.sprite?
+          - # Only show tabs for snapshot diffs that are sprites
+          %ul.nav.nav-pills{ style: "max-width: #{max_width}px;" }
+            %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
+            %li= link_to 'Before',      '#', data: { diff_offset: '0' }
+            %li= link_to 'After',       '#', data: { diff_offset: '-200%' }
         .snapshot-diff-with-clusters{ style: "max-width: #{max_width}px;" }
           .snapshot-diff-cluster.anchor-top{ data: { keyboard_focusable: true } }
             %i.glyphicon.glyphicon-arrow-down.text-primary

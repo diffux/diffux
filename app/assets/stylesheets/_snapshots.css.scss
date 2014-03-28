@@ -41,25 +41,22 @@
 }
 
 .snapshot-diff-image {
-  $navbar-height: 42px;
+  $navbar-height: 45px;
   margin-bottom: 2em;
   max-width: 100%;
   padding: 0;
 
   .nav {
     -webkit-transform: translateZ(0); // Force layer in Chrome
+    @include background-image(linear-gradient(white, white 10%, transparent));
     margin-bottom: -$navbar-height;
+    padding: 2px 0;
+    width: 100%;
 
     &.affix {
+      padding-bottom: 25px;
       top: 0;
       z-index: 1;
-
-      li.active a {
-        @include box-shadow(
-          0 0 0 1px #999,
-          0 0 10px 3px #ccc
-        );
-      }
     }
   }
 
