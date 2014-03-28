@@ -8,7 +8,6 @@ describe SnapshotsController do
     subject        { get :show, id: snapshot.to_param }
 
     it         { should be_success }
-    its(:body) { should include('Snapshot image') }
     its(:body) { should include('Accept') }
     its(:body) { should include('Reject') }
 
@@ -16,7 +15,6 @@ describe SnapshotsController do
       let(:snapshot) { create(:snapshot, :pending) }
 
       it         { should be_success }
-      its(:body) { should_not include('Snapshot image') }
       its(:body) { should include('Pending') }
       its(:body) { should_not include('Accept') }
       its(:body) { should_not include('Reject') }
