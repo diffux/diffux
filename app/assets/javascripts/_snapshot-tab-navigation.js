@@ -15,11 +15,11 @@
     if (!$nav.length) {
       return;
     }
-    console.log($nav.offset().top);
     $nav.affix({
       offset: { top: $nav.offset().top }
     });
   }
+
   $(document).on('page:load', makeNavAffix);
   $(makeNavAffix);
 })();
