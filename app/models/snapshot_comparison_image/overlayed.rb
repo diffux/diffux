@@ -6,7 +6,8 @@ module SnapshotComparisonImage
     # @param width [Integer]
     # @param height [Integer]
     def initialize(width, height)
-      @composed = {}
+      @diff_pixels  = {}
+      @faded_pixels = {}
       super
     end
 
@@ -15,7 +16,7 @@ module SnapshotComparisonImage
     def render_unchanged_row(y, row)
       # Render translucent original pixels
       row.new_element.each_with_index do |pixel, x|
-        render_pixel(x, y, fade(pixel, BASE_ALPHA))
+        render_faded_pixel(x, y, pixel)
       end
     end
 
@@ -54,26 +55,29 @@ module SnapshotComparisonImage
     # @param x [Integer]
     # @param y [Integer]
     def render_faded_magenta_pixel(pixel_after, pixel_before, x, y)
-      score        = pixel_diff_score(pixel_after, pixel_before)
-      output_color = if score > 0
-                       fade(MAGENTA, diff_alpha(score))
-                     else
-                       fade(pixel_after, BASE_ALPHA)
-                     end
-      render_pixel(x, y, output_color)
+      score = pixel_diff_score(pixel_after, pixel_before)
+      if score > 0
+        render_diff_pixel(x, y, score)
+      else
+        render_faded_pixel(x, y, pixel_after)
+      end
+    end
+
+    # @param x [Integer]
+    # @param y [Integer]
+    # @param score [Float]
+    def render_diff_pixel(x, y, score)
+      @diff_pixels[score] ||= compose_quick(fade(MAGENTA, diff_alpha(score)),
+                                            WHITE)
+      @output.set_pixel(x, y, @diff_pixels[score])
     end
 
     # @param x [Integer]
     # @param y [Integer]
     # @param pixel [Integer]
-    def render_pixel(x, y, pixel)
-      @output.set_pixel(x, y, composed_on_white(pixel))
-    end
-
-    # @param pixel [Integer]
-    # @return [Integer]
-    def composed_on_white(pixel)
-      @composed[pixel] ||= compose_quick(pixel, WHITE)
+    def render_faded_pixel(x, y, pixel)
+      @faded_pixels[pixel] ||= compose_quick(fade(pixel, BASE_ALPHA), WHITE)
+      @output.set_pixel(x, y, @faded_pixels[pixel])
     end
   end
 end
