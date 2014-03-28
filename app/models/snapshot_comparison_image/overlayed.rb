@@ -3,6 +3,8 @@ module SnapshotComparisonImage
   # after-image on top of the before-image, and render the difference in a
   # scaled magenta color.
   class Overlayed < SnapshotComparisonImage::Base
+    WHITE_OVERLAY = ChunkyPNG::Color.fade(WHITE, 1 - BASE_ALPHA)
+
     # @param width [Integer]
     # @param height [Integer]
     def initialize(width, height)
@@ -76,7 +78,7 @@ module SnapshotComparisonImage
     # @param y [Integer]
     # @param pixel [Integer]
     def render_faded_pixel(x, y, pixel)
-      @faded_pixels[pixel] ||= compose_quick(fade(pixel, BASE_ALPHA), WHITE)
+      @faded_pixels[pixel] ||= compose_quick(WHITE_OVERLAY, pixel)
       @output.set_pixel(x, y, @faded_pixels[pixel])
     end
   end
