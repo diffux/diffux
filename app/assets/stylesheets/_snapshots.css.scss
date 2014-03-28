@@ -63,6 +63,7 @@
   padding: 0;
 
   .nav {
+    -webkit-transform: translateZ(0); // Force layer in Chrome
     margin-bottom: -$navbar-height;
 
     &.affix {
