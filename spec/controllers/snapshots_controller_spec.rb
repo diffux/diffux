@@ -92,18 +92,50 @@ describe SnapshotsController do
   describe '#accept' do
     let!(:snapshot) { create(:snapshot) }
 
+    subject do
+      post :accept, id: snapshot.to_param
+      response
+    end
+
     it 'accepts the snapshot' do
-      expect { post :accept, id: snapshot.to_param }
-        .to change { snapshot.reload.accepted? }.to(true)
+      expect { subject }.to change { snapshot.reload.accepted? }.to(true)
+    end
+
+    it { should redirect_to(snapshot_url(snapshot)) }
+
+    context 'with an XHR request' do
+      subject do
+        xhr :post, :accept, id: snapshot.to_param
+        response
+      end
+
+      it { should_not redirect_to(snapshot_url(snapshot)) }
+      it { should render_template('snapshots/_header_and_buttons') }
     end
   end
 
   describe '#reject' do
     let!(:snapshot) { create(:snapshot) }
 
+    subject do
+      post :reject, id: snapshot.to_param
+      response
+    end
+
     it 'rejects the snapshot' do
-      expect { post :reject, id: snapshot.to_param }
-        .to change { snapshot.reload.rejected? }.to(true)
+      expect { subject }.to change { snapshot.reload.rejected? }.to(true)
+    end
+
+    it { should redirect_to(snapshot_url(snapshot)) }
+
+    context 'with an XHR request' do
+      subject do
+        xhr :post, :reject, id: snapshot.to_param
+        response
+      end
+
+      it { should_not redirect_to(snapshot_url(snapshot)) }
+      it { should render_template('snapshots/_header_and_buttons') }
     end
   end
 
