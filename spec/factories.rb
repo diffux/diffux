@@ -74,4 +74,22 @@ FactoryGirl.define do
       image nil
     end
   end
+
+  factory :snapshot_diff do
+    association :before_snapshot, factory: :snapshot
+    diff_in_percent 12.345
+    image_height    100
+    image_width     100
+
+    image do
+      fixture_file_upload("#{Rails.root}/spec/sample_snapshot.png",
+                          'image/png')
+    end
+  end
+
+  factory :snapshot_diff_cluster do
+    snapshot_diff
+    start  10
+    finish 15
+  end
 end
