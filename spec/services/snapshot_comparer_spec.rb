@@ -10,14 +10,14 @@ describe SnapshotComparer do
     end
     subject { snapshot_comparer.compare! }
 
-    context 'with equal snapshots' do
+    context 'with identical snapshots' do
       before do
         snapshot_comparer.stubs(:to_chunky_png)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::WHITE))
       end
 
       it 'should report no difference' do
-        subject[:diff_in_percent].should == 0
+        subject[:diff_in_percent].should == 0.0
       end
 
       it 'should report no diff image' do
@@ -29,7 +29,7 @@ describe SnapshotComparer do
       end
     end
 
-    context 'with different snapshots' do
+    context 'with entirely different snapshots' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::WHITE))
@@ -37,8 +37,8 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 100% difference' do
+        subject[:diff_in_percent].should == 100.0
       end
 
       it 'should report a diff image' do
@@ -50,7 +50,7 @@ describe SnapshotComparer do
       end
     end
 
-    context 'when the after snapshot is shorter than the before snapshot' do
+    context 'when the after snapshot is half as tall as the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
@@ -58,8 +58,8 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(2, 1, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 50% difference' do
+        subject[:diff_in_percent].should == 50.0
       end
 
       it 'should report one cluster difference' do
@@ -67,7 +67,7 @@ describe SnapshotComparer do
       end
     end
 
-    context 'when the after snapshot is taller than the before snapshot' do
+    context 'when the after snapshot is twice as tall as the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
@@ -75,8 +75,8 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(2, 4, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 50% difference' do
+        subject[:diff_in_percent].should == 50.0
       end
 
       it 'returns an image of the correct height' do
@@ -88,7 +88,7 @@ describe SnapshotComparer do
       end
     end
 
-    context 'when the after snapshot is narrower than the before snapshot' do
+    context 'when the after snapshot half as wide as the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
@@ -96,12 +96,12 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(1, 2, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 100% difference' do
+        subject[:diff_in_percent].should == 100.0
       end
     end
 
-    context 'when the before snapshot is wider than the before snapshot' do
+    context 'when the before snapshot is twice as wide as the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
@@ -109,12 +109,12 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(4, 2, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 100% difference' do
+        subject[:diff_in_percent].should == 100.0
       end
     end
 
-    context 'when the after snapshot is wider than the before snapshot' do
+    context 'when the after snapshot is twice as wide as the before snapshot' do
       before do
         snapshot_comparer.stubs(:to_chunky_png).with(snapshot_after)
           .returns(ChunkyPNG::Image.new(4, 2, ChunkyPNG::Color::BLACK))
@@ -122,8 +122,8 @@ describe SnapshotComparer do
           .returns(ChunkyPNG::Image.new(2, 2, ChunkyPNG::Color::BLACK))
       end
 
-      it 'should report a difference' do
-        subject[:diff_in_percent].should > 0
+      it 'should report a 100% difference' do
+        subject[:diff_in_percent].should == 100.0
       end
     end
   end
