@@ -168,4 +168,26 @@ describe SnapshotsController do
       end
     end
   end
+
+  describe '#compare_snapshot' do
+    let!(:snapshot) { create(:snapshot, :accepted, :with_baseline) }
+
+    before { SnapshotComparerWorker.stubs(:perform_async) }
+
+    subject do
+      post :compare_snapshot, id: snapshot.to_param
+      response
+    end
+
+    it 'sets the snapshot in pending state', :uses_after_commit do
+      expect { subject }.to change { snapshot.reload.pending? }.to(true)
+    end
+
+    it 'triggers a worker', :uses_after_commit do
+      SnapshotComparerWorker.expects(:perform_async).once
+      subject
+    end
+
+    it { should redirect_to(snapshot_url(snapshot)) }
+  end
 end

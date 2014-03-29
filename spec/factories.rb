@@ -56,6 +56,14 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_baseline do
+      after(:build) do |instance|
+        create :snapshot, :accepted,
+               url:      instance.url,
+               viewport: instance.viewport
+      end
+    end
+
     trait :with_sweep do
       sweep
     end
