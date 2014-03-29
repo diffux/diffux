@@ -110,30 +110,29 @@ describe SnapshotsController do
   describe '#take_snapshot' do
     let!(:snapshot) { create(:snapshot) }
 
+    before { SnapshotterWorker.stubs(:perform_async) }
+
+    subject do
+      post :take_snapshot, id: snapshot.to_param
+      response
+    end
+
     it 'sets the snapshot in pending state' do
-      SnapshotterWorker.stubs(:perform_async)
-      expect { post :take_snapshot, id: snapshot.to_param }
-        .to change { snapshot.reload.pending? }.to(true)
+      expect { subject }.to change { snapshot.reload.pending? }.to(true)
     end
 
     it 'triggers a worker' do
       SnapshotterWorker.expects(:perform_async).once
-      post :take_snapshot, id: snapshot.to_param
+      subject
     end
 
-    it 'redirects to the snapshot page' do
-      SnapshotterWorker.stubs(:perform_async)
-      post :take_snapshot, id: snapshot.to_param
-      response.should redirect_to(snapshot_url(snapshot))
-    end
+    it { should redirect_to(snapshot_url(snapshot)) }
 
     context 'with an old diff' do
       let!(:snapshot) { create(:snapshot, :with_diff) }
 
       it 'deletes the snapshot diff' do
-        SnapshotterWorker.stubs(:perform_async)
-        expect { post :take_snapshot, id: snapshot.to_param }
-          .to change { snapshot.reload.snapshot_diff }.to(nil)
+        expect { subject }.to change { snapshot.reload.snapshot_diff }.to(nil)
       end
     end
   end
