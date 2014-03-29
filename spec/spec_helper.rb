@@ -1,4 +1,5 @@
 require 'coveralls'
+require 'nokogiri'
 Coveralls.wear!('rails')
 
 ENV['RAILS_ENV'] ||= 'test'

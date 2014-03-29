@@ -36,7 +36,9 @@ module SweepsHelper
        auto_refresh_type: 'sweep',
        auto_refresh_id:   sweep.id,
      }
-    content_tag(:div, class: 'progress',
+    classes = %w[progress]
+    classes += %w[progress-striped active] if sweep.count_pending > 0
+    content_tag(:div, class: classes,
                       title: sweep_status(sweep),
                       data:  data_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|

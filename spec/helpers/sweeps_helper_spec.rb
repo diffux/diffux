@@ -50,4 +50,29 @@ describe SweepsHelper do
       it { should == '3 accepted, 2 rejected' }
     end
   end
+
+  describe '#sweep_progress_bar' do
+   let(:sweep) do
+      build :sweep, count_rejected:     0,
+                    count_pending:      pending,
+                    count_accepted:     0,
+                    count_under_review: 0
+    end
+
+    let(:progress_bar) { Nokogiri::HTML((sweep_progress_bar(sweep))) }
+
+    context 'with pending snapshots' do
+      let(:pending) { 10 }
+      it 'has classes to add animation' do
+        expect((progress_bar.css('div').first)['class']).to eq 'progress progress-striped active'
+      end
+    end
+
+    context 'with all snapshots completed' do
+      let(:pending) { 0 }
+      it 'has classes that only give flat color' do
+        expect((progress_bar.css('div').first)['class']).to eq 'progress'
+      end
+    end
+  end
 end
