@@ -62,8 +62,8 @@
         = link_to 'this baseline snapshot', @snapshot.snapshot_diff.before_snapshot
 
       You can access
-      = link_to 'the after-image PNG', @snapshot.image.url, target: '_blank'
-      and
       = link_to 'the before-image PNG', @snapshot.snapshot_diff.before_snapshot.image.url,
         target: '_blank'
+      and
+      = link_to 'the after-image PNG', @snapshot.image.url, target: '_blank'
       separately if you wish.
