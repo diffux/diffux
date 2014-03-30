@@ -38,6 +38,7 @@ class Sweep < ActiveRecord::Base
   def refresh!
     update_counters!
     send_email_if_needed!
+    save!
     self # for chaining
   end
 
@@ -48,7 +49,6 @@ class Sweep < ActiveRecord::Base
     self.count_accepted     = accepted_snapshots.count
     self.count_rejected     = rejected_snapshots.count
     self.count_under_review = under_review_snapshots.count
-    save!
   end
 
   def send_email_if_needed!
@@ -58,7 +58,6 @@ class Sweep < ActiveRecord::Base
     return if emailed_at
     SweepMailer.ready_for_review(self).deliver
     self.emailed_at = Time.now
-    save!
   end
 
   def take_snapshots
