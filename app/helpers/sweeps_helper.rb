@@ -28,24 +28,24 @@ module SweepsHelper
   # @return [String] a stacked <div class="progress"/> Bootstrap element.
   # @see http://getbootstrap.com/components/#progress
   def sweep_progress_bar(sweep)
-    total_count = PROGRESS_BAR_STYLE_MAPPINGS.keys.inject(0) do |sum, state|
+    total_count = PROGRESS_BAR_STYLE_MAPPINGS.keys.reduce(0) do |sum, state|
       sum + sweep.send("count_#{state}")
     end
 
-    data_attrs = {
-       auto_refresh_type: 'sweep',
-       auto_refresh_id:   sweep.id,
-     }
-    classes = %w[progress]
-    classes += %w[progress-striped active] if sweep.count_pending > 0
-    content_tag(:div, class: classes,
-                      title: sweep_status(sweep),
-                      data:  data_attrs) do
+    classes = %w(progress)
+    classes += %w(progress-striped active) if sweep.count_pending > 0
+    html_attrs = {
+      class: classes,
+      title: sweep_status(sweep),
+      data: {
+        auto_refresh_type: 'sweep',
+        auto_refresh_id:   sweep.id,
+      },
+    }
+    content_tag(:div, html_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|
-        percent = if total_count > 0
-                    number_to_percentage(
-                      sweep.send("count_#{state}") / total_count.to_f * 100)
-                  else 0 end
+        percent = number_to_percentage(
+                    sweep.send("count_#{state}") / total_count.to_f * 100)
         content_tag(:div, nil, class: "progress-bar #{bootstrap_class}",
                                style: "width: #{percent}")
       end.join.html_safe

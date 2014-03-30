@@ -52,24 +52,45 @@ describe SweepsHelper do
   end
 
   describe '#sweep_progress_bar' do
-   let(:sweep) do
-      build :sweep, count_rejected:     0,
+    let(:rejected)     { 0 }
+    let(:pending)      { 0 }
+    let(:accepted)     { 2 }
+    let(:under_review) { 2 }
+
+    let(:sweep) do
+      build :sweep, count_rejected:     rejected,
                     count_pending:      pending,
-                    count_accepted:     0,
-                    count_under_review: 0
+                    count_accepted:     accepted,
+                    count_under_review: under_review
     end
 
-    let(:progress_bar) { Nokogiri::HTML((sweep_progress_bar(sweep))) }
+    let(:progress_bar) { Nokogiri::HTML(sweep_progress_bar(sweep)) }
+
+    context 'with no snapshots at all' do
+      let(:rejected)     { 0 }
+      let(:pending)      { 0 }
+      let(:accepted)     { 0 }
+      let(:under_review) { 0 }
+
+      it 'renders an empty progress bar' do
+        # This is an edge case that is unlikely to happen. But I want it here
+        # to guard us against dividing by zero etc.
+        expect(progress_bar.css('progress-bar').length).to eq 0
+      end
+    end
 
     context 'with pending snapshots' do
       let(:pending) { 10 }
+
       it 'has classes to add animation' do
-        expect((progress_bar.css('div').first)['class']).to eq 'progress progress-striped active'
+        expect((progress_bar.css('div').first)['class'])
+          .to eq 'progress progress-striped active'
       end
     end
 
     context 'with all snapshots completed' do
       let(:pending) { 0 }
+
       it 'has classes that only give flat color' do
         expect((progress_bar.css('div').first)['class']).to eq 'progress'
       end
