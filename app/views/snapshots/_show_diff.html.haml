@@ -1,0 +1,29 @@
+:ruby
+  image_height = @snapshot.snapshot_diff.image_height
+  max_width = if (width = @snapshot.snapshot_diff.image_width)
+                width / 3
+              else
+                1200
+              end
+- if @snapshot.snapshot_diff.sprite?
+  - # Only show tabs for snapshot diffs that are sprites
+  %ul.nav.nav-pills{ style: "max-width: #{max_width}px;" }
+    %li.active= link_to 'Diff', '#', data: { diff_offset: '-100%' }
+    %li= link_to 'Before',      '#', data: { diff_offset: '0' }
+    %li= link_to 'After',       '#', data: { diff_offset: '-200%' }
+.snapshot-diff-with-clusters{ style: "max-width: #{max_width}px;" }
+  .snapshot-diff-cluster.anchor-top{ data: { keyboard_focusable: true } }
+    %i.glyphicon.glyphicon-arrow-down.text-primary
+  - @snapshot.snapshot_diff.snapshot_diff_clusters.each do |cluster|
+    .snapshot-diff-cluster{ style: "top: #{cluster.relative_start(image_height)}%; height: #{cluster.relative_height(image_height)}%;",
+                            data: { keyboard_focusable: true } }
+      %i.glyphicon.glyphicon-chevron-right.text-primary
+  .snapshot-diff-cluster.anchor-bottom{ data: { keyboard_focusable: true } }
+    %i.glyphicon.glyphicon-arrow-up.text-primary
+  - if @snapshot.snapshot_diff.sprite?
+    - # If the snapshot diff is a sprite, we show only a third at a time.
+    .snapshot-diff-sprite{ style: "max-width: #{max_width}px;" }
+      = image_tag @snapshot.snapshot_diff.image.url
+  - else
+    - # Fallback for old snapshot diffs that are not sprites
+    = image_tag @snapshot.snapshot_diff.image.url
