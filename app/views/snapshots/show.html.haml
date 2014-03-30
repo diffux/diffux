@@ -25,9 +25,9 @@
         %small= number_to_percentage(@snapshot.snapshot_diff.diff_in_percent)
       - if @snapshot.snapshot_diff.diff_in_percent > 0
         = render 'snapshots/show_diff'
+      - else
+        = image_tag @snapshot.image.url
 
-
-  - if @snapshot.snapshot_diff
     %p.text-muted.small
       This snapshot was compared against
       = succeed('.') do
@@ -39,3 +39,13 @@
       and
       = link_to 'the after-image PNG', @snapshot.image.url, target: '_blank'
       separately if you wish.
+
+  - elsif !@snapshot.pending?
+    .snapshot-diff-image
+      .alert.alert-warning
+        %strong No baseline found.
+        This snapshot did not have a baseline to compare itself against. This
+        will happen if the snapshot is the first one for a URL or if no
+        snapshot has been accepted for the URL. If you accept this snapshot, it
+        will be used as the baseline for the next snapshot.
+      = image_tag @snapshot.image.url

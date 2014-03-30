@@ -46,6 +46,10 @@
   max-width: 100%;
   padding: 0;
 
+  img {
+    max-width: 100%;
+  }
+
   .nav {
     -webkit-transform: translateZ(0); // Force layer in Chrome
     @include background-image(linear-gradient(white, white 10%, transparent));

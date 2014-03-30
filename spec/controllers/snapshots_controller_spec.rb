@@ -19,6 +19,22 @@ describe SnapshotsController do
       its(:body) { should_not include('Accept') }
       its(:body) { should_not include('Reject') }
     end
+
+    context 'with a snapshot in accepted state' do
+      let(:snapshot) { create(:snapshot, :accepted) }
+
+      it         { should be_success }
+      its(:body) { should include('Accepted') }
+      its(:body) { should include('Reject') }
+    end
+
+    context 'with a snapshot in rejected state' do
+      let(:snapshot) { create(:snapshot, :rejected) }
+
+      it         { should be_success }
+      its(:body) { should include('Rejected') }
+      its(:body) { should include('Accept') }
+    end
   end
 
   describe '#create' do

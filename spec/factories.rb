@@ -50,7 +50,7 @@ FactoryGirl.define do
           diff_in_percent: 1.0,
           image: fixture_file_upload(
             "#{Rails.root}/spec/sample_snapshot.png", 'image/png'),
-          before_snapshot_id: create(:snapshot)
+          before_snapshot: create(:snapshot)
         )
         snapshot.save!
       end
