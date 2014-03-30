@@ -35,10 +35,22 @@ class Sweep < ActiveRecord::Base
     snapshots.select(&:under_review?)
   end
 
+  # Updates the snapshot counters and sends out an email if the sweep reaches a
+  # "done" state. This method is using a pessimistic locking approach to avoid
+  # race conditions that can cause duplicate emails to be sent and/or the
+  # progress counters to be stale.
+  #
+  # @see
+  #   http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html
+  #   for more info on pessimistic locking.
+  #
+  # @return [Sweep] returns itself (useful for method chaining)
   def refresh!
-    update_counters!
-    send_email_if_needed!
-    save!
+    with_lock do
+      update_counters!
+      send_email_if_needed!
+      save!
+    end
     self # for chaining
   end
 
