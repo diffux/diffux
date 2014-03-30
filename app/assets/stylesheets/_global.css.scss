@@ -80,3 +80,39 @@ table .progress {
 .numeric {
   text-align: right;
 }
+
+// Meter element
+meter {
+  -moz-appearance: none;
+  -webkit-appearance: none; // reset appearance
+  background: $gray-lighter; // Firefox
+  width: 100%;
+
+  &::-webkit-meter-bar {
+    background: $gray-lighter;
+  }
+
+  &::-webkit-meter-optimum-value {
+    background: $brand-success;
+  }
+
+  &::-webkit-meter-suboptimum-value {
+    background: $brand-warning;
+  }
+
+  &::-webkit-meter-even-less-good-value {
+    background: $brand-danger;
+  }
+}
+
+:-moz-meter-optimum::-moz-meter-bar {
+  background: $brand-success;
+}
+
+:-moz-meter-sub-optimum::-moz-meter-bar {
+  background: $brand-warning;
+}
+
+:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: $brand-danger;
+}

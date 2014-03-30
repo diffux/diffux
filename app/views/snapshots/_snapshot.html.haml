@@ -21,6 +21,7 @@
     = time_tag snapshot.created_at, class: 'text-muted' do
       = time_ago_in_words(snapshot.created_at) + ' ago'
     - if diff = snapshot.snapshot_diff
-      %span.text-warning
-        = number_to_percentage(diff.diff_in_percent, precision: 2)
-        diff
+      %meter{ max: 100, optimum: 0, low: 5, high: 20, value: diff.diff_in_percent }<
+        %span.text-warning<
+          = number_to_percentage(diff.diff_in_percent, precision: 2)
+          diff
