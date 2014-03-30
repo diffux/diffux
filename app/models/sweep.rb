@@ -38,6 +38,7 @@ class Sweep < ActiveRecord::Base
   def refresh!
     update_counters!
     send_email_if_needed!
+    self # for chaining
   end
 
   private
@@ -52,7 +53,6 @@ class Sweep < ActiveRecord::Base
 
   def send_email_if_needed!
     return unless email
-    update_counters! # to prevent stale data
     return if snapshots.count == 0
     return if count_pending > 0
     return if emailed_at
