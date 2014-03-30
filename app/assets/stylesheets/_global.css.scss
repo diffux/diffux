@@ -76,6 +76,10 @@ table .progress {
   margin-bottom: 0;
 }
 
+.sweep-progress-bar-pending {
+  background-color: #ccc;
+}
+
 // Used in tables
 .numeric {
   text-align: right;

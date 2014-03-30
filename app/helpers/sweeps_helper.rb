@@ -1,10 +1,10 @@
 # Helper methods related to sweeps.
 module SweepsHelper
   PROGRESS_BAR_STYLE_MAPPINGS = {
-    'pending'      => nil,
     'under_review' => 'progress-bar-warning',
     'accepted'     => 'progress-bar-success',
     'rejected'     => 'progress-bar-danger',
+    'pending'      => 'sweep-progress-bar-pending',
   }
 
   # @param  [Sweep]  sweep
@@ -42,7 +42,6 @@ module SweepsHelper
                       title: sweep_status(sweep),
                       data:  data_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|
-        next unless bootstrap_class
         percent = if total_count > 0
                     number_to_percentage(
                       sweep.send("count_#{state}") / total_count.to_f * 100)
