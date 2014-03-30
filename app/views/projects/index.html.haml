@@ -1,13 +1,13 @@
 - provide :title, 'Projects'
 
-.page-header
-  %h1
-    = yield :title
-    = link_to new_project_path, class: 'btn btn-primary' do
-      %span.glyphicon.glyphicon-plus
-      Add new Project
-
 - if @projects.any?
+  .page-header
+    %h1
+      = yield :title
+      = link_to new_project_path, class: 'btn btn-primary' do
+        %span.glyphicon.glyphicon-plus
+        Add new Project
+
   %table.table.table-striped
     %thead
       %tr
@@ -23,3 +23,25 @@
           %td= link_to project.name, project, class: 'url-multiline'
           %td= project.viewports.map(&:to_s).join(', ')
           %td.numeric= project.urls.size
+- else
+  -# There are no projects
+  .jumbotron
+    %h1 Hello, nice to meet you.
+
+    %p
+      Thanks for using Diffux! If you happen to bump into a problem or think of
+      a feature you'd like to see,
+      = succeed '.' do
+        = link_to "we'd love to hear about it",
+                  'https://github.com/trotzig/diffux/issues'
+      And, if you are the coding type, we'd be delighted to accept your pull
+      requests.
+
+    %p
+      First, you'll want to create a new project and give it some viewport
+      widths and URLs to snapshot.
+
+    %p
+      = link_to new_project_path, class: 'btn btn-primary' do
+        %span.glyphicon.glyphicon-plus
+        Add new Project
