@@ -37,6 +37,11 @@ $(function() {
         event.preventDefault();
         break;
 
+      case 63:  // ?
+        openHelpModal();
+        event.preventDefault();
+        break;
+
       default: // check for shortcut keys
         if (handleShortcutKey(event.which)) {
           event.preventDefault();
@@ -112,6 +117,10 @@ $(function() {
         $next = $(tabSelector + ':first');
       }
       $next.find('a').click();
+    }
+
+    function openHelpModal() {
+      $('.keyboard-shortcut-help').modal('toggle');
     }
   });
 });
