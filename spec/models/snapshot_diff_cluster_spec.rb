@@ -27,14 +27,14 @@ describe SnapshotDiffCluster do
     end
 
     context 'when start is half the image height' do
-      let(:start)        { 500 }
-      let(:image_height) { 1_000 }
+      let(:start)        { 5 }
+      let(:image_height) { 11 }
       it { should == 50.0 }
       it { should be_a(Float) }
     end
 
     context 'when start is at the image height' do
-      let(:start)        { 4 }
+      let(:start)        { 3 }
       let(:image_height) { 4 }
       it { should == 100.0 }
       it { should be_a(Float) }
@@ -46,8 +46,8 @@ describe SnapshotDiffCluster do
 
     context 'when cluster spans half of the image' do
       let(:start)        { 0 }
-      let(:finish)       { 499 }
-      let(:image_height) { 1_000 }
+      let(:finish)       { 500 }
+      let(:image_height) { 1_001 }
       it { should == 50.0 }
       it { should be_a(Float) }
     end
