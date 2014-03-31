@@ -24,9 +24,13 @@
         = form_tag accept_snapshot_path(@snapshot),
                    data: { replace: '.snapshot-header-and-buttons' },
                    method: :post do
-          %button.btn.btn-default{ disabled: @snapshot.accepted?,
-                                   class:    ('btn-success' if @snapshot.accepted?),
-                                   data:     { keyboard_shortcut: 'a' } }
+          :ruby
+            button_attrs = {
+              disabled: @snapshot.accepted?,
+              class:    ('btn-success' if @snapshot.accepted?),
+              data:     { keyboard_shortcut: 'a' }
+            }
+          %button.btn.btn-default.snapshot-accept-button{ button_attrs }
             %i.glyphicon.glyphicon-ok
             %span.snapshot-button-enabled  Accept
             %span.snapshot-button-disabled Accepted
@@ -34,11 +38,15 @@
         = form_tag reject_snapshot_path(@snapshot),
                    data: { replace: '.snapshot-header-and-buttons' },
                    method: :post do
-          %button.btn.btn-default{ disabled: @snapshot.rejected?,
-                                   class:    ('btn-danger' if @snapshot.rejected?),
-                                   data:     { keyboard_shortcut: 'r' } }
+          :ruby
+            button_attrs = {
+              disabled: @snapshot.rejected?,
+              class:    ('btn-danger' if @snapshot.rejected?),
+              data:     { keyboard_shortcut: 'r' }
+            }
+          %button.btn.btn-default.snapshot-reject-button{ button_attrs }
             %i.glyphicon.glyphicon-remove
-            %span.snapshot-button-enabled  Reject
+            %span.snapshot-button-enabled Reject
             %span.snapshot-button-disabled Rejected
 
       - if @snapshot.pending?

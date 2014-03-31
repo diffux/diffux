@@ -8,32 +8,32 @@ describe SnapshotsController do
     subject        { get :show, id: snapshot.to_param }
 
     it         { should be_success }
-    its(:body) { should include('Accept') }
-    its(:body) { should include('Reject') }
+    its(:body) { should have_css('.snapshot-accept-button') }
+    its(:body) { should have_css('.snapshot-reject-button') }
 
     context 'with a snapshot in pending state' do
       let(:snapshot) { create(:snapshot, :pending) }
 
       it         { should be_success }
       its(:body) { should include('Pending') }
-      its(:body) { should_not include('Accept') }
-      its(:body) { should_not include('Reject') }
+      its(:body) { should_not have_css('.snapshot-accept-button') }
+      its(:body) { should_not have_css('.snapshot-reject-button') }
     end
 
     context 'with a snapshot in accepted state' do
       let(:snapshot) { create(:snapshot, :accepted) }
 
       it         { should be_success }
-      its(:body) { should include('Accepted') }
-      its(:body) { should include('Reject') }
+      its(:body) { should have_css('.snapshot-accept-button') }
+      its(:body) { should have_css('.snapshot-reject-button') }
     end
 
     context 'with a snapshot in rejected state' do
       let(:snapshot) { create(:snapshot, :rejected) }
 
       it         { should be_success }
-      its(:body) { should include('Rejected') }
-      its(:body) { should include('Accept') }
+      its(:body) { should have_css('.snapshot-accept-button') }
+      its(:body) { should have_css('.snapshot-reject-button') }
     end
   end
 
