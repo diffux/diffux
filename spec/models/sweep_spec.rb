@@ -118,13 +118,26 @@ describe Sweep do
         end
       end
 
-      context 'when there is no email address configured for the sweep' do
-        let(:sweep) { create(:sweep, email: nil) }
+      context 'when email address is missing' do
+        let(:sweep) { create(:sweep, email: email) }
         before      { create(:snapshot, sweep: sweep) }
 
-        it 'does not send an email' do
-          expect { subject }
-            .to_not change { ActionMailer::Base.deliveries.count }
+        context 'and is nil' do
+          let(:email) { nil }
+
+          it 'does not send an email' do
+            expect { subject }
+              .to_not change { ActionMailer::Base.deliveries.count }
+          end
+        end
+
+        context 'and is empty' do
+          let(:email) { '' }
+
+          it 'does not send an email' do
+            expect { subject }
+              .to_not change { ActionMailer::Base.deliveries.count }
+          end
         end
       end
     end

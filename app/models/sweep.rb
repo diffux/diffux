@@ -64,7 +64,7 @@ class Sweep < ActiveRecord::Base
   end
 
   def send_email_if_needed!
-    return unless email
+    return if email.blank?
     return if snapshots.count == 0
     return if count_pending > 0
     return if emailed_at
