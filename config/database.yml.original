@@ -1,0 +1,18 @@
+DEFAULTS: &DEFAULTS
+  adapter: postgresql
+  encoding: unicode
+  password:
+  pool: 25
+  username: postgres
+
+development:
+  <<: *DEFAULTS
+  database: diffux_development
+
+test:
+  <<: *DEFAULTS
+  database: diffux_test
+
+production:
+  database: diffux_production
+  username: diffux
