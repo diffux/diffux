@@ -1,0 +1,8 @@
+# Example database configuration. Copy this file and save it as
+# config/database.yml, then (re)start your rails server.
+development:
+  adapter: postgresql
+  encoding: unicode
+  password:
+  username: postgres
+  database: diffux_development
