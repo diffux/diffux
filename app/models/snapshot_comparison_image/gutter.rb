@@ -5,17 +5,13 @@ module SnapshotComparisonImage
     WIDTH = 10
     GRAY  = ChunkyPNG::Color.from_hex '#cccccc'
 
-    def initialize(height)
-      super(WIDTH, height)
-    end
-
     def render_row(y, row)
       WIDTH.times do |x|
-        @output.set_pixel(x, y, gutter_color(row))
+        render_pixel(x, y, gutter_color(row))
       end
       # render a two-pixel empty column
       2.times do |x|
-        @output.set_pixel(WIDTH - 1 - x, y, WHITE)
+        render_pixel(WIDTH - 1 - x, y, WHITE)
       end
     end
 

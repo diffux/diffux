@@ -12,7 +12,7 @@ module SnapshotComparisonImage
     # @param row [Diff::LCS:ContextChange]
     def render_added_row(y, row)
       row.new_element.each_with_index do |pixel_after, x|
-        @output.set_pixel(x, y, pixel_after)
+        render_pixel(x, y, pixel_after)
       end
     end
   end

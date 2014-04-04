@@ -15,10 +15,12 @@ module SnapshotComparisonImage
     RED     = ChunkyPNG::Color.from_hex '#dc322f'
     GREEN   = ChunkyPNG::Color.from_hex '#859900'
 
-    # @param width [Integer]
-    # @param height [Integer]
-    def initialize(width, height)
-      @output = ChunkyPNG::Image.new(width, height)
+    # @param offset [Integer] the x-offset that this comparison image should
+    #   use when rendering on the canvas image.
+    # @param canvas [ChunkyPNG::Image] The canvas image to render pixels on.
+    def initialize(offset, canvas)
+      @offset = offset
+      @canvas = canvas
     end
 
     # @param y [Integer]
@@ -40,7 +42,7 @@ module SnapshotComparisonImage
     def render_unchanged_row(y, row)
       row.new_element.each_with_index do |pixel, x|
         # Render the unchanged pixel as-is
-        @output.set_pixel(x, y, pixel)
+        render_pixel(x, y, pixel)
       end
     end
 
@@ -62,11 +64,6 @@ module SnapshotComparisonImage
       # no default implementation
     end
 
-    # @return [ChunkyPNG::Image] the png representation of this image.
-    def to_png
-      @output
-    end
-
     # @param pixel_after [Integer]
     # @param pixel_before [Integer]
     # @return [Float] number between 0 and 1 where 1 is completely different
@@ -85,6 +82,16 @@ module SnapshotComparisonImage
     #   channel of of the difference
     def diff_alpha(diff_score)
       (BASE_DIFF_ALPHA + ((255 - BASE_DIFF_ALPHA) * diff_score)).round
+    end
+
+    # Renders a pixel on the specified x and y position. Uses the offset that
+    # the comparison image has been configured with.
+    #
+    # @param x [Integer]
+    # @param y [Integer]
+    # @param pixel [Integer]
+    def render_pixel(x, y, pixel)
+      @canvas.set_pixel(x + @offset, y, pixel)
     end
   end
 end

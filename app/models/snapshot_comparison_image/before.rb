@@ -12,7 +12,7 @@ module SnapshotComparisonImage
     # @param row [Diff::LCS:ContextChange]
     def render_deleted_row(y, row)
       row.old_element.each_with_index do |pixel_before, x|
-        @output.set_pixel(x, y, pixel_before)
+        render_pixel(x, y, pixel_before)
       end
     end
   end
