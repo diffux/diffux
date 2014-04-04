@@ -16,7 +16,7 @@ class SnapshotComparer
     sdiff      = Diff::LCS.sdiff(to_array_of_arrays(png_before),
                                  to_array_of_arrays(png_after))
     cluster_finder  = DiffClusterFinder.new(sdiff.size)
-    all_comparisons = initialize_comparison_images(
+    sprite, all_comparisons = initialize_comparison_images(
       [png_after.width, png_before.width].max, sdiff.size)
 
     sdiff.each_with_index do |row, y|
@@ -26,32 +26,14 @@ class SnapshotComparer
     end
 
     percent_changed = cluster_finder.percent_of_rows_different
-    sprite = stitch_pngs(all_comparisons) if percent_changed > 0
     {
       diff_in_percent: percent_changed,
-      diff_image:      sprite,
+      diff_image:      (sprite if percent_changed > 0),
       diff_clusters:   cluster_finder.clusters,
     }
   end
 
   private
-
-  # Stiches together an ordered collection of `SnapshotComparisonImage`s into
-  # one single `ChunkyPNG::Image`.
-  #
-  # @param all_comparisons [Array<SnapshotComparisonImage>]
-  # @return [ChunkyPNG::Image] a single image containing all comparison images
-  def stitch_pngs(all_comparisons)
-    pngs   = all_comparisons.map(&:to_png)
-    width  = pngs.reduce(0) { |a, e| a + e.width }
-    offset = 0
-    ChunkyPNG::Image.new(width, pngs.first.height).tap do |sprite|
-      pngs.each do |png|
-        sprite.replace!(png, offset, 0)
-        offset += png.width
-      end
-    end
-  end
 
   # @param snapshot [Snapshot]
   # @return [ChunkyPNG::Image]
@@ -74,15 +56,26 @@ class SnapshotComparer
     array_of_arrays
   end
 
+  # @param canvas [ChunkyPNG::Image] The output image to draw pixels on
   # @return [Array<SnapshotComparisonImage>]
   def initialize_comparison_images(width, height)
-    [
-      SnapshotComparisonImage::Gutter.new(height),
-      SnapshotComparisonImage::Before.new(width, height),
-      SnapshotComparisonImage::Gutter.new(height),
-      SnapshotComparisonImage::Overlayed.new(width, height),
-      SnapshotComparisonImage::Gutter.new(height),
-      SnapshotComparisonImage::After.new(width, height),
-    ]
+    gutter_width = SnapshotComparisonImage::Gutter::WIDTH
+    total_width = (width * 3) + (gutter_width * 3)
+
+    sprite = ChunkyPNG::Image.new(total_width, height)
+    offset, comparison_images = 0, []
+    comparison_images << SnapshotComparisonImage::Gutter.new(offset, sprite)
+    offset += gutter_width
+    comparison_images << SnapshotComparisonImage::Before.new(offset, sprite)
+    offset += width
+    comparison_images << SnapshotComparisonImage::Gutter.new(offset, sprite)
+    offset += gutter_width
+    comparison_images << SnapshotComparisonImage::Overlayed.new(offset, sprite)
+    offset += width
+    comparison_images << SnapshotComparisonImage::Gutter.new(offset, sprite)
+    offset += gutter_width
+    comparison_images << SnapshotComparisonImage::After.new(offset, sprite)
+
+    [sprite, comparison_images]
   end
 end

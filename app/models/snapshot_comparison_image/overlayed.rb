@@ -5,9 +5,10 @@ module SnapshotComparisonImage
   class Overlayed < SnapshotComparisonImage::Base
     WHITE_OVERLAY = ChunkyPNG::Color.fade(WHITE, 1 - BASE_ALPHA)
 
-    # @param width [Integer]
-    # @param height [Integer]
-    def initialize(width, height)
+    # @param offset [Integer]
+    # @param canvas [ChunkyPNG::Image]
+    # @see SnapshotComparisonImage::Base
+    def initialize(offset, canvas)
       @diff_pixels  = {}
       @faded_pixels = {}
       super
@@ -71,7 +72,7 @@ module SnapshotComparisonImage
     def render_diff_pixel(x, y, score)
       @diff_pixels[score] ||= compose_quick(fade(MAGENTA, diff_alpha(score)),
                                             WHITE)
-      @output.set_pixel(x, y, @diff_pixels[score])
+      render_pixel(x, y, @diff_pixels[score])
     end
 
     # @param x [Integer]
@@ -79,7 +80,7 @@ module SnapshotComparisonImage
     # @param pixel [Integer]
     def render_faded_pixel(x, y, pixel)
       @faded_pixels[pixel] ||= compose_quick(WHITE_OVERLAY, pixel)
-      @output.set_pixel(x, y, @faded_pixels[pixel])
+      render_pixel(x, y, @faded_pixels[pixel])
     end
   end
 end
