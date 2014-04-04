@@ -55,6 +55,16 @@ redis-server
 bundle exec rake db:setup
 ```
 
+## Initialize database configuration
+
+Before you start the server for the first time, you need to tell Diffux about
+your database setup. This is done by copying `config/database.yml.example` to
+`config/database.yml` and editing to fit your environment.
+
+```bash
+  cp config/database.yml.example config/database.yml
+```
+
 ## Running the server
 
 Diffux is a [Rails] app, so if you are familiar with that web framework the

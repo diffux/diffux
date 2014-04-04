@@ -1,0 +1,9 @@
+# This file is used by Travis. It is copied to `config/database.yml` before the
+# test is run (as defined in `.travis.yml`)
+test:
+  adapter: postgresql
+  encoding: unicode
+  password:
+  pool: 25
+  username: postgres
+  database: diffux_test
