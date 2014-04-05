@@ -7,22 +7,42 @@
       = link_to new_project_path, class: 'btn btn-primary' do
         %span.glyphicon.glyphicon-plus
         Add new Project
+  .row
+    .col-md-6
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Name
+            %th Viewports
+            %th
+              = succeed 's' do
+                %abbr.initialism{ title: 'Uniform Resource Locators' } URL
 
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Name
-        %th Viewports
-        %th
-          = succeed 's' do
-            %abbr.initialism{ title: 'Uniform Resource Locators' } URL
+        %tbody
+          - @projects.each do |project|
+            %tr{ data: { keyboard_focusable: true } }
+              %td= link_to project.name, project, class: 'url-multiline'
+              %td= project.viewports.map(&:to_s).join(', ')
+              %td.numeric= project.urls.size
 
-    %tbody
-      - @projects.each do |project|
-        %tr{ data: { keyboard_focusable: true } }
-          %td= link_to project.name, project, class: 'url-multiline'
-          %td= project.viewports.map(&:to_s).join(', ')
-          %td.numeric= project.urls.size
+    - if @sweep
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %h2.panel-title Last sweep
+          .panel-body
+            .row
+              .col-md-8
+                %p
+                  = link_to @sweep.title, [@sweep.project, @sweep]
+                  %br
+                  %small.text-muted
+                    = link_to @sweep.project.name, @sweep.project, class: 'text-muted'
+                    &middot;
+                    = time_tag @sweep.created_at do
+                      = time_ago_in_words(@sweep.created_at)  + ' ago'
+              .col-md-4
+                = sweep_progress_bar(@sweep)
 - else
   -# There are no projects
   .jumbotron

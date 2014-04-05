@@ -12,7 +12,10 @@ describe ProjectsController do
     context 'with no added Projects' do
       it { should be_success }
       it { should render_template('projects/index') }
-      its(:body) { should include new_project_path }
+
+      its(:body) do
+        should have_link('Add new Project', href: new_project_path)
+      end
     end
 
     context 'with one Project' do
@@ -20,10 +23,30 @@ describe ProjectsController do
 
       it { should be_success }
       it { should render_template('projects/index') }
-      its(:body) { should include project.name }
-      its(:body) { should include project_path(project) }
-      its(:body) { should include new_project_path }
+
+      its(:body) do
+        should have_link('Add new Project', href: new_project_path)
+      end
+
+      its(:body) do
+        should have_link(project.name, href: project_path(project))
+      end
+
+      context 'with no sweeps' do
+        its(:body) { should_not have_content('Last sweep') }
+      end
+
+      context 'with one sweep' do
+        let!(:sweep) { create :sweep }
+
+        its(:body) { should have_content('Last sweep') }
+        its(:body) do
+          should have_link(sweep.title,
+                           href: project_sweep_path(sweep.project, sweep))
+        end
+      end
     end
+
   end
 
   describe '#show' do
