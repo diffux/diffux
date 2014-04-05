@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
 
   has_many :urls
   has_many :viewports
-  has_many :sweeps
+  has_many :sweeps, dependent: :destroy
 
   after_validation :save_viewport_widths
   after_validation :save_url_addresses
