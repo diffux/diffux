@@ -63,6 +63,18 @@ describe ProjectsController do
 
     it { should be_success }
     it { should render_template('projects/_form') }
+
+    it 'has a default URL example' do
+      subject
+      response.body.should have_field('project_url_addresses',
+                                      with: 'http://www.example.com/')
+    end
+
+    it 'has two default width examples' do
+      subject
+      response.body.should have_field('project_viewport_widths',
+                                      with: "320\n1200")
+    end
   end
 
   describe '#edit' do

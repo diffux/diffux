@@ -11,7 +11,8 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = Project.new(viewport_widths: "320\n1200",
+                           url_addresses:   'http://www.example.com/')
   end
 
   def edit
