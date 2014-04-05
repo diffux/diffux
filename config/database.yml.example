@@ -2,4 +2,4 @@
 # config/database.yml, then (re)start your rails server.
 development:
   adapter: sqlite3
-  database: db/sqlite3.db
+  database: db/development.sqlite3
