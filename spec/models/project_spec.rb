@@ -18,5 +18,15 @@ describe Project do
           .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+
+    context 'with a viewport' do
+      let!(:viewport_id) { create(:viewport, project: project).id }
+
+      it 'cascade-deletes the viewport too' do
+        subject
+        expect { Viewport.find(viewport_id) }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end

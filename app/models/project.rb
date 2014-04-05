@@ -7,8 +7,8 @@ class Project < ActiveRecord::Base
   attr_accessor :url_addresses
 
   has_many :urls
-  has_many :viewports
-  has_many :sweeps, dependent: :destroy
+  has_many :viewports, dependent: :destroy
+  has_many :sweeps,    dependent: :destroy
 
   after_validation :save_viewport_widths
   after_validation :save_url_addresses
