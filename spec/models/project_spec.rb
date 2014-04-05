@@ -28,5 +28,15 @@ describe Project do
           .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+
+    context 'with a url' do
+      let!(:url_id) { create(:url, project: project).id }
+
+      it 'cascade-deletes the url too' do
+        subject
+        expect { Url.find(url_id) }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end
