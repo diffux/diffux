@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe Url do
-  let(:url)      { create(:url) }
+  let!(:url)     { create(:url) }
   let(:viewport) { create(:viewport) }
 
   describe 'title' do
@@ -65,6 +65,24 @@ describe Url do
         it { old_snapshot.url.should == url  }
         it { old_snapshot.accepted_at == url  }
         it { should == new_snapshot }
+      end
+    end
+  end
+
+  describe '#destroy' do
+    subject { url.destroy }
+
+    it 'deletes the url' do
+      expect { subject }.to change { Url.all.count }.by(-1)
+    end
+
+    context 'with a snapshot' do
+      let!(:snapshot_id) { create(:snapshot, url: url, viewport: viewport).id }
+
+      it 'cascade-deletes the snapshot too' do
+        subject
+        expect { Snapshot.find(snapshot_id) }
+          .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

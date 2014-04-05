@@ -5,7 +5,7 @@ class Url < ActiveRecord::Base
   belongs_to :project, counter_cache: true
   validates :project, presence: true
 
-  has_many :snapshots
+  has_many :snapshots, dependent: :destroy
 
   default_scope { order(:address) }
 
