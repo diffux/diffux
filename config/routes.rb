@@ -8,7 +8,11 @@ Diffux::Application.routes.draw do
       end
     end
   end
-  resources :urls,      only: %i[destroy show]
+  resources :urls, only: %i[destroy show] do
+    member do
+      get :slideshow
+    end
+  end
   resources :viewports, only: %i[edit update]
 
   resources :snapshots, only: %i[show create destroy] do

@@ -1,0 +1,21 @@
+- provide :title, "Slideshow for #{@url.title} @ #{@viewport.to_s}"
+
+= render 'shared/breadcrumbs',
+  crumbs: [[@url.project.name, @url.project],
+           [@url.title, @url],
+           ["Slideshow @ #{@viewport.to_s}"]]
+
+.page-header
+  %h1
+    %span.glyphicon.glyphicon-bookmark
+    = yield :title
+
+#snapshot-carousel.carousel.slide{ data: { ride: 'carousel' } }
+  .carousel-inner
+    - @snapshots.each_with_index do |snapshot, index|
+      .item{ class: ('active' if index == 0) }
+        = image_tag snapshot.image.url
+  %a.left.carousel-control{ href: '#snapshot-carousel', data: { slide: 'prev' } }
+    %i.glyphicon.glyphicon-chevron-left
+  %a.right.carousel-control{ href: '#snapshot-carousel', data: { slide: 'next' } }
+    %i.glyphicon.glyphicon-chevron-right

@@ -27,3 +27,4 @@
 //= require bootstrap/scrollspy
 //= require bootstrap/affix
 //= require bootstrap/modal
+//= require bootstrap/carousel
