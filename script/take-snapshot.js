@@ -25,8 +25,9 @@ page.open(opts.address, function(status) {
       sheet.addRule('*', 'animation-duration: 0 !important;');
 
       // jQuery
-      if (typeof $ !== 'undefined' && typeof $.fx !== 'undefined') {
-        $.fx.off = true;
+      if (window.jQuery) {
+        jQuery.fx.off = true;
+        jQuery('*').stop(true, true);
       }
 
       // Prevent things like blinking cursors by un-focusing any focused
