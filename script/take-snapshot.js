@@ -28,6 +28,10 @@ page.open(opts.address, function(status) {
       if (typeof $ !== 'undefined' && typeof $.fx !== 'undefined') {
         $.fx.off = true;
       }
+
+      // Prevent things like blinking cursors by un-focusing any focused
+      // elements
+      document.activeElement.blur();
     });
 
     // Save a PNG of the rendered page
