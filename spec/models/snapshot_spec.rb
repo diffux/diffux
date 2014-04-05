@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Snapshot do
-  let(:snapshot) { create(:snapshot) }
-  subject        { snapshot }
+  let!(:snapshot) { create(:snapshot) }
+  subject         { snapshot }
 
   describe 'rejecting/accepting' do
     its(:accepted?) { should == false }
@@ -139,7 +139,7 @@ describe Snapshot do
     end
 
     context 'with a diff' do
-      before  do
+      before do
         snapshot.create_snapshot_diff!(
           before_snapshot_id: diffed_with_snapshot.id,
           diff_in_percent: 1.0)
@@ -183,6 +183,28 @@ describe Snapshot do
 
       it 'does not fail' do
         expect { subject }.to_not raise_error
+      end
+    end
+  end
+
+  describe '#destroy' do
+    subject { snapshot.destroy }
+
+    it 'removes the snapshot' do
+      expect { subject }.to change { Snapshot.all.count }.by(-1)
+    end
+
+    context 'with a snapshot diff' do
+      let!(:snapshot_diff_id) do
+        snapshot.create_snapshot_diff!(
+          before_snapshot_id: create(:snapshot).id,
+          diff_in_percent: 1.0).id
+      end
+
+      it 'cascade-deletes the snapshot diff too' do
+        subject
+        expect { SnapshotDiff.find(snapshot_diff_id) }
+          .to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

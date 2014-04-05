@@ -5,7 +5,7 @@ class Snapshot < ActiveRecord::Base
   belongs_to :url, counter_cache: true
   belongs_to :viewport
   belongs_to :sweep
-  belongs_to :snapshot_diff
+  belongs_to :snapshot_diff, dependent: :destroy
   validates  :url,      presence: true
   validates  :viewport, presence: true
   has_attached_file     :image, styles:          { thumb: '' },
