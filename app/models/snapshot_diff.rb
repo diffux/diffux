@@ -4,7 +4,7 @@ class SnapshotDiff < ActiveRecord::Base
 
   belongs_to :before_snapshot, class_name: 'Snapshot'
   has_one    :after_snapshot,  class_name: 'Snapshot'
-  has_many   :snapshot_diff_clusters
+  has_many   :snapshot_diff_clusters, dependent: :destroy
 
   validates_attachment_content_type :image,
                                     content_type: /\Aimage\/.*\Z/
