@@ -8,10 +8,12 @@
   .form-group
     = f.label :viewport_widths, 'Viewport widths', class: 'control-label'
     %small One per line
-    = f.text_area :viewport_widths, rows: 4, class: 'form-control'
+    = f.text_area :viewport_widths, rows: 4, class: 'form-control',
+      required: true, title: 'Add at least one width'
   .form-group
     = f.label :url_addresses, 'Web page addresses (URLs)', class: 'control-label'
     %small One per line
-    = f.text_area :url_addresses, rows: 10, class: 'form-control'
+    = f.text_area :url_addresses, rows: 10, class: 'form-control',
+      required: true, title: 'Add at least one URL'
   .form-group
     = f.submit 'Save', class: 'btn btn-primary'
