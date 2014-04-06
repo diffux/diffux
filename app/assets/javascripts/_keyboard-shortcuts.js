@@ -51,7 +51,7 @@ $(function() {
         break;
 
       case 71:  // G
-        focusLastFocusable();
+        scrollAndFocusBottom();
         event.preventDefault();
         break;
 
@@ -68,12 +68,12 @@ $(function() {
 
     // Handlers for shortcuts:
 
-    function focusFirstFocusable() {
+    function scrollAndFocusTop() {
        $('html, body').animate({scrollTop: 0}, 'fast');
        moveFocus({first: true})
     }
 
-    function focusLastFocusable() {
+    function scrollAndFocusBottom() {
        $('html, body').animate({scrollTop: $(document).height()}, 'fast');
        moveFocus({last: true})
     }
@@ -95,7 +95,7 @@ $(function() {
       if(keyCode == 103) {
         switch (keyCode) {
           case 103: // g
-            focusFirstFocusable();
+            scrollAndFocusTop();
             break;
 
           default: // ignore if it wasn't a prefixed shortcut
