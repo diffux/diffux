@@ -1,6 +1,8 @@
 $(function() {
   var focusedClass = 'keyboard-focused',
+      defaultScrollSpeed = 200,
       prefixKeysPressed = {},
+      prefixShortcutTimeout = 1100,
       shortcutKeys = {
         97:  'a',
         114: 'r',
@@ -69,12 +71,12 @@ $(function() {
     // Handlers for shortcuts:
 
     function scrollAndFocusTop() {
-      $('html, body').animate({scrollTop: 0}, 'fast');
+      $('html, body').animate({scrollTop: 0}, defaultScrollSpeed);
       moveFocus({first: true});
     }
 
     function scrollAndFocusBottom() {
-       $('html, body').animate({scrollTop: $(document).height()}, 'fast');
+       $('html, body').animate({scrollTop: $(document).height()}, defaultScrollSpeed);
        moveFocus({last: true})
     }
 
@@ -179,14 +181,14 @@ $(function() {
       if ($focused.length && !$focused.visible()) {
         $('html,body').stop(true, true).animate({
           scrollTop: $focused.offset().top - $(window).height() / 4
-        }, 200);
+        }, defaultScrollSpeed);
       }
     }
 
     function setPrefixKey(key) {
       if (key) {
         prefixKeysPressed[key] = 1;
-        setTimeout(resetPrefixKeys, 400);
+        setTimeout(resetPrefixKeys, prefixShortcutTimeout);
       }
     }
 
