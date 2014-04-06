@@ -69,8 +69,10 @@ $(function() {
     // Handlers for shortcuts:
 
     function scrollAndFocusTop() {
-       $('html, body').animate({scrollTop: 0}, 'fast');
-       moveFocus({first: true})
+      $('html, body').animate({scrollTop: 0}, 'fast');
+      if (!moveFocus({first: true})) {
+        setFocus('first');
+      }
     }
 
     function scrollAndFocusBottom() {
@@ -80,8 +82,7 @@ $(function() {
 
     function focusNextFocusable() {
       if (!moveFocus({forward: true})) {
-        $('[data-keyboard-focusable]:first:visible')
-          .addClass(focusedClass);
+        setFocus('first');
       }
     }
 
@@ -176,6 +177,13 @@ $(function() {
         prefixKeysPressed[key] = 1;
         setTimeout(resetPrefixKeys, 400);
       }
+    }
+
+    // @param whereToFocus [String] either 'first' or 'last'; used to select
+    //   focusable element
+    function setFocus(whereToFocus){
+      $('[data-keyboard-focusable]:' + whereToFocus + ':visible')
+        .addClass(focusedClass);
     }
 
     function switchSnapshotDiffTab() {
