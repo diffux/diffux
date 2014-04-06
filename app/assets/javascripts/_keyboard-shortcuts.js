@@ -15,6 +15,7 @@ $(function() {
     }
 
     if (!($.isEmptyObject(prefixKeysPressed))) {
+      event.preventDefault();
       handlePrefixedShortcuts(event.which);
       return;
     }
@@ -95,12 +96,10 @@ $(function() {
         switch (keyCode) {
           case 103: // g
             focusFirstFocusable();
-            event.preventDefault();
             break;
 
           default: // ignore if it wasn't a prefixed shortcut
             resetPrefixKeys();
-            event.preventDefault();
         }
       }
     }
