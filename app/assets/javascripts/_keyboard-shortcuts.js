@@ -14,7 +14,7 @@ $(function() {
       return;
     }
 
-    if (prefixKeysPressed['g']) {
+    if (!($.isEmptyObject(prefixKeysPressed))) {
       handlePrefixedShortcuts(event.which);
       return;
     }
@@ -55,7 +55,7 @@ $(function() {
         break;
 
       case 103:  // g prefix
-        setPrefixKey('g');
+        setPrefixKey(event.which);
         event.preventDefault();
         break;
 
@@ -90,20 +90,18 @@ $(function() {
 
     function handlePrefixedShortcuts(keyCode) {
       resetPrefixKeys();
-      switch (keyCode) {
-        case 103: // g
-          focusFirstFocusable();
-          event.preventDefault();
-          break;
+      // handle different prefixes with diff. shortcuts
+      if(keyCode == 103) {
+        switch (keyCode) {
+          case 103: // g
+            focusFirstFocusable();
+            event.preventDefault();
+            break;
 
-        case 105: // i
-          // TODO: add code here to handle 'gi' shortcut
-          event.preventDefault();
-          break;
-
-        default: // ignore if it wasn't a prefixed shortcut
-          resetPrefixKeys();
-          event.preventDefault();
+          default: // ignore if it wasn't a prefixed shortcut
+            resetPrefixKeys();
+            event.preventDefault();
+        }
       }
     }
 
