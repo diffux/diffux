@@ -70,17 +70,6 @@ $(function() {
 
     // Handlers for shortcuts:
 
-    function scrollAndFocusTop() {
-      $('html, body').animate({ scrollTop: 0 }, defaultScrollSpeed);
-      moveFocus({ first: true });
-    }
-
-    function scrollAndFocusBottom() {
-       $('html, body').animate({ scrollTop: $(document).height() },
-          defaultScrollSpeed);
-       moveFocus({ last: true });
-    }
-
     function focusNextFocusable() {
       moveFocus({ forward: true });
     }
@@ -178,6 +167,17 @@ $(function() {
 
     function resetPrefixKeys() {
       prefixKeysPressed = {};
+    }
+
+    function scrollAndFocusBottom() {
+       $('html, body').animate({ scrollTop: $(document).height() },
+          defaultScrollSpeed);
+       moveFocus({ last: true });
+    }
+
+    function scrollAndFocusTop() {
+      $('html, body').animate({ scrollTop: 0 }, defaultScrollSpeed);
+      moveFocus({ first: true });
     }
 
     function scrollToFocused() {
