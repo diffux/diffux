@@ -1,5 +1,6 @@
 $(function() {
   var focusedClass = 'keyboard-focused',
+      prefixKeysPressed = {},
       shortcutKeys = {
         97:  'a',
         114: 'r',
@@ -13,6 +14,12 @@ $(function() {
       return;
     }
 
+    if (prefixKeysPressed['g']) {
+      handlePrefixedShortcuts(event.which);
+      return;
+    }
+
+    resetPrefixKeys();
     switch (event.which) {
       case 106: // j
         focusNextFocusable();
@@ -42,10 +49,62 @@ $(function() {
         event.preventDefault();
         break;
 
+      case 71:  // G
+        focusLastFocusable();
+        event.preventDefault();
+        break;
+
+      case 103:  // g prefix
+        setPrefixKey('g');
+        event.preventDefault();
+        break;
+
       default: // check for shortcut keys
         if (handleShortcutKey(event.which)) {
           event.preventDefault();
         }
+    }
+
+    // handlers for shortcuts:
+
+    function focusFirstFocusable() {
+       $('html, body').animate({scrollTop: 0}, 'fast');
+       moveFocus({first: true})
+    }
+
+    function focusLastFocusable() {
+       $('html, body').animate({scrollTop: $(document).height()}, 'fast');
+       moveFocus({last: true})
+    }
+
+    function focusNextFocusable() {
+      if (!moveFocus({forward: true})) {
+        $('[data-keyboard-focusable]:first:visible')
+          .addClass(focusedClass);
+      }
+    }
+
+    function focusPreviousFocusable() {
+      moveFocus({backward: true});
+    }
+
+    function handlePrefixedShortcuts(keyCode) {
+      resetPrefixKeys();
+      switch (keyCode) {
+        case 103: // g
+          focusFirstFocusable();
+          event.preventDefault();
+          break;
+
+        case 105: // i
+          // TODO: add code here to handle 'gi' shortcut
+          event.preventDefault();
+          break;
+
+        default: // ignore if it wasn't a prefixed shortcut
+          resetPrefixKeys();
+          event.preventDefault();
+      }
     }
 
     function handleShortcutKey(keyCode) {
@@ -61,40 +120,29 @@ $(function() {
       }
     }
 
-    function focusNextFocusable() {
-      if (!moveFocus(1)) {
-        $('[data-keyboard-focusable]:first:visible')
-          .addClass(focusedClass);
-      }
-    }
-
-    function focusPreviousFocusable() {
-      moveFocus(-1);
-    }
-
-    // @param movement [Integer] -1 to move backwards 1, or 1 to move forward 1
+    // @param [Movement] options hash allows either forward, backward,
+    // first or last to set movement type
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
       var $focusable = $('[data-keyboard-focusable]:visible'),
           $focused   = $focusable.filter('.' + focusedClass);
       if ($focused.length) {
-        var moveTo = $focusable.index($focused) + movement;
-        if (moveTo >= 0 && moveTo < $focusable.length) {
+        if (movement.first || movement.last){
+          var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
           $focused.removeClass(focusedClass);
-          $focusable.eq(moveTo).addClass(focusedClass);
+          $nextFocus.addClass(focusedClass);
+          return true;
+        } else {
+          var dir = (movement.forward) ? 1 : -1;
+          var moveTo = $focusable.index($focused) + dir;
+          if (moveTo >= 0 && moveTo < $focusable.length) {
+            $focused.removeClass(focusedClass);
+            $focusable.eq(moveTo).addClass(focusedClass);
+            return true;
+          }
         }
-        return true;
       }
       return false;
-    }
-
-    function scrollToFocused() {
-      var $focused = $('.' + focusedClass);
-      if ($focused.length && !$focused.visible()) {
-        $('html,body').stop(true, true).animate({
-          scrollTop: $focused.offset().top - $(window).height() / 4
-        }, 200);
-      }
     }
 
     function openFocused() {
@@ -109,6 +157,30 @@ $(function() {
       }
     }
 
+    function openHelpModal() {
+      $('.keyboard-shortcut-help').modal('toggle');
+    }
+
+    function resetPrefixKeys() {
+      prefixKeysPressed = {};
+    }
+
+    function scrollToFocused() {
+      var $focused = $('.' + focusedClass);
+      if ($focused.length && !$focused.visible()) {
+        $('html,body').stop(true, true).animate({
+          scrollTop: $focused.offset().top - $(window).height() / 4
+        }, 200);
+      }
+    }
+
+    function setPrefixKey(key) {
+      if (key) {
+        prefixKeysPressed[key] = 1;
+        setTimeout(resetPrefixKeys, 400);
+      }
+    }
+
     function switchSnapshotDiffTab() {
       var tabSelector = '.snapshot-diff-image .nav li'
           $active = $(tabSelector + '.active'),
@@ -117,10 +189,6 @@ $(function() {
         $next = $(tabSelector + ':first');
       }
       $next.find('a').click();
-    }
-
-    function openHelpModal() {
-      $('.keyboard-shortcut-help').modal('toggle');
     }
   });
 });
