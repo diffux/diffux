@@ -66,7 +66,7 @@ $(function() {
         }
     }
 
-    // handlers for shortcuts:
+    // Handlers for shortcuts:
 
     function focusFirstFocusable() {
        $('html, body').animate({scrollTop: 0}, 'fast');
@@ -117,8 +117,8 @@ $(function() {
       }
     }
 
-    // @param [Movement] options hash allows either forward, backward,
-    // first or last to set movement type
+    // @param movement [Object] options hash allows either forward, backward,
+    //   first or last to set movement type
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
       var $focusable = $('[data-keyboard-focusable]:visible'),
