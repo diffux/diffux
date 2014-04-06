@@ -71,21 +71,22 @@ $(function() {
     // Handlers for shortcuts:
 
     function scrollAndFocusTop() {
-      $('html, body').animate({scrollTop: 0}, defaultScrollSpeed);
-      moveFocus({first: true});
+      $('html, body').animate({ scrollTop: 0 }, defaultScrollSpeed);
+      moveFocus({ first: true });
     }
 
     function scrollAndFocusBottom() {
-       $('html, body').animate({scrollTop: $(document).height()}, defaultScrollSpeed);
-       moveFocus({last: true})
+       $('html, body').animate({ scrollTop: $(document).height() },
+          defaultScrollSpeed);
+       moveFocus({ last: true });
     }
 
     function focusNextFocusable() {
-      moveFocus({forward: true});
+      moveFocus({ forward: true });
     }
 
     function focusPreviousFocusable() {
-      moveFocus({backward: true});
+      moveFocus({ backward: true });
     }
 
     function handlePrefixedShortcuts(keyCode) {
@@ -138,14 +139,14 @@ $(function() {
       var $focusable = $('[data-keyboard-focusable]:visible'),
           $focused   = findAndSetFocus(movement, $focusable);
       if ($focused.length) {
-        if (movement.first || movement.last){
+        if (movement.first || movement.last) {
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
           $focused.removeClass(focusedClass);
           $nextFocus.addClass(focusedClass);
           return true;
         } else {
-          var dir = (movement.forward) ? 1 : -1;
-          var moveTo = $focusable.index($focused) + dir;
+          var dir     = (movement.forward) ? 1 : -1,
+              moveTo  = $focusable.index($focused) + dir;
           if (moveTo >= 0 && moveTo < $focusable.length) {
             $focused.removeClass(focusedClass);
             $focusable.eq(moveTo).addClass(focusedClass);
@@ -179,7 +180,7 @@ $(function() {
     function scrollToFocused() {
       var $focused = $('.' + focusedClass);
       if ($focused.length && !$focused.visible()) {
-        $('html,body').stop(true, true).animate({
+        $('html, body').stop(true, true).animate({
           scrollTop: $focused.offset().top - $(window).height() / 4
         }, defaultScrollSpeed);
       }
