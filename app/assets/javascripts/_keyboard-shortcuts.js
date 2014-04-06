@@ -117,15 +117,13 @@ $(function() {
       }
     }
 
-    // @param movement [Object] options hash allows either forward, backward,
-    //   first or last to set movement type
     // @param $scope [$Object] jQuery element within which to search for
     //   focused element(s)
     // @return [$Object] jQuery element that is focused
-    function findAndSetFocus(movement, $scope) {
+    function findAndSetFocus($scope) {
       var $focused   = $scope.filter('.' + focusedClass);
       if (!($focused.length)) {
-        var whereToFocus = (movement.first || movement.forward) ? 'first' : 'last';
+        var whereToFocus = 'first';
         setFocus(whereToFocus);
         $focused   = $scope.filter('.' + focusedClass);
       }
@@ -136,8 +134,13 @@ $(function() {
     //   first or last to set movement type
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
-      var $focusable = $('[data-keyboard-focusable]:visible'),
-          $focused   = findAndSetFocus(movement, $focusable);
+      var $focusable  = $('[data-keyboard-focusable]:visible'),
+          focusExists = !!($('.' + focusedClass).length),
+          $focused    = findAndSetFocus($focusable);
+      if (movement.forward && !(focusExists)) {
+        // if there was nothing in focus, we stop after moving focus to top
+        return
+      }
       if ($focused.length) {
         if (movement.first || movement.last) {
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
