@@ -70,9 +70,7 @@ $(function() {
 
     function scrollAndFocusTop() {
       $('html, body').animate({scrollTop: 0}, 'fast');
-      if (!moveFocus({first: true})) {
-        setFocus('first');
-      }
+      moveFocus({first: true});
     }
 
     function scrollAndFocusBottom() {
@@ -81,9 +79,7 @@ $(function() {
     }
 
     function focusNextFocusable() {
-      if (!moveFocus({forward: true})) {
-        setFocus('first');
-      }
+      moveFocus({forward: true});
     }
 
     function focusPreviousFocusable() {
@@ -120,10 +116,25 @@ $(function() {
 
     // @param movement [Object] options hash allows either forward, backward,
     //   first or last to set movement type
+    // @param $scope [$Object] jQuery element within which to search for
+    //   focused element(s)
+    // @return [$Object] jQuery element that is focused
+    function findAndSetFocus(movement, $scope) {
+      var $focused   = $scope.filter('.' + focusedClass);
+      if (!($focused.length)) {
+        var whereToFocus = (movement.first || movement.forward) ? 'first' : 'last';
+        setFocus(whereToFocus);
+        $focused   = $scope.filter('.' + focusedClass);
+      }
+      return $focused;
+    }
+
+    // @param movement [Object] options hash allows either forward, backward,
+    //   first or last to set movement type
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
       var $focusable = $('[data-keyboard-focusable]:visible'),
-          $focused   = $focusable.filter('.' + focusedClass);
+          $focused   = findAndSetFocus(movement, $focusable);
       if ($focused.length) {
         if (movement.first || movement.last){
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
@@ -182,7 +193,7 @@ $(function() {
     // @param whereToFocus [String] either 'first' or 'last'; used to select
     //   focusable element
     function setFocus(whereToFocus){
-      $('[data-keyboard-focusable]:' + whereToFocus + ':visible')
+      $('[data-keyboard-focusable]:visible:' + whereToFocus)
         .addClass(focusedClass);
     }
 
