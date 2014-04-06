@@ -106,15 +106,16 @@ $(function() {
       }
     }
 
-    // @param $scope [$Object] jQuery element within which to search for
+    // @param $focusable [$Object] jQuery element within which to search for
     //   focused element(s)
     // @return [$Object] jQuery element that is focused
-    function findAndSetFocus($scope) {
-      var $focused   = $scope.filter('.' + focusedClass);
+    // side effect: if no focused el. is found, it sets the first el. to
+    //   focused.
+    function getFocusedElement($focusable) {
+      var $focused   = $focusable.filter('.' + focusedClass);
       if (!($focused.length)) {
-        var whereToFocus = 'first';
-        setFocus(whereToFocus);
-        $focused   = $scope.filter('.' + focusedClass);
+        setFocus('first');
+        $focused   = $focusable.filter('.' + focusedClass);
       }
       return $focused;
     }
@@ -125,7 +126,7 @@ $(function() {
     function moveFocus(movement) {
       var $focusable  = $('[data-keyboard-focusable]:visible'),
           focusExists = !!($('.' + focusedClass).length),
-          $focused    = findAndSetFocus($focusable);
+          $focused    = getFocusedElement($focusable);
       if (movement.forward && !(focusExists)) {
         // if there was nothing in focus, we stop after moving focus to top
         return
