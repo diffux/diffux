@@ -70,17 +70,6 @@ $(function() {
 
     // Handlers for shortcuts:
 
-    function scrollAndFocusTop() {
-      $('html, body').animate({ scrollTop: 0 }, defaultScrollSpeed);
-      moveFocus({ first: true });
-    }
-
-    function scrollAndFocusBottom() {
-       $('html, body').animate({ scrollTop: $(document).height() },
-          defaultScrollSpeed);
-       moveFocus({ last: true });
-    }
-
     function focusNextFocusable() {
       moveFocus({ forward: true });
     }
@@ -117,17 +106,16 @@ $(function() {
       }
     }
 
-    // @param movement [Object] options hash allows either forward, backward,
-    //   first or last to set movement type
-    // @param $scope [$Object] jQuery element within which to search for
+    // @param $focusable [$Object] jQuery element within which to search for
     //   focused element(s)
     // @return [$Object] jQuery element that is focused
-    function findAndSetFocus(movement, $scope) {
-      var $focused   = $scope.filter('.' + focusedClass);
+    // side effect: if no focused el. is found, it sets the first el. to
+    //   focused.
+    function getFocusedElement($focusable) {
+      var $focused   = $focusable.filter('.' + focusedClass);
       if (!($focused.length)) {
-        var whereToFocus = (movement.first || movement.forward) ? 'first' : 'last';
-        setFocus(whereToFocus);
-        $focused   = $scope.filter('.' + focusedClass);
+        setFocus('first');
+        $focused   = $focusable.filter('.' + focusedClass);
       }
       return $focused;
     }
@@ -136,8 +124,13 @@ $(function() {
     //   first or last to set movement type
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
-      var $focusable = $('[data-keyboard-focusable]:visible'),
-          $focused   = findAndSetFocus(movement, $focusable);
+      var $focusable  = $('[data-keyboard-focusable]:visible'),
+          focusExists = !!($('.' + focusedClass).length),
+          $focused    = getFocusedElement($focusable);
+      if (movement.forward && !(focusExists)) {
+        // if there was nothing in focus, we stop after moving focus to top
+        return
+      }
       if ($focused.length) {
         if (movement.first || movement.last) {
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
@@ -175,6 +168,17 @@ $(function() {
 
     function resetPrefixKeys() {
       prefixKeysPressed = {};
+    }
+
+    function scrollAndFocusBottom() {
+       $('html, body').animate({ scrollTop: $(document).height() },
+          defaultScrollSpeed);
+       moveFocus({ last: true });
+    }
+
+    function scrollAndFocusTop() {
+      $('html, body').animate({ scrollTop: 0 }, defaultScrollSpeed);
+      moveFocus({ first: true });
     }
 
     function scrollToFocused() {
