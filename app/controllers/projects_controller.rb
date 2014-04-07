@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :set_project, only: %i[show edit update destroy]
 
   def index
-    @projects = Project.order(:name).includes(:viewports)
+    @projects = Project.order(:name).includes(:viewports, :last_sweep)
   end
 
   def show

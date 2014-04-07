@@ -25,7 +25,7 @@
           %td= project.viewports.map(&:to_s).join(', ')
           %td.numeric= project.urls.size
           %td
-            - if sweep = project.sweeps.first
+            - if sweep = project.last_sweep
               = link_to sweep_progress_bar(sweep), [project, sweep]
 - else
   -# There are no projects

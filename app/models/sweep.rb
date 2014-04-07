@@ -8,8 +8,10 @@ class Sweep < ActiveRecord::Base
   validates             :email, format: { with: /\A.+@.+\Z/ },
                                 allow_nil:   true,
                                 allow_blank: true
-  after_create          :take_snapshots
+  after_create          :take_snapshots,
+                        :refresh_project_last_sweep
   before_create         :set_start_time_from_delay_seconds
+  after_destroy         :refresh_project_last_sweep
 
   default_scope { order('created_at DESC') }
 
@@ -78,6 +80,10 @@ class Sweep < ActiveRecord::Base
     else
       SweepWorker.new.perform_with_sweep(self)
     end
+  end
+
+  def refresh_project_last_sweep
+    project.refresh_last_sweep!
   end
 
   def set_start_time_from_delay_seconds

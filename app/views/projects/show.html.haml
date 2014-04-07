@@ -29,7 +29,7 @@
       Sweeps
     %td
       = link_to @project.sweeps.count, project_sweeps_path(@project)
-  - if last_sweep = @project.sweeps.first
+  - if last_sweep = @project.last_sweep
     %tr{ data: { keyboard_focusable: true } }
       %th Last sweep
       %td

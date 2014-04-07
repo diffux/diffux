@@ -10,6 +10,8 @@ class Project < ActiveRecord::Base
   has_many :viewports, dependent: :destroy
   has_many :sweeps,    dependent: :destroy
 
+  belongs_to :last_sweep, class_name: 'Sweep'
+
   after_validation :save_viewport_widths
   after_validation :save_url_addresses
 
@@ -21,6 +23,12 @@ class Project < ActiveRecord::Base
   # @return [String]
   def url_addresses
     @url_addresses ||= urls.pluck(:address).join("\n")
+  end
+
+  # Updates the column cache for the last sweep.
+  def refresh_last_sweep!
+    self.last_sweep = sweeps.first
+    save!
   end
 
   private

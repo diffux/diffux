@@ -143,12 +143,42 @@ describe Sweep do
     end
   end
 
+  describe '#destroy' do
+    let(:project) { create :project }
+    let!(:sweep)  { create :sweep, project: project }
+    subject       { sweep.destroy }
+
+    context 'when there are no other sweeps in the project' do
+      it 'sets the last sweep to nil for the project' do
+        expect { subject }
+          .to change { sweep.project.reload.last_sweep }.to(nil)
+      end
+    end
+
+    context 'when there is another sweep in the project' do
+      let!(:other_sweep) do
+        create :sweep, project: project, created_at: 2.minutes.ago
+      end
+
+      it 'updates `project.last_sweep` to the other sweep' do
+        expect { subject }
+          .to change { sweep.project.reload.last_sweep }
+          .from(sweep).to(other_sweep)
+      end
+    end
+  end
+
   describe '#create' do
     subject { create(:sweep, delay_seconds: delay_seconds) }
 
     context 'with no delay' do
       let(:delay_seconds) { nil }
       its(:start_time)    { should be_nil }
+
+      it 'updates the cache for the project' do
+        sweep = subject
+        sweep.project.reload.last_sweep.should == sweep
+      end
     end
 
     context 'with a delay' do
