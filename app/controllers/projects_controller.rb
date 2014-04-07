@@ -4,7 +4,6 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.order(:name).includes(:viewports)
-    @sweep    = Sweep.first
   end
 
   def show

@@ -32,17 +32,11 @@ describe ProjectsController do
         should have_link(project.name, href: project_path(project))
       end
 
-      context 'with no sweeps' do
-        its(:body) { should_not have_content('Last sweep') }
-      end
-
       context 'with one sweep' do
         let!(:sweep) { create :sweep }
 
-        its(:body) { should have_content('Last sweep') }
         its(:body) do
-          should have_link(sweep.title,
-                           href: project_sweep_path(sweep.project, sweep))
+          should have_link(nil, href: project_sweep_path(sweep.project, sweep))
         end
       end
     end
