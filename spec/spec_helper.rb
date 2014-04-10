@@ -8,8 +8,16 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'capybara/rails'
+require 'capybara/poltergeist'
 
 include ActionDispatch::TestProcess
+
+# Sets up phantomJS as the JS driver for integration testing
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, :js_errors => true, :inspector => true)
+end
+
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

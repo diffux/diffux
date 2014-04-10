@@ -27,6 +27,7 @@ group :test do
   gem 'mocha'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'poltergeist'
 end
 
 group :development do
