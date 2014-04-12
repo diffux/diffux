@@ -10,6 +10,11 @@ require 'sidekiq/testing'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 
+# Transactional fixtures do not work with Poltergeist tests, because Capybara
+# uses a separate server thread, which the transactions would be hidden
+# from. We hence use DatabaseCleaner to truncate our test database.
+require 'database_cleaner'
+
 include ActionDispatch::TestProcess
 
 # Sets up phantomJS as the JS driver for integration testing
@@ -74,3 +79,26 @@ RSpec.configure do |config|
     self.use_transactional_fixtures = _orig_use_transactional_fixtures
   end
 end
+
+# helper function to turn off transactions for a group of specs
+#
+# @param &block [Block] wraps your block of specs
+def without_transactional_fixtures(&block)
+  # from the following stackoverflow:
+  # http://stackoverflow.com/questions/3853098/turn-off-transactional-fixtures-for-one-spec-with-rspec-2
+
+  self.use_transactional_fixtures = false
+
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
+  end
+
+  yield
+
+  after(:each) do
+    DatabaseCleaner.clean
+    DatabaseCleaner.strategy = :transaction
+  end
+end
+
