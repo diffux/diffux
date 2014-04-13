@@ -156,7 +156,7 @@ describe SnapshotsController do
   end
 
   describe '#take_snapshot', :uses_after_commit  do
-    let!(:snapshot) { create(:snapshot, :with_baseline) }
+    let!(:snapshot) { create(:snapshot, :with_baseline, :with_diff) }
 
     before { SnapshotterWorker.stubs(:perform_async) }
 
