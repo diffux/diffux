@@ -2,14 +2,7 @@ $(function() {
   var focusedClass = 'keyboard-focused',
       defaultScrollSpeed = 200,
       prefixKeysPressed = {},
-      prefixShortcutTimeout = 1100,
-      shortcutKeys = {
-        97:  'a',
-        114: 'r',
-        117: 'u',
-        91:  '[',
-        93:  ']'
-      };
+      prefixShortcutTimeout = 1100;
 
   $(document).on('keypress', function(event) {
     if ($(event.target).is(':input')) {
@@ -94,11 +87,11 @@ $(function() {
     }
 
     function handleShortcutKey(keyCode) {
-      var key = shortcutKeys[keyCode];
+      var key = String.fromCharCode(keyCode);
       if (key) {
-        var $shortcut = $('[data-keyboard-shortcut~="' + key + '"]')
-              .addClass(focusedClass);
+        var $shortcut = $('[data-keyboard-shortcut~="' + key + '"]');
         if ($shortcut.length) {
+          $shortcut.addClass(focusedClass);
           $shortcut[0].click();
           scrollToFocused();
           return true;
