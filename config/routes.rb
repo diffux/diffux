@@ -20,6 +20,8 @@ Diffux::Application.routes.draw do
     end
   end
 
+  resources :snapshot_animations, only: %i[show]
+
   resources :refresh, only: :create
 
   root to: 'projects#index'
