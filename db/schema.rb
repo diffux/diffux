@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407024249) do
+ActiveRecord::Schema.define(version: 20140413062613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20140407024249) do
     t.datetime "image_updated_at"
     t.integer  "sweep_id"
     t.integer  "snapshot_diff_id"
+    t.integer  "compared_with_id"
   end
 
   add_index "snapshots", ["sweep_id"], name: "index_snapshots_on_sweep_id", using: :btree

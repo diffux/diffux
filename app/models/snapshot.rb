@@ -6,6 +6,7 @@ class Snapshot < ActiveRecord::Base
   belongs_to :viewport
   belongs_to :sweep
   belongs_to :snapshot_diff, dependent: :destroy
+  belongs_to :compared_with, class_name: 'Snapshot'
   validates  :url,      presence: true
   validates  :viewport, presence: true
   has_attached_file     :image, styles:          { thumb: '' },
@@ -59,9 +60,9 @@ class Snapshot < ActiveRecord::Base
 
   def compare?
     return false if accepted?
-    baseline = url.baseline(viewport)
-    return false unless baseline
-    return false if baseline.created_at > created_at
+    compare_with = compared_with || url.baseline(viewport)
+    return false unless compare_with
+    return false if compare_with.created_at > created_at
     !diff?
   end
 
@@ -88,11 +89,11 @@ class Snapshot < ActiveRecord::Base
   end
 
   def waiting_for_diff?
-    baseline = url.baseline(viewport)
+    compare_with = compared_with || url.baseline(viewport)
     image? &&
       !diff? &&
-      baseline.present? &&
-      baseline != self &&
-      baseline.created_at < created_at
+      compare_with.present? &&
+      compare_with != self &&
+      compare_with.created_at < created_at
   end
 end

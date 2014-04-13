@@ -6,15 +6,15 @@ class SnapshotComparerWorker < SnapshotWorker
     return unless set_snapshot(snapshot_id)
     return unless @snapshot.compare?
 
-    url      = @snapshot.url
-    viewport = @snapshot.viewport
-    baseline = url.baseline(viewport)
+    url          = @snapshot.url
+    viewport     = @snapshot.viewport
+    compare_with = @snapshot.compared_with || url.baseline(viewport)
 
     Rails.logger.info "Comparing snapshot of #{url} @ #{viewport} " +
                       'against baseline'
-    comparison = SnapshotComparer.new(@snapshot, baseline).compare!
+    comparison = SnapshotComparer.new(@snapshot, compare_with).compare!
     diff = @snapshot.build_snapshot_diff(comparison.slice(:diff_in_percent))
-    diff.before_snapshot = baseline
+    diff.before_snapshot = compare_with
     diff_image = comparison[:diff_image]
     if diff_image
       diff.image_height = diff_image.height
@@ -31,6 +31,7 @@ class SnapshotComparerWorker < SnapshotWorker
       comparison[:diff_clusters].each do |cluster|
         diff.snapshot_diff_clusters.create!(cluster)
       end
+      @snapshot.compared_with = compare_with
       @snapshot.save!
     end
   end

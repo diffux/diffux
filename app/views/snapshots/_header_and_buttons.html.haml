@@ -7,7 +7,7 @@
         = time_tag @snapshot.created_at do
           = time_ago_in_words(@snapshot.created_at) + ' ago'
 
-        = form_tag @snapshot, method: :delete, data: {confirm: 'Are you sure?' } do
+        = form_tag @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
           %button.btn.btn-link{ title: 'Remove snapshot' }
             %span.glyphicon.glyphicon-remove
 
@@ -16,7 +16,7 @@
             %span.glyphicon.glyphicon-repeat
 
         = form_tag compare_snapshot_snapshot_path(@snapshot), method: :post do
-          %button.btn.btn-link{ title: 'Re-compare snapshot with baseline '}
+          %button.btn.btn-link{ title: 'Re-compare snapshot'}
             %span.glyphicon.glyphicon-refresh
 
     .snapshot-buttons

@@ -182,6 +182,10 @@ describe SnapshotsController do
       it 'deletes the snapshot diff' do
         expect { subject }.to change { snapshot.reload.snapshot_diff }.to(nil)
       end
+
+      it 'keeps the compared_with snapshot' do
+        expect { subject }.to_not change { snapshot.compared_with }
+      end
     end
   end
 
@@ -202,6 +206,10 @@ describe SnapshotsController do
     it 'triggers a worker', :uses_after_commit do
       SnapshotComparerWorker.expects(:perform_async).once
       subject
+    end
+
+    it 'keeps the compared_with snapshot' do
+      expect { subject }.to_not change { snapshot.compared_with }
     end
 
     it { should redirect_to(snapshot_url(snapshot)) }
