@@ -59,6 +59,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def compare?
+    return false unless image_file_name
     return false if accepted?
     compare_with = compared_with || url.baseline(viewport)
     return false unless compare_with

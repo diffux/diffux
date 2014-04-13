@@ -155,8 +155,8 @@ describe SnapshotsController do
     end
   end
 
-  describe '#take_snapshot' do
-    let!(:snapshot) { create(:snapshot) }
+  describe '#take_snapshot', :uses_after_commit  do
+    let!(:snapshot) { create(:snapshot, :with_baseline) }
 
     before { SnapshotterWorker.stubs(:perform_async) }
 
@@ -169,8 +169,13 @@ describe SnapshotsController do
       expect { subject }.to change { snapshot.reload.pending? }.to(true)
     end
 
-    it 'triggers a worker' do
+    it 'triggers a snapshotter worker' do
       SnapshotterWorker.expects(:perform_async).once
+      subject
+    end
+
+    it 'does not trigger a comparer worker' do
+      SnapshotComparerWorker.expects(:perform_async).never
       subject
     end
 
