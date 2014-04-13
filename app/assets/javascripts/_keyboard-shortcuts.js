@@ -1,7 +1,7 @@
 $(function() {
-  var focusedClass = 'keyboard-focused',
-      defaultScrollSpeed = 200,
-      prefixKeysPressed = {},
+  var focusedClass          = 'keyboard-focused',
+      defaultScrollSpeed    = 200,
+      prefixKeysPressed     = {},
       prefixShortcutTimeout = 1100;
 
   $(document).on('keypress', function(event) {
@@ -50,7 +50,7 @@ $(function() {
         event.preventDefault();
         break;
 
-      case 103:  // g prefix
+      case 103: // g prefix
         setPrefixKey(event.which);
         event.preventDefault();
         break;
@@ -105,10 +105,10 @@ $(function() {
     // side effect: if no focused el. is found, it sets the first el. to
     //   focused.
     function getFocusedElement($focusable) {
-      var $focused   = $focusable.filter('.' + focusedClass);
+      var $focused = $focusable.filter('.' + focusedClass);
       if (!($focused.length)) {
         setFocus('first');
-        $focused   = $focusable.filter('.' + focusedClass);
+        $focused = $focusable.filter('.' + focusedClass);
       }
       return $focused;
     }
@@ -199,8 +199,8 @@ $(function() {
 
     function switchSnapshotDiffTab() {
       var tabSelector = '.snapshot-diff-image .nav li'
-          $active = $(tabSelector + '.active'),
-          $next   = $active.next();
+          $active     = $(tabSelector + '.active'),
+          $next       = $active.next();
       if (!$next.length) {
         $next = $(tabSelector + ':first');
       }
