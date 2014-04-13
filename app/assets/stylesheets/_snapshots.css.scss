@@ -52,7 +52,7 @@
 
   .nav {
     -webkit-transform: translateZ(0); // Force layer in Chrome
-    @include background-image(linear-gradient(white, white 10%, transparent));
+    @include background-image(linear-gradient(#fff, #fff 10%, rgba(255, 255, 255, 0)));
     margin-bottom: -$navbar-height;
     padding: 2px 0;
     width: 100%;
