@@ -8,32 +8,37 @@ if (opts.userAgent) {
   page.settings.userAgent = page.settings.userAgent + ' Diffux';
 }
 
+/**
+ * By preventing animations from happening when we are taking the snapshots, we
+ * avoid timing issues that cause unwanted differences.
+ */
+page.preventAnimations = function() {
+  // CSS Transitions
+  var css   = document.createElement('style');
+  css.type  = 'text/css';
+  document.head.appendChild(css);
+  var sheet = css.sheet;
+  sheet.addRule('*', '-webkit-transition: none !important;');
+  sheet.addRule('*', 'transition: none !important;');
+  sheet.addRule('*', '-webkit-animation-duration: 0 !important;');
+  sheet.addRule('*', 'animation-duration: 0 !important;');
+
+  // jQuery
+  if (window.jQuery) {
+    jQuery.fx.off = true;
+    jQuery('*').stop(true, true);
+  }
+
+  // Prevent things like blinking cursors by un-focusing any focused
+  // elements
+  document.activeElement.blur();
+};
 
 page.open(opts.address, function(status) {
   setTimeout(function() {
     // Try to prevent animations from running, to reduce variation in
     // snapshots.
-    page.evaluate(function() {
-      // CSS Transitions
-      var css   = document.createElement('style');
-      css.type  = 'text/css';
-      document.head.appendChild(css);
-      var sheet = css.sheet;
-      sheet.addRule('*', '-webkit-transition: none !important;');
-      sheet.addRule('*', 'transition: none !important;');
-      sheet.addRule('*', '-webkit-animation-duration: 0 !important;');
-      sheet.addRule('*', 'animation-duration: 0 !important;');
-
-      // jQuery
-      if (window.jQuery) {
-        jQuery.fx.off = true;
-        jQuery('*').stop(true, true);
-      }
-
-      // Prevent things like blinking cursors by un-focusing any focused
-      // elements
-      document.activeElement.blur();
-    });
+    page.evaluate(page.preventAnimations);
 
     // Save a PNG of the rendered page
     page.render(opts.outfile);
