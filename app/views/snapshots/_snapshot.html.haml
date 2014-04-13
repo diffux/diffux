@@ -1,6 +1,7 @@
 :ruby
   classes = %w[snapshot-card thumbnail]
   classes << 'keyboard-focused' if local_assigns[:active]
+  classes << 'snapshot-card-pending' if snapshot.pending?
   data = {
     keyboard_focusable: true,
     auto_refresh_type: 'snapshot',
@@ -13,7 +14,7 @@
   - if snapshot.image?
     = image_tag snapshot.image.url(:thumb)
   - else
-    .glyphicon.glyphicon-time.snapshot-card-pending
+    .glyphicon.glyphicon-time
 
   .snapshot-indicator.snapshot-color-icon.glyphicon{ class: glyphicon_for(snapshot) }
 

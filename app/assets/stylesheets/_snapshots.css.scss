@@ -149,6 +149,20 @@
     border-color: #6c6;
   }
 
+  &.snapshot-card-pending {
+    -webkit-animation-direction: alternate;
+    -webkit-animation-duration: .7s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: pulse-opacity;
+    -webkit-animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-duration: .7s;
+    animation-iteration-count: infinite;
+    animation-name: pulse-opacity;
+    animation-timing-function: linear;
+  }
+
+
   .snapshot-indicator {
     $icon-size: 20px;
     @include border-radius(50%);
@@ -171,17 +185,7 @@
     }
   }
 
-  .snapshot-card-pending {
-    -webkit-animation-direction: alternate;
-    -webkit-animation-duration: .7s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-name: pulse-opacity;
-    -webkit-animation-timing-function: linear;
-    animation-direction: alternate;
-    animation-duration: .7s;
-    animation-iteration-count: infinite;
-    animation-name: pulse-opacity;
-    animation-timing-function: linear;
+  .glyphicon-time {
     color: #ccc;
     display: block;
     font-size: $snapshot-width * (3/4);
