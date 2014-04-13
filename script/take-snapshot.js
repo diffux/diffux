@@ -34,6 +34,46 @@ page.preventAnimations = function() {
   document.activeElement.blur();
 };
 
+
+/**
+ * Waits until the page is ready and then fires a callback.
+ *
+ * This method will keep track of all resources requested (css, javascript, ajax
+ * requests, etc). As soon as we have no outstanding requests active, we start a
+ * short timer which fires the callback. If a new resource is requested in that
+ * short timeframe, we cancel the timer and wait for the new resource.
+ *
+ * In case something goes wrong, there's a 10 second fallback timer running in
+ * the background.
+ */
+page.waitUntilReady = function(callback) {
+  var fireCallback = function() {
+    clearTimeout(page.resourceWaitTimer);
+    clearTimeout(page.fallbackWaitTimer);
+    callback();
+  };
+
+  page.resourcesActive = [];
+
+  page.onResourceRequested = function(request) {
+    clearTimeout(page.resourceWaitTimer);
+    page.resourcesActive.push(request.id);
+  };
+
+  page.onResourceReceived = function(response) {
+    if (response.stage === 'end') {
+      page.resourcesActive.splice(page.resourcesActive.indexOf(response.id), 1);
+
+      if (page.resourcesActive.length === 0) {
+        page.resourceWaitTimer = setTimeout(fireCallback, 300);
+      }
+    }
+  };
+
+  page.resourceWaitTimer = setTimeout(fireCallback, 1000);
+  page.fallbackWaitTimer = setTimeout(fireCallback, 20000);
+};
+
 /**
  * Main place for taking the screenshot. Will exit the script when done.
  */
@@ -62,5 +102,5 @@ page.takeDiffuxSnapshot = function() {
 };
 
 page.open(opts.address, function(status) {
-  setTimeout(page.takeDiffuxSnapshot, 5000);
+  page.waitUntilReady(page.takeDiffuxSnapshot);
 });
