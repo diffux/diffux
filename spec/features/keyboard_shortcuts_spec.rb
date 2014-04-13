@@ -16,18 +16,89 @@ describe 'Keyboard Shortcuts' do
 
     def create_seed_project!(proj_name)
       proj = create(:project, { name: proj_name })
-      5.times do
-        create(:url, project: proj)
+      5.times do |i|
+        create(:url, address: "http://www#{i}.example.org", project: proj)
       end
     end
 
     before do
+      create_seed_project!('foobarbaz')
       visit root_path
     end
 
     it 'should open the help modal with the "?" shortcut', :js => true do
       press_key('?')
       expect(page).to have_content 'Keyboard shortcuts'
+    end
+
+    it 'should go up one level with the "u" shortcut', :js => true do
+      click_on 'foobarbaz'
+      # navigate to project page
+      expect(page).to have_content 'Projects foobarbaz'
+      press_key('u')
+      # we should be back on the home page
+      expect(page).not_to have_content 'Projects foobarbaz'
+      expect(page).to have_content 'Add new Project'
+    end
+
+    describe 'opening focused selections' do
+      shared_examples_for 'opening focused items' do
+        context 'on a freshly loaded page' do
+          it 'does nothing when no element is focused', :js => true do
+            press_key(open_focused_shortcut)
+            expect(page).not_to have_content focused_content_header
+          end
+        end
+
+        it 'opens the focused content', :js => true do
+          # depends on the movement shortcuts working
+          press_key('k')
+           press_key(open_focused_shortcut)
+          expect(page).to have_content focused_content_header
+        end
+      end
+
+      context 'when on project index page' do
+        before do
+          visit root_path
+        end
+
+        let(:focused_content_header) { 'Projects foobarbaz' }
+
+        context 'when using "o" to open selection' do
+          let(:open_focused_shortcut) { 'o' }
+
+          it_behaves_like 'opening focused items'
+        end
+
+        context 'when using "enter" to open selection' do
+          # TODO: is :Enter the right shortcut?
+          let(:open_focused_shortcut) { :Enter }
+
+          it_behaves_like 'opening focused items'
+        end
+       end
+
+      context 'when on project show page' do
+        before do
+          visit root_path
+          click_on 'foobarbaz'
+        end
+
+        let(:focused_content_header) { 'Projects foobarbaz Sweeps' }
+
+        context 'when using "o" to open selection' do
+          let(:open_focused_shortcut) { 'o' }
+
+          it_behaves_like 'opening focused items'
+        end
+        context 'when using "enter" to open selection' do
+          # TODO: is :Enter the right shortcut?
+          let(:open_focused_shortcut) { :Enter }
+
+          it_behaves_like 'opening focused items'
+        end
+      end
     end
 
     describe 'movement-keys' do
@@ -113,7 +184,6 @@ describe 'Keyboard Shortcuts' do
 
       context 'when on project show page' do
         before do
-          create_seed_project!('foobarbaz')
           click_on 'Projects'
           click_on 'foobarbaz'
         end
