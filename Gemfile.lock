@@ -86,6 +86,11 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    fast_stack (0.1.0)
+      rake
+      rake-compiler
+    flamegraph (0.0.5)
+      fast_stack
     fssm (0.2.10)
     haml (4.0.5)
       tilt
@@ -145,6 +150,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.2.2)
+    rake-compiler (0.9.2)
+      rake
     redis (3.0.7)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
@@ -233,6 +240,7 @@ DEPENDENCIES
   database_cleaner
   diff-lcs
   factory_girl_rails
+  flamegraph
   haml-rails
   mocha
   oily_png
