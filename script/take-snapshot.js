@@ -34,28 +34,33 @@ page.preventAnimations = function() {
   document.activeElement.blur();
 };
 
+/**
+ * Main place for taking the screenshot. Will exit the script when done.
+ */
+page.takeDiffuxSnapshot = function() {
+  // Try to prevent animations from running, to reduce variation in
+  // snapshots.
+  page.evaluate(page.preventAnimations);
+
+  // Save a PNG of the rendered page
+  page.render(opts.outfile);
+
+  // Capture metadata
+  var response = page.evaluate(function() {
+    return { title: document.title };
+  });
+
+  response.opts   = opts;
+  response.status = status;
+
+  // The phantomjs gem can read what is written to STDOUT which includes
+  // console.log, so we can use that to pass information from phantomjs back
+  // to the app.
+  console.log(JSON.stringify(response));
+
+  phantom.exit();
+};
+
 page.open(opts.address, function(status) {
-  setTimeout(function() {
-    // Try to prevent animations from running, to reduce variation in
-    // snapshots.
-    page.evaluate(page.preventAnimations);
-
-    // Save a PNG of the rendered page
-    page.render(opts.outfile);
-
-    // Capture metadata
-    var response = page.evaluate(function() {
-      return { title: document.title };
-    });
-
-    response.opts   = opts;
-    response.status = status;
-
-    // The phantomjs gem can read what is written to STDOUT which includes
-    // console.log, so we can use that to pass information from phantomjs back
-    // to the app.
-    console.log(JSON.stringify(response));
-
-    phantom.exit();
-  }, 5000);
+  setTimeout(page.takeDiffuxSnapshot, 5000);
 });
