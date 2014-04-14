@@ -9,6 +9,17 @@ if (opts.userAgent) {
 }
 
 /**
+ * Logs a console.log message if debug mode is on (turn it on by passing in
+ * `debug: true` as part of the json arg).
+ */
+page.debugLog = function(string) {
+  if (!opts.debug) {
+    return;
+  }
+  console.log(string);
+};
+
+/**
  * By preventing animations from happening when we are taking the snapshots, we
  * avoid timing issues that cause unwanted differences.
  */
@@ -48,6 +59,7 @@ page.preventAnimations = function() {
  */
 page.waitUntilReady = function(callback) {
   var fireCallback = function() {
+    page.debugLog('Done - page is ready.');
     clearTimeout(page.resourceWaitTimer);
     clearTimeout(page.fallbackWaitTimer);
     callback();
@@ -56,20 +68,31 @@ page.waitUntilReady = function(callback) {
   page.resourcesActive = [];
 
   page.onResourceRequested = function(request) {
-    clearTimeout(page.resourceWaitTimer);
+    page.debugLog('Ready: Request started - ' + request.url);
+    page.debugLog('Active requests - ' + page.resourcesActive);
+    if (page.resourceWaitTimer) {
+      page.debugLog('Clearing timeout.');
+      clearTimeout(page.resourceWaitTimer);
+      page.resourceWaitTimer = null;
+    }
     page.resourcesActive.push(request.id);
   };
 
   page.onResourceReceived = function(response) {
+    page.debugLog('Ready: Resource received - [' + response.id + '] '
+        + response.url);
+    page.debugLog('Active requests - ' + page.resourcesActive);
     if (response.stage === 'end') {
       page.resourcesActive.splice(page.resourcesActive.indexOf(response.id), 1);
 
       if (page.resourcesActive.length === 0) {
+        page.debugLog('Potentially done, firing after short timeout.');
         page.resourceWaitTimer = setTimeout(fireCallback, 300);
       }
     }
   };
 
+  page.debugLog('Starting default timeouts.');
   page.resourceWaitTimer = setTimeout(fireCallback, 1000);
   page.fallbackWaitTimer = setTimeout(fireCallback, 20000);
 };
