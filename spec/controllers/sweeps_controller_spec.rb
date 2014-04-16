@@ -24,7 +24,8 @@ describe SweepsController do
   end
 
   describe '#show' do
-    let(:sweep) { create(:sweep, project: project) }
+    let(:description) { 'Description' }
+    let(:sweep) { create(:sweep, project: project, description: description) }
     subject do
       get :show, project_id: project.to_param, id: sweep.to_param
     end
@@ -63,6 +64,15 @@ describe SweepsController do
       end
 
       it { should be_success }
+    end
+
+    context 'with a description containing html' do
+      let(:description) { '<b>Bold text</b>' }
+
+      it 'escapes the html before showing it' do
+        subject
+        response.body.should have_content(description)
+      end
     end
   end
 
