@@ -23,7 +23,7 @@ page.waitTimeouts = {
  */
 page.allLogs = [];
 page.log = function(string) {
-  page.allLogs.push(string);
+  page.allLogs.push(new Date().getTime() + ': ' + string);
 };
 
 /**
