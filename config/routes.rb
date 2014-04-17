@@ -17,6 +17,7 @@ Diffux::Application.routes.draw do
       post :reject
       post :take_snapshot
       post :compare_snapshot
+      get  :view_log
     end
   end
 

@@ -9,14 +9,21 @@ if (opts.userAgent) {
 }
 
 /**
- * Logs a console.log message if debug mode is on (turn it on by passing in
- * `debug: true` as part of the json arg).
+ * Configure timeouts
  */
-page.debugLog = function(string) {
-  if (!opts.debug) {
-    return;
-  }
-  console.log(string);
+page.waitTimeouts = {
+  initial: 1000,
+  afterResourceDone: 300,
+  fallback: 20000
+};
+
+/**
+ * Saves a log string. The full log will be added to the console.log in the end,
+ * so that consumers of this script can use that information.
+ */
+page.allLogs = [];
+page.log = function(string) {
+  page.allLogs.push(string);
 };
 
 /**
@@ -59,7 +66,7 @@ page.preventAnimations = function() {
  */
 page.waitUntilReady = function(callback) {
   var fireCallback = function() {
-    page.debugLog('Done - page is ready.');
+    page.log('Done - page is ready.');
     clearTimeout(page.resourceWaitTimer);
     clearTimeout(page.fallbackWaitTimer);
     callback();
@@ -68,10 +75,10 @@ page.waitUntilReady = function(callback) {
   page.resourcesActive = [];
 
   page.onResourceRequested = function(request) {
-    page.debugLog('Ready: Request started - ' + request.url);
-    page.debugLog('Active requests - ' + page.resourcesActive);
+    page.log('Ready: Request started - ' + request.url);
+    page.log('Active requests - ' + page.resourcesActive);
     if (page.resourceWaitTimer) {
-      page.debugLog('Clearing timeout.');
+      page.log('Clearing timeout.');
       clearTimeout(page.resourceWaitTimer);
       page.resourceWaitTimer = null;
     }
@@ -79,22 +86,23 @@ page.waitUntilReady = function(callback) {
   };
 
   page.onResourceReceived = function(response) {
-    page.debugLog('Ready: Resource received - [' + response.id + '] '
+    page.log('Ready: Resource received - [' + response.id + '] '
         + response.url);
-    page.debugLog('Active requests - ' + page.resourcesActive);
+    page.log('Active requests - ' + page.resourcesActive);
     if (response.stage === 'end') {
       page.resourcesActive.splice(page.resourcesActive.indexOf(response.id), 1);
 
       if (page.resourcesActive.length === 0) {
-        page.debugLog('Potentially done, firing after short timeout.');
-        page.resourceWaitTimer = setTimeout(fireCallback, 300);
+        page.log('Potentially done, firing after short timeout.');
+        page.resourceWaitTimer = setTimeout(fireCallback,
+            page.waitTimeouts.afterResourceDone);
       }
     }
   };
 
-  page.debugLog('Starting default timeouts.');
-  page.resourceWaitTimer = setTimeout(fireCallback, 1000);
-  page.fallbackWaitTimer = setTimeout(fireCallback, 20000);
+  page.log('Starting default timeouts. ' + JSON.stringify(page.waitTimeouts));
+  page.resourceWaitTimer = setTimeout(fireCallback, page.waitTimeouts.initial);
+  page.fallbackWaitTimer = setTimeout(fireCallback, page.waitTimeouts.fallback);
 };
 
 /**
@@ -114,6 +122,7 @@ page.takeDiffuxSnapshot = function() {
   });
 
   response.opts   = opts;
+  response.log    = page.allLogs.join('\n');
   response.status = status;
 
   // The phantomjs gem can read what is written to STDOUT which includes

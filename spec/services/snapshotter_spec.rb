@@ -17,7 +17,8 @@ describe Snapshotter do
     end
 
     context 'when snapshot script outputs JSON' do
-      let(:decoded_output) { { title: rand(1_000).to_s } }
+      let(:log)            { 'a free-text log' }
+      let(:decoded_output) { { title: rand(1_000).to_s, log: log } }
       let(:encoded_output) { ActiveSupport::JSON.encode(decoded_output) }
 
       it 'saves the title to the snapshot' do
@@ -29,6 +30,21 @@ describe Snapshotter do
       it 'saves an image on the snapshot object' do
         expect { subject.take_snapshot! }
           .to change { snapshot.reload.image.path }
+      end
+
+      it 'saves the log to the snapshot' do
+        expect { subject.take_snapshot! }
+          .to change { snapshot.reload.log }
+          .to(log)
+      end
+
+      context 'when the log is missing' do
+        let(:log) { nil }
+
+        it 'does not save a log' do
+          expect { subject.take_snapshot! }
+            .to_not change { snapshot.reload.log }
+        end
       end
 
       context 'when the snapshot viewport has a user agent' do

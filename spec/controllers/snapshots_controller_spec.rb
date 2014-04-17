@@ -10,6 +10,7 @@ describe SnapshotsController do
     it         { should be_success }
     its(:body) { should have_css('.snapshot-accept-button') }
     its(:body) { should have_css('.snapshot-reject-button') }
+    its(:body) { should_not have_link('View debug log') }
 
     context 'with a snapshot in pending state' do
       let(:snapshot) { create(:snapshot, :pending) }
@@ -34,6 +35,12 @@ describe SnapshotsController do
       it         { should be_success }
       its(:body) { should have_css('.snapshot-accept-button') }
       its(:body) { should have_css('.snapshot-reject-button') }
+    end
+
+    context 'with a log' do
+      before { snapshot.update_attributes log: 'a log' }
+
+      its(:body) { should have_link 'View debug log' }
     end
   end
 
@@ -152,6 +159,18 @@ describe SnapshotsController do
 
       it { should_not redirect_to(snapshot_url(snapshot)) }
       it { should render_template('snapshots/_header_and_buttons') }
+    end
+  end
+
+  describe '#view_log' do
+    let(:log)      { 'a log' }
+    let(:snapshot) { create :snapshot, log: log }
+    subject        { get :view_log, id: snapshot.to_param }
+    its(:body)     { should have_content log }
+
+    context 'with no log saved for the snapshot' do
+      let(:log)  { nil }
+      its(:body) { should have_css '.alert.alert-warning' }
     end
   end
 

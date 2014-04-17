@@ -49,3 +49,9 @@
         snapshot has been accepted for the URL. If you accept this snapshot, it
         will be used as the baseline for the next snapshot.
       = image_tag @snapshot.image.url
+
+  - if @snapshot.log
+    %p.text-muted.small
+      Need to debug the output from the snapshotting process?
+      = succeed '.' do
+        = link_to 'View debug log', view_log_snapshot_path(@snapshot)

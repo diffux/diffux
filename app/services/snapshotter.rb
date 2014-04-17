@@ -40,6 +40,7 @@ class Snapshotter
       Rails.logger.info "Saving snapshot of #{@url} @ #{@viewport}"
       save_file_to_snapshot(@snapshot, snapshot_file)
       @snapshot.title = result[:title]
+      @snapshot.log   = result[:log]
     end
 
     @snapshot.save!

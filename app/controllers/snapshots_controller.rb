@@ -1,7 +1,7 @@
 # Mostly RESTful controller for Snapshot model.
 class SnapshotsController < ApplicationController
   before_filter :set_snapshot,
-                only: %i[show destroy accept reject take_snapshot
+                only: %i[show destroy accept reject view_log take_snapshot
                          compare_snapshot]
 
   def show
@@ -45,6 +45,10 @@ class SnapshotsController < ApplicationController
     else
       redirect_to @snapshot
     end
+  end
+
+  def view_log
+    render
   end
 
   def take_snapshot
