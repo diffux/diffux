@@ -14,7 +14,7 @@ if (opts.userAgent) {
 page.waitTimeouts = {
   initial: 1000,
   afterResourceDone: 300,
-  fallback: 20000
+  fallback: 60000
 };
 
 /**
