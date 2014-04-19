@@ -78,25 +78,21 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     self.use_transactional_fixtures = _orig_use_transactional_fixtures
   end
-end
 
-# helper function to turn off transactions for a group of specs
+# helper tag to turn off transactions for a group of specs
 #
 # @param &block [Block] wraps your block of specs
-def without_transactional_fixtures(&block)
-  # from the following stackoverflow:
-  # http://stackoverflow.com/questions/3853098/turn-off-transactional-fixtures-for-one-spec-with-rspec-2
+  config.around(:each, :without_transactional_fixtures) do |example|
 
-  self.use_transactional_fixtures = false
+    # from the following stackoverflow:
+    # http://stackoverflow.com/questions/3853098/turn-off-transactional-fixtures-for-one-spec-with-rspec-2
+    self.use_transactional_fixtures = false
 
-  before(:each) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
-  end
 
-  yield
+    example.call
 
-  after(:each) do
     DatabaseCleaner.clean
     DatabaseCleaner.strategy = :transaction
   end
