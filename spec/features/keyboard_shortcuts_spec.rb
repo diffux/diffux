@@ -179,6 +179,52 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
     end
   end
 
+  describe 'shortcuts for dealing with snapshots' do
+    let(:test_project) do
+      create :project, :with_sweep, name: 'test-project-with-sweep'
+    end
+    let(:first_snapshot) { test_project.sweeps.first.snapshots.first }
+    let(:last_snapshot) { test_project.sweeps.first.snapshots.last }
+    describe 'navigating snapshots' do
+      context 'on the first snapshot' do
+        before do
+          visit snapshot_path(first_snapshot)
+        end
+
+        it 'moves to next snapshot with "]"' do
+          press_key(']')
+          expect(page).to have_content 'Snapshot'
+          expect(page).to have_content 'www1.example.org'
+        end
+
+        it 'stays on the first snapshot with "["' do
+          press_key('[')
+          expect(page).to have_content 'Snapshot'
+          expect(page).to have_content 'www2.example.org'
+        end
+      end
+
+      context 'on the last snapshot' do
+        before do
+          visit snapshot_path(last_snapshot)
+        end
+
+        it 'goes to previous snapshot with "["' do
+          press_key('[')
+          expect(page).to have_content 'Snapshot'
+          expect(page).to have_content 'www1.example.org'
+        end
+
+        it 'stays on the last snapshot with "]"' do
+            press_key(']')
+            expect(page).to have_content 'Snapshot'
+            expect(page).to have_content 'www0.example.org'
+        end
+      end
+    end
+  end
+
+  # Helper Methods:
   def press_key(key_str)
     find('body').native.send_keys(key_str)
   end

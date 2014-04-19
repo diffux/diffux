@@ -15,6 +15,25 @@ FactoryGirl.define do
         create :url, project: project
       end
     end
+
+    trait :with_sweep do
+      after(:create) do |project|
+        # add the sweep
+        sweep = create :sweep, project: project
+
+        # add a viewport
+        create :viewport, project: project
+
+        # add three url_addresses
+        # with identifiable names
+        3.times do |i|
+          url = create :url, project: project,
+    address: "http://www#{i}.example.org"
+          create(:snapshot, :with_baseline, :with_diff,
+                 { url: url, sweep: sweep })
+        end
+      end
+    end
   end
 
   factory :sweep do
