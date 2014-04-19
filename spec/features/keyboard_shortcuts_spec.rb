@@ -185,12 +185,11 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
     end
     let(:first_snapshot) { test_project.sweeps.first.snapshots.first }
     let(:last_snapshot) { test_project.sweeps.first.snapshots.last }
+    before do
+      visit snapshot_path(first_snapshot)
+    end
     describe 'navigating snapshots' do
       context 'on the first snapshot' do
-        before do
-          visit snapshot_path(first_snapshot)
-        end
-
         it 'moves to next snapshot with "]"' do
           press_key(']')
           expect(page).to have_content 'Snapshot'
@@ -219,6 +218,39 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
             press_key(']')
             expect(page).to have_content 'Snapshot'
             expect(page).to have_content 'www0.example.org'
+        end
+      end
+    end
+
+    describe 'flipping between diffs with "x" shortcut' do
+      it 'begins on diff view' do
+        expect(page).to have_css('li.active a', text: 'Diff')
+      end
+
+      it 'switches from diff to before and then to after' do
+        press_key('x')
+        expect(page).to have_css('li.active a', text: 'Before')
+        press_key('x')
+        expect(page).to have_css('li.active a', text: 'After')
+      end
+    end
+
+    describe 'accepting and rejecting snapshots' do
+
+      context 'with snapshot that has diff' do
+        it 'begins as neither accepted or rejected' do
+          expect(page).not_to have_content 'Accepted'
+          expect(page).not_to have_content 'Rejected'
+        end
+
+        it 'is accepted with "a" shortcut' do
+          press_key('a')
+          expect(page).to have_content 'Accepted'
+        end
+
+        it 'is accepted with "r" shortcut' do
+          press_key('r')
+          expect(page).to have_content 'Rejected'
         end
       end
     end

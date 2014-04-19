@@ -66,6 +66,7 @@ FactoryGirl.define do
     trait :with_diff do
       after(:create) do |snapshot|
         snapshot.create_snapshot_diff!(
+          image_width: Random.rand(1000),
           diff_in_percent: 1.0,
           image: fixture_file_upload(
             "#{Rails.root}/spec/sample_snapshot.png", 'image/png'),
