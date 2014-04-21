@@ -9,7 +9,7 @@
       href = if previous_snapshot
                snapshot_path(previous_snapshot)
              else
-               'javascript:return false;'
+               'javascript:;'
              end
     = link_to href, data: { keyboard_shortcut: 'K [' } do
       %i.glyphicon.glyphicon-arrow-left
@@ -20,7 +20,7 @@
       href = if next_snapshot
                snapshot_path(next_snapshot)
              else
-               'javascript:return false;'
+               'javascript:;'
              end
     = link_to href, data: { keyboard_shortcut: 'J ]' } do
       Next in sweep

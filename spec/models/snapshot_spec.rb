@@ -157,7 +157,7 @@ describe Snapshot do
     end
   end
 
-  describe '#refresh_sweep', :uses_after_commit do
+  describe '#refresh_sweep', :without_transactional_fixtures do
     subject { snapshot.save! }
 
     context 'on creation' do

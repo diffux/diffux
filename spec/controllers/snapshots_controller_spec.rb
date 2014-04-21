@@ -71,14 +71,14 @@ describe SnapshotsController do
       expect { subject }.to change { Snapshot.count }.by(1)
     end
 
-    it 'saves the diff', :uses_after_commit do
+    it 'saves the diff', :without_transactional_fixtures do
       subject
       diff = Snapshot.unscoped.last.snapshot_diff
       diff.diff_in_percent.should == 0.001
       diff.before_snapshot.should == baseline
     end
 
-    it 'saves the diff cluster', :uses_after_commit do
+    it 'saves the diff cluster', :without_transactional_fixtures do
       subject
       diff = Snapshot.unscoped.last.snapshot_diff
       diff.snapshot_diff_clusters.count.should == 1
@@ -86,7 +86,7 @@ describe SnapshotsController do
         diff_clusters.first[:start]
     end
 
-    it 'captures the snapshot title', :uses_after_commit do
+    it 'captures the snapshot title', :without_transactional_fixtures do
       subject
       snapshot = Snapshot.unscoped.last
       snapshot.title.should_not be_nil
@@ -174,7 +174,7 @@ describe SnapshotsController do
     end
   end
 
-  describe '#take_snapshot', :uses_after_commit  do
+  describe '#take_snapshot', :without_transactional_fixtures  do
     let!(:snapshot) { create(:snapshot, :with_baseline, :with_diff) }
 
     before { SnapshotterWorker.stubs(:perform_async) }
@@ -223,11 +223,11 @@ describe SnapshotsController do
       response
     end
 
-    it 'sets the snapshot in pending state', :uses_after_commit do
+    it 'sets the snapshot in pending state', :without_transactional_fixtures do
       expect { subject }.to change { snapshot.reload.pending? }.to(true)
     end
 
-    it 'triggers a worker', :uses_after_commit do
+    it 'triggers a worker', :without_transactional_fixtures do
       SnapshotComparerWorker.expects(:perform_async).once
       subject
     end

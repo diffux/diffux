@@ -16,6 +16,7 @@
 //= require jquery.visible/jquery.visible
 //= require turbolinks
 //= require replacejs/replace
+//= require _phantomJS-configs
 //= require _loading-indicator
 //= require _snapshot-tab-navigation
 //= require _keyboard-shortcuts

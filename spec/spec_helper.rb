@@ -8,8 +8,16 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'capybara/rails'
+require 'capybara/poltergeist'
 
 include ActionDispatch::TestProcess
+
+# Sets up phantomJS as the JS driver for integration testing
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, inspector: true)
+end
+
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -52,12 +60,13 @@ RSpec.configure do |config|
     Sidekiq::Testing.inline! # Run async worker jobs synchronous
   end
 
-  # Tag "uses_after_commit" helps when after_commit hook is expected
+  # Tag "without_transactional_fixtures" helps when after_commit hook is expected
   # to fire in a spec. It would never fire because of having enabled
   # use_transactional_fixtures. It waits for transaction to end. The
   # workaround disables transaction-wrapping for the tagged spec and
   # instead uses a DatabaseCleaner strategy to wipe the tables here.
-  config.around(:each, :uses_after_commit) do |example|
+  # Also used in integrations specs that have JS enabled.
+  config.around(:each, :without_transactional_fixtures) do |example|
     _orig_use_transactional_fixtures = use_transactional_fixtures
     self.use_transactional_fixtures = false
     DatabaseCleaner.clean_with(:truncation)
@@ -66,3 +75,4 @@ RSpec.configure do |config|
     self.use_transactional_fixtures = _orig_use_transactional_fixtures
   end
 end
+
