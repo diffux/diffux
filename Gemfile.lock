@@ -155,7 +155,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
-    rake (10.2.2)
+    rake (10.3.1)
     rake-compiler (0.9.2)
       rake
     redis (3.0.7)
