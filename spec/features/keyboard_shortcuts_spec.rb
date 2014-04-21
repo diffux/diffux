@@ -17,10 +17,11 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
     click_on 'foobarbaz'
     # navigate to project page
     expect(page).to have_content 'Projects foobarbaz'
+    expect(page).to have_css('h1', text: 'foobarbaz')
     press_key('u')
     # we should be back on the home page
     expect(page).not_to have_content 'Projects foobarbaz'
-    expect(page).to have_content 'Add new Project'
+    expect(page).to have_css('h1', text: 'Projects')
   end
 
   describe 'opening focused selections' do
@@ -181,25 +182,30 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
 
   describe 'shortcuts for dealing with snapshots' do
     let(:test_project) do
-      create :project, :with_sweep, name: 'test-project-with-sweep'
+      create :project, :with_snapshots, name: 'test-project-with-sweep'
     end
     let(:first_snapshot) { test_project.sweeps.first.snapshots.first }
+    let(:middle_snapshot) { test_project.sweeps.first.snapshots[1] }
     let(:last_snapshot) { test_project.sweeps.first.snapshots.last }
+
     before do
       visit snapshot_path(first_snapshot)
     end
+
     describe 'navigating snapshots' do
       context 'on the first snapshot' do
         it 'moves to next snapshot with "]"' do
           press_key(']')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www1.example.org'
+          expect(current_path).to eq snapshot_path(middle_snapshot)
         end
 
         it 'stays on the first snapshot with "["' do
           press_key('[')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www2.example.org'
+          expect(current_path).to eq snapshot_path(first_snapshot)
         end
       end
 
@@ -212,12 +218,14 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
           press_key('[')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www1.example.org'
+          expect(current_path).to eq snapshot_path(middle_snapshot)
         end
 
         it 'stays on the last snapshot with "]"' do
             press_key(']')
             expect(page).to have_content 'Snapshot'
             expect(page).to have_content 'www0.example.org'
+            expect(current_path).to eq snapshot_path(last_snapshot)
         end
       end
     end
@@ -236,9 +244,8 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
     end
 
     describe 'accepting and rejecting snapshots' do
-
       context 'with snapshot that has diff' do
-        it 'begins as neither accepted or rejected' do
+        it 'begins as neither accepted nor rejected' do
           expect(page).not_to have_content 'Accepted'
           expect(page).not_to have_content 'Rejected'
         end
@@ -246,11 +253,13 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
         it 'is accepted with "a" shortcut' do
           press_key('a')
           expect(page).to have_content 'Accepted'
+          expect(first_snapshot.reload).to be_accepted
         end
 
         it 'is accepted with "r" shortcut' do
           press_key('r')
           expect(page).to have_content 'Rejected'
+          expect(first_snapshot.reload).to be_rejected
         end
       end
     end

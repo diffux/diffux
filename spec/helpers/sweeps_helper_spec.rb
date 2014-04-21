@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe SweepsHelper do
-  describe '#sweep_status', :uses_after_commit do
+  describe '#sweep_status', :without_transactional_fixtures do
     let(:counts) do
       {
         pending:      0,

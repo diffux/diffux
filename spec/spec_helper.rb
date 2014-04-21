@@ -10,16 +10,11 @@ require 'sidekiq/testing'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 
-# Transactional fixtures do not work with Poltergeist tests, because Capybara
-# uses a separate server thread, which the transactions would be hidden
-# from. We hence use DatabaseCleaner to truncate our test database.
-require 'database_cleaner'
-
 include ActionDispatch::TestProcess
 
 # Sets up phantomJS as the JS driver for integration testing
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, :js_errors => true, :inspector => true)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, inspector: true)
 end
 
 Capybara.javascript_driver = :poltergeist
@@ -65,36 +60,19 @@ RSpec.configure do |config|
     Sidekiq::Testing.inline! # Run async worker jobs synchronous
   end
 
-  # Tag "uses_after_commit" helps when after_commit hook is expected
+  # Tag "without_transactional_fixtures" helps when after_commit hook is expected
   # to fire in a spec. It would never fire because of having enabled
   # use_transactional_fixtures. It waits for transaction to end. The
   # workaround disables transaction-wrapping for the tagged spec and
   # instead uses a DatabaseCleaner strategy to wipe the tables here.
-  config.around(:each, :uses_after_commit) do |example|
+  # Also used in integrations specs that have JS enabled.
+  config.around(:each, :without_transactional_fixtures) do |example|
     _orig_use_transactional_fixtures = use_transactional_fixtures
     self.use_transactional_fixtures = false
     DatabaseCleaner.clean_with(:truncation)
     example.call
     DatabaseCleaner.clean_with(:truncation)
     self.use_transactional_fixtures = _orig_use_transactional_fixtures
-  end
-
-# helper tag to turn off transactions for a group of specs
-#
-# @param &block [Block] wraps your block of specs
-  config.around(:each, :without_transactional_fixtures) do |example|
-
-    # from the following stackoverflow:
-    # http://stackoverflow.com/questions/3853098/turn-off-transactional-fixtures-for-one-spec-with-rspec-2
-    self.use_transactional_fixtures = false
-
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-
-    example.call
-
-    DatabaseCleaner.clean
-    DatabaseCleaner.strategy = :transaction
   end
 end
 

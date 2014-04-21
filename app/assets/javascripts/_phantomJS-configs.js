@@ -11,11 +11,13 @@ $(function() {
         var ev = document.createEvent('MouseEvent');
         ev.initMouseEvent(
             'click',
-            /*bubble*/true, /*cancelable*/true,
+            true, //bubble
+            true, //cancelable
             window, null,
-            0, 0, 0, 0, /*coordinates*/
-            false, false, false, false, /*modifier keys*/
-            0/*button=left*/, null
+            0, 0, 0, 0, // coordinates
+            false, false, false, false, // modifier keys
+            0, // button=left
+            null
         );
         this.dispatchEvent(ev);
       };
