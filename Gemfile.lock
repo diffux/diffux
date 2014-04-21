@@ -254,8 +254,8 @@ DEPENDENCIES
   paperclip
   pg
   phantomjs
-  rails (= 4.1.0)
   poltergeist
+  rails (= 4.1.0)
   rails_12factor
   rspec
   rspec-rails
