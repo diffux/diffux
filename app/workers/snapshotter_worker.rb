@@ -4,10 +4,11 @@ class SnapshotterWorker < SnapshotWorker
     return unless set_snapshot snapshot_id
 
     FileUtil.with_tempfile do |file|
-      snapshotter = Snapshotter.new(viewport_width: @snapshot.viewport.width,
-                                    user_agent: @snapshot.viewport.user_agent,
-                                    outfile:    file,
-                                    url:        @snapshot.url.address)
+      snapshotter = Diffux::Snapshotter.new(
+        viewport_width: @snapshot.viewport.width,
+        user_agent:     @snapshot.viewport.user_agent,
+        outfile:        file,
+        url:            @snapshot.url.address)
       snapshot = snapshotter.take_snapshot!
 
       Rails.logger.info <<-EOS

@@ -13,8 +13,8 @@ class SnapshotComparerWorker < SnapshotWorker
 
     Rails.logger.info "Comparing snapshot of #{url} @ #{viewport} " +
                       'against baseline'
-    comparison = SnapshotComparer.new(to_chunky_png(compare_with),
-                                      to_chunky_png(@snapshot)).compare!
+    comparison = Diffux::SnapshotComparer.new(to_chunky_png(compare_with),
+                                              to_chunky_png(@snapshot)).compare!
     diff = @snapshot.build_snapshot_diff(comparison.slice(:diff_in_percent))
     diff.before_snapshot = compare_with
     diff_image = comparison[:diff_image]

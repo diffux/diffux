@@ -54,7 +54,7 @@ describe SnapshotsController do
         snapshot.image = File.open("#{Rails.root}/spec/sample_snapshot.png")
       end
       SnapshotterWorker.any_instance.stubs(:save_file_to_snapshot).with(&prc)
-      SnapshotComparer.any_instance.stubs(:compare!).returns(
+      Diffux::SnapshotComparer.any_instance.stubs(:compare!).returns(
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
         diff_in_percent: 0.001,
         diff_clusters:   diff_clusters,

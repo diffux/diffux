@@ -20,7 +20,7 @@ describe SnapshotterWorker do
       let(:title)       { 'Page title' }
 
       before do
-        Snapshotter.any_instance.expects(:take_snapshot!)
+        Diffux::Snapshotter.any_instance.expects(:take_snapshot!)
           .returns(title: 'Page title',
                    log:    log).once
 

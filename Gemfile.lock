@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/diffux/diffux-core.git
+  revision: 412e786a5a6fee283dedd9c0b15e01cc2ba1bab7
+  specs:
+    diffux-core (0.0.1)
+      diff-lcs
+      oily_png
+      phantomjs (= 1.9.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -245,15 +254,13 @@ DEPENDENCIES
   compass-rails
   coveralls
   database_cleaner
-  diff-lcs
+  diffux-core!
   factory_girl_rails
   flamegraph
   haml-rails
   mocha
-  oily_png
   paperclip
   pg
-  phantomjs
   poltergeist
   rails (= 4.1.0)
   rails_12factor

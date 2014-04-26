@@ -9,6 +9,7 @@ require 'rspec/autorun'
 require 'sidekiq/testing'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+require 'diffux_core'
 
 include ActionDispatch::TestProcess
 
