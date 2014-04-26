@@ -13,7 +13,7 @@
              end
     = link_to href, data: { keyboard_shortcut: 'K [' } do
       %i.glyphicon.glyphicon-arrow-left
-      Previous in sweep
+      = t('.previous_in_sweep')
 
   %li.next{ class: ('disabled' unless next_snapshot) }
     :ruby
@@ -23,5 +23,5 @@
                'javascript:;'
              end
     = link_to href, data: { keyboard_shortcut: 'J ]' } do
-      Next in sweep
+      = t('.next_in_sweep')
       %i.glyphicon.glyphicon-arrow-right
