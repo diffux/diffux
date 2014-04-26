@@ -9,8 +9,8 @@
     %span.glyphicon.glyphicon-bookmark
     = yield :title
     %small
-      = link_to @url, method: :delete, title: t(:delete),
-                      data: { confirm: 'Are you sure?' } do
+      = link_to @url, method: :delete, title: t('.delete'),
+                      data: { confirm: t('.delete_confirm', title: @url.title) } do
         %span.glyphicon.glyphicon-remove<>
   %p
     = link_to snapshots_path(url: @url.id),
@@ -18,7 +18,7 @@
               title:  'Create new snapshots for this URL',
               class:  'btn btn-primary' do
       %span.glyphicon.glyphicon-camera
-      Create new snapshots
+      = t('.create_snapshots')
     &emsp;
     = link_to @url.simplified_address, @url.address
 

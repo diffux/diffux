@@ -118,3 +118,8 @@ en:
     review_list:
       previous_in_sweep: Previous in Sweep
       next_in_sweep: Next in Sweep
+  urls:
+    show:
+      delete: Delete URL
+      delete_confirm: 'Are you sure you want to delete the URL "%{title}"?'
+      create_snapshots: Create new Snapshots
