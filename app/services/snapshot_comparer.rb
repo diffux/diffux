@@ -1,23 +1,22 @@
 require 'oily_png'
-require 'open-uri'
 require 'diff-lcs'
 
 # This class is responsible for comparing two Snapshots and generating a diff.
 class SnapshotComparer
-  def initialize(snapshot_after, snapshot_before)
-    @snapshot_after  = snapshot_after
-    @snapshot_before = snapshot_before
+  # @param png_before [ChunkyPNG::Image]
+  # @param png_after  [ChunkyPNG::Image]
+  def initialize(png_before, png_after)
+    @png_after  = png_after
+    @png_before = png_before
   end
 
   # @return [Hash]
   def compare!
-    png_after  = to_chunky_png(@snapshot_after)
-    png_before = to_chunky_png(@snapshot_before)
-    sdiff      = Diff::LCS.sdiff(to_array_of_arrays(png_before),
-                                 to_array_of_arrays(png_after))
+    sdiff      = Diff::LCS.sdiff(to_array_of_arrays(@png_before),
+                                 to_array_of_arrays(@png_after))
     cluster_finder  = DiffClusterFinder.new(sdiff.size)
     sprite, all_comparisons = initialize_comparison_images(
-      [png_after.width, png_before.width].max, sdiff.size)
+      [@png_after.width, @png_before.width].max, sdiff.size)
 
     sdiff.each_with_index do |row, y|
       # each row is a Diff::LCS::ContextChange instance
@@ -34,17 +33,6 @@ class SnapshotComparer
   end
 
   private
-
-  # @param snapshot [Snapshot]
-  # @return [ChunkyPNG::Image]
-  def to_chunky_png(snapshot)
-    case snapshot.image.options[:storage]
-    when :s3
-      ChunkyPNG::Image.from_io(open(snapshot.image.url))
-    when :filesystem
-      ChunkyPNG::Image.from_file(snapshot.image.path)
-    end
-  end
 
   # @param [ChunkyPNG::Image]
   # @return [Array<Array<Integer>>]
