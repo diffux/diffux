@@ -148,12 +148,12 @@ curl --header "Accept: application/json" \
 
 More about the JSON data:
 
-| key             | required | description
-| --------------- | -------- | -----------
-| `title`         | Yes      | A name/short description of the sweep, e.g. the name of the release/deploy.
-| `description`   | No       | A longer description, e.g. the full release notes.
-| `delay_seconds` | No       | Number of seconds to delay the sweep with. This could be useful if you have an async release process.
-| `email`         | No       | An email address to send a message to when the sweep is ready (all snapshots taken and compared).
+key             | required | description
+--------------- | -------- | -----------
+`title`         | Yes      | A name/short description of the sweep, e.g. the name of the release/deploy.
+`description`   | No       | A longer description, e.g. the full release notes.
+`delay_seconds` | No       | Number of seconds to delay the sweep with. This could be useful if you have an async release process.
+`email`         | No       | An email address to send a message to when the sweep is ready (all snapshots taken and compared).
 
 ## License
 
