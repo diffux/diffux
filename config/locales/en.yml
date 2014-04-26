@@ -68,6 +68,11 @@ en:
     form:
       one_per_line: One per line
   sweeps:
+    show:
+      second:
+        one: '%{count} second'
+        other: '%{count} seconds'
+      delay_notice: 'This sweep is scheduled to start in %{time}'
     new:
       title: New Sweep
       intro: >

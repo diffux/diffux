@@ -2,7 +2,7 @@
 
 = render 'shared/breadcrumbs',
   crumbs: [[@project.name, @project],
-           ['Sweeps', project_sweeps_path(@project)],
+           [Sweep.model_name.human(count: 2), project_sweeps_path(@project)],
            [@sweep.title]]
 
 .page-header
@@ -10,14 +10,13 @@
   - if seconds = @sweep.delay_seconds_remaining
     .alert.alert-info
       .i.glyphicon.glyphicon-timer
-      This sweep is scheduled to start in
-      = pluralize(seconds, 'second')
+      = t('.delay_notice', time: t('.second', count: seconds))
   = sweep_progress_bar(@sweep)
   = simple_format h(@sweep.description), class: 'help'
 
 - if snapshots = @sweep.snapshots.presence
   .panel.panel-info
     .panel-heading
-      %h2.panel-title Snapshots
+      %h2.panel-title= Snapshot.model_name.human(count: 2)
     .panel-body.snapshots
       = render snapshots
