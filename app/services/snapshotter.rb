@@ -10,7 +10,8 @@ class Snapshotter
   # @param outfile [File] where to store the snapshot PNG.
   # @param user_agent [String] an optional useragent string to used when
   #   requesting the page.
-  def initialize(url:, viewport_width:, outfile:, user_agent: nil)
+  def initialize(url:     raise, viewport_width: raise,
+                 outfile: raise, user_agent: nil)
     @viewport_width = viewport_width
     @user_agent     = user_agent
     @outfile        = outfile
