@@ -22,10 +22,11 @@ modifications.
 
 Diffux requires:
 
-- ImageMagick
 - PostgreSQL
 - Redis
 - Ruby 2.0.0+
+- ImageMagick (only as part of generating thumbnails, not for creating the
+  diffs)
 
 ### Mac OS X (Using Homebrew)
 
