@@ -2,18 +2,18 @@
   = render 'shared/error_explanation', instance: @project
 
   .form-group
-    = f.label :name, 'Name', class: 'control-label'
+    = f.label :name, class: 'control-label'
     = f.text_field :name, class: 'form-control',
       autofocus: true, required: true
   .form-group
-    = f.label :viewport_widths, 'Viewport widths', class: 'control-label'
-    %small One per line
+    = f.label :viewport_widths, class: 'control-label'
+    %small= t('.one_per_line')
     = f.text_area :viewport_widths, rows: 4, class: 'form-control',
       required: true, title: 'Add at least one width'
   .form-group
-    = f.label :url_addresses, 'Web page addresses (URLs)', class: 'control-label'
-    %small One per line
+    = f.label :url_addresses, class: 'control-label'
+    %small= t('.one_per_line')
     = f.text_area :url_addresses, rows: 10, class: 'form-control',
       required: true, title: 'Add at least one URL'
   .form-group
-    = f.submit 'Save', class: 'btn btn-primary'
+    = f.submit class: 'btn btn-primary'

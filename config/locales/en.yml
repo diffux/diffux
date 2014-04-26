@@ -41,6 +41,8 @@ en:
         one: Sweep
         other: Sweeps
     attributes:
+      project:
+        url_addresses: Web page addresses (URLs)
       sweep:
         email: Email address
         delay_seconds: Delay snapshotting (seconds)
@@ -52,6 +54,11 @@ en:
       title: Edit Project
     new:
       title: New Project
+      intro: >
+        Add a project and specify the URLs and viewport widths (screen widths)
+        to use when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
+    form:
+      one_per_line: One per line
   sweeps:
     new:
       title: New Sweep
