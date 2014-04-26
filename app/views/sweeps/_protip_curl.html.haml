@@ -1,8 +1,7 @@
-%strong Protip:
-sweeps for this project can be triggered programmatically
+= t('.protip_html')
 %pre.small
   :plain
     curl --header "Accept: application/json" \
      --header "Content-Type: application/json" \
-     --data '{ "title": "Deploy #1", "description": "Release Notes: Fixed layout bug", "email": "username@example.com", "delay_seconds": 10 }' \
+     --data '{ "title": "#{t('.title')}", "description": "#{t('.description')}", "email": "#{t('.email')}", "delay_seconds": 10 }' \
      #{trigger_project_sweeps_url(@project)}

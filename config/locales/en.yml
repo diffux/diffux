@@ -19,6 +19,7 @@ en:
   product_name: Diffux
   edit: Edit
   delete: Delete
+  new_configuration: New configuration
   about: About
 
   activerecord:
@@ -54,6 +55,9 @@ en:
   sweeps:
     new:
       title: New Sweep
+      intro: >
+        Creating a Sweep triggers new Snapshots to be created for all URLs in
+        the Project.
     form:
       email_help: >
         If you specify an email address here, a message will be sent to it when
@@ -61,6 +65,13 @@ en:
       delay_seconds_help: >
         Enter the number of seconds you wish to delay the start of snapshot
         creation with. Leave empty to start snapshotting immediately.
+    protip_curl:
+      protip_html: >
+        <strong>Protip:</strong> sweeps for this project can be triggered
+        programmatically
+      title: 'Deploy #1'
+      description: 'Release Notes: Fixed layout bug'
+      email: username@example.com
   snapshots:
     header_and_buttons:
       accept: Accept
