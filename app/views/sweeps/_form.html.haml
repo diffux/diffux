@@ -11,15 +11,12 @@
   .form-group
     = f.label :email, class: 'control-label'
     = f.text_field :email, class: 'form-control', type: 'email'
-    %p.help-block
-      If you specify an email address here, a message will be sent to it when
-      all snapshots are ready.
+    %p.help-block= t('.email_help')
   .form-group
     = f.label :delay_seconds, class: 'control-label'
     = f.text_field :delay_seconds, class: 'form-control', type: 'number',
       min: '1', step: '1', pattern: '\d+'
-    %p.help-block
-      Enter the number of seconds you wish to delay the start of snapshot
-      creation with. Leave empty to start snapshotting immediately.
+    %p.help-block= t('.delay_seconds_help')
+
   .form-group
-    = f.submit t('.start'), class: 'btn btn-primary'
+    = f.submit class: 'btn btn-primary'

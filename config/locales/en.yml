@@ -11,6 +11,11 @@ en:
         one:   1 year
         other: "%{count} years"
 
+  helpers:
+    submit:
+      sweep:
+        create: Start Sweep
+
   product_name: Diffux
   edit: Edit
   delete: Delete
@@ -50,7 +55,12 @@ en:
     new:
       title: New Sweep
     form:
-      start: Start Sweep
+      email_help: >
+        If you specify an email address here, a message will be sent to it when
+        all snapshots are ready.
+      delay_seconds_help: >
+        Enter the number of seconds you wish to delay the start of snapshot
+        creation with. Leave empty to start snapshotting immediately.
   snapshots:
     header_and_buttons:
       accept: Accept
