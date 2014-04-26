@@ -22,11 +22,14 @@ modifications.
 
 Diffux requires:
 
-- PostgreSQL
 - Redis
 - Ruby 2.0.0+
 - ImageMagick (only as part of generating thumbnails, not for creating the
   diffs)
+
+Optional requirements:
+
+- PostgreSQL (SQLite is used by default)
 
 ### Mac OS X (Using Homebrew)
 
@@ -41,13 +44,15 @@ cd diffux
 # install dependencies
 brew update
 brew doctor
-brew install imagemagick postgresql redis
+brew install imagemagick redis
+
+# optionally install and start PostgreSQL (you can leave this step out if you
+# are ok with using SQLite)
+brew install postgresql
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 # install gems
 bundle install
-
-# start postgres
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 # start redis
 redis-server
