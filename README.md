@@ -159,6 +159,6 @@ More about the JSON data:
 
 Released under the MIT License.
 
-[Documentation]: http://rubydoc.info/github/trotzig/diffux/master/frames
+[Documentation]: http://rubydoc.info/github/diffux/diffux
 [Rails]: http://rubyonrails.org/
 [Sidekiq]: http://sidekiq.org/
