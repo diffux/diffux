@@ -4,55 +4,51 @@
 class Snapshotter
   SCRIPT_PATH = Rails.root.join('script', 'take-snapshot.js').to_s
 
-  def initialize(snapshot)
-    @snapshot = snapshot
-    @url      = snapshot.url
-    @viewport = snapshot.viewport
+  # @param url [String} the URL to snapshot
+  # @param viewport_width [Integer] the width of the screen used when
+  #   snapshotting
+  # @param outfile [File] where to store the snapshot PNG.
+  # @param user_agent [String] an optional useragent string to used when
+  #   requesting the page.
+  def initialize(url:, viewport_width:, outfile:, user_agent: nil)
+    @viewport_width = viewport_width
+    @user_agent     = user_agent
+    @outfile        = outfile
+    @url            = url
   end
 
-  # @return [Boolean]
+  # Takes a snapshot of the URL and saves it in the out_file as a PNG image.
+  #
+  # @return [Hash] a hash containing the following keys:
+  #   title [String] the <title> of the page being snapshotted
+  #   log   [String] a log of events happened during the snapshotting process
   def take_snapshot!
     result = {}
+    opts = {
+      address: @url,
+      outfile: @outfile,
+      viewportSize: {
+        width:  @viewport_width,
+        height: @viewport_width,
+      },
+    }
+    opts[:userAgent] = @user_agent if @user_agent
 
-    FileUtil.with_tempfile do |snapshot_file|
-      opts = {
-        address: @url.address,
-        outfile: snapshot_file,
-        viewportSize: {
-          width:  @viewport.width,
-          height: @viewport.height,
-        },
-      }
-      opts[:userAgent] = @viewport.user_agent if @viewport.user_agent
-
-      Rails.logger.info "Taking snapshot of #{@url} @ #{@viewport}"
-      run_phantomjs(opts) do |line|
-        begin
-          result = JSON.parse line, symbolize_names: true
-        rescue JSON::ParserError
-          # We only expect a single line of JSON to be output by our snapshot
-          # script. If something else is happening, it is likely a JavaScript
-          # error on the page and we should just forget about it and move on
-          # with our lives.
-        end
+    Rails.logger.info "Taking snapshot of #{@url} @ #{@viewport_width}"
+    run_phantomjs(opts) do |line|
+      begin
+        result = JSON.parse line, symbolize_names: true
+      rescue JSON::ParserError
+        # We only expect a single line of JSON to be output by our snapshot
+        # script. If something else is happening, it is likely a JavaScript
+        # error on the page and we should just forget about it and move on
+        # with our lives.
       end
-
-      Rails.logger.info "Saving snapshot of #{@url} @ #{@viewport}"
-      save_file_to_snapshot(@snapshot, snapshot_file)
-      @snapshot.title = result[:title]
-      @snapshot.log   = result[:log]
     end
-
-    @snapshot.save!
+    result
   end
 
   private
-
-  def save_file_to_snapshot(snapshot, file)
-    File.open(file) do |f|
-      snapshot.image = f
-    end
-  end
 
   def run_phantomjs(options)
     Phantomjs.run('--ignore-ssl-errors=true',
