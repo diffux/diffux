@@ -13,7 +13,7 @@ module SnapshotsHelper
   end
 
   def start_new_sweep_button(project)
-    link_to 'Start new sweep', new_project_sweep_path(project),
+    link_to t(:new_sweep), new_project_sweep_path(project),
             class: 'btn btn-primary'
   end
 end

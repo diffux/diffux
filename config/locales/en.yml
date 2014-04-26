@@ -21,6 +21,7 @@ en:
   delete: Delete
   new_configuration: New configuration
   about: About
+  new_sweep: Start a Sweep
 
   activerecord:
     models:
@@ -57,6 +58,13 @@ en:
       intro: >
         Add a project and specify the URLs and viewport widths (screen widths)
         to use when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
+    show:
+      edit: Edit Project
+      delete: Delete Project
+      delete_confirm: 'Are you sure you want to delete the Project "%{name}"?'
+      edit_viewport: Edit Viewport
+      last_sweep: Last Sweep
+      new_snapshots: Create new Snapshots for this URL
     form:
       one_per_line: One per line
   sweeps:

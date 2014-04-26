@@ -7,31 +7,31 @@
     %span.glyphicon.glyphicon-book
     = yield :title
     %small
-      = link_to edit_project_path(@project), title: t(:edit) do
+      = link_to edit_project_path(@project), title: t('.edit') do
         %span.glyphicon.glyphicon-edit<>
-      = link_to @project, method: :delete, title: t(:delete),
-                          data: { confirm: 'Are you sure?' } do
+      = link_to @project, method: :delete, title: t('.delete'),
+                          data: { confirm: t('.delete_confirm',
+                                  name: @project.name) } do
         %span.glyphicon.glyphicon-remove<>
 
 %table.table.table-vertical
   %tr
-    %th
-      Viewports
+    %th= Viewport.model_name.human(count: 2)
     %td
       %ul.list-inline.project-viewports
         - @project.viewports.each do |viewport|
           %li
             = viewport
-            = link_to edit_viewport_path(viewport), title: 'Edit viewport' do
+            = link_to edit_viewport_path(viewport),
+                      title: t('.edit_viewport') do
               %span.glyphicon.glyphicon-edit<>
   %tr{ data: { keyboard_focusable: true } }
-    %th
-      Sweeps
+    %th= Sweep.model_name.human(count: 2)
     %td
       = link_to @project.sweeps.count, project_sweeps_path(@project)
   - if last_sweep = @project.last_sweep
     %tr{ data: { keyboard_focusable: true } }
-      %th Last sweep
+      %th= t('.last_sweep')
       %td
         = link_to last_sweep.title, [@project, last_sweep], title: last_sweep.description
         = sweep_progress_bar(last_sweep)
@@ -41,8 +41,8 @@
 %table.table
   %thead
     %tr
-      %th URL
-      %th Snapshots
+      %th= Url.model_name.human
+      %th= Snapshot.model_name.human(count: 2)
       %th
   %tbody
     - @project.urls.each do |url|
@@ -55,5 +55,5 @@
         %td.numeric= url.snapshots.size
         %td
           = link_to snapshots_path(url: url.id), method: :post,
-                    title: 'Create new snapshots for this URL' do
+                    title: t('.new_snapshots') do
             %span.glyphicon.glyphicon-camera
