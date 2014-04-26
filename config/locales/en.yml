@@ -35,11 +35,7 @@ en:
         one: Sweep
         other: Sweeps
     attributes:
-      project:
-        name: Name
       sweep:
-        title: Title
-        description: Description
         email: Email address
         delay_seconds: Delay snapshotting (seconds)
 
