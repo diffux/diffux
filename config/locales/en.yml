@@ -17,8 +17,6 @@ en:
         create: Start Sweep
 
   product_name: Diffux
-  edit: Edit
-  delete: Delete
   new_configuration: New configuration
   about: About
   new_sweep: Start a Sweep
