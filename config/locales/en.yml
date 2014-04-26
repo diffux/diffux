@@ -93,6 +93,21 @@ en:
       description: 'Release Notes: Fixed layout bug'
       email: username@example.com
   snapshots:
+    show:
+      compared_against_html: 'This Snapshot was compared against %{baseline}.'
+      baseline: this baseline Snapshot
+      png_links_html: >
+        You can access %{before_png} and %{after_png} separately if you wish.
+      before_png: the before-image PNG
+      after_png: the after-image PNG
+      no_baseline_html: >
+        <strong>No baseline found.</strong> This Snapshot did not have a
+        baseline to compare itself against. This will happen if the Snapshot is
+        the first one for a URL or if no Snapshot has been accepted for the
+        URL. If you accept this Snapshot, it will be used as the baseline for
+        the next Snapshot.
+      debug: Need to debug the output from the snapshotting process?
+      debug_link: View debug log
     header_and_buttons:
       accept: Accept
       accepted: Accepted

@@ -23,7 +23,7 @@ class Snapshot < ActiveRecord::Base
   after_commit :refresh_sweep, on: [:create, :update]
 
   def diff?
-    snapshot_diff_id? && snapshot_diff.before_snapshot != self
+    snapshot_diff_id? && before_snapshot != self
   end
 
   def accept
@@ -71,11 +71,17 @@ class Snapshot < ActiveRecord::Base
     SnapshotterWorker.perform_async(id)
   end
 
+  # @return [Snapshot]
+  def before_snapshot
+    return unless snapshot_diff
+    snapshot_diff.before_snapshot
+  end
+
   private
 
   def auto_accept
     return unless snapshot_diff
-    return if snapshot_diff.before_snapshot == self
+    return if before_snapshot == self
     return if rejected?
     self.accepted_at = Time.now if snapshot_diff.diff_in_percent == 0
   end

@@ -1,9 +1,13 @@
-- provide :title, "Snapshot | #{@snapshot.url_id}"
+- provide :title do
+  = Snapshot.model_name.human
+  |
+  = @snapshot.url_id
 
 :ruby
   crumbs = [[@snapshot.url.project.name, project_path(@snapshot.url.project)]]
   if @snapshot.sweep
-    crumbs << ['Sweeps', project_sweeps_path(@snapshot.url.project)]
+    crumbs << [Sweep.model_name.human(count: 2),
+               project_sweeps_path(@snapshot.url.project)]
     crumbs << [@snapshot.sweep.title, [@snapshot.url.project, @snapshot.sweep]]
     crumbs << [simplified_url(@snapshot.url.address)]
   else
@@ -29,29 +33,20 @@
         = image_tag @snapshot.image.url
 
     %p.text-muted.small
-      This snapshot was compared against
-      = succeed('.') do
-        = link_to 'this baseline snapshot', @snapshot.snapshot_diff.before_snapshot
-
-      You can access
-      = link_to 'the before-image PNG', @snapshot.snapshot_diff.before_snapshot.image.url,
-        target: '_blank'
-      and
-      = link_to 'the after-image PNG', @snapshot.image.url, target: '_blank'
-      separately if you wish.
+      = t('.compared_against_html',
+          baseline: link_to(t('.baseline'), @snapshot.before_snapshot))
+      = t('.png_links_html',
+          before_png: link_to(t('.before_png'), @snapshot.before_snapshot.image.url),
+          after_png:  link_to(t('.after_png'), @snapshot.image.url))
 
   - elsif !@snapshot.pending?
     .snapshot-diff-image
       .alert.alert-warning
-        %strong No baseline found.
-        This snapshot did not have a baseline to compare itself against. This
-        will happen if the snapshot is the first one for a URL or if no
-        snapshot has been accepted for the URL. If you accept this snapshot, it
-        will be used as the baseline for the next snapshot.
+        = t('.no_baseline_html')
       = image_tag @snapshot.image.url
 
   - if @snapshot.log
     %p.text-muted.small
-      Need to debug the output from the snapshotting process?
+      = t('.debug')
       = succeed '.' do
-        = link_to 'View debug log', view_log_snapshot_path(@snapshot)
+        = link_to t('.debug_link'), view_log_snapshot_path(@snapshot)
