@@ -67,7 +67,7 @@ describe ProjectsController do
       let!(:older_sweep) do
         create :sweep, project: project, created_at: 2.days.ago
       end
-      its(:body) { should include 'Last sweep' }
+      its(:body) { should include 'Last Sweep' }
       its(:body) { should include sweep.title }
     end
   end
