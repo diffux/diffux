@@ -91,6 +91,7 @@ en:
       intro_link: we'd love to hear about it
     edit:
       title: Edit Project
+      edit_project: 'Edit %{name}'
     new:
       title: New Project
       intro: >

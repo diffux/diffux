@@ -1,11 +1,8 @@
 - provide :title, t('.title')
 
-= render 'shared/breadcrumbs', crumbs: [["Edit #{@project.name}"]]
+= render 'shared/breadcrumbs',
+         crumbs: [[t('.edit_project', name: @project.name)]]
 
 %h1= yield :title
 
 = render 'projects/form'
-
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
