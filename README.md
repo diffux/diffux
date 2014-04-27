@@ -56,9 +56,6 @@ bundle install
 
 # start redis
 redis-server
-
-# create tables, load the schema, and run migrations
-bundle exec rake db:setup
 ```
 
 ## Initialize database configuration
@@ -69,6 +66,13 @@ your database setup. This is done by copying `config/database.yml.example` to
 
 ```bash
   cp config/database.yml.example config/database.yml
+```
+
+When you are done with that, it's time to setup the database schema.
+
+```bash
+# create tables, load the schema, and run migrations
+bundle exec rake db:setup
 ```
 
 ## Running the server
