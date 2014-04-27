@@ -47,6 +47,11 @@ en:
         delay_seconds: Delay snapshotting (seconds)
 
   shared:
+    error_explanation:
+      error:
+        one: '%{count} error'
+        other: '%{count} errors'
+      explanation: '%{error} prevented this %{instance} from being saved.'
     keyboard_help_modal:
       title: Keyboard shortcuts
       aria_labelledby: Keyoard shortcut help
