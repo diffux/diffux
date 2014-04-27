@@ -1,0 +1,192 @@
+en:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one:   1 hour
+        other: "%{count} hours"
+      about_x_months:
+        one:   1 month
+        other: "%{count} months"
+      about_x_years:
+        one:   1 year
+        other: "%{count} years"
+
+  helpers:
+    submit:
+      sweep:
+        create: Start Sweep
+
+  product_name: Diffux
+  new_configuration: New configuration
+  about: About
+  new_sweep: Start a Sweep
+  time_ago: '%{time} ago'
+  model_destroyed: '%{model_name} was successfully destroyed.'
+  model_updated: '%{model_name} was successfully updated.'
+  model_created:
+    one: '%{model_name} was successfully created.'
+    other: '%{model_name} were successfully created.'
+  snapshot_retaken: Snapshot is scheduled to be retaken.
+  snapshot_recompared: Snapshot is scheduled to be re-compared.
+  snapshots_pending:
+    one: '%{count} Snapshot pending'
+    other: '%{count} Snapshot pending'
+  snapshots_under_review:
+    one: '%{count} Snapshot under review'
+    other: '%{count} Snapshot under review'
+  snapshots_accepted_rejected: '%{accepted} accepted, %{rejected} rejected'
+  snapshots_all_accepted: All accepted
+  sweep_initiated: Sweep was successfully initiated.
+  sweep_default_title: 'Anonymous sweep - %{time}'
+
+  activerecord:
+    models:
+      project:
+        one: Project
+        other: Projects
+      snapshot:
+        one: Snapshot
+        other: Snapshots
+      snapshot_diff: Diff
+      viewport:
+        one: Viewport
+        other: Viewports
+      url:
+        one: URL
+        other: URLs
+      sweep:
+        one: Sweep
+        other: Sweeps
+    attributes:
+      project:
+        url_addresses: Web page addresses (URLs)
+      sweep:
+        email: Email address
+        delay_seconds: Delay snapshotting (seconds)
+        created_at: When
+
+  shared:
+    error_explanation:
+      error:
+        one: '%{count} error'
+        other: '%{count} errors'
+      explanation: '%{error} prevented this %{instance} from being saved.'
+    keyboard_help_modal:
+      title: Keyboard shortcuts
+      aria_labelledby: Keyoard shortcut help
+      key: Key
+      action: Action
+      ?:  Opens this help window
+      k:  Moves up to the next focusable item on the page
+      j:  Moves down to the next focusable item on the page
+      gg: Jumps to the top of the page and selects the first focusable item
+      G:  Jumps to the bottom of the page and selects the last focusable item
+      o:  Opens the currently focused item. Also <kbd>&lt;Enter&gt;</kbd>.
+      u:  Takes you one step up in the page hierarchy
+      a:  Accepts a snapshot
+      r:  Rejects a snapshot
+      J:  Moves to the next snapshot in a sweep. Also <kbd>]</kbd>.
+      K:  Moves to the previous snapshot in a sweep. Also <kbd>[</kbd>.
+      x:  Flips between the diff, the before and the after image for a snapshot
+  projects:
+    index:
+      last_sweep: Last Sweep
+      new_project: Add new Project
+      intro_html: >
+        <h1>Hello, nice to meet you.</h1>
+
+        <p>Thanks for using Diffux! If you happen to bump into a problem or
+        think of a feature you'd like to see, %{link}.  And, if you are the
+        coding type, we'd be delighted to accept your pull requests.</p>
+
+        <p>There are plenty of keyboard shortcuts to help you use Diffux
+        efficiently. Just press <kbd>?</kbd> to see all of the keyboard
+        shortcuts.</p>
+
+        <p>But first, you'll want to create a new project and give it some
+        viewport widths and URLs to snapshot.</p>
+      intro_link: we'd love to hear about it
+    edit:
+      title: Edit Project
+      edit_project: 'Edit %{name}'
+    new:
+      title: New Project
+      intro: >
+        Add a project and specify the URLs and viewport widths (screen widths)
+        to use when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
+    show:
+      edit: Edit Project
+      delete: Delete Project
+      delete_confirm: 'Are you sure you want to delete the Project "%{name}"?'
+      edit_viewport: Edit Viewport
+      last_sweep: Last Sweep
+      new_snapshots: Create new Snapshots for this URL
+    form:
+      one_per_line: One per line
+  sweeps:
+    show:
+      second:
+        one: '%{count} second'
+        other: '%{count} seconds'
+      delay_notice: 'This sweep is scheduled to start in %{time}'
+    new:
+      title: New Sweep
+      intro: >
+        Creating a Sweep triggers new Snapshots to be created for all URLs in
+        the Project.
+    form:
+      email_help: >
+        If you specify an email address here, a message will be sent to it when
+        all snapshots are ready.
+      delay_seconds_help: >
+        Enter the number of seconds you wish to delay the start of snapshot
+        creation with. Leave empty to start snapshotting immediately.
+    protip_curl:
+      protip_html: >
+        <strong>Protip:</strong> sweeps for this project can be triggered
+        programmatically
+      title: 'Deploy #1'
+      description: 'Release Notes: Fixed layout bug'
+      email: username@example.com
+  snapshots:
+    show:
+      compared_against_html: 'This Snapshot was compared against %{baseline}.'
+      baseline: this baseline Snapshot
+      png_links_html: >
+        You can access %{before_png} and %{after_png} separately if you wish.
+      before_png: the before-image PNG
+      after_png: the after-image PNG
+      no_baseline_html: >
+        <strong>No baseline found.</strong> This Snapshot did not have a
+        baseline to compare itself against. This will happen if the Snapshot is
+        the first one for a URL or if no Snapshot has been accepted for the
+        URL. If you accept this Snapshot, it will be used as the baseline for
+        the next Snapshot.
+      debug: Need to debug the output from the snapshotting process?
+      debug_link: View debug log
+    header_and_buttons:
+      delete: Remove Snapshot
+      delete_confirm: Are you sure you want to remove this Snapshot?
+      retake: Re-take Snapshot
+      recompare: Re-compare Snapshot
+      accept: Accept
+      accepted: Accepted
+      reject: Reject
+      rejected: Rejected
+      pending: Pending
+      unknown_state: Unknown state
+    snapshot:
+      diff: '%{diff} diff'
+    review_list:
+      previous_in_sweep: Previous in Sweep
+      next_in_sweep: Next in Sweep
+    view_log:
+      info: >
+        This is a log from when this snapshot image was created with PhantomJS.
+      no_log_html: >
+        <strong>Oops!</strong> Nothing has been logged for this snapshot.
+  urls:
+    show:
+      delete: Delete URL
+      delete_confirm: 'Are you sure you want to delete the URL "%{title}"?'
+      create_snapshots: Create new Snapshots
