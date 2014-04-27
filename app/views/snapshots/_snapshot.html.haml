@@ -20,7 +20,7 @@
 
   .caption
     = time_tag snapshot.created_at, class: 'text-muted' do
-      = t('.time_ago', time: time_ago_in_words(snapshot.created_at))
+      = t(:time_ago, time: time_ago_in_words(snapshot.created_at))
     - if diff = snapshot.snapshot_diff
       %meter{ max: 100, optimum: 0, low: 5, high: 20, value: diff.diff_in_percent }<
         %span.text-warning<

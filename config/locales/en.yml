@@ -20,6 +20,7 @@ en:
   new_configuration: New configuration
   about: About
   new_sweep: Start a Sweep
+  time_ago: '%{time} ago'
 
   activerecord:
     models:
@@ -45,6 +46,7 @@ en:
       sweep:
         email: Email address
         delay_seconds: Delay snapshotting (seconds)
+        created_at: When
 
   shared:
     error_explanation:
@@ -145,7 +147,6 @@ en:
       debug: Need to debug the output from the snapshotting process?
       debug_link: View debug log
     header_and_buttons:
-      time_ago: '%{time} ago'
       delete: Remove Snapshot
       delete_confirm: Are you sure you want to remove this Snapshot?
       retake: Re-take Snapshot
@@ -157,7 +158,6 @@ en:
       pending: Pending
       unknown_state: Unknown state
     snapshot:
-      time_ago: '%{time} ago'
       diff: '%{diff} diff'
     review_list:
       previous_in_sweep: Previous in Sweep

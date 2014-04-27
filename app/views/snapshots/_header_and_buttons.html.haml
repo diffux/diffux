@@ -5,7 +5,7 @@
       = Snapshot.model_name.human
       %small
         = time_tag @snapshot.created_at do
-          = t('.time_ago', time: time_ago_in_words(@snapshot.created_at)
+          = t(:time_ago, time: time_ago_in_words(@snapshot.created_at)
 
         = form_tag @snapshot, method: :delete,
                    data: { confirm: t('.delete_confirm') } do

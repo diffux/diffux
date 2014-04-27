@@ -2,7 +2,7 @@
 
 = render 'shared/breadcrumbs',
   crumbs: [[@project.name, @project],
-           ['Sweeps']]
+           [Sweep.model_name.human(count: 2)]]
 
 .page-header
   %h1
@@ -14,9 +14,9 @@
 %table.table.table-striped
   %thead
     %tr
-      %th Title
-      %th When
-      %th Status
+      %th= Sweep.human_attribute_name(:title)
+      %th= Sweep.human_attribute_name(:created_at)
+      %th= t('.status')
 
   %tbody
     - @project.sweeps.each do |sweep|
@@ -24,5 +24,5 @@
         %td= link_to sweep.title, [@project, sweep], title: sweep.description
         %td
           = time_tag sweep.created_at do
-            = time_ago_in_words(sweep.created_at)  + ' ago'
+            = t(:time_ago, time: time_ago_in_words(sweep.created_at))
         %td= sweep_progress_bar(sweep)
