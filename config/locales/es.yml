@@ -2,191 +2,191 @@ en:
   datetime:
     distance_in_words:
       about_x_hours:
-        one:   1 hour
-        other: "%{count} hours"
+        one:   1 hora
+        other: "%{count} horas"
       about_x_months:
-        one:   1 month
-        other: "%{count} months"
+        one:   1 mes
+        other: "%{count} meses"
       about_x_years:
-        one:   1 year
-        other: "%{count} years"
+        one:   1 año
+        other: "%{count} años"
 
   helpers:
     submit:
       sweep:
-        create: Start Sweep
+        create: Crear Barrido
 
   product_name: Diffux
-  new_configuration: New configuration
-  about: About
-  new_sweep: Start a Sweep
-  time_ago: '%{time} ago'
-  model_destroyed: '%{model_name} was successfully destroyed.'
-  model_updated: '%{model_name} was successfully updated.'
+  new_configuration: Nueva configuración.
+  about: Sobre Diffux
+  new_sweep: Empezar un Barrido
+  time_ago: 'Hace %{time}'
+  model_destroyed: '%{model_name} fue eliminado con éxito.'
+  model_updated: '%{model_name} fue actualizado con éxito.'
   model_created:
-    one: '%{model_name} was successfully created.'
-    other: '%{model_name} were successfully created.'
-  snapshot_retaken: Snapshot is scheduled to be retaken.
-  snapshot_recompared: Snapshot is scheduled to be re-compared.
+    one: '%{model_name} fue creado con éxito.'
+    other: '%{model_name} fueron creados con éxito.'
+  snapshot_retaken: Se ha programado una nueva toma de esta Captura.
+  snapshot_recompared: Se ha programado una nueva comparación de esta Captura.
   snapshots_pending:
-    one: '%{count} Snapshot pending'
-    other: '%{count} Snapshot pending'
+    one: '%{count} Captura pendiente'
+    other: '%{count} Capturas pendientes'
   snapshots_under_review:
-    one: '%{count} Snapshot under review'
-    other: '%{count} Snapshot under review'
-  snapshots_accepted_rejected: '%{accepted} accepted, %{rejected} rejected'
-  snapshots_all_accepted: All accepted
-  sweep_initiated: Sweep was successfully initiated.
-  sweep_default_title: 'Anonymous sweep - %{time}'
+    one: '%{count} Captura bajo revisión'
+    other: '%{count} Capturas bajo revisión'
+  snapshots_accepted_rejected: '%{accepted} aceptada(s), %{rejected} rechazada(s)'
+  snapshots_all_accepted: Todas aceptadas.
+  sweep_initiated: Barrido iniciado con éxito.
+  sweep_default_title: 'Barrido anónimo - %{time}'
 
   activerecord:
     models:
       project:
-        one: Project
-        other: Projects
+        one: Proyecto
+        other: Proyectos
       snapshot:
-        one: Snapshot
-        other: Snapshots
-      snapshot_diff: Diff
+        one: Captura
+        other: Capturas
+      snapshot_diff: Diferencia
       viewport:
-        one: Viewport
-        other: Viewports
+        one: Ancho de Pantalla
+        other: Anchos de Pantalla
       url:
         one: URL
         other: URLs
       sweep:
-        one: Sweep
-        other: Sweeps
+        one: Barrido
+        other: Barridos
     attributes:
       project:
-        url_addresses: Web page addresses (URLs)
+        url_addresses: Direcciones Web (URLs)
       sweep:
-        email: Email address
-        delay_seconds: Delay snapshotting (seconds)
-        created_at: When
+        email: Dirección de Email.
+        delay_seconds: Retrasar capturas (segundos)
+        created_at: Cuando
 
   shared:
     error_explanation:
       error:
         one: '%{count} error'
-        other: '%{count} errors'
-      explanation: '%{error} prevented this %{instance} from being saved.'
+        other: '%{count} errores'
+      explanation: '%{error} impidió que esta %{instance} fuera guardada.'
     keyboard_help_modal:
-      title: Keyboard shortcuts
-      aria_labelledby: Keyoard shortcut help
-      key: Key
-      action: Action
-      ?:  Opens this help window
-      k:  Moves up to the next focusable item on the page
-      j:  Moves down to the next focusable item on the page
-      gg: Jumps to the top of the page and selects the first focusable item
-      G:  Jumps to the bottom of the page and selects the last focusable item
-      o:  Opens the currently focused item. Also <kbd>&lt;Enter&gt;</kbd>.
-      u:  Takes you one step up in the page hierarchy
-      a:  Accepts a snapshot
-      r:  Rejects a snapshot
-      J:  Moves to the next snapshot in a sweep. Also <kbd>]</kbd>.
-      K:  Moves to the previous snapshot in a sweep. Also <kbd>[</kbd>.
-      x:  Flips between the diff, the before and the after image for a snapshot
+      title: Atajos de teclado
+      aria_labelledby: Ayuda de atajos de teclado
+      key: Tecla
+      action: Acción
+      ?:  Abre esta ventana de ayuda
+      k:  Selecciona el siguiente elemento en la página
+      j:  Selecciona el elemento anterior en la página
+      gg: Va al principio de la página y selecciona el primer elemento
+      G:  Va al final de la página y selecciona el último elemento
+      o:  Abre el elemento seleccionado. También <kbd>&lt;Intro&gt;</kbd>.
+      u:  Sube un nivel en la jerarquía de la página
+      a:  Acepta una captura.
+      r:  Rechaza una captura.
+      J:  Va a la siguiente captura en un barrido. También <kbd>]</kbd>.
+      K:  Va a la captura anterior en un barrido. También <kbd>[</kbd>.
+      x:  Alterna entre las diferencias, la imagen anterior y posterior de una captura.
   projects:
     index:
-      last_sweep: Last Sweep
-      new_project: Add new Project
+      last_sweep: Último Barrido
+      new_project: Añadir nuevo Proyecto
       intro_html: >
-        <h1>Hello, nice to meet you.</h1>
+        <h1>Hola, que alegría verte.</h1>
 
-        <p>Thanks for using Diffux! If you happen to bump into a problem or
-        think of a feature you'd like to see, %{link}.  And, if you are the
-        coding type, we'd be delighted to accept your pull requests.</p>
+        <p>¡Gracias por usar Diffux! Si te surgiera algún problema o
+        tienes alguna idea de como mejorar Diffux, %{link}.  Y, si eres de los que
+        saben programar, estaremos encantados de aceptar tus pull requests.</p>
 
-        <p>There are plenty of keyboard shortcuts to help you use Diffux
-        efficiently. Just press <kbd>?</kbd> to see all of the keyboard
-        shortcuts.</p>
+        <p>Hay un montón de atajos de teclado para ayudarte a usar Diffux
+        de forma más eficiente. Puedes pulsar <kbd>?</kbd> para ver todos los atajos
+        disponibles.</p>
 
-        <p>But first, you'll want to create a new project and give it some
-        viewport widths and URLs to snapshot.</p>
-      intro_link: we'd love to hear about it
+        <p>Pero primero, querrás crear un nuevo proyecto y darle algunos anchos de 
+        pantalla y URLs de las que quieres tomar capturas.</p>
+      intro_link: nos encantaria oirlas
     edit:
-      title: Edit Project
-      edit_project: 'Edit %{name}'
+      title: Editar Proyecto
+      edit_project: 'Editar %{name}'
     new:
-      title: New Project
+      title: Nuevo Proyecto
       intro: >
-        Add a project and specify the URLs and viewport widths (screen widths)
-        to use when taking snapshots. Widths: 320 = mobile, 1024 = iPad (2).
+        Añade un proyecto y especifica las URLs y anchos de pantalla a usar
+        para tomar las capturas. Anchos: 320 = móvil, 1024 = iPad (2).
     show:
-      edit: Edit Project
-      delete: Delete Project
-      delete_confirm: 'Are you sure you want to delete the Project "%{name}"?'
-      edit_viewport: Edit Viewport
-      last_sweep: Last Sweep
-      new_snapshots: Create new Snapshots for this URL
+      edit: Editar Proyecto
+      delete: Eliminar Proyecto
+      delete_confirm: '¿Estás seguro de querer eliminar el Proyecto "%{name}"?'
+      edit_viewport: Editar Ancho de Pantalla
+      last_sweep: Último barrido
+      new_snapshots: Crear nuevas capturas para esta URL
     form:
-      one_per_line: One per line
+      one_per_line: Una por línea
   sweeps:
     show:
       second:
-        one: '%{count} second'
-        other: '%{count} seconds'
-      delay_notice: 'This sweep is scheduled to start in %{time}'
+        one: '%{count} segundo'
+        other: '%{count} segundos'
+      delay_notice: 'Este barrido está programado para empezar en %{time}'
     new:
-      title: New Sweep
+      title: Nuevo Barrido
       intro: >
-        Creating a Sweep triggers new Snapshots to be created for all URLs in
-        the Project.
+        Crear un Barrido genera nuevas capturas para todas las URLs del 
+        Proyecto.
     form:
       email_help: >
-        If you specify an email address here, a message will be sent to it when
-        all snapshots are ready.
+        Si especificas una dirección de email aquí, se le enviará un mensaje 
+        cuando todas las capturas estén listas.
       delay_seconds_help: >
-        Enter the number of seconds you wish to delay the start of snapshot
-        creation with. Leave empty to start snapshotting immediately.
+        Introduce el número de segundos que deseas retrasar el comienzo de la 
+        creación de capturas. Déjalo vacío para empezar inmediatamente.
     protip_curl:
       protip_html: >
-        <strong>Protip:</strong> sweeps for this project can be triggered
-        programmatically
+        <strong>Protip:</strong> los barridos para este proyecto pueden ser 
+        generados automáticamente.
       title: 'Deploy #1'
-      description: 'Release Notes: Fixed layout bug'
+      description: 'Notas de Publicación: Arreglado fallo en la maquetación.'
       email: username@example.com
   snapshots:
     show:
-      compared_against_html: 'This Snapshot was compared against %{baseline}.'
-      baseline: this baseline Snapshot
+      compared_against_html: 'Esta Captura fue comparada con %{baseline}.'
+      baseline: esta Captura inicial.
       png_links_html: >
-        You can access %{before_png} and %{after_png} separately if you wish.
-      before_png: the before-image PNG
-      after_png: the after-image PNG
+        Puedes acceder a %{before_png} y %{after_png} por separado, si quieres.
+      before_png: Imagen anterior PNG
+      after_png: Imagen posterior PNG
       no_baseline_html: >
-        <strong>No baseline found.</strong> This Snapshot did not have a
-        baseline to compare itself against. This will happen if the Snapshot is
-        the first one for a URL or if no Snapshot has been accepted for the
-        URL. If you accept this Snapshot, it will be used as the baseline for
-        the next Snapshot.
-      debug: Need to debug the output from the snapshotting process?
-      debug_link: View debug log
+        <strong>No se encontró una Captura inicial.</strong> Esta Captura no 
+        tenía una Captura inicial a la que compararse. Esto puede ser debido 
+        a que esta Captura es la primera para una URL o a que no se ha 
+        aceptado una captura previa para esta URL. Si aceptas esta Captura, 
+        será usada como Captura inicial para la siguiente Captura.
+      debug: ¿Necesitas depurar el resultado del proceso de captura?
+      debug_link: Ver registro de depuración.
     header_and_buttons:
-      delete: Remove Snapshot
-      delete_confirm: Are you sure you want to remove this Snapshot?
-      retake: Re-take Snapshot
-      recompare: Re-compare Snapshot
-      accept: Accept
-      accepted: Accepted
-      reject: Reject
-      rejected: Rejected
-      pending: Pending
-      unknown_state: Unknown state
+      delete: Eliminar Captura
+      delete_confirm: ¿Estás seguro de querer eliminar esta captura?
+      retake: Tomar Captura de nuevo
+      recompare: Comparar Captura de nuevo
+      accept: Aceptar
+      accepted: Aceptada
+      reject: Rechazar
+      rejected: Rechazada
+      pending: Pendiente
+      unknown_state: Estado desconocido
     snapshot:
-      diff: '%{diff} diff'
+      diff: '%{diff} diferecia'
     review_list:
-      previous_in_sweep: Previous in Sweep
-      next_in_sweep: Next in Sweep
+      previous_in_sweep: Anterior en este Barrido
+      next_in_sweep: Siguiente en este Barrido
     view_log:
       info: >
-        This is a log from when this snapshot image was created with PhantomJS.
+        Esto es un diario de cuando esta captura fue creada con PhantomJS.
       no_log_html: >
-        <strong>Oops!</strong> Nothing has been logged for this snapshot.
+        <strong>Uy!</strong> No hay registros para esta Captura.
   urls:
     show:
-      delete: Delete URL
-      delete_confirm: 'Are you sure you want to delete the URL "%{title}"?'
-      create_snapshots: Create new Snapshots
+      delete: Eliminar URL
+      delete_confirm: '¿Estás seguro de querer borrar la URL "%{title}"?'
+      create_snapshots: Crear nuevas Capturas
