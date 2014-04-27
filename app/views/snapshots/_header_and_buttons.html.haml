@@ -5,18 +5,20 @@
       = Snapshot.model_name.human
       %small
         = time_tag @snapshot.created_at do
-          = time_ago_in_words(@snapshot.created_at) + ' ago'
+          = time_ago_in_words(@snapshot.created_at)
+          = t('.ago')
 
-        = form_tag @snapshot, method: :delete, data: { confirm: 'Are you sure?' } do
-          %button.btn.btn-link{ title: 'Remove snapshot' }
+        = form_tag @snapshot, method: :delete,
+                   data: { confirm: t('.delete_confirm') } do
+          %button.btn.btn-link{ title: t('.delete') }
             %span.glyphicon.glyphicon-remove
 
         = form_tag take_snapshot_snapshot_path(@snapshot), method: :post do
-          %button.btn.btn-link{ title: 'Re-take snapshot' }
+          %button.btn.btn-link{ title: t('.retake') }
             %span.glyphicon.glyphicon-repeat
 
         = form_tag compare_snapshot_snapshot_path(@snapshot), method: :post do
-          %button.btn.btn-link{ title: 'Re-compare snapshot'}
+          %button.btn.btn-link{ title: t('.recompare') }
             %span.glyphicon.glyphicon-refresh
 
     .snapshot-buttons

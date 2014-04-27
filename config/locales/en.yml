@@ -145,6 +145,11 @@ en:
       debug: Need to debug the output from the snapshotting process?
       debug_link: View debug log
     header_and_buttons:
+      ago: ago
+      delete: Remove Snapshot
+      delete_confirm: Are you sure you want to remove this Snapshot?
+      retake: Re-take Snapshot
+      recompare: Re-compare Snapshot
       accept: Accept
       accepted: Accepted
       reject: Reject
