@@ -9,7 +9,7 @@ class ViewportsController < ApplicationController
   def update
     if @viewport.update_attributes(viewport_params)
       redirect_to @viewport.project,
-                  notice: 'Viewport was successfully updated.'
+                  t(:model_updated, model_name: @viewport.class.model_name.human)
     else
       render action: 'edit'
     end

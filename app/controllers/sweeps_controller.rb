@@ -11,13 +11,12 @@ class SweepsController < ApplicationController
   end
 
   def new
-    @sweep = @project.sweeps.build(title: "Anonymous sweep - #{Time.now}")
+    @sweep = @project.sweeps.build(title: t(:sweep_default_title, time: Time.now))
   end
 
   def create
     if create_sweep
-      redirect_to [@project, @sweep],
-                  notice: 'Sweep was successfully initiated.'
+      redirect_to [@project, @sweep], notice: t(:sweep_initiated)
     else
       render action: 'new'
     end

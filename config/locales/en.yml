@@ -21,6 +21,15 @@ en:
   about: About
   new_sweep: Start a Sweep
   time_ago: '%{time} ago'
+  model_destroyed: '%{model_name} was successfully destroyed.'
+  model_updated: '%{model_name} was successfully updated.'
+  model_created:
+    one: '%{model_name} was successfully created.'
+    other: '%{model_name} were successfully created.'
+  snapshot_retaken: Snapshot is scheduled to be retaken.
+  snapshot_recompared: Snapshot is scheduled to be re-compared.
+  sweep_initiated: Sweep was successfully initiated.
+  sweep_default_title: 'Anonymous sweep - %{time}'
 
   activerecord:
     models:

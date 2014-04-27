@@ -8,7 +8,9 @@ class UrlsController < ApplicationController
 
   def destroy
     @url.destroy
-    redirect_to :back, notice: 'Url was successfully destroyed.'
+    redirect_to :back,
+                notice: t(:model_destroyed,
+                          model_name: @url.class.model_name.human)
   end
 
   private

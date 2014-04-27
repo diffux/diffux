@@ -22,7 +22,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      redirect_to @project, notice: 'Project was successfully created.'
+      redirect_to @project,
+                  notice: t(:model_destroyed,
+                            model_name: @project.class.model_name.human)
     else
       render action: 'new'
     end
@@ -30,7 +32,9 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update_attributes(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+      redirect_to @project,
+                  notice: t(:model_updated,
+                            model_name: @project.class.model_name.human)
     else
       render action: 'edit'
     end
@@ -38,7 +42,9 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to projects_url, notice: 'Project was successfully destroyed.'
+    redirect_to projects_url,
+                notice: t(:model_destroyed,
+                          model_name: @project.class.model_name.human)
   end
 
   private

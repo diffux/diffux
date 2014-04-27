@@ -19,14 +19,18 @@ class SnapshotsController < ApplicationController
       @snapshot.save!
     end
 
-    redirect_to url, notice: 'Snapshots were successfully created.'
+    redirect_to url,
+                notice: t(:model_created,
+                          model_name: Snapshot.model_name.human(count: 2),
+                          count: 2)
   end
 
   def destroy
     @snapshot.destroy
 
     redirect_to @snapshot.url.project,
-                notice: 'Snapshot was successfully destroyed.'
+                notice: t(:model_destroyed,
+                          model_name: @snapshot.class.model_name.human)
   end
 
   def reject
@@ -61,8 +65,7 @@ class SnapshotsController < ApplicationController
 
     @snapshot.take_snapshot
 
-    redirect_to @snapshot,
-                notice: 'Snapshot is scheduled to be retaken.'
+    redirect_to @snapshot, notice: t(:snapshot_retaken)
   end
 
   def compare_snapshot
@@ -72,8 +75,7 @@ class SnapshotsController < ApplicationController
     @snapshot.snapshot_diff        = nil
     @snapshot.save! # triggers the comparison via after_commit hook
 
-    redirect_to @snapshot,
-                notice: 'Snapshot is scheduled to be re-compared.'
+    redirect_to @snapshot, notice: t(:snapshot_recompared)
   end
 
   private
