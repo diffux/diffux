@@ -162,6 +162,11 @@ en:
     review_list:
       previous_in_sweep: Previous in Sweep
       next_in_sweep: Next in Sweep
+    view_log:
+      info: >
+        This is a log from when this snapshot image was created with PhantomJS.
+      no_log_html: >
+        <strong>Oops!</strong> Nothing has been logged for this snapshot.
   urls:
     show:
       delete: Delete URL

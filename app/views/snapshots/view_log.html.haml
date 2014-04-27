@@ -1,8 +1,7 @@
 - if @snapshot.log
   .alert.alert-info
-    This is a log from when this snapshot image was created with PhantomJS.
+    = t('.info')
   = simple_format @snapshot.log
 - else
   .alert.alert-warning
-    %strong Oops!
-    Nothing has been logged for this snapshot.
+    = t('.no_log_html')
