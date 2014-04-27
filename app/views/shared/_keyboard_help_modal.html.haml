@@ -2,39 +2,27 @@
   attributes = {
     tabindex: -1,
     role: 'dialog',
-    'aria-labelledby' =>  'Keyoard shortcut help',
+    'aria-labelledby' =>  t('.aria_labelledby'),
     'aria-hidden' => true
   }
 
-  shortcuts = [
-    ['?', 'Opens this help window'],
-    ['k', 'Moves up to the next focusable item on the page'],
-    ['j', 'Moves down to the next focusable item on the page'],
-    ['gg', 'Jumps to the top of the page and selects the first focusable item'],
-    ['G', 'Jumps to the bottom of the page and selects the last focusable item'],
-    ['o', 'Opens the currently focused item. Also <kbd>&lt;Enter&gt;</kbd>.'],
-    ['u', 'Takes you one step up in the page hierarchy'],
-    ['a', 'Accepts a snapshot'],
-    ['r', 'Rejects a snapshot'],
-    ['J', 'Moves to the next snapshot in a sweep. Also <kbd>]</kbd>.'],
-    ['K', 'Moves to the previous snapshot in a sweep. Also <kbd>[</kbd>.'],
-    ['x', 'Flips between the diff, the before and the after image for a snapshot']
-  ]
+  shortcuts = %w[? k j gg G o u a r J K x]
+
 .modal.keyboard-shortcut-help{ attributes }
   .modal-dialog
     .modal-content
       .modal-header
         %button.close{ data: { dismiss: 'modal', 'aria-hidden' => true } } ×
-        %h1.modal-title Keyboard shortcuts
+        %h1.modal-title= t('.title')
       .modal-body
         %table.table
           %thead
             %tr
-              %th Key
-              %th Action
+              %th= t('.key')
+              %th= t('.action')
           %tbody
             - shortcuts.each do |shortcut|
               %tr{ data: { keyboard_focusable: true } }
                 %td
-                  %kbd= shortcut.first
-                %td= shortcut.last.html_safe
+                  %kbd= shortcut
+                %td= t(".#{shortcut}").html_safe
