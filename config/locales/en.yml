@@ -29,11 +29,11 @@ en:
   snapshot_retaken: Snapshot is scheduled to be retaken.
   snapshot_recompared: Snapshot is scheduled to be re-compared.
   snapshots_pending:
-    one: '%{count} Snapshot pending'
-    other: '%{count} Snapshot pending'
+    one: '%{count} pending Snapshot'
+    other: '%{count} pending Snapshots'
   snapshots_under_review:
     one: '%{count} Snapshot under review'
-    other: '%{count} Snapshot under review'
+    other: '%{count} Snapshots under review'
   snapshots_accepted_rejected: '%{accepted} accepted, %{rejected} rejected'
   snapshots_all_accepted: All accepted
   sweep_initiated: Sweep was successfully initiated.

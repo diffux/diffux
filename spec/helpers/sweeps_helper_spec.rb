@@ -29,7 +29,7 @@ describe SweepsHelper do
         counts[:accepted] = 5
       end
 
-      it { should == '2 pending snapshots' }
+      it { should == '2 pending Snapshots' }
     end
 
     context 'with two snapshots under review and a rejected snapshot' do
@@ -38,7 +38,7 @@ describe SweepsHelper do
         counts[:rejected]      = 1
       end
 
-      it { should == '2 snapshots under review' }
+      it { should == '2 Snapshots under review' }
     end
 
     context 'with a mix of rejected and accepted snapshots' do
