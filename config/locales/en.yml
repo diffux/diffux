@@ -156,6 +156,9 @@ en:
       rejected: Rejected
       pending: Pending
       unknown_state: Unknown state
+    snapshot:
+      time_ago: '%{time} ago'
+      diff: '%{diff} diff'
     review_list:
       previous_in_sweep: Previous in Sweep
       next_in_sweep: Next in Sweep
