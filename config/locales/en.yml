@@ -67,6 +67,21 @@ en:
   projects:
     index:
       last_sweep: Last Sweep
+      new_project: Add new Project
+      intro_html: >
+        <h1>Hello, nice to meet you.</h1>
+
+        <p>Thanks for using Diffux! If you happen to bump into a problem or
+        think of a feature you'd like to see, %{link}.  And, if you are the
+        coding type, we'd be delighted to accept your pull requests.</p>
+
+        <p>There are plenty of keyboard shortcuts to help you use Diffux
+        efficiently. Just press <kbd>?</kbd> to see all of the keyboard
+        shortcuts.</p>
+
+        <p>But first, you'll want to create a new project and give it some
+        viewport widths and URLs to snapshot.</p>
+      intro_link: we'd love to hear about it
     edit:
       title: Edit Project
     new:

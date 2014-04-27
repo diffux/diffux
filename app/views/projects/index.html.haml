@@ -6,7 +6,7 @@
       = yield :title
       = link_to new_project_path, class: 'btn btn-primary' do
         %span.glyphicon.glyphicon-plus
-        Add new Project
+        = t('.new_project')
 
   %table.table.table-striped
     %thead
@@ -28,27 +28,9 @@
 - else
   -# There are no projects
   .jumbotron
-    %h1 Hello, nice to meet you.
-
-    %p
-      Thanks for using Diffux! If you happen to bump into a problem or think of
-      a feature you'd like to see,
-      = succeed '.' do
-        = link_to "we'd love to hear about it",
-                  'https://github.com/diffux/diffux/issues'
-      And, if you are the coding type, we'd be delighted to accept your pull
-      requests.
-
-    %p
-      There are plenty of keyboard shortcuts to help you use Diffux
-      efficiently. Just press <kbd>?</kbd> to see all of the keyboard
-      shortcuts.
-
-    %p
-      But first, you'll want to create a new project and give it some viewport
-      widths and URLs to snapshot.
-
+    = t('.intro_html',
+        link: link_to(t('.intro_link'), 'https://github.com/diffux/diffux/issues'))
     %p
       = link_to new_project_path, class: 'btn btn-primary btn-lg' do
         %span.glyphicon.glyphicon-plus
-        Add new Project
+        = t('.new_project')
