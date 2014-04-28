@@ -1,4 +1,4 @@
-en:
+es:
   datetime:
     distance_in_words:
       about_x_hours:
@@ -17,10 +17,10 @@ en:
         create: Crear Barrido
 
   product_name: Diffux
-  new_configuration: Nueva configuración.
+  new_configuration: Nueva configuración
   about: Sobre Diffux
   new_sweep: Empezar un Barrido
-  time_ago: 'Hace %{time}'
+  time_ago: 'hace %{time}'
   model_destroyed: '%{model_name} fue eliminado con éxito.'
   model_updated: '%{model_name} fue actualizado con éxito.'
   model_created:
@@ -35,7 +35,7 @@ en:
     one: '%{count} Captura bajo revisión'
     other: '%{count} Capturas bajo revisión'
   snapshots_accepted_rejected: '%{accepted} aceptada(s), %{rejected} rechazada(s)'
-  snapshots_all_accepted: Todas aceptadas.
+  snapshots_all_accepted: Todas aceptadas
   sweep_initiated: Barrido iniciado con éxito.
   sweep_default_title: 'Barrido anónimo - %{time}'
 
@@ -49,8 +49,8 @@ en:
         other: Capturas
       snapshot_diff: Diferencia
       viewport:
-        one: Ancho de Pantalla
-        other: Anchos de Pantalla
+        one: Ancho de Ventana
+        other: Anchos de Ventana
       url:
         one: URL
         other: URLs
@@ -104,7 +104,7 @@ en:
         disponibles.</p>
 
         <p>Pero primero, querrás crear un nuevo proyecto y darle algunos anchos de 
-        pantalla y URLs de las que quieres tomar capturas.</p>
+        ventana y URLs de las que quieres tomar capturas.</p>
       intro_link: nos encantaria oirlas
     edit:
       title: Editar Proyecto
