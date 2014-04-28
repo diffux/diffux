@@ -13,6 +13,7 @@ require 'diffux_core'
 
 include ActionDispatch::TestProcess
 
+Capybara.server_port = 12345
 # Sets up phantomJS as the JS driver for integration testing
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true, inspector: true)
