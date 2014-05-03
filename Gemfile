@@ -7,6 +7,7 @@ gem 'diffux-core', git: 'git://github.com/diffux/diffux-core'
 gem 'haml-rails'
 gem 'paperclip'
 gem 'pg'
+gem 'rails-i18n', '~> 4.0.0'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil # for sidekiq
 gem 'turbolinks'

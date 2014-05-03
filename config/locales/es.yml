@@ -1,16 +1,4 @@
 es:
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one:   1 hora
-        other: "%{count} horas"
-      about_x_months:
-        one:   1 mes
-        other: "%{count} meses"
-      about_x_years:
-        one:   1 año
-        other: "%{count} años"
-
   helpers:
     submit:
       sweep:
@@ -103,7 +91,7 @@ es:
         de forma más eficiente. Puedes pulsar <kbd>?</kbd> para ver todos los atajos
         disponibles.</p>
 
-        <p>Pero primero, querrás crear un nuevo proyecto y darle algunos anchos de 
+        <p>Pero primero, querrás crear un nuevo proyecto y darle algunos anchos de
         ventana y URLs de las que quieres tomar capturas.</p>
       intro_link: nos encantaria oirlas
     edit:
@@ -132,18 +120,18 @@ es:
     new:
       title: Nuevo Barrido
       intro: >
-        Crear un Barrido genera nuevas capturas para todas las URLs del 
+        Crear un Barrido genera nuevas capturas para todas las URLs del
         Proyecto.
     form:
       email_help: >
-        Si especificas una dirección de email aquí, se le enviará un mensaje 
+        Si especificas una dirección de email aquí, se le enviará un mensaje
         cuando todas las capturas estén listas.
       delay_seconds_help: >
-        Introduce el número de segundos que deseas retrasar el comienzo de la 
+        Introduce el número de segundos que deseas retrasar el comienzo de la
         creación de capturas. Déjalo vacío para empezar inmediatamente.
     protip_curl:
       protip_html: >
-        <strong>Protip:</strong> los barridos para este proyecto pueden ser 
+        <strong>Protip:</strong> los barridos para este proyecto pueden ser
         generados automáticamente.
       title: 'Deploy #1'
       description: 'Notas de Publicación: Arreglado fallo en la maquetación.'
@@ -157,10 +145,10 @@ es:
       before_png: Imagen anterior PNG
       after_png: Imagen posterior PNG
       no_baseline_html: >
-        <strong>No se encontró una Captura inicial.</strong> Esta Captura no 
-        tenía una Captura inicial a la que compararse. Esto puede ser debido 
-        a que esta Captura es la primera para una URL o a que no se ha 
-        aceptado una captura previa para esta URL. Si aceptas esta Captura, 
+        <strong>No se encontró una Captura inicial.</strong> Esta Captura no
+        tenía una Captura inicial a la que compararse. Esto puede ser debido
+        a que esta Captura es la primera para una URL o a que no se ha
+        aceptado una captura previa para esta URL. Si aceptas esta Captura,
         será usada como Captura inicial para la siguiente Captura.
       debug: ¿Necesitas depurar el resultado del proceso de captura?
       debug_link: Ver registro de depuración.

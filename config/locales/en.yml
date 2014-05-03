@@ -1,16 +1,4 @@
 en:
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one:   1 hour
-        other: "%{count} hours"
-      about_x_months:
-        one:   1 month
-        other: "%{count} months"
-      about_x_years:
-        one:   1 year
-        other: "%{count} years"
-
   helpers:
     submit:
       sweep:
