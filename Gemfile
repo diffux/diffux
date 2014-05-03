@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.0'
 
 gem 'bootstrap-sass', '~> 3.1.0'
-gem 'diffux-core', git: 'git://github.com/diffux/diffux-core'
+gem 'diffux-core'
 gem 'haml-rails'
 gem 'paperclip'
 gem 'pg'
