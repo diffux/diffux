@@ -151,7 +151,7 @@ es:
   snapshots:
     show:
       compared_against_html: 'Esta Captura fue comparada con %{baseline}.'
-      baseline: esta Captura inicial.
+      baseline: esta Captura inicial
       png_links_html: >
         Puedes acceder a %{before_png} y %{after_png} por separado, si quieres.
       before_png: Imagen anterior PNG
