@@ -163,7 +163,7 @@ es:
         aceptado una captura previa para esta URL. Si aceptas esta Captura,
         será usada como Captura inicial para la siguiente Captura.
       debug: ¿Necesitas depurar el resultado del proceso de captura?
-      debug_link: Ver registro de depuración.
+      debug_link: Ver registro de depuración
     header_and_buttons:
       delete: Eliminar Captura
       delete_confirm: ¿Estás seguro de querer eliminar esta captura?
