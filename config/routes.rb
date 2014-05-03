@@ -2,9 +2,8 @@ require 'sidekiq/web'
 
 Diffux::Application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  resources :refresh, only: :create
 
-  scope '/:locale' do
+  scope '(:locale)' do
     get 'static_pages/about'
 
     resources :projects do
@@ -27,8 +26,8 @@ Diffux::Application.routes.draw do
       end
     end
 
+    resources :refresh, only: :create
+
     root to: 'projects#index'
   end
-
-  get '/', to: redirect('/en')
 end
