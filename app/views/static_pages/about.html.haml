@@ -3,16 +3,4 @@
 .page-header
   %h1= yield :title
 
-%p
-  Diffux is a tool that takes snapshots of web pages and creates a diff from a
-  baseline snapshot.
-%p
-  Github:
-  - link = 'https://github.com/diffux/diffux'
-  = link_to link, link
-
-%h2 Keyboard shortcuts
-%p
-  Diffux has awesome keyboard shortcuts. To learn more about them, just hit
-  = succeed('.') do
-    %kbd ?
+= t('.body_html')

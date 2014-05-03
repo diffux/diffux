@@ -185,8 +185,23 @@ en:
         This is a log from when this snapshot image was created with PhantomJS.
       no_log_html: >
         <strong>Oops!</strong> Nothing has been logged for this snapshot.
+  viewports:
+    edit:
+      user_agent_help: Leave blank for the WebKit/PhantomJS default
   urls:
     show:
       delete: Delete URL
       delete_confirm: 'Are you sure you want to delete the URL "%{title}"?'
       create_snapshots: Create new Snapshots
+  static_pages:
+    about:
+      body_html: >
+        <p> Diffux is a tool that takes snapshots of web pages and creates a
+        diff from a baseline snapshot.</p>
+
+        <p>Github: <a href="https://github.com/diffux/diffux">https://github.com/diffux/diffux</a></p>
+
+        <h2>Keyboard shortcuts</h2>
+
+        <p>Diffux has awesome keyboard shortcuts. To learn more about them,
+        just hit <kbd>?</kbd>.</p>
