@@ -1,4 +1,16 @@
 es:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one:   1 hora
+        other: "%{count} horas"
+      about_x_months:
+        one:   1 mes
+        other: "%{count} meses"
+      about_x_years:
+        one:   1 año
+        other: "%{count} años"
+
   helpers:
     submit:
       sweep:
