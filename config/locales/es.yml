@@ -61,7 +61,7 @@ es:
       project:
         url_addresses: Direcciones Web (URLs)
       sweep:
-        email: Dirección de Email.
+        email: Dirección de Email
         delay_seconds: Retrasar capturas (segundos)
         created_at: Cuando
 
