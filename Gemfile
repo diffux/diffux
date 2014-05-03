@@ -8,6 +8,7 @@ gem 'haml-rails'
 gem 'paperclip'
 gem 'pg'
 gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', require: nil # for sidekiq
 gem 'turbolinks'
 
 group :assets do

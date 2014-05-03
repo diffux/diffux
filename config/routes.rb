@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Diffux::Application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   get '/', to: redirect('/en')
 
   scope '/:locale' do
