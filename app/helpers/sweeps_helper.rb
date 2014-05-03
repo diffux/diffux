@@ -45,7 +45,8 @@ module SweepsHelper
     content_tag(:div, html_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|
         percent = number_to_percentage(
-                    sweep.send("count_#{state}") / total_count.to_f * 100)
+                    sweep.send("count_#{state}") / total_count.to_f * 100,
+                    locale: 'en')
         content_tag(:div, nil, class: "progress-bar #{bootstrap_class}",
                                style: "width: #{percent}")
       end.join.html_safe
