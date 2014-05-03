@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/diffux/diffux-core
-  revision: 8d46508bba1b376e16cd2329b2358397682366e9
-  specs:
-    diffux-core (0.0.1)
-      chunky_png (>= 1.3.1)
-      diff-lcs (>= 1.2.5)
-      oily_png (>= 1.1.1)
-      phantomjs (= 1.9.2.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -267,7 +257,7 @@ DEPENDENCIES
   compass-rails
   coveralls
   database_cleaner
-  diffux-core!
+  diffux-core
   factory_girl_rails
   flamegraph
   haml-rails
