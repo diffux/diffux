@@ -1,0 +1,192 @@
+es:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one:   1 hora
+        other: "%{count} horas"
+      about_x_months:
+        one:   1 mes
+        other: "%{count} meses"
+      about_x_years:
+        one:   1 año
+        other: "%{count} años"
+
+  helpers:
+    submit:
+      sweep:
+        create: Crear Barrido
+
+  product_name: Diffux
+  new_configuration: Nueva configuración
+  about: Sobre Diffux
+  new_sweep: Empezar un Barrido
+  time_ago: 'hace %{time}'
+  model_destroyed: '%{model_name} fue eliminado con éxito.'
+  model_updated: '%{model_name} fue actualizado con éxito.'
+  model_created:
+    one: '%{model_name} fue creado con éxito.'
+    other: '%{model_name} fueron creados con éxito.'
+  snapshot_retaken: Se ha programado una nueva toma de esta Captura.
+  snapshot_recompared: Se ha programado una nueva comparación de esta Captura.
+  snapshots_pending:
+    one: '%{count} Captura pendiente'
+    other: '%{count} Capturas pendientes'
+  snapshots_under_review:
+    one: '%{count} Captura bajo revisión'
+    other: '%{count} Capturas bajo revisión'
+  snapshots_accepted_rejected: '%{accepted} aceptada(s), %{rejected} rechazada(s)'
+  snapshots_all_accepted: Todas aceptadas
+  sweep_initiated: Barrido iniciado con éxito.
+  sweep_default_title: 'Barrido anónimo - %{time}'
+
+  activerecord:
+    models:
+      project:
+        one: Proyecto
+        other: Proyectos
+      snapshot:
+        one: Captura
+        other: Capturas
+      snapshot_diff: Diferencia
+      viewport:
+        one: Ancho de Ventana
+        other: Anchos de Ventana
+      url:
+        one: URL
+        other: URLs
+      sweep:
+        one: Barrido
+        other: Barridos
+    attributes:
+      project:
+        url_addresses: Direcciones Web (URLs)
+      sweep:
+        email: Dirección de Email.
+        delay_seconds: Retrasar capturas (segundos)
+        created_at: Cuando
+
+  shared:
+    error_explanation:
+      error:
+        one: '%{count} error'
+        other: '%{count} errores'
+      explanation: '%{error} impidió que esta %{instance} fuera guardada.'
+    keyboard_help_modal:
+      title: Atajos de teclado
+      aria_labelledby: Ayuda de atajos de teclado
+      key: Tecla
+      action: Acción
+      ?:  Abre esta ventana de ayuda
+      k:  Selecciona el siguiente elemento en la página
+      j:  Selecciona el elemento anterior en la página
+      gg: Va al principio de la página y selecciona el primer elemento
+      G:  Va al final de la página y selecciona el último elemento
+      o:  Abre el elemento seleccionado. También <kbd>&lt;Intro&gt;</kbd>.
+      u:  Sube un nivel en la jerarquía de la página
+      a:  Acepta una captura.
+      r:  Rechaza una captura.
+      J:  Va a la siguiente captura en un barrido. También <kbd>]</kbd>.
+      K:  Va a la captura anterior en un barrido. También <kbd>[</kbd>.
+      x:  Alterna entre las diferencias, la imagen anterior y posterior de una captura.
+  projects:
+    index:
+      last_sweep: Último Barrido
+      new_project: Añadir nuevo Proyecto
+      intro_html: >
+        <h1>Hola, que alegría verte.</h1>
+
+        <p>¡Gracias por usar Diffux! Si te surgiera algún problema o
+        tienes alguna idea de como mejorar Diffux, %{link}.  Y, si eres de los que
+        saben programar, estaremos encantados de aceptar tus pull requests.</p>
+
+        <p>Hay un montón de atajos de teclado para ayudarte a usar Diffux
+        de forma más eficiente. Puedes pulsar <kbd>?</kbd> para ver todos los atajos
+        disponibles.</p>
+
+        <p>Pero primero, querrás crear un nuevo proyecto y darle algunos anchos de 
+        ventana y URLs de las que quieres tomar capturas.</p>
+      intro_link: nos encantaria oirlas
+    edit:
+      title: Editar Proyecto
+      edit_project: 'Editar %{name}'
+    new:
+      title: Nuevo Proyecto
+      intro: >
+        Añade un proyecto y especifica las URLs y anchos de pantalla a usar
+        para tomar las capturas. Anchos: 320 = móvil, 1024 = iPad (2).
+    show:
+      edit: Editar Proyecto
+      delete: Eliminar Proyecto
+      delete_confirm: '¿Estás seguro de querer eliminar el Proyecto "%{name}"?'
+      edit_viewport: Editar Ancho de Pantalla
+      last_sweep: Último barrido
+      new_snapshots: Crear nuevas capturas para esta URL
+    form:
+      one_per_line: Una por línea
+  sweeps:
+    show:
+      second:
+        one: '%{count} segundo'
+        other: '%{count} segundos'
+      delay_notice: 'Este barrido está programado para empezar en %{time}'
+    new:
+      title: Nuevo Barrido
+      intro: >
+        Crear un Barrido genera nuevas capturas para todas las URLs del 
+        Proyecto.
+    form:
+      email_help: >
+        Si especificas una dirección de email aquí, se le enviará un mensaje 
+        cuando todas las capturas estén listas.
+      delay_seconds_help: >
+        Introduce el número de segundos que deseas retrasar el comienzo de la 
+        creación de capturas. Déjalo vacío para empezar inmediatamente.
+    protip_curl:
+      protip_html: >
+        <strong>Protip:</strong> los barridos para este proyecto pueden ser 
+        generados automáticamente.
+      title: 'Deploy #1'
+      description: 'Notas de Publicación: Arreglado fallo en la maquetación.'
+      email: username@example.com
+  snapshots:
+    show:
+      compared_against_html: 'Esta Captura fue comparada con %{baseline}.'
+      baseline: esta Captura inicial.
+      png_links_html: >
+        Puedes acceder a %{before_png} y %{after_png} por separado, si quieres.
+      before_png: Imagen anterior PNG
+      after_png: Imagen posterior PNG
+      no_baseline_html: >
+        <strong>No se encontró una Captura inicial.</strong> Esta Captura no 
+        tenía una Captura inicial a la que compararse. Esto puede ser debido 
+        a que esta Captura es la primera para una URL o a que no se ha 
+        aceptado una captura previa para esta URL. Si aceptas esta Captura, 
+        será usada como Captura inicial para la siguiente Captura.
+      debug: ¿Necesitas depurar el resultado del proceso de captura?
+      debug_link: Ver registro de depuración.
+    header_and_buttons:
+      delete: Eliminar Captura
+      delete_confirm: ¿Estás seguro de querer eliminar esta captura?
+      retake: Tomar Captura de nuevo
+      recompare: Comparar Captura de nuevo
+      accept: Aceptar
+      accepted: Aceptada
+      reject: Rechazar
+      rejected: Rechazada
+      pending: Pendiente
+      unknown_state: Estado desconocido
+    snapshot:
+      diff: '%{diff} diferecia'
+    review_list:
+      previous_in_sweep: Anterior en este Barrido
+      next_in_sweep: Siguiente en este Barrido
+    view_log:
+      info: >
+        Esto es un diario de cuando esta captura fue creada con PhantomJS.
+      no_log_html: >
+        <strong>Uy!</strong> No hay registros para esta Captura.
+  urls:
+    show:
+      delete: Eliminar URL
+      delete_confirm: '¿Estás seguro de querer borrar la URL "%{title}"?'
+      create_snapshots: Crear nuevas Capturas
