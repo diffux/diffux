@@ -1,32 +1,34 @@
 !!! 5
-%head
-  %title
-    - if content_for? :title
-      = yield :title
-      |
-    = t(:product_name)
-  = stylesheet_link_tag 'application', media: 'all'
-  = javascript_include_tag 'application'
-  = javascript_tag "lastKnownServerTime = '#{Time.now.to_i}'"
-  = csrf_meta_tags
-  %link{ rel: 'icon', href: image_url('diffux_d.png') }
-  %meta{ name: 'viewport', content: 'initial-scale=1' }
-%body
-  %nav.navbar.navbar-default{ role: 'navigation' }
-    .navbar-header
-      = link_to image_tag('diffux.svg'), root_path, class: 'navbar-brand'
-      %button.navbar-toggle{ data: { toggle: 'collapse', target: '.navbar-collapse'} }
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        = menu_item Project.model_name.human(count: 2), projects_path
-        = menu_item t(:about), static_pages_about_path
+%html
+  %head
+    %title
+      - if content_for? :title
+        = yield :title
+        |
+      = t(:product_name)
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = javascript_tag "lastKnownServerTime = '#{Time.now.to_i}'"
+    = csrf_meta_tags
+    %link{ rel: 'icon', href: image_url('diffux_d.png') }
+    %meta{ name: 'viewport', content: 'initial-scale=1' }
+  %body
+    %nav.navbar.navbar-default{ role: 'navigation' }
+      .navbar-header
+        = link_to image_tag('diffux.svg'), root_path, class: 'navbar-brand'
+        %button.navbar-toggle{ data: { toggle: 'collapse',
+                                       target: '.navbar-collapse' } }
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+      .collapse.navbar-collapse
+        %ul.nav.navbar-nav
+          = menu_item Project.model_name.human(count: 2), projects_path
+          = menu_item t(:about), static_pages_about_path
 
-  .container
-    - if notice
-      .alert.alert-success= notice
-    = yield
+    .container
+      - if notice
+        .alert.alert-success= notice
+      = yield
 
-= render 'shared/keyboard_help_modal'
+  = render 'shared/keyboard_help_modal'
