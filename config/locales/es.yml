@@ -10,7 +10,6 @@ es:
       about_x_years:
         one:   1 año
         other: "%{count} años"
-
   helpers:
     submit:
       sweep:
@@ -185,8 +184,23 @@ es:
         Esto es un diario de cuando esta captura fue creada con PhantomJS.
       no_log_html: >
         <strong>Uy!</strong> No hay registros para esta Captura.
+  viewports:
+    edit:
+      user_agent_help: Dejar en blanco para usar WebKit/PhantomJS
   urls:
     show:
       delete: Eliminar URL
       delete_confirm: '¿Estás seguro de querer borrar la URL "%{title}"?'
       create_snapshots: Crear nuevas Capturas
+  static_pages:
+    about:
+      body_html: >
+        <p> Diffux es una herramienta que toma capturas de páginas web y 
+        muestra las diferencias respecto a una captura inicial.</p>
+
+        <p>Github: <a href="https://github.com/diffux/diffux">https://github.com/diffux/diffux</a></p>
+
+        <h2>Atajos de teclado</h2>
+
+        <p>Diffux tiene asombrosos atajos de teclado. Pulsa <kbd>?</kbd> 
+        para saber más sobre ellos.</p>
