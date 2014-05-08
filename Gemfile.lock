@@ -240,7 +240,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    websocket-driver (0.3.2)
+    websocket-driver (0.3.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
