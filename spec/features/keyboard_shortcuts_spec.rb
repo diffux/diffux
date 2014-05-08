@@ -189,7 +189,7 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
     let(:last_snapshot) { test_project.sweeps.first.snapshots.last }
 
     before do
-      visit snapshot_path(first_snapshot)
+      visit snapshot_path(id: first_snapshot)
     end
 
     describe 'navigating snapshots' do
@@ -198,34 +198,34 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
           press_key(']')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www1.example.org'
-          expect(current_path).to eq snapshot_path(middle_snapshot)
+          expect(current_path).to eq snapshot_path(id: middle_snapshot)
         end
 
         it 'stays on the first snapshot with "["' do
           press_key('[')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www2.example.org'
-          expect(current_path).to eq snapshot_path(first_snapshot)
+          expect(current_path).to eq snapshot_path(id: first_snapshot)
         end
       end
 
       context 'on the last snapshot' do
         before do
-          visit snapshot_path(last_snapshot)
+          visit snapshot_path(id: last_snapshot)
         end
 
         it 'goes to previous snapshot with "["' do
           press_key('[')
           expect(page).to have_content 'Snapshot'
           expect(page).to have_content 'www1.example.org'
-          expect(current_path).to eq snapshot_path(middle_snapshot)
+          expect(current_path).to eq snapshot_path(id: middle_snapshot)
         end
 
         it 'stays on the last snapshot with "]"' do
             press_key(']')
             expect(page).to have_content 'Snapshot'
             expect(page).to have_content 'www0.example.org'
-            expect(current_path).to eq snapshot_path(last_snapshot)
+            expect(current_path).to eq snapshot_path(id: last_snapshot)
         end
       end
     end
