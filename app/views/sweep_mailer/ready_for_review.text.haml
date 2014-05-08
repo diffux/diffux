@@ -1,6 +1,6 @@
 Your Diffux sweep is ready.
 
-= project_sweep_url(@sweep, project_id: @sweep.project)
+= project_sweep_url(id: @sweep, project_id: @sweep.project)
 
 Result summary:
 \- #{pluralize(@sweep.count_accepted, 'auto-accepted snapshot')}
