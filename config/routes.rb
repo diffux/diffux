@@ -3,7 +3,8 @@ require 'sidekiq/web'
 Diffux::Application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
-  scope '(:locale)' do
+  scope '(:locale)', locale: /en|es/,
+                     defaults: { locale: I18n.default_locale } do
     get 'static_pages/about'
 
     resources :projects do
