@@ -6,7 +6,7 @@ describe SweepMailer do
     let(:message) { SweepMailer.ready_for_review(sweep) }
 
     it 'renders a URL to the sweep project' do
-      message.body.encoded.should include project_sweep_url(sweep,
+      message.body.encoded.should include project_sweep_url(id: sweep,
                                                             project_id: sweep.project)
     end
 
