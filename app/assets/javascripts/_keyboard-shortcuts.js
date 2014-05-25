@@ -122,7 +122,7 @@ $(function() {
           $focused    = getFocusedElement($focusable);
       if (movement.forward && !(focusExists)) {
         // if there was nothing in focus, we stop after moving focus to top
-        return
+        return;
       }
       if ($focused.length) {
         if (movement.first || movement.last) {
@@ -198,7 +198,7 @@ $(function() {
     }
 
     function switchSnapshotDiffTab() {
-      var tabSelector = '.snapshot-diff-image .nav li'
+      var tabSelector = '.snapshot-diff-image .nav li',
           $active     = $(tabSelector + '.active'),
           $next       = $active.next();
       if (!$next.length) {
