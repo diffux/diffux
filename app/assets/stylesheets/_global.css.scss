@@ -5,10 +5,10 @@
 
 body {
   padding-bottom: 50px;
-}
 
-body .table {
-  width: auto;
+  .table {
+    width: auto;
+  }
 }
 
 figure {
@@ -34,7 +34,7 @@ figure {
 .table.table-vertical tr:first-child {
   th,
   td {
-    border-top: none;
+    border-top: 0;
   }
 }
 

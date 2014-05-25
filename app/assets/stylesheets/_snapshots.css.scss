@@ -1,11 +1,11 @@
 @-webkit-keyframes pulse-opacity {
-  from { opacity: 1.0; }
-  to   { opacity: 0.4; }
+  from { opacity: 1; }
+  to { opacity: .4; }
 }
 
 @keyframes pulse-opacity {
-  from { opacity: 1.0; }
-  to   { opacity: 0.4; }
+  from { opacity: 1; }
+  to { opacity: .4; }
 }
 
 .snapshots {
@@ -21,8 +21,8 @@
 
 .snapshot-buttons {
   .btn {
-    min-width: 150px;
     margin-bottom: 5px;
+    min-width: 150px;
 
     .snapshot-button-disabled {
       display: none;
@@ -51,10 +51,10 @@
   }
 
   .nav {
-    -webkit-transform: translateZ(0); // Force layer in Chrome
     @include background-image(linear-gradient(#fff, #fff 10%, rgba(255, 255, 255, 0)));
     margin-bottom: -$navbar-height;
     padding: 2px 0;
+    -webkit-transform: translateZ(0); // Force layer in Chrome
     width: 100%;
 
     &.affix {
@@ -135,10 +135,10 @@
   line-height: 12px;
   margin: 1em 1em .5em 0;
   min-height: 130px;
-  width: $snapshot-width + 10px; // Add room for padding+border from bootstrap
-                                 // `.thumbnail` class
   position: relative;
   vertical-align: top;
+  width: $snapshot-width + 10px; // Add room for padding+border from bootstrap
+                                 // `.thumbnail` class
 
   &:hover,
   &:focus {
@@ -147,14 +147,14 @@
 
   &.snapshot-card-pending {
     -webkit-animation-direction: alternate;
-    -webkit-animation-duration: .7s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-name: pulse-opacity;
-    -webkit-animation-timing-function: linear;
     animation-direction: alternate;
+    -webkit-animation-duration: .7s;
     animation-duration: .7s;
+    -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
+    -webkit-animation-name: pulse-opacity;
     animation-name: pulse-opacity;
+    -webkit-animation-timing-function: linear;
     animation-timing-function: linear;
   }
 

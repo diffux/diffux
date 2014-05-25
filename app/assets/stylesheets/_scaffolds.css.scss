@@ -1,9 +1,9 @@
 #error_explanation {
   background-color: #f0f0f0;
-  border: 2px solid red;
+  border: 2px solid #f00;
   margin-bottom: 20px;
-  padding-bottom: 0;
   padding: 7px;
+  padding-bottom: 0;
   width: 450px;
 
   h2 {
@@ -11,8 +11,8 @@
     color: #fff;
     font-size: 12px;
     font-weight: bold;
-    margin-bottom: 0px;
     margin: -7px;
+    margin-bottom: 0;
     padding: 5px 5px 5px 15px;
     text-align: left;
   }
