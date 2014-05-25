@@ -1,6 +1,6 @@
 $link-color: #428bca;
 
-.keyboard-focused {
+[aria-selected] {
   color: #000;
 
   &.thumbnail {
@@ -9,7 +9,7 @@ $link-color: #428bca;
   }
 }
 
-tr.keyboard-focused {
+tr[aria-selected] {
   > td:first-child,
   > th:first-child {
     box-shadow: 8px 0 0 -5px $link-color inset;

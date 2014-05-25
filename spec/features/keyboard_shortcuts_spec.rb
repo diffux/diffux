@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
-  let(:focused_class) { 'keyboard-focused' }
-
   before do
     create_seed_project!('foobarbaz')
     visit root_path
@@ -88,20 +86,16 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
         context 'on a freshly loaded page' do
           it 'focuses the first focusable' do
             press_key('k')
-            classes = all('[data-keyboard-focusable]')
-                      .first[:class]
-                      .split(' ')
-            expect(classes).to include focused_class
+            first_focusable = all('[data-keyboard-focusable]').first
+            expect(first_focusable['aria-selected']).to eq 'true'
           end
         end
 
         it 'stops moving the focus when on first focusable' do
           press_key('k')
           press_key('k')
-          classes = all('[data-keyboard-focusable]')
-                    .first[:class]
-                    .split(' ')
-          expect(classes).to include focused_class
+          first_focusable = all('[data-keyboard-focusable]').first
+          expect(first_focusable['aria-selected']).to eq 'true'
         end
 
         it 'moves to the previous focusable' do
@@ -110,10 +104,8 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
           press_key('j')
           press_key('k')
           press_key('k')
-          classes = all('[data-keyboard-focusable]')
-                    .first[:class]
-                    .split(' ')
-          expect(classes).to include focused_class
+          first_focusable = all('[data-keyboard-focusable]').first
+          expect(first_focusable['aria-selected']).to eq 'true'
         end
       end
 
@@ -121,18 +113,16 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
         context 'on a freshly loaded page' do
           it 'focuses the first focusable' do
             press_key('j')
-            classes = all('[data-keyboard-focusable]')
-                      .first[:class]
-                      .split(' ')
-            expect(classes).to include focused_class
+            first_focusable = all('[data-keyboard-focusable]').first
+            expect(first_focusable['aria-selected']).to eq 'true'
           end
         end
 
         it 'moves the focus to the next focusable' do
           press_key('j')
           press_key('j')
-          classes = all('[data-keyboard-focusable]')[1][:class] .split(' ')
-          expect(classes).to include focused_class
+          next_focusable = all('[data-keyboard-focusable]')[1]
+          expect(next_focusable['aria-selected']).to eq 'true'
         end
 
         it 'stops moving focus when it reaches last focusable' do
@@ -142,22 +132,22 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
           end
           # hit the shortcut once after reaching end of list
           press_key('j')
-          classes = all('[data-keyboard-focusable]').last[:class] .split(' ')
-          expect(classes).to include focused_class
+          last_focusable = all('[data-keyboard-focusable]').last
+          expect(last_focusable['aria-selected']).to eq 'true'
         end
       end
 
       it 'focuses first focusable with "gg" shortcut' do
         press_key('g')
         press_key('g')
-        classes = all('[data-keyboard-focusable]').first[:class] .split(' ')
-        expect(classes).to include focused_class
+        first_focusable = all('[data-keyboard-focusable]').first
+        expect(first_focusable['aria-selected']).to eq 'true'
       end
 
       it 'focuses last focusable with "G" shortcut' do
         press_key('G')
-        classes = all('[data-keyboard-focusable]').last[:class] .split(' ')
-        expect(classes).to include focused_class
+        last_focusable = all('[data-keyboard-focusable]').last
+        expect(last_focusable['aria-selected']).to eq 'true'
       end
     end
 

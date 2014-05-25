@@ -1,16 +1,15 @@
 :ruby
   classes = %w[snapshot-card thumbnail]
-  classes << 'keyboard-focused' if local_assigns[:active]
   classes << 'snapshot-card-pending' if snapshot.pending?
   data = {
     keyboard_focusable: true,
     auto_refresh_type: 'snapshot',
     auto_refresh_id:   snapshot.id,
   }
+  link_options = { class: classes, title: snapshot.title, data: data }
+  link_options['aria-selected'] = true if local_assigns[:active]
 
-= link_to snapshot_path(snapshot), class: classes,
-                                   title: snapshot.title,
-                                   data: data do
+= link_to snapshot_path(snapshot), link_options do
   - if snapshot.image?
     = image_tag snapshot.image.url(:thumb)
   - else

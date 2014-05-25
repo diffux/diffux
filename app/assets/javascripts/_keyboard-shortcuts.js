@@ -1,6 +1,5 @@
 $(function() {
-  var focusedClass          = 'keyboard-focused',
-      defaultScrollSpeed    = 200,
+  var defaultScrollSpeed    = 200,
       prefixKeysPressed     = {},
       prefixShortcutTimeout = 1100;
 
@@ -91,7 +90,7 @@ $(function() {
       if (key) {
         var $shortcut = $('[data-keyboard-shortcut~="' + key + '"]');
         if ($shortcut.length) {
-          $shortcut.addClass(focusedClass);
+          $shortcut.attr('aria-selected', true);
           $shortcut[0].click();
           scrollToFocused();
           return true;
@@ -105,10 +104,10 @@ $(function() {
     // side effect: if no focused el. is found, it sets the first el. to
     //   focused.
     function getFocusedElement($focusable) {
-      var $focused = $focusable.filter('.' + focusedClass);
+      var $focused = $focusable.filter('[aria-selected]');
       if (!($focused.length)) {
         setFocus('first');
-        $focused = $focusable.filter('.' + focusedClass);
+        $focused = $focusable.filter('[aria-selected]');
       }
       return $focused;
     }
@@ -118,7 +117,7 @@ $(function() {
     // @return [Boolean] true if movement was successful, false otherwise
     function moveFocus(movement) {
       var $focusable  = $('[data-keyboard-focusable]:visible'),
-          focusExists = !!($('.' + focusedClass).length),
+          focusExists = !!($('[aria-selected]').length),
           $focused    = getFocusedElement($focusable);
       if (movement.forward && !(focusExists)) {
         // if there was nothing in focus, we stop after moving focus to top
@@ -127,15 +126,15 @@ $(function() {
       if ($focused.length) {
         if (movement.first || movement.last) {
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
-          $focused.removeClass(focusedClass);
-          $nextFocus.addClass(focusedClass);
+          $focused.removeAttr('aria-selected');
+          $nextFocus.attr('aria-selected', true);
           return true;
         } else {
           var dir     = (movement.forward) ? 1 : -1,
               moveTo  = $focusable.index($focused) + dir;
           if (moveTo >= 0 && moveTo < $focusable.length) {
-            $focused.removeClass(focusedClass);
-            $focusable.eq(moveTo).addClass(focusedClass);
+            $focused.removeAttr('aria-selected');
+            $focusable.eq(moveTo).attr('aria-selected', true);
             return true;
           }
         }
@@ -144,7 +143,7 @@ $(function() {
     }
 
     function openFocused() {
-      var $focused = $('[data-keyboard-focusable]:visible.' + focusedClass);
+      var $focused = $('[data-keyboard-focusable]:visible[aria-selected]');
       if ($focused.is('a')) {
         $focused[0].click();
       } else {
@@ -175,7 +174,7 @@ $(function() {
     }
 
     function scrollToFocused() {
-      var $focused = $('.' + focusedClass);
+      var $focused = $('[aria-selected]');
       if ($focused.length && !$focused.visible()) {
         $('html, body').stop(true, true).animate({
           scrollTop: $focused.offset().top - $(window).height() / 4
@@ -194,7 +193,7 @@ $(function() {
     //   focusable element
     function setFocus(whereToFocus){
       $('[data-keyboard-focusable]:visible:' + whereToFocus)
-        .addClass(focusedClass);
+        .attr('aria-selected', true);
     }
 
     function switchSnapshotDiffTab() {

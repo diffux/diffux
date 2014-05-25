@@ -78,7 +78,7 @@
     visibility: hidden;
     width: 100%;
 
-    &.keyboard-focused {
+    &[aria-selected] {
       visibility: visible;
     }
 
