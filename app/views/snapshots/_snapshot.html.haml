@@ -11,7 +11,8 @@
 
 = link_to snapshot_path(snapshot), link_options do
   - if snapshot.image?
-    = image_tag snapshot.image.url(:thumb)
+    = image_tag snapshot.image.url(:thumb),
+      alt: "#{snapshot.title} @ #{snapshot.viewport}"
   - else
     .glyphicon.glyphicon-time
 
