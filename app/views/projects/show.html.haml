@@ -23,7 +23,7 @@
           %li
             = viewport
             = link_to edit_viewport_path(viewport),
-                      title: t('.edit_viewport') do
+                      title: t('.edit_viewport', viewport: viewport) do
               %span.glyphicon.glyphicon-edit<>
   %tr{ data: { keyboard_focusable: true } }
     %th= Sweep.model_name.human(count: 2)

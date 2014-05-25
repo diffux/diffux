@@ -117,7 +117,7 @@ es:
       edit: Editar Proyecto
       delete: Eliminar Proyecto
       delete_confirm: '¿Estás seguro de querer eliminar el Proyecto "%{name}"?'
-      edit_viewport: Editar Ancho de Pantalla
+      edit_viewport: 'Editar Ancho de Pantalla %{viewport}'
       last_sweep: Último barrido
       new_snapshots: Crear nuevas capturas para esta URL
     form:
@@ -195,12 +195,12 @@ es:
   static_pages:
     about:
       body_html: >
-        <p> Diffux es una herramienta que toma capturas de páginas web y 
+        <p> Diffux es una herramienta que toma capturas de páginas web y
         muestra las diferencias respecto a una captura inicial.</p>
 
         <p>Github: <a href="https://github.com/diffux/diffux">https://github.com/diffux/diffux</a></p>
 
         <h2>Atajos de teclado</h2>
 
-        <p>Diffux tiene asombrosos atajos de teclado. Pulsa <kbd>?</kbd> 
+        <p>Diffux tiene asombrosos atajos de teclado. Pulsa <kbd>?</kbd>
         para saber más sobre ellos.</p>
