@@ -14,6 +14,19 @@ MethodLength:
   CountComments: false
   Max: 15
 
+# Prefer curly braces except for %i/%w/%W, since those return arrays.
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%': '{}'
+    '%i': '[]'
+    '%q': '{}'
+    '%Q': '{}'
+    '%r': '{}'
+    '%s': '()'
+    '%w': '[]'
+    '%W': '[]'
+    '%x': '{}'
+
 # This isn't fully baked yet as it doesn't allow you to disable it for
 # multiline argument lists.
 TrailingComma:
