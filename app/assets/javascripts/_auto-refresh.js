@@ -15,9 +15,9 @@ $(function() {
           id          = $elem.data('auto-refresh-id');
 
       if (payload[typePlural]) {
-        payload[typePlural].push(id)
+        payload[typePlural].push(id);
       } else {
-        payload[typePlural] = [id]
+        payload[typePlural] = [id];
       }
     });
     return payload;

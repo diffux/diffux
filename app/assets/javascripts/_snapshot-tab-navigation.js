@@ -1,5 +1,5 @@
 (function() {
-  var navSelector = '.snapshot-diff-image .nav'
+  var navSelector = '.snapshot-diff-image .nav';
 
   $(document).on('click', navSelector + ' a', function(e) {
     e.preventDefault();
