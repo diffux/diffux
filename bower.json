@@ -2,10 +2,10 @@
   "name": "Diffux",
   "private": true,
   "dependencies": {
-    "replacejs": "",
+    "replacejs": "~0.0.4",
     "jquery": "~2.1.0",
     "jquery-ujs": "",
-    "jquery.visible": ""
+    "jquery.visible": "~1.1.0"
   },
   "resolutions": {
     "jquery": "~2.1.0"
