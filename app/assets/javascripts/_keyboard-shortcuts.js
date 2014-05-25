@@ -90,7 +90,7 @@ $(function() {
       if (key) {
         var $shortcut = $('[data-keyboard-shortcut~="' + key + '"]');
         if ($shortcut.length) {
-          $shortcut.attr('aria-selected', true);
+          $shortcut.attr('aria-selected', true).focus();
           $shortcut[0].click();
           scrollToFocused();
           return true;
@@ -127,14 +127,14 @@ $(function() {
         if (movement.first || movement.last) {
           var $nextFocus = (movement.first) ? $focusable.first() : $focusable.last();
           $focused.removeAttr('aria-selected');
-          $nextFocus.attr('aria-selected', true);
+          $nextFocus.attr('aria-selected', true).focus();
           return true;
         } else {
           var dir     = (movement.forward) ? 1 : -1,
               moveTo  = $focusable.index($focused) + dir;
           if (moveTo >= 0 && moveTo < $focusable.length) {
             $focused.removeAttr('aria-selected');
-            $focusable.eq(moveTo).attr('aria-selected', true);
+            $focusable.eq(moveTo).attr('aria-selected', true).focus();
             return true;
           }
         }
@@ -191,9 +191,10 @@ $(function() {
 
     // @param whereToFocus [String] either 'first' or 'last'; used to select
     //   focusable element
-    function setFocus(whereToFocus){
+    function setFocus(whereToFocus) {
       $('[data-keyboard-focusable]:visible:' + whereToFocus)
-        .attr('aria-selected', true);
+        .attr('aria-selected', true)
+        .focus();
     }
 
     function switchSnapshotDiffTab() {
