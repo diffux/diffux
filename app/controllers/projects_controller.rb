@@ -23,8 +23,9 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     if @project.save
       redirect_to @project,
-                  notice: t(:model_destroyed,
-                            model_name: @project.class.model_name.human)
+                  notice: t(:model_created,
+                            model_name: @project.class.model_name.human(count: 1),
+                            count: 1)
     else
       render action: 'new'
     end

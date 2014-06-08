@@ -19,6 +19,8 @@ module SweepsHelper
         accepted: sweep.count_accepted, rejected: sweep.count_rejected)
     elsif sweep.count_accepted > 0
       t(:snapshots_all_accepted)
+    elsif sweep.delay_seconds_remaining
+      t(:snapshots_delayed)
     else
       t(:unknown)
     end
@@ -44,9 +46,13 @@ module SweepsHelper
     }
     content_tag(:div, html_attrs) do
       PROGRESS_BAR_STYLE_MAPPINGS.map do |state, bootstrap_class|
-        percent = number_to_percentage(
-                    sweep.send("count_#{state}") / total_count.to_f * 100,
-                    locale: 'en')
+        if (total_count > 0)
+          percent = number_to_percentage(
+                      sweep.send("count_#{state}") / total_count.to_f * 100,
+                      locale: 'en')
+        else
+          percent = number_to_percentage(0, locale: 'en')
+        end
         content_tag(:div, nil, class: "progress-bar #{bootstrap_class}",
                                style: "width: #{percent}")
       end.join.html_safe
