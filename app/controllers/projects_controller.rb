@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to @project,
                   notice: t(:model_created,
-                            model_name: @project.class.model_name.human(count: 1),
+                            model_name: @project.class.model_name.human,
                             count: 1)
     else
       render action: 'new'
