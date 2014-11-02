@@ -65,7 +65,7 @@ your database setup. This is done by copying `config/database.yml.example` to
 `config/database.yml` and editing to fit your environment.
 
 ```bash
-  cp config/database.yml.example config/database.yml
+cp config/database.yml.example config/database.yml
 ```
 
 When you are done with that, it's time to setup the database schema.
