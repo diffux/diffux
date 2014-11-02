@@ -4,8 +4,8 @@ $link-color: #428bca;
   color: #000;
 
   &.thumbnail {
-    @include box-shadow(0 0 10px $link-color);
     border-color: $link-color;
+    box-shadow: 0 0 10px $link-color;
   }
 }
 

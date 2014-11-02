@@ -51,7 +51,7 @@
   }
 
   .nav {
-    @include background-image(linear-gradient(#fff, #fff 10%, rgba(255, 255, 255, 0)));
+    background-image: linear-gradient(#fff, #fff 10%, rgba(255, 255, 255, 0));
     margin-bottom: -$navbar-height;
     padding: 2px 0;
     -webkit-transform: translateZ(0); // Force layer in Chrome
@@ -70,10 +70,7 @@
   }
 
   .snapshot-diff-cluster {
-    @include box-shadow(
-      0 0 0 1px #999,
-      0 0 0 2px #ccc
-    );
+    box-shadow: 0 0 0 1px #999, 0 0 0 2px #ccc;
     position: absolute;
     visibility: hidden;
     width: 100%;
@@ -94,7 +91,7 @@
 
     &.anchor-top,
     &.anchor-bottom {
-      @include box-shadow(none);
+      box-shadow: none;
       height: 0;
       top: 0;
     }
@@ -111,12 +108,10 @@
   // From http://lea.verou.me/css3patterns/#checkerboard
   $checkered-pattern-size: 16px;
   $checkered-pattern-color: rgba(0, 0, 0, .06);
-  @include background(
-    linear-gradient(45deg, $checkered-pattern-color 25%, transparent 25%,
+  background: linear-gradient(45deg, $checkered-pattern-color 25%, transparent 25%,
     transparent 75%, $checkered-pattern-color 75%, $checkered-pattern-color),
     linear-gradient(45deg, $checkered-pattern-color 25%, transparent 25%,
-    transparent 75%, $checkered-pattern-color 75%, $checkered-pattern-color)
-  );
+    transparent 75%, $checkered-pattern-color 75%, $checkered-pattern-color);
   background-position: 0 0, ($checkered-pattern-size / 2) ($checkered-pattern-size / 2);
   background-size: $checkered-pattern-size $checkered-pattern-size;
   overflow: hidden;
@@ -129,13 +124,13 @@
 
 .snapshot-card {
   $snapshot-width: 100px;
-  @include transition(none);
   display: inline-block;
   font-size: 10px;
   line-height: 12px;
   margin: 1em 1em .5em 0;
   min-height: 130px;
   position: relative;
+  transition: none;
   vertical-align: top;
   width: $snapshot-width + 10px; // Add room for padding+border from bootstrap
                                  // `.thumbnail` class
@@ -161,10 +156,10 @@
 
   .snapshot-indicator {
     $icon-size: 20px;
-    @include border-radius(50%);
-    @include box-shadow(0 0 10px #fff);
     background-color: #fff;
     border: 1px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff;
     color: #cc6;
     font-size: $icon-size;
     line-height: $icon-size;
