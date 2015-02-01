@@ -102,9 +102,16 @@ bundle exec sidekiq
 
 ## Running Diffux on Heroku
 
-Diffux can run on Heroku. In order to do this, you will need an Amazon Web
-Services (AWS) S3 account to store the snapshots. You will need a "secret key"
-and a "access key" from Amazon. Once you have those values, you're all set!
+Diffux can run on Heroku.
+
+Diffux stores snapshots in Amazon Web Services (AWS) S3, so you will need to
+configure diffux with a Secret Key and a Access Key Id from Amazon. The best
+way to do this is to create IAM user for diffux and assign it to a group with
+the policy template "Amazon S3 Full Access". (This will help prevent large AWS
+bills in case your diffux credentials are compromised.)
+
+Once you have your AWS credentials, you're all set!
+
 Follow these steps:
 
 ```bash
@@ -113,11 +120,11 @@ git clone https://github.com/diffux/diffux.git
 cd diffux
 
 # create and configure the heroku application
-heroku create [diffux] --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
+heroku create [your-diffux-app-name]
 heroku addons:add heroku-postgresql
 heroku addons:add rediscloud
-heroku config:set \
-  PHANTOMJS_PATH=/app/vendor/phantomjs/bin/phantomjs \
+heroku config:set PHANTOMJS_PATH=/app/vendor/phantomjs/bin/phantomjs \
+  BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git \
   AWS_SECRET_KEY=[secret-key] \
   AWS_ACCESS_KEY=[access-key]
 
@@ -128,10 +135,11 @@ git push heroku master
 heroku run rake db:migrate
 
 # add a worker thread to take snapshots and generate compared images:
+# This will cost you money if you leave it running!
 heroku ps:scale worker=1
 
 # done! you should now be able to access your application at
-# http://[diffux].herokuapp.com
+# http://[your-diffux-app-name].herokuapp.com
 ```
 
 ## Triggering sweeps
