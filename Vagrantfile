@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 5000, host: 3000
 
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
   # such as FTP and Heroku are also available. See the documentation at
@@ -28,8 +28,8 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision :shell, :path => "bootstrap.sh"
-  config.vm.provision :shell, privileged: false, :path => "install.sh"
+  config.vm.provision :shell, :path => "vagrant/install-root.sh"
+  config.vm.provision :shell, privileged: false, :path => "vagrant/install-user.sh"
 
   # config.vm.provision :shell, inline: $script
   # SHELL
