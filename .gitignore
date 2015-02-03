@@ -29,3 +29,6 @@
 # Ignore YARDoc files
 /.yardoc
 /doc
+
+# Ignore Vagrant fragments
+/.vagrant

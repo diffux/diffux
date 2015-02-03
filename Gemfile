@@ -36,6 +36,7 @@ group :development do
   gem 'flamegraph'
   gem 'spring'
   gem 'sqlite3'
+  gem 'foreman'
 end
 
 group :production do
