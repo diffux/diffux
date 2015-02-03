@@ -25,12 +25,23 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
+  # Increase memory for box
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+
+  # Sometimes the `bundle install` fails due to issues with the network dns. This fixes that.
+  # http://serverfault.com/questions/495914/vagrant-slow-internet-connection-in-guest/595010#595010
+  config.vm.provider "virtualbox" do |v|
+     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+  end
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision :shell, :path => "vagrant/install-root.sh"
   config.vm.provision :shell, privileged: false, :path => "vagrant/install-user.sh"
 
-  # config.vm.provision :shell, inline: $script
   # SHELL
 end

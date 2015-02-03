@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-
 gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 curl -L https://get.rvm.io | bash -s stable
 
-source /home/vagrant/.rvm/scripts/rvm
+source $HOME/.rvm/scripts/rvm
 
-rvm use --install 2.2
-
-# use ruby 2.2 if user logs in manually
-echo "rvm use 2.2" >> /home/vagrant/.bash_profile
+rvm use --install 2.2 --default
 
 cd /vagrant
 
