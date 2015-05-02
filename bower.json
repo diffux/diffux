@@ -4,7 +4,7 @@
   "dependencies": {
     "replacejs": "~0.0.4",
     "jquery": "~2.1.0",
-    "jquery-ujs": "",
+    "jquery-ujs": "~1.0.3",
     "jquery.visible": "~1.1.0"
   },
   "resolutions": {
