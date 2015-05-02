@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
+feature 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
   before do
     create_seed_project!('foobarbaz')
     visit root_path

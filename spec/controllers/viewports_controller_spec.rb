@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ViewportsController do
+describe ViewportsController, type: :controller do
   render_views
 
   let(:viewport) { create :viewport }

@@ -1,3 +1,5 @@
+Rails.application.routes.default_url_options[:host] = 'www.example.com'
+
 Diffux::Application.configure do
   # Settings specified here will take precedence over those in
   # config/application.rb

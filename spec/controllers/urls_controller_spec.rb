@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UrlsController do
+describe UrlsController, type: :controller do
   render_views
 
   let!(:url) { create(:url) }

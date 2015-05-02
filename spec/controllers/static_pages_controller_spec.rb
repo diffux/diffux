@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StaticPagesController do
+describe StaticPagesController, type: :controller do
   render_views
 
   describe '#about' do

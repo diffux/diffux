@@ -27,7 +27,7 @@ describe Snapshot do
     let(:snapshot) { create :snapshot, :pending }
     subject        { snapshot.pending? }
 
-    it { should be_true }
+    it { should be true }
 
     context 'when waiting for a diff' do
       let(:snapshot) { create :snapshot }
@@ -40,23 +40,23 @@ describe Snapshot do
 
         context 'and the baseline is older than the snapshot' do
           let(:created_at) { 5.days.ago }
-          it               { should be_true }
+          it               { should be true }
         end
 
         context 'and the baseline is newer than the snapshot' do
           let(:created_at) { 5.days.from_now }
-          it               { should be_false }
+          it               { should be false }
         end
       end
 
       context 'when the baseline is equal to the snapshot' do
         before { snapshot.url.stubs(:baseline).returns(snapshot) }
-        it     { should be_false }
+        it     { should be false }
       end
 
       context 'when there is no baseline' do
         before { snapshot.url.stubs(:baseline).returns(nil) }
-        it     { should be_false }
+        it     { should be false }
       end
     end
   end
@@ -135,7 +135,7 @@ describe Snapshot do
     subject { snapshot.diff? }
 
     context 'without a diff' do
-      it { should be_false }
+      it { should be false }
     end
 
     context 'with a diff' do
@@ -147,12 +147,12 @@ describe Snapshot do
 
       context 'of a different snapshot' do
         let(:diffed_with_snapshot) { create :snapshot }
-        it { should be_true }
+        it { should be true }
       end
 
       context 'of the same snapshot' do
         let(:diffed_with_snapshot) { snapshot }
-        it { should be_false }
+        it { should be false }
       end
     end
   end

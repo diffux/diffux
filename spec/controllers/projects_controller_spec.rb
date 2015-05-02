@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ProjectsController do
+describe ProjectsController, type: :controller do
   render_views
 
   describe '#index' do

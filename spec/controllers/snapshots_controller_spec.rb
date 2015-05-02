@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SnapshotsController do
+describe SnapshotsController, type: :controller do
   render_views
 
   describe '#show' do

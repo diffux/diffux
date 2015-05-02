@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RefreshController do
+describe RefreshController, type: :controller do
   render_views
 
   describe '#refresh' do

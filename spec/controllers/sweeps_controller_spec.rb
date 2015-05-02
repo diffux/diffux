@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'sidekiq/testing'
 
-describe SweepsController do
+describe SweepsController, type: :controller do
   render_views
   let(:project) { create(:project) }
 

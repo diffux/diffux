@@ -26,6 +26,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'mocha'
   gem 'rspec'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
   gem 'rspec-rails'
   gem 'poltergeist'
 end

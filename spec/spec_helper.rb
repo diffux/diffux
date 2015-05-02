@@ -5,7 +5,8 @@ Coveralls.wear!('rails')
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'rspec/collection_matchers'
+require 'rspec/its'
 require 'sidekiq/testing'
 require 'capybara/rails'
 require 'capybara/poltergeist'
@@ -25,6 +26,9 @@ Capybara.javascript_driver = :poltergeist
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
+  # Allow specs to use Rails URL helpers
+  config.include Rails.application.routes.url_helpers
+
   # Avoid warnings about locale when running specs
   I18n.enforce_available_locales = false
 
@@ -45,16 +49,26 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, :type => :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
-
-  # In RSpec 3, symbols passed as metadata arguments to configuration options
-  # will be treated as metadata keys with a value of `true`. To get this
-  # behavior now (and prevent a warning), we can set this configuration option.
-  config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.before(:each) do
     Phantomjs.stubs(:run).yields '{"title": "A title"}'  # Don't run PhantomJS
