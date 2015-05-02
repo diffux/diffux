@@ -1,8 +1,8 @@
 Element Onscreen Visibility
 ===========================
 
-This is a [jQuery](http://jquery.com/) plugin which allows us to quickly check if an element
-is within the browsers [visual viewport](http://www.quirksmode.org/mobile/viewports.html),
+This is a [jQuery](http://jquery.com/) plugin which allows us to quickly check if an element 
+is within the browsers [visual viewport](http://www.quirksmode.org/mobile/viewports.html), 
 regardless of the scroll position. If a user can see this element, the function will return true.
 
 
@@ -18,7 +18,7 @@ If you'd like to check for ANY PART of the element, you can use the following:
 
 	$('#element').visible( true );
 
-The plugin ignores the elements visibility by default. E.g., `display:none`, `visibility: hidden`, `offsetWidth` or `offsetHeight` is 0).
+The plugin ignores the elements visibility by default. E.g., `display:none`, `visibility: hidden`, `offsetWidth` or `offsetHeight` is 0). 
 To filter on css visibility, you can use the jQuery `:visible` selector:
 
 	$('#element:visible').visible();
@@ -27,7 +27,7 @@ Optionally, you can sepecify a second parameter to the `.visible` plugin, which 
 whether it's within the viewport too.
 
 	$('#element:visible').visible( false, true );
-
+	
 
 Demos
 -----
@@ -44,5 +44,5 @@ See the blog article:
 Limitations
 -----------
 
-Currently the plugin only checks for vertical positioning and scroll. We're planning on adding horizontal support soon,
+Currently the plugin only checks for vertical positioning and scroll. We're planning on adding horizontal support soon, 
 with the ability to optionally run the check on horizontal, vertical or both planes.

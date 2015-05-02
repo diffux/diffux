@@ -9,6 +9,6 @@
     "commit": "dc07ec3bd8eaf31184d9aec54a2beb27ec0ce51b"
   },
   "_source": "git://github.com/teamdf/jquery-visible.git",
-  "_target": "*",
+  "_target": "~1.1.0",
   "_originalSource": "jquery.visible"
 }

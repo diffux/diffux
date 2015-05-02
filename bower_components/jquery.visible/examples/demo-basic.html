@@ -2,45 +2,45 @@
 <html>
 	<head>
 		<title>jQuery Onscreen Visibility Plugin</title>
-
+		
 		<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 		<script type="text/javascript" src="http://www.teamdf.com/jquery-plugins/resources/javascripts/prettify.js"></script>
 		<script type="text/javascript" src="http://www.teamdf.com/jquery-plugins/resources/javascripts/docs.js"></script>
 		<script type="text/javascript" src="../jquery.visible.js"></script>
-
+		
 		<link rel="stylesheet" href="http://www.teamdf.com/jquery-plugins/resources/stylesheets/prettify.css"/>
 		<link rel="stylesheet" href="http://www.teamdf.com/jquery-plugins/resources/stylesheets/docs.css"/>
-
+				
 		<script type="text/javascript">
-
+			
 			$(function(){
-
+			
 				// Add the spans to the container element.
 				$('#container dt').each(function(){ $(this).append('<span></span>'); });
-
-
-				// Trigger the
+				
+				
+				// Trigger the 
 				$('#detect').on('click',function(){
-
+					
 					// Select the detection type.
 					var detectPartial = $('#detect_type').val() == 'partial';
-
+					
 					// Loop over each container, and check if it's visible.
 					$('#container dt').each(function(){
-
+						
 						// Is this element visible onscreen?
 						var visible = $(this).visible( detectPartial );
-
+						
 						// Set the visible status into the span.
 						$(this).find('span').text( visible ? 'Onscreen' : 'Offscreen' ).toggleClass('visible',visible);
 					});
 				});
-
+			
 			});
 		</script>
-
+		
 		<link rel="stylesheet" href="http://www.teamdf.com/jquery-plugins/resources/stylesheets/prettify.css" type="text/css" />
-
+		
 		<style>
 			#container{ width: 75%;	}
 			#floater{
@@ -54,13 +54,13 @@
 		</style>
 	</head>
 	<body>
-
+		
 		<div id="container">
 			<h1>Basic Visibility Detection</h1>
 			<author><a href="http://www.teamdf.com/about/">Sam Sehnert</a></author>
 			<version>1.0.0<!-- (<a href="../docs/changelog.html">changelog</a>)--></version>
 			<license>&#169; Digital Fusion 2012, <a href="http://teamdf.com/jquery-plugins/license/">MIT</a></license>
-
+			
 			<p><a href="http://github.com/teamdf/jquery-visible/">Back to GitHub</a> or <a href="http://teamdf.com/web/jquery-element-onscreen-visibility/194/">Back to Blog Article</a></p>
 			<p>Basic element visibility checking. This example will print 'Onscreen' or 'Offscreen' depending on the location of the element at the time the detection was run.</p>
 			<code class="prettyprint lang-javascript">// Is this element visible onscreen?
@@ -69,7 +69,7 @@ var visible = $(this).visible( detectPartial );
 // Set the visible status into the span.
 $(this).find('span').text( visible ? 'Onscreen' : 'Offscreen' ).toggleClass('visible',visible);
 			</code>
-
+		
 			<dl>
 				<dt>One</dt>
 				<dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</dd>
@@ -135,7 +135,7 @@ $(this).find('span').text( visible ? 'Onscreen' : 'Offscreen' ).toggleClass('vis
 				<dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</dd>
 			</dl>
 		</div>
-
+		
 		<div id="floater">
 			<h2>Visibility detection</h2>
 			<p>'Whole Element' will check if the entire element is visible on the screen.</p>
