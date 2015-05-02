@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.1'
 
-gem 'bootstrap-sass', '~> 3.1.0'
+gem 'bootstrap-sass', '~> 3.3.0'
 gem 'diffux-core'
 gem 'haml-rails'
 gem 'paperclip'
