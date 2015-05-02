@@ -37,8 +37,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.0)
-    autoprefixer-rails (3.1.2.20141016)
+    autoprefixer-rails (5.1.11)
       execjs
+      json
     aws-sdk (1.43.2)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
