@@ -146,7 +146,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pg (0.17.1)
+    pg (0.18.1)
     phantomjs (1.9.8.0)
     poltergeist (1.6.0)
       capybara (~> 2.1)
