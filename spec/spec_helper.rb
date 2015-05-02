@@ -59,6 +59,13 @@ RSpec.configure do |config|
   config.before(:each) do
     Phantomjs.stubs(:run).yields '{"title": "A title"}'  # Don't run PhantomJS
     Sidekiq::Testing.inline! # Run async worker jobs synchronous
+
+    # Prevent SnapshotterWorker from actually taking snapshots and saving files.
+    prc = proc do |snapshot, _|
+      # Since we're not actually taking snapshots, we need to fake the image.
+      snapshot.image = File.open("#{Rails.root}/spec/sample_snapshot.png")
+    end
+    SnapshotterWorker.any_instance.stubs(:save_file_to_snapshot).with(&prc)
   end
 
   # Tag "without_transactional_fixtures" helps when after_commit hook is expected

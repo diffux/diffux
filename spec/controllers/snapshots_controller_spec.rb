@@ -49,11 +49,6 @@ describe SnapshotsController do
     let(:baseline)      { create :snapshot }
     let(:diff_clusters) {  [{ start: 0, finish: 5 }] }
     before do
-      prc = proc do |snapshot, file|
-        # Since we're not actually taking snapshots, we need to fake the image.
-        snapshot.image = File.open("#{Rails.root}/spec/sample_snapshot.png")
-      end
-      SnapshotterWorker.any_instance.stubs(:save_file_to_snapshot).with(&prc)
       Diffux::SnapshotComparer.any_instance.stubs(:compare!).returns(
         diff_image:      ChunkyPNG::Image.new(10, 10, ChunkyPNG::Color::WHITE),
         diff_in_percent: 0.001,

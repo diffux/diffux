@@ -235,21 +235,18 @@ describe 'Keyboard Shortcuts', js: true, without_transactional_fixtures: true do
 
     describe 'accepting and rejecting snapshots' do
       context 'with snapshot that has diff' do
-        it 'begins as neither accepted nor rejected' do
-          expect(page).not_to have_content 'Accepted'
-          expect(page).not_to have_content 'Rejected'
-        end
-
-        it 'is accepted with "a" shortcut' do
+        it do
           press_key('a')
           expect(page).to have_content 'Accepted'
           expect(first_snapshot.reload).to be_accepted
-        end
 
-        it 'is accepted with "r" shortcut' do
           press_key('r')
           expect(page).to have_content 'Rejected'
           expect(first_snapshot.reload).to be_rejected
+
+          press_key('a')
+          expect(page).to have_content 'Accepted'
+          expect(first_snapshot.reload).to be_accepted
         end
       end
     end
