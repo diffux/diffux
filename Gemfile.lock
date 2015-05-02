@@ -124,7 +124,7 @@ GEM
       domain_name (~> 0.5)
     i18n (0.7.0)
     json (1.8.2)
-    kgio (2.9.2)
+    kgio (2.9.3)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -268,7 +268,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
-    unicorn (4.8.3)
+    unicorn (4.9.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
