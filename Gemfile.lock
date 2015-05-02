@@ -66,7 +66,7 @@ GEM
     cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
-    coffee-rails (4.0.1)
+    coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
     coffee-script (2.4.1)
@@ -285,7 +285,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.1.0)
   capybara
-  coffee-rails (~> 4.0.1)
+  coffee-rails (~> 4.1.0)
   coveralls
   database_cleaner
   diffux-core

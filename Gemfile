@@ -14,7 +14,7 @@ gem 'turbolinks'
 
 group :assets do
   gem 'autoprefixer-rails'
-  gem 'coffee-rails', '~> 4.0.1'
+  gem 'coffee-rails', '~> 4.1.0'
   gem 'sass-rails',   '~> 5.0.0'
   gem 'uglifier',     '>= 1.0.3'
 end
