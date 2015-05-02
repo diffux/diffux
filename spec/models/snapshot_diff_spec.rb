@@ -12,7 +12,7 @@ describe SnapshotDiff do
 
     context 'with a diff cluster' do
       let!(:diff_cluster_id) do
-        create(:snapshot_diff_cluster, snapshot_diff: snapshot_diff)
+        create(:snapshot_diff_cluster, snapshot_diff: snapshot_diff).id
       end
 
       it 'cascade-deletes the diff cluster' do

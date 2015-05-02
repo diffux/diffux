@@ -23,15 +23,6 @@ describe SnapshotterWorker do
         Diffux::Snapshotter.any_instance.expects(:take_snapshot!)
           .returns(title: 'Page title',
                    log:    log).once
-
-        prc = proc do |snapshot, file|
-          # Since we're not actually taking snapshots, we need to fake the
-          # image.
-          File.open("#{Rails.root}/spec/sample_snapshot.png") do |f|
-            snapshot.image = f
-          end
-        end
-        service.stubs(:save_file_to_snapshot).with(&prc)
       end
 
       it 'saves the title to the snapshot' do

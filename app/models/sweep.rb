@@ -70,7 +70,7 @@ class Sweep < ActiveRecord::Base
     return if snapshots.count == 0
     return if count_pending > 0
     return if emailed_at
-    SweepMailer.ready_for_review(self).deliver
+    SweepMailer.ready_for_review(self).deliver_now
     self.emailed_at = Time.now
   end
 
