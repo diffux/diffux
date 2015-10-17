@@ -1,9 +1,9 @@
 # [![Diffux](https://raw.github.com/diffux/diffux/master/app/assets/images/diffux.png)](https://github.com/diffux/diffux/tree/master/app/assets/images)
 
 
-[![Build Status](https://travis-ci.org/diffux/diffux.png)](https://travis-ci.org/diffux/diffux)
-[![Code Climate](https://codeclimate.com/github/diffux/diffux.png)](https://codeclimate.com/github/diffux/diffux)
-[![Coverage Status](https://coveralls.io/repos/diffux/diffux/badge.png?branch=master)](https://coveralls.io/r/diffux/diffux)
+[![Build Status](https://travis-ci.org/diffux/diffux.svg)](https://travis-ci.org/diffux/diffux)
+[![Code Climate](https://codeclimate.com/github/diffux/diffux.svg)](https://codeclimate.com/github/diffux/diffux)
+[![Coverage Status](https://coveralls.io/repos/diffux/diffux/badge.svg?branch=master)](https://coveralls.io/r/diffux/diffux)
 [![Dependency Status](https://gemnasium.com/diffux/diffux.svg)](https://gemnasium.com/diffux/diffux)
 
 
