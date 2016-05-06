@@ -1,6 +1,9 @@
 # [![Diffux](https://raw.github.com/diffux/diffux/master/app/assets/images/diffux.png)](https://github.com/diffux/diffux/tree/master/app/assets/images)
 
 
+## Please note that this project is not actively maintained. Consider using [diffux_ci](https://github.com/diffux/diffux_ci) instead.
+
+
 [![Build Status](https://travis-ci.org/diffux/diffux.svg)](https://travis-ci.org/diffux/diffux)
 [![Code Climate](https://codeclimate.com/github/diffux/diffux.svg)](https://codeclimate.com/github/diffux/diffux)
 [![Coverage Status](https://coveralls.io/repos/diffux/diffux/badge.svg?branch=master)](https://coveralls.io/r/diffux/diffux)
