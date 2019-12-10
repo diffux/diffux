@@ -1,7 +1,7 @@
 # [![Diffux](https://raw.github.com/diffux/diffux/master/app/assets/images/diffux.png)](https://github.com/diffux/diffux/tree/master/app/assets/images)
 
 
-## Please note that this project is not actively maintained. Consider using [diffux_ci](https://github.com/diffux/diffux_ci) instead.
+## Please note that this project is not actively maintained. Consider using [Happo](https://happo.io) instead.
 
 
 [![Build Status](https://travis-ci.org/diffux/diffux.svg)](https://travis-ci.org/diffux/diffux)
